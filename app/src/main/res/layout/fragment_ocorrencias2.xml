@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp">
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_adicionarOcorrencia"
+        android:layout_width="353.64dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_button2"
+        android:backgroundTintMode="add"
+        android:drawableStart="@drawable/baseline_add_24"
+        android:elegantTextHeight="false"
+        android:elevation="15dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:gravity="center|start"
+        android:isScrollContainer="false"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:shadowColor="@color/black"
+        android:shadowDx="3"
+        android:shadowRadius="1"
+        android:text="@string/novaoc"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline38" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="@string/listagemoc"
+        android:textColor="@color/TextoTurno"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline38"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline36" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.17" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_enviarOcorrencia"
+        android:layout_width="123.69dp"
+        android:layout_height="41.1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_button2"
+        android:backgroundTintMode="add"
+        android:elegantTextHeight="false"
+        android:elevation="15dp"
+
+        android:fontFamily="@font/montserrat_semibold"
+        android:gravity="center"
+        android:isScrollContainer="false"
+        android:shadowColor="@color/black"
+        android:shadowDx="3"
+        android:shadowRadius="1"
+        android:text="@string/enviar"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/AzulPaginas"
+        app:layout_constraintBottom_toTopOf="@+id/guideline36"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline37">
+
+        <ImageButton
+            android:id="@+id/btn_voltarOcorrencia"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center|start"
+            android:layout_marginStart="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/botaovoltarconfig"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/voltar" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/ocorrencias"
+            android:textColor="#FFFFFF"
+            android:textSize="34sp" />
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

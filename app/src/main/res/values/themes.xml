@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TelaLoginTeste" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+
+        <!-- <item name="colorOnPrimary">@color/my_light_on_primary</item> --><!-- <item name="colorSurface">@color/my_light_surface</item> -->
+    </style>
+
+    <style name="Theme.TelaLoginTeste" parent="Base.Theme.TelaLoginTeste" />
+</resources>

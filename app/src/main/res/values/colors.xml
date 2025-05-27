@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="AzulEstranho">#06202d</color>
+    <color name="CinzaClarinho">#4B6065</color>
+    <color name="CinzaMedio">#828282</color>
+    <color name="CinzaBorda">#B6B6B6</color>
+    <color name="AzulTexto">#122F32</color>
+    <color name="TextoTurno">#081A31</color>
+    <color name="AzulEscuroBotoes">#081A31</color>
+    <color name="AzulPaginas">#295678</color>
+    <color name="AzulSelecionado">#012362</color>
+    <color name="VermelhoExcluir">#EB564E</color>
+    <color name="CinzaNotificacao">#524B4B</color>
+    <color name="AzulSelecionado2">#6ABDF8</color>
+    <color name="CorGradiente2">#6ABDF9</color>
+    <color name="BrancoFundo">#DDE9f1</color>
+
+
+
+
+</resources>
