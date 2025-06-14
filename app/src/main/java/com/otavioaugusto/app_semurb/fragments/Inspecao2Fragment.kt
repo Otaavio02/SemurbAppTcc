@@ -1,6 +1,5 @@
 package com.otavioaugusto.app_semurb.fragments
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
@@ -20,7 +21,10 @@ class Inspecao2Fragment : Fragment() {
 
     private lateinit var btnvoltarInspecao2: ImageButton
     private lateinit var btnproximoInspecao2: AppCompatButton
-    private lateinit var carrinho: ImageView
+    private var etapaAtual = 1
+    private var totalEtapas = 3
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,33 +33,34 @@ class Inspecao2Fragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_inspecao2, container, false)
 
-        carrinho = view.findViewById(R.id.imageView30)
+
+
+
+
+
         btnvoltarInspecao2 = view.findViewById(R.id.btn_voltarInspecao2)
         btnvoltarInspecao2.setOnClickListener {
-            val deslocamento = -210f
 
-            carrinho.animate()
-                .translationXBy(deslocamento)
-                .setDuration(400)
-                .withEndAction {
+            if (etapaAtual > 0) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1)
+            }
+
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_left,
                     R.anim.slide_out_right
                 )
-                .replace(R.id.FragmentContainerView2, InspecaoFragment())
+                .replace(R.id.FragmentContainerView2, Inspecao1Fragment())
                 .addToBackStack(null)
                 .commit()
-        }}
+        }
+
         btnproximoInspecao2 = view.findViewById(R.id.btn_proximoInspecao2)
         btnproximoInspecao2.setOnClickListener {
-            val deslocamento = 210f
 
-            carrinho.animate()
-                .translationXBy(deslocamento)
-                .setDuration(400)
-                .withEndAction {
-
+            if (etapaAtual < totalEtapas - 1) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1)
+            }
 
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
@@ -66,12 +71,23 @@ class Inspecao2Fragment : Fragment() {
                 .replace(R.id.FragmentContainerView2, Inspecao3Fragment())
                 .addToBackStack(null)
                 .commit()
-        } }
+        }
+
 
 
 
         return view
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.post {
+            (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual)
+        }
+    }
+
+
 
     override fun onResume() {
         super.onResume()
@@ -92,4 +108,9 @@ class Inspecao2Fragment : Fragment() {
             }
         }
     }
+
+
 }
+
+
+

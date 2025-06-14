@@ -50,6 +50,7 @@
     <string name="editar">editar</string>
     <string name="id_numero">XXXXXX</string>
     <string name="id">Id:</string>
+    <string name="matri">Matrícula:</string>
     <string name="perfil_nome">XXXX XXXX XXXX</string>
     <string name="estat_gerais">Estatísticas Gerais</string>
     <string name="inspe_es">Inspeções:</string>
@@ -57,7 +58,7 @@
     <string name="placeholder_estatisticas">XX</string>
     <string name="servi_os">Serviços:</string>
     <string name="foto">foto</string>
-    <string name="iniciar_turno">Iniciar Turno</string>
+    <string name="verificar_turno">Verificar Turno</string>
     <string name="configura">Configurações</string>
     <string name="olho_senha">olho_senha</string>
     <string name="login">LOGIN</string>
@@ -67,13 +68,14 @@
     <string name="botaoperfilconfig">botaoperfilconfig</string>
     <string name="buscar_n_viatura">Buscar por n° da viatura…</string>
     <string name="Escolha_viatura">Escolha a viatura que será utilizada durante o turno:</string>
-    <string name="iniciando_turno">Iniciando Turno</string>
+    <string name="Verificacao_turno">Verificação de Turno</string>
     <string name="proximo">Próximo</string>
     <string name="buscar_agentes">Buscar agentes…</string>
     <string name="quais_agentes">Quais agentes irão trabalhar junto com você?</string>
     <string name="quem_sera">Quem será o motorista?</string>
-    <string name="confirme_turno4">Confirme as informações!</string>
-    <string name="passageiro">Passageiro</string>
+    <string name="confirmar_trabalho">Confirme quem está trabalhando com você!</string>
+    <string name="auxiliar">Auxiliar</string>
+    <string name="encarregado">Encarregado</string>
     <string name="viatura">Viatura</string>
     <string name="motorista">Motorista</string>
     <string name="todo">TODO</string>
@@ -83,7 +85,7 @@
     <string name="enviar">Enviar</string>
     <string name="confirmar_viario">Confirme as informarções do plantão:</string>
     <string name="tipo_sugere">Qual tipo de alteração você sugere?</string>
-    <string name="manuntencao">Manuntenção</string>
+    <string name="ineficiente">Sinalização ineficiente</string>
     <string name="substitui_o">Substituição</string>
     <string name="sugest_o">Sugestão</string>
     <string name="endereco">Digite o endereço…</string>
@@ -94,10 +96,11 @@
     <string name="atendimento">Atendimento ao Cidadão</string>
     <string name="listagemoc">Listagem de Ocorrências</string>
     <string name="novaoc">Nova Ocorrência</string>
-    <string name="incendiors">Incêndio Residencial</string>
+    <string name="Grande_Vulto">Sinistro de Grande Vulto</string>
     <string name="sinistrotra">Sinistro de Trânsito</string>
     <string name="contact">Contato</string>
     <string name="digite_contato">Digite o número de contato…</string>
+    <string name="digite_nome">Digite o nome do atendido…</string>
     <string name="perilnav">Perfil</string>
     <string name="xxxx_xxxx">XXXX XXXX</string>
     <string name="excluir">Excluir</string>
@@ -109,6 +112,7 @@
     <string name="contato">Contato</string>
     <string name="notificacoes">Notificações</string>
     <string name="naolidas">Notifações Não-Lidas</string>
+    <string name="lidas">Notifações Lidas</string>
     <string name="deslize_lado">Deslize para o lado para marcar como lida</string>
     <string name="deslize_excluir">Deslize para o lado para excluir</string>
     <string name="agente_inspecao">Agente XXXX XXXX</string>
@@ -118,15 +122,20 @@
     <string name="motorista_turno">Motorista do Turno</string>
     <string name="frente">Frente</string>
     <string name="descricao_dano">Descrição do dano...</string>
-    <string name="nenhumaavaria">Nenhuma Avária</string>
+    <string name="partesemavaria">Parte sem Avária</string>
+    <string name="veiculosemavaria">Sem Avárias no veículo</string>
     <string name="registre_qual">Registre qualquer avaria das seguintes partes do veículo:</string>
     <string name="lateral_direita">Lateral Direita</string>
     <string name="lateral_esquerda">Lateral Esquerda</string>
     <string name="traseira">Traseira</string>
-    <string name="interior">Interior</string>
+    <string name="outra">Outra Avária</string>
     <string name="historicos">Historicos</string>
     <string name="tudo">Tudo</string>
     <string name="ver_mais">Clique em um item para ver mais</string>
+    <string name="Justificativa">Justificativa</string>
     <string name="preencha_detalhamento">Preencha o detalhamento:</string>
+    <string name="digite_o_motivo">Digite o motivo</string>
+    <string name="nome_contato">Nome do Contato</string>
+    <string name="notifica_o_de_turno">Notificação de Turno</string>
 
 </resources>

@@ -18,7 +18,7 @@ class Ocorrencias4Fragment: Fragment() {
 
     private lateinit var btnvoltarOcorrencias4: ImageButton
     private lateinit var btnproximaOcorrencias4: AppCompatButton
-    private lateinit var carrinho: ImageView
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,15 +31,10 @@ class Ocorrencias4Fragment: Fragment() {
             false
         )
 
-        carrinho = view.findViewById(R.id.carrinho)
+
         btnvoltarOcorrencias4 = view.findViewById(R.id.btn_voltarOcorrencias4)
         btnvoltarOcorrencias4.setOnClickListener {
-            val deslocamento = -390f
 
-            carrinho.animate()
-                .translationXBy(deslocamento)
-                .setDuration(400)
-                .withEndAction {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_left,
@@ -48,17 +43,12 @@ class Ocorrencias4Fragment: Fragment() {
                 .replace(R.id.FragmentContainerView2, Ocorrencias3Fragment())
                 .addToBackStack(null)
                 .commit()
-        }}
+        }
         btnproximaOcorrencias4 = view.findViewById(R.id.btn_proximoOcorrencias4)
         btnproximaOcorrencias4.setOnClickListener {
-            val deslocamento = 530f
 
-            carrinho.animate()
-                .translationXBy(deslocamento)
-                .setDuration(400)
-                .withEndAction {
             requireActivity().finish()
-        }}
+        }
 
         return view
     }

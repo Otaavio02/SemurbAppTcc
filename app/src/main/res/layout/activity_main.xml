@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/Esqueceu_Login"
+        android:id="@+id/Esqueceusenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -217,7 +217,11 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/CinzaClarinho"
             android:textColor="@color/black"
-            tools:ignore="TouchTargetSizeCheck" />
+            tools:ignore="TouchTargetSizeCheck"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionDone"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -245,7 +249,10 @@
             android:backgroundTint="@color/CinzaClarinho"
             android:inputType="text|textPassword"
             android:textColor="@color/black"
-            tools:ignore="TouchTargetSizeCheck" />
+            tools:ignore="TouchTargetSizeCheck"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionDone"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

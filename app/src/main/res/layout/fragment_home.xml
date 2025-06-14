@@ -13,11 +13,11 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/viario_home"
         android:scaleType="fitCenter"
+        android:src="@drawable/home_viario"
         app:layout_constraintEnd_toStartOf="@+id/btn_inspecao_home"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline6"
-        app:srcCompat="@drawable/home_viario" />
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <ImageButton
         android:id="@+id/btn_historico_home"
@@ -105,7 +105,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_iniciarTurno"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="52dp"
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="15dp"
@@ -116,7 +116,7 @@
             android:shadowColor="@color/black"
             android:shadowDx="3"
             android:shadowRadius="1"
-            android:text="@string/iniciar_turno"
+            android:text="@string/verificar_turno"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -144,16 +144,6 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
 
-        <ImageButton
-            android:id="@+id/btn_notifcacao_home"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center|right"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="20dp"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/home_notifacacao" />
     </FrameLayout>
 
     <TextView

@@ -48,14 +48,9 @@ class ViarioFragment : Fragment() {
         }
 
         btnVoltarViario.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_left,
-                    R.anim.slide_out_right
-                )
-                .replace(R.id.fragmentContainerView, HomeFragment())
-                .addToBackStack(null)
-                .commit()
+            val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
+            intent.putExtra("FRAGMENT_KEY", "INICIAR_VIARIO")
+            startActivity(intent)
         }
 
         return view

@@ -16,6 +16,7 @@ class Historico1Fragment : Fragment() {
 
     private lateinit var btnVoltarHistorico2: ImageButton
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,6 +26,7 @@ class Historico1Fragment : Fragment() {
 
 
         btnVoltarHistorico2 = view.findViewById(R.id.btn_voltarHistorico2)
+
 
 
         btnVoltarHistorico2.setOnClickListener {
@@ -37,6 +39,8 @@ class Historico1Fragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+
 
         return view
     }

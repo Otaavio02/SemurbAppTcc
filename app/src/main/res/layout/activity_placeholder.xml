@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline97"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_notificacoes" />
 
     <ImageView
         android:id="@+id/imageView2"

@@ -20,7 +20,7 @@
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/pol_tica_e_privacidade"
             android:textColor="#000000"
-            android:textSize="25sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView6"
             app:layout_constraintStart_toEndOf="@+id/imageView6"
             app:layout_constraintTop_toTopOf="@+id/imageView6" />
@@ -33,10 +33,10 @@
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/logout"
             android:textColor="#000000"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-            app:layout_constraintStart_toEndOf="@+id/imageView12"
-            app:layout_constraintTop_toTopOf="@+id/imageView12" />
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_logout"
+            app:layout_constraintStart_toEndOf="@+id/btn_logout"
+            app:layout_constraintTop_toTopOf="@+id/btn_logout" />
 
         <TextView
             android:id="@+id/textView14"
@@ -46,7 +46,7 @@
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/termos_e_condi_es"
             android:textColor="#000000"
-            android:textSize="25sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView9"
             app:layout_constraintStart_toEndOf="@+id/imageView9"
             app:layout_constraintTop_toTopOf="@+id/imageView9" />
@@ -60,7 +60,7 @@
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/modo2"
             android:textColor="#000000"
-            android:textSize="25sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toTopOf="@+id/imageView5" />
@@ -81,8 +81,8 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="16dp"
             android:background="@android:color/transparent"
@@ -94,8 +94,8 @@
 
         <ImageView
             android:id="@+id/imageView10"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/contraste"
@@ -105,8 +105,8 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="16dp"
             android:background="@android:color/transparent"
@@ -118,8 +118,8 @@
 
         <ImageView
             android:id="@+id/imageView9"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/termos"
@@ -129,8 +129,8 @@
 
         <ImageView
             android:id="@+id/imageView8"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/sobre"
@@ -181,7 +181,7 @@
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/alto_contraste"
             android:textColor="#000000"
-            android:textSize="25sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView10"
             app:layout_constraintStart_toEndOf="@+id/imageView10"
             app:layout_constraintTop_toTopOf="@+id/imageView10" />
@@ -195,17 +195,19 @@
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/sobre"
             android:textColor="#000000"
-            android:textSize="25sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView8"
             app:layout_constraintStart_toEndOf="@+id/imageView8"
             app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+        <ImageButton
+            android:id="@+id/btn_logout"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
             android:contentDescription="@string/logoutconfig"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView6"

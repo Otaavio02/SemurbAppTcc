@@ -1,6 +1,5 @@
 package com.otavioaugusto.app_semurb.fragments
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,9 +17,10 @@ import com.otavioaugusto.app_semurb.R
 
 class Inspecao3Fragment : Fragment() {
 
-    private lateinit var btnvoltarInspecao3: ImageButton
-    private lateinit var btnproximoInspecao3: AppCompatButton
-    private lateinit var carrinho: ImageView
+    private lateinit var btnvoltarInspecao4: ImageButton
+    private lateinit var btnproximoInspecao4: AppCompatButton
+    private lateinit var etapas: List<ImageView>
+    private var etapaAtual = 2
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,47 +29,39 @@ class Inspecao3Fragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_inspecao3, container, false)
 
-        carrinho = view.findViewById(R.id.imageView30)
-        btnvoltarInspecao3 = view.findViewById(R.id.btn_voltarInspecao3)
-        btnvoltarInspecao3.setOnClickListener {
-            val deslocamento = -210f
 
-            carrinho.animate()
-                .translationXBy(deslocamento)
-                .setDuration(400)
-                .withEndAction {
+        btnvoltarInspecao4 = view.findViewById(R.id.btn_voltarInspecao4)
+        btnvoltarInspecao4.setOnClickListener {
+
+            if (etapaAtual > 0) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1)
+            }
+
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
-
                     R.anim.slide_in_left,
                     R.anim.slide_out_right
                 )
                 .replace(R.id.FragmentContainerView2, Inspecao2Fragment())
                 .addToBackStack(null)
                 .commit()
-        }}
-        btnproximoInspecao3 = view.findViewById(R.id.btn_proximoInspecao3)
-        btnproximoInspecao3.setOnClickListener {
-            val deslocamento = 210f
-
-            carrinho.animate()
-                .translationXBy(deslocamento)
-                .setDuration(400)
-                .withEndAction {
-
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left,
-                )
-                .replace(R.id.FragmentContainerView2, Inspecao4Fragment())
-                .addToBackStack(null)
-                .commit()
-        }}
+        }
+        btnproximoInspecao4 = view.findViewById(R.id.btn_finalizar)
+        btnproximoInspecao4.setOnClickListener {
+            requireActivity().finish()
+        }
 
 
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.post {
+            (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual)
+        }
     }
 
     override fun onResume() {

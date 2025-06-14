@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_partes2"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="Redefinir Senha"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_matricula"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+
+        android:layout_marginTop="25dp"
+        android:background="@drawable/bg_pesquisa"
+        android:hint="Digite seu Email..."
+        android:paddingStart="12dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="12dp"
+        android:textColorHint="@color/CinzaClarinho">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_matricula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:backgroundTint="@color/CinzaClarinho"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_verificar"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/bg_button"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Verificar"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+
+</LinearLayout>

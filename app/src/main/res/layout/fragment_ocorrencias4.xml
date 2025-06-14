@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_background">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView20"
@@ -121,14 +120,16 @@
         android:inputType="number"
         android:textColorHint="@color/white"
         android:textColorLink="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/guideline48"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView18"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <ImageView
         android:id="@+id/imageView17"
-        android:layout_width="25dp"
+        android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextText"
@@ -171,7 +172,7 @@
 
     <ImageView
         android:id="@+id/imageView18"
-        android:layout_width="25dp"
+        android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextText2"
@@ -179,33 +180,41 @@
         app:layout_constraintTop_toTopOf="@+id/editTextText2"
         app:srcCompat="@drawable/viario_telefone" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline48"
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextText3"
+        app:layout_constraintEnd_toStartOf="@+id/editTextText3"
+        app:layout_constraintTop_toTopOf="@+id/editTextText3"
+        app:srcCompat="@drawable/perfil_simbolo" />
+
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/nome_contato"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/editTextText3"
+        app:layout_constraintStart_toStartOf="@+id/editTextText3" />
 
-
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="200dp"
-        android:layout_height="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <EditText
+        android:id="@+id/editTextText3"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/digite_nome"
+        android:inputType="number"
+        android:textColorHint="@color/white"
+        android:textColorLink="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/editTextText2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline44"
-        app:srcCompat="@drawable/bolas_tela2" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
-    <ImageView
-        android:id="@+id/carrinho"
-        android:layout_width="93dp"
-        android:layout_height="50dp"
-
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView13"
-        app:layout_constraintEnd_toEndOf="@+id/imageView13"
-        app:layout_constraintTop_toTopOf="@+id/guideline44"
-        app:srcCompat="@drawable/carro_turno1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

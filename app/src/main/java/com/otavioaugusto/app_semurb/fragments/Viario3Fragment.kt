@@ -33,9 +33,8 @@ class Viario3Fragment: Fragment() {
             container,
             false
         )
-        bolasViario = view.findViewById(R.id.bolasViario)
 
-        carrinhoMovimento = view.findViewById(R.id.CarrinhoMovimento)
+
         btnVoltarViario3 = view.findViewById(R.id.btn_voltarViario3)
         btnVoltarViario3.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderActivity::class.java)
@@ -51,12 +50,7 @@ class Viario3Fragment: Fragment() {
 
         btnProximoViario3 = view.findViewById(R.id.btn_proximoViario3)
         btnProximoViario3.setOnClickListener {
-            val deslocamento = 435f
 
-            carrinhoMovimento.animate()
-                .translationXBy(deslocamento)
-                .setDuration(400)
-                .withEndAction {
 
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
@@ -67,7 +61,7 @@ class Viario3Fragment: Fragment() {
                 .replace(R.id.FragmentContainerView2, Viario4Fragment())
                 .addToBackStack(null)
                 .commit()
-        }}
+        }
 
         return view
     }

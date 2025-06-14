@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ripple
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+
+
+    <item>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
  <solid android:color="@color/AzulEscuroBotoes"/>
     <corners android:radius="25dp" ></corners>
     <stroke android:color="#FFFF" android:width="4dp"/>
-
 </shape>
+</item>
+
+</ripple>

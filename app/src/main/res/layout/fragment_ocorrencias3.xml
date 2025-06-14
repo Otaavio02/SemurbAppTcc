@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
-    tools:context=".Ocorrencias3Activity">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView20"
@@ -181,7 +179,7 @@
         android:fontFamily="@font/montserrat_semibold"
         android:paddingStart="20dp"
         android:paddingEnd="5dp"
-        android:text="@string/incendiors"
+        android:text="@string/Grande_Vulto"
         android:textColor="#000000"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView23"
@@ -200,7 +198,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView24" />
 
     <RadioButton
-        android:id="@+id/botaoincendio"
+        android:id="@+id/btn_GrandeVulto"
         android:layout_width="44dp"
         android:layout_height="42dp"
         android:paddingStart="5dp"
@@ -216,25 +214,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.35" />
-
-    <ImageView
-        android:id="@+id/bolasViario"
-        android:layout_width="200dp"
-        android:layout_height="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline44"
-        app:srcCompat="@drawable/bolas_viariocliclar" />
-
-    <ImageView
-        android:id="@+id/carrinho"
-        android:layout_width="93dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="-70dp"
-        app:layout_constraintBottom_toTopOf="@+id/bolasViario"
-        app:layout_constraintStart_toStartOf="@+id/bolasViario"
-        app:srcCompat="@drawable/carro_turno1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

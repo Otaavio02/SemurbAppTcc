@@ -13,7 +13,7 @@ import com.otavioaugusto.app_semurb.R
 
 class ConfigFragment: Fragment() {
 
-    private lateinit var voltarConfiguracoes: ImageButton
+    private lateinit var btnLogout: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,7 +25,11 @@ class ConfigFragment: Fragment() {
             container,
             false
         )
+        btnLogout = view.findViewById(R.id.btn_logout)
 
+        btnLogout.setOnClickListener {
+            requireActivity().finish()
+        }
 
         return view
     }

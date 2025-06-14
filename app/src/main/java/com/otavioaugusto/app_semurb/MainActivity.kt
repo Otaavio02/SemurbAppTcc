@@ -6,29 +6,36 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.util.TypedValueCompat.dpToPx
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputLayout
+import com.otavioaugusto.app_semurb.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var textInputMatricula: TextInputLayout
-    private lateinit var editMatricula: EditText
+    private val binding by lazy{
+       ActivityMainBinding.inflate(layoutInflater)
+    }
 
-    private lateinit var textInputSenha: TextInputLayout
-    private lateinit var editSenha: EditText
 
-    private lateinit var btnEntrar : androidx.appcompat.widget.AppCompatButton
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
-        inicializarComponentesInterfaceMain()
-        btnEntrar.setOnClickListener {
+
+        binding.Esqueceusenha.setOnClickListener {
+            mostrarBottonSheet()
+        }
+        binding.btnEntrar.setOnClickListener {
             checarCampos()
 
         }
@@ -52,8 +59,8 @@ class MainActivity : AppCompatActivity() {
 
       private fun checarCampos() {
 
-        val campoMatricula = editMatricula.text.toString()
-        val campoSenha = editSenha.text.toString()
+        val campoMatricula = binding.editTextMatricula.text.toString()
+        val campoSenha = binding.editTextSenha.text.toString()
 
         val resultadoChecagemNulo = checagemNulo(campoMatricula, campoSenha)
         if (resultadoChecagemNulo){
@@ -82,15 +89,15 @@ class MainActivity : AppCompatActivity() {
 
         var isValid = true
 
-        textInputSenha.error = null
-        textInputMatricula.error = null
+        binding.textInputSenha.error = null
+        binding.textInputMatricula.error = null
 
         if (cSenha.isEmpty() ) {
-            textInputSenha.error = "A matrícula está vazia"
+            binding.textInputSenha.error = "A matrícula está vazia"
             isValid = false
         }
         if (cMatricula.isEmpty()) {
-            textInputMatricula.error = "A matrícula está vazia"
+           binding.textInputMatricula.error = "A matrícula está vazia"
             isValid = false
         }
 
@@ -100,14 +107,17 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun mostrarBottonSheet() {
+        val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet_recuperarsenha1, null)
+        val bottomSheetDialog = BottomSheetDialog(this)
+        bottomSheetDialog.setContentView(bottomSheetView)
 
-    private fun inicializarComponentesInterfaceMain() {
-        textInputMatricula = findViewById(R.id.text_input_matricula)
-        textInputSenha = findViewById(R.id.text_input_senha)
-        editMatricula = findViewById(R.id.edit_text_matricula)
-        editSenha = findViewById(R.id.edit_text_senha)
-        btnEntrar = findViewById(R.id.btn_Entrar)
+
+        val botaoVerificar = bottomSheetView.findViewById<Button>(R.id.btn_verificar)
+        botaoVerificar.setOnClickListener {
+            bottomSheetDialog.dismiss()
         }
-
+        bottomSheetDialog.show()
+    }
 
 }

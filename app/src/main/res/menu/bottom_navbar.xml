@@ -7,6 +7,11 @@
     <item android:title="@string/perfil"
         android:id="@+id/perfil"
         android:icon="@drawable/perfil_icon" />
+    <item android:title="@string/notificacao"
+        android:id="@+id/notificacao"
+        android:icon="@drawable/home_notifacacao"
+        />
+
     <item android:title="@string/config"
         android:id="@+id/config"
         android:icon="@drawable/config_icon"/>

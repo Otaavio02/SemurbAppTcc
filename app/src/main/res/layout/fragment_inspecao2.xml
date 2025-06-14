@@ -1,88 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
-    tools:context=".InspecaoViatura2Activity">
+    android:fillViewport="true">
 
-
-    <ImageButton
-        android:id="@+id/btn_voltarInspecao2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/guideline77"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline76"
-        app:srcCompat="@drawable/voltar" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline76"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.0" />
+        tools:context=".ViarioEditadoActivity">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline77"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
 
-    <TextView
-        android:id="@+id/textView31"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="center"
-        android:text="@string/xxxx_inspecao"
-        android:textColor="@color/white"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline77" />
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="376dp"
+            android:layout_height="280dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/bg_fundoinspecao"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="376dp"
-        android:layout_height="280dp"
-        android:background="@drawable/inspecaopartes"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline81">
-
-        <TextView
-            android:id="@+id/textView43"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:gravity="center"
-            android:text="@string/frente"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textView43"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="16dp"
-            android:background="@drawable/bg_partes"
-            app:endIconDrawable="@drawable/cameramais"
-            app:startIconScaleType="fitStart">
-
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_azulpaginas"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/traseira"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_partes"
                 android:gravity="center">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -92,11 +56,15 @@
                     android:fontFamily="@font/montserrat_semibold"
                     android:gravity="center_vertical"
                     android:hint="@string/descricao_dano"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true"
                     android:textColor="@color/black"
                     android:textColorHint="#808080" />
 
                 <ImageButton
-                    android:id="@+id/imageButton7"
+                    android:id="@+id/btn_novaAvaritraseira"
                     android:layout_width="47dp"
                     android:layout_height="48dp"
                     android:background="@android:color/transparent"
@@ -105,7 +73,7 @@
                     app:srcCompat="@drawable/ic_add" />
 
                 <ImageButton
-                    android:id="@+id/imageButton11"
+                    android:id="@+id/imageButton11541"
                     android:layout_width="47dp"
                     android:layout_height="48dp"
                     android:layout_gravity="end"
@@ -116,104 +84,210 @@
 
             </FrameLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/container_avarias_frente"
+            android:layout_width="376dp"
+            android:layout_height="280dp"
+            android:background="@drawable/bg_fundoinspecao"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline81">
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+            <TextView
+                android:id="@+id/textView93"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_azulpaginas"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/frente"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
 
-        android:buttonTint="@color/black"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="@string/nenhumaavaria"
-        android:textColor="@color/AzulEstranho"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+            <FrameLayout
+                android:id="@+id/frame_avaria_frente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_partes"
+                android:gravity="center">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline80"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.73" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:gravity="center_vertical"
+                    android:hint="@string/descricao_dano"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="#808080" />
 
-    <TextView
-        android:id="@+id/textView46"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="center"
-        android:text="@string/registre_qual"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+                <ImageButton
+                    android:id="@+id/btn_novaavariafrente"
+                    android:layout_width="47dp"
+                    android:layout_height="48dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_add" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline81"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.33" />
+                <ImageButton
+                    android:id="@+id/imageButton1154"
+                    android:layout_width="47dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="end"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/cameramais" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_proximoInspecao2"
-        android:layout_width="183dp"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_button"
-        android:backgroundTintMode="add"
-        android:elevation="15dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:gravity="center"
-        android:shadowColor="@color/black"
-        android:shadowDx="3"
-        android:shadowRadius="1"
-        android:text="@string/proximo"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline82"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline80" />
+            </FrameLayout>
 
-    <ImageView
-        android:id="@+id/imageView28"
-        android:layout_width="366dp"
-        android:layout_height="94dp"
-        android:src="@drawable/inspecaoprogressbar2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline82" />
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView30"
-        android:layout_width="93dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="177dp"
-        android:layout_marginBottom="-20dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView28"
-        app:layout_constraintEnd_toEndOf="@+id/imageView28"
-        app:layout_constraintHorizontal_bias="0.383"
-        app:layout_constraintStart_toStartOf="@+id/imageView28"
-        app:srcCompat="@drawable/carro_turno1" />
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline82"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.84" />
+            android:layout_marginTop="16dp"
+            android:buttonTint="@color/black"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/partesemavaria"
+            android:textColor="@color/AzulEstranho"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/btn_voltarInspecao2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/guideline77"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline76"
+            app:srcCompat="@drawable/voltar" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline76"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.0" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline77"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.099744245" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="@string/xxxx_inspecao"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline77" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:buttonTint="@color/black"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/partesemavaria"
+            android:textColor="@color/AzulEstranho"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_avarias_frente" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline80"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.73" />
+
+        <TextView
+            android:id="@+id/textView46"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="@string/registre_qual"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline81"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.33" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_proximoInspecao2"
+            android:layout_width="183dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/bg_button"
+            android:backgroundTintMode="add"
+            android:elevation="15dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="3"
+            android:shadowRadius="1"
+            android:text="@string/proximo"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline82"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.84" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

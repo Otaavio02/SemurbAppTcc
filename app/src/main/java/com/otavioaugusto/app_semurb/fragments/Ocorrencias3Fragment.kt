@@ -34,7 +34,6 @@ class Ocorrencias3Fragment: Fragment() {
             false
         )
 
-        carrinho = view.findViewById(R.id.carrinho)
         btnvoltarOcorrencias3 = view.findViewById(R.id.btn_voltarOcorrencias3)
         btnvoltarOcorrencias3.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderActivity::class.java)
@@ -43,12 +42,7 @@ class Ocorrencias3Fragment: Fragment() {
         }
         btnproximaOcorrencias3 = view.findViewById(R.id.btn_proximoOcorrencias3)
         btnproximaOcorrencias3.setOnClickListener {
-            val deslocamento = 435f
 
-            carrinho.animate()
-                .translationXBy(deslocamento)
-                .setDuration(400)
-                .withEndAction {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_right,
@@ -57,7 +51,7 @@ class Ocorrencias3Fragment: Fragment() {
                 .replace(R.id.FragmentContainerView2, Ocorrencias4Fragment())
                 .addToBackStack(null)
                 .commit()
-        }}
+        }
 
         return view
     }

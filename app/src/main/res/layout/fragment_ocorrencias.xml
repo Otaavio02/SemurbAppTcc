@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
     tools:context=".Ocorrencias2Activity">
 
     <TextView
@@ -57,34 +56,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline41" />
 
-    <ScrollView
-        android:layout_width="370dp"
-        android:layout_height="350dp"
-        android:scrollbarThumbVertical="@drawable/bg_scrollbar"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/guideline43"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline42">
-
-        <FrameLayout
-            android:id="@+id/frameLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="900dp">
-
-
-            <ImageView
-                android:id="@+id/imageView26"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/retanguloedicao" />
-
-
-        </FrameLayout>
-
-    </ScrollView>
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_proximoOcorrencia2"
         android:layout_width="183dp"
@@ -126,34 +97,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.74" />
+        app:layout_constraintGuide_percent="0.79" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline44"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.84" />
+        app:layout_constraintGuide_percent="0.98" />
 
-    <ImageView
-        android:id="@+id/imageView31"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:src="@drawable/bola_unica"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_retangulo"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline44" />
+        app:layout_constraintTop_toTopOf="@+id/guideline42"
+        app:layout_constraintVertical_bias="0.0">
 
-    <ImageView
-        android:id="@+id/imageView32"
-        android:layout_width="93dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="-8dp"
-        android:src="@drawable/carro_turno1"
-        app:layout_constraintBottom_toTopOf="@+id/imageView31"
-        app:layout_constraintEnd_toEndOf="@+id/imageView31" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

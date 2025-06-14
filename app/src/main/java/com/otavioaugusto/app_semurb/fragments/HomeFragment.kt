@@ -32,7 +32,6 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
 
-        btnNotificacao = view.findViewById(R.id.btn_notifcacao_home)
         btnViario = view.findViewById(R.id.btn_viario_home)
         btnInspecao = view.findViewById(R.id.btn_inspecao_home)
         btnHistorico = view.findViewById(R.id.btn_historico_home)
@@ -40,18 +39,8 @@ class HomeFragment : Fragment() {
         btnIniciarTurno = view.findViewById(R.id.btn_iniciarTurno)
 
 
-        btnNotificacao.setOnClickListener {
 
 
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left,
-                )
-                .replace(R.id.fragmentContainerView, NotificacoesFragment())
-                .addToBackStack(null)
-                .commit()
-        }
 
         btnViario.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)

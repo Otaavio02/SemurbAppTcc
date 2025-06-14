@@ -31,16 +31,10 @@ class Viario4Fragment: Fragment() {
             false
         )
 
-        carrinho = view.findViewById(R.id.carrinho)
+
         btnVoltarViario4 = view.findViewById(R.id.btn_voltarViario4)
         btnVoltarViario4.setOnClickListener {
 
-                val deslocamento = -390f
-
-                carrinho.animate()
-                    .translationXBy(deslocamento)
-                    .setDuration(400)
-                    .withEndAction {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_left,
@@ -49,17 +43,12 @@ class Viario4Fragment: Fragment() {
                 .replace(R.id.FragmentContainerView2, Viario3Fragment())
                 .addToBackStack(null)
                 .commit()
-        }}
+        }
         btnProximoViario4 = view.findViewById(R.id.btn_proximoViario4)
         btnProximoViario4.setOnClickListener {
-            val deslocamento = 530f
 
-            carrinho.animate()
-                .translationXBy(deslocamento)
-                .setDuration(400)
-                .withEndAction {
             requireActivity().finish()
-        }}
+        }
 
         return view
     }
