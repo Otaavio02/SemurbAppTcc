@@ -53,9 +53,9 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
     fun moverCarrinhoParaEtapa(index: Int) {
         val carrinho = binding.carrinho
         val etapas = listOf(
-            findViewById<ImageView>(R.id.progress_bar_circle1),
-            findViewById<ImageView>(R.id.progress_bar_circle2),
-            findViewById<ImageView>(R.id.progress_bar_circle3)
+           binding.progressBarCircle1,
+            binding.progressBarCircle2,
+            binding.progressBarCircle3
         )
 
         if (index < 0 || index >= etapas.size) return
