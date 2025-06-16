@@ -74,14 +74,33 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             else {
+                val textInputMatricula = binding.textInputMatricula
+                val textInputSenha = binding.textInputSenha
+                val editTextSenha = binding.editTextSenha
+                val editTextMatricula = binding.editTextMatricula
 
-                binding.textInputMatricula.error = "Senha está vazia"
-                binding.textInputSenha.error = "Matricula está vazia"
+
+                textInputMatricula.error = "Senha está vazia"
+
+                textInputMatricula.postDelayed({
+                    textInputMatricula.error = null
+                }, 2500)
+
+                textInputSenha.error = "Matricula está vazia"
+
+                textInputSenha.postDelayed({
+                    textInputSenha.error = null
+                }, 2500)
+
+                editTextSenha.clearFocus()
+                editTextMatricula.clearFocus()
+
+                textInputSenha.editText?.setText("")
+                textInputMatricula.editText?.setText("")
 
 
 
-
-                   val snackBarErroLogin = Snackbar.make(view, "Erro de login: Matrícula ou senha incorretos", Snackbar.LENGTH_LONG)
+                   val snackBarErroLogin = Snackbar.make(view, "Erro de login: Matrícula ou senha incorretos", Snackbar.LENGTH_SHORT)
 
 
 
@@ -115,19 +134,29 @@ class MainActivity : AppCompatActivity() {
 
         var isValid = true
 
-        binding.textInputSenha.error = null
-        binding.textInputMatricula.error = null
+        val textInputSenha = binding.textInputSenha
+        val textInputMatricula = binding.textInputMatricula
+
+        textInputSenha.error = null
+        textInputMatricula.error = null
 
         if (cSenha.isEmpty() ) {
-            binding.textInputSenha.error = "A senha está vazia"
+            textInputSenha.error = "A senha está vazia"
             isValid = false
+            textInputSenha.postDelayed({
+                textInputSenha.error = null
+            }, 2500)
         }
         if (cMatricula.isEmpty()) {
            binding.textInputMatricula.error = "A matrícula está vazia"
             isValid = false
+            textInputMatricula.postDelayed({
+                textInputMatricula.error = null
+            }, 2500)
         }
+
         if (cMatricula.isEmpty() || cSenha.isEmpty()){
-            val snackBarErroNulo = Snackbar.make(view, "Preencha todos os campos!", Snackbar.LENGTH_LONG)
+            val snackBarErroNulo = Snackbar.make(view, "Preencha todos os campos!", Snackbar.LENGTH_SHORT)
 
 
             snackBarErroNulo.setTextColor(getColor(R.color.Vermelho))
