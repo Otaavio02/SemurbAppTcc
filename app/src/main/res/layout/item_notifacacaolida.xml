@@ -9,7 +9,9 @@
         android:layout_width="350dp"
         android:layout_height="250dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/bg_fundonotifacoeslida"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_fundonotificacoeslida"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,7 +20,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/bg_cinzad9"
-            android:ignoreGravity="false"
             app:layout_constraintBottom_toTopOf="@+id/guideline23"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +58,7 @@
             android:layout_height="wrap_content"
             android:background="@color/AzulPaginas"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.21" />
+            app:layout_constraintGuide_percent="0.25" />
 
         <TextView
             android:id="@+id/textView40"

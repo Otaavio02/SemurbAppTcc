@@ -137,5 +137,12 @@
     <string name="digite_o_motivo">Digite o motivo</string>
     <string name="nome_contato">Nome do Contato</string>
     <string name="notifica_o_de_turno">Notificação de Turno</string>
+    <string-array name="historico">
+        <item>Tudo</item>
+        <item>Serviço Viário</item>
+        <item>Ocorrências</item>
+        <item>Inspeção</item>
+    </string-array>
+    
 
 </resources>

@@ -8,54 +8,42 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
-import android.widget.ImageView
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias3Binding
 
-class Ocorrencias3Fragment: Fragment() {
+class Ocorrencias3Fragment : Fragment() {
 
-
-    private lateinit var btnvoltarOcorrencias3: ImageButton
-    private lateinit var btnproximaOcorrencias3: AppCompatButton
-    private lateinit var carrinho: ImageView
-
+    private var _binding: FragmentOcorrencias3Binding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(
-            R.layout.fragment_ocorrencias3,
-            container,
-            false
-        )
+    ): View {
+        _binding = FragmentOcorrencias3Binding.inflate(inflater, container, false)
 
-        btnvoltarOcorrencias3 = view.findViewById(R.id.btn_voltarOcorrencias3)
-        btnvoltarOcorrencias3.setOnClickListener {
+        binding.btnVoltarOcorrencias3.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderActivity::class.java)
             intent.putExtra("FRAGMENT_KEY2", "INICIAR_OCORRENCIASHOME")
             startActivity(intent)
         }
-        btnproximaOcorrencias3 = view.findViewById(R.id.btn_proximoOcorrencias3)
-        btnproximaOcorrencias3.setOnClickListener {
 
+        binding.btnProximoOcorrencias3.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_right,
-                    R.anim.slide_out_left,
+                    R.anim.slide_out_left
                 )
                 .replace(R.id.FragmentContainerView2, Ocorrencias4Fragment())
                 .addToBackStack(null)
                 .commit()
         }
 
-        return view
+        return binding.root
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -74,4 +62,11 @@ class Ocorrencias3Fragment: Fragment() {
                                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         )
             }
-        }}}
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

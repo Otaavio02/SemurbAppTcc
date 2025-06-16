@@ -8,50 +8,41 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
-import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias2Binding
 
 class OcorrenciasFragment : Fragment() {
 
-    private lateinit var btnEnviarOcorrencia: AppCompatButton
-    private lateinit var btnNovaOcorrencia: AppCompatButton
-    private lateinit var btnVoltarOcorrencia: ImageButton
+    private var _binding: FragmentOcorrencias2Binding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_ocorrencias2, container, false)
+    ): View {
+        _binding = FragmentOcorrencias2Binding.inflate(inflater, container, false)
 
-
-        btnEnviarOcorrencia = view.findViewById(R.id.btn_enviarOcorrencia)
-        btnNovaOcorrencia = view.findViewById(R.id.btn_adicionarOcorrencia)
-        btnVoltarOcorrencia = view.findViewById(R.id.btn_voltarOcorrencia)
-
-
-        btnEnviarOcorrencia.setOnClickListener {
+        binding.btnEnviarOcorrencia.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "OCORRENCIAS_EDITADO")
             startActivity(intent)
         }
 
-        btnNovaOcorrencia.setOnClickListener {
+        binding.btnAdicionarOcorrencia.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "INICIAR_OCORRENCIAS2")
             startActivity(intent)
         }
 
-        btnVoltarOcorrencia.setOnClickListener {
+        binding.btnVoltarOcorrencia.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "INICIAR_OCORRENCIAS")
             startActivity(intent)
         }
 
-        return view
+        return binding.root
     }
 
     override fun onResume() {
@@ -61,7 +52,8 @@ class OcorrenciasFragment : Fragment() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {
                     it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                    it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    it.systemBarsBehavior =
+                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 }
             } else {
                 @Suppress("DEPRECATION")
@@ -72,5 +64,10 @@ class OcorrenciasFragment : Fragment() {
                         )
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

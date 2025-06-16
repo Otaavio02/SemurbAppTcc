@@ -7,34 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
-import android.widget.ImageView
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias4Binding
 
-class Ocorrencias4Fragment: Fragment() {
+class Ocorrencias4Fragment : Fragment() {
 
-
-    private lateinit var btnvoltarOcorrencias4: ImageButton
-    private lateinit var btnproximaOcorrencias4: AppCompatButton
-
+    private var _binding: FragmentOcorrencias4Binding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(
-            R.layout.fragment_ocorrencias4,
-            container,
-            false
-        )
+    ): View {
+        _binding = FragmentOcorrencias4Binding.inflate(inflater, container, false)
 
-
-        btnvoltarOcorrencias4 = view.findViewById(R.id.btn_voltarOcorrencias4)
-        btnvoltarOcorrencias4.setOnClickListener {
-
+        binding.btnVoltarOcorrencias4.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_left,
@@ -44,15 +33,13 @@ class Ocorrencias4Fragment: Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-        btnproximaOcorrencias4 = view.findViewById(R.id.btn_proximoOcorrencias4)
-        btnproximaOcorrencias4.setOnClickListener {
 
+        binding.btnProximoOcorrencias4.setOnClickListener {
             requireActivity().finish()
         }
 
-        return view
+        return binding.root
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -73,5 +60,10 @@ class Ocorrencias4Fragment: Fragment() {
                         )
             }
         }
+    }
 
-    }}
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

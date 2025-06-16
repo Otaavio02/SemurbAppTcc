@@ -7,42 +7,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
-import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
-import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentVerificarturnoBinding
 
-class VerificarTurnoFragment: Fragment() {
+class VerificarTurnoFragment : Fragment() {
 
-    private lateinit var btnvoltarTurno4: ImageButton
-    private lateinit var btnproximoTurno4: AppCompatButton
-    private lateinit var carrinho: ImageView
+    private var _binding: FragmentVerificarturnoBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(
-            R.layout.fragment_verificarturno,
-            container,
-            false
-        )
+    ): View {
+        _binding = FragmentVerificarturnoBinding.inflate(inflater, container, false)
 
-        btnvoltarTurno4 = view.findViewById(R.id.btn_voltarTurno4)
-        btnvoltarTurno4.setOnClickListener {
-            requireActivity().finish()
-
-        }
-        btnproximoTurno4 = view.findViewById(R.id.btn_proximoTurno4)
-        btnproximoTurno4.setOnClickListener {
+        binding.btnVoltarTurno4.setOnClickListener {
             requireActivity().finish()
         }
 
-        return view
+        binding.btnProximoTurno4.setOnClickListener {
+            requireActivity().finish()
+        }
+
+        return binding.root
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -61,4 +51,11 @@ class VerificarTurnoFragment: Fragment() {
                                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         )
             }
-        }}}
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

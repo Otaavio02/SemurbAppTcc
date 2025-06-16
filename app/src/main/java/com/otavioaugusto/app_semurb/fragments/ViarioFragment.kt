@@ -8,57 +8,49 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
-
-import com.otavioaugusto.app_semurb.R
-
+import com.otavioaugusto.app_semurb.databinding.FragmentViario2Binding
 
 class ViarioFragment : Fragment() {
 
-    private lateinit var btnEnviarViario: AppCompatButton
-    private lateinit var btnNovaViario: AppCompatButton
-    private lateinit var btnVoltarViario: ImageButton
+    private var _binding: FragmentViario2Binding? = null
+    private val binding get() = _binding!!
+
+    companion object {
+        private const val FRAGMENT_KEY = "FRAGMENT_KEY"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_viario2, container, false)
+    ): View {
+        _binding = FragmentViario2Binding.inflate(inflater, container, false)
 
-
-        btnEnviarViario = view.findViewById(R.id.btn_enviarViario)
-        btnNovaViario = view.findViewById(R.id.btn_adicionarViario)
-        btnVoltarViario = view.findViewById(R.id.btn_voltarViario)
-
-
-        btnEnviarViario.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY", "VIARIO-EDITADO")
-            startActivity(intent)
+        binding.btnEnviarViario.setOnClickListener {
+            navigateToFragment("VIARIO-EDITADO")
         }
 
-        btnNovaViario.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY", "INICIAR_VIARIO2")
-            startActivity(intent)
+        binding.btnAdicionarViario.setOnClickListener {
+            navigateToFragment("INICIAR_VIARIO2")
         }
 
-        btnVoltarViario.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY", "INICIAR_VIARIO")
-            startActivity(intent)
+        binding.btnVoltarViario.setOnClickListener {
+            navigateToFragment("INICIAR_VIARIO")
         }
 
-        return view
+        return binding.root
+    }
+
+    private fun navigateToFragment(fragmentKey: String) {
+        val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
+        intent.putExtra(FRAGMENT_KEY, fragmentKey)
+        startActivity(intent)
     }
 
     override fun onResume() {
         super.onResume()
-
         activity?.window?.let { window ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {
@@ -74,5 +66,10 @@ class ViarioFragment : Fragment() {
                         )
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

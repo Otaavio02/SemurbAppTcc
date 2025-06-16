@@ -10,7 +10,7 @@
         android:layout_width="190dp"
         android:layout_height="190dp"
         android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/viario_home"
         android:scaleType="fitCenter"
         android:src="@drawable/home_viario"

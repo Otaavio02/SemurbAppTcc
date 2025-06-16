@@ -7,33 +7,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentConfigBinding
 
-class ConfigFragment: Fragment() {
+class ConfigFragment : Fragment() {
 
-    private lateinit var btnLogout: ImageButton
+    private var _binding: FragmentConfigBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(
-            R.layout.fragment_config,
-            container,
-            false
-        )
-        btnLogout = view.findViewById(R.id.btn_logout)
+    ): View {
+        _binding = FragmentConfigBinding.inflate(inflater, container, false)
 
-        btnLogout.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
             requireActivity().finish()
         }
 
-        return view
+        return binding.root
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -53,5 +47,10 @@ class ConfigFragment: Fragment() {
                         )
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

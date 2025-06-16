@@ -7,32 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
-import android.widget.ImageView
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
-
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentInspecao3Binding
 
 class Inspecao3Fragment : Fragment() {
 
-    private lateinit var btnvoltarInspecao4: ImageButton
-    private lateinit var btnproximoInspecao4: AppCompatButton
-    private lateinit var etapas: List<ImageView>
+    private var _binding: FragmentInspecao3Binding? = null
+    private val binding get() = _binding!!
+
     private var etapaAtual = 2
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_inspecao3, container, false)
+    ): View {
+        _binding = FragmentInspecao3Binding.inflate(inflater, container, false)
 
-
-        btnvoltarInspecao4 = view.findViewById(R.id.btn_voltarInspecao4)
-        btnvoltarInspecao4.setOnClickListener {
-
+        binding.btnVoltarInspecao4.setOnClickListener {
             if (etapaAtual > 0) {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1)
             }
@@ -46,14 +40,12 @@ class Inspecao3Fragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-        btnproximoInspecao4 = view.findViewById(R.id.btn_finalizar)
-        btnproximoInspecao4.setOnClickListener {
+
+        binding.btnFinalizar.setOnClickListener {
             requireActivity().finish()
         }
 
-
-
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,4 +74,10 @@ class Inspecao3Fragment : Fragment() {
                         )
             }
         }
-    }}
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

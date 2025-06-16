@@ -59,7 +59,6 @@ class PlaceHolderActivity : AppCompatActivity() {
 
     }
 
-
     private fun replaceFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.setCustomAnimations(

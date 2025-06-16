@@ -7,40 +7,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
-
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentInspecao2Binding
 
 class Inspecao2Fragment : Fragment() {
 
-    private lateinit var btnvoltarInspecao2: ImageButton
-    private lateinit var btnproximoInspecao2: AppCompatButton
+    private var _binding: FragmentInspecao2Binding? = null
+    private val binding get() = _binding!!
+
     private var etapaAtual = 1
     private var totalEtapas = 3
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_inspecao2, container, false)
+    ): View {
+        _binding = FragmentInspecao2Binding.inflate(inflater, container, false)
 
-
-
-
-
-
-        btnvoltarInspecao2 = view.findViewById(R.id.btn_voltarInspecao2)
-        btnvoltarInspecao2.setOnClickListener {
-
+        binding.btnVoltarInspecao2.setOnClickListener {
             if (etapaAtual > 0) {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1)
             }
@@ -55,9 +42,7 @@ class Inspecao2Fragment : Fragment() {
                 .commit()
         }
 
-        btnproximoInspecao2 = view.findViewById(R.id.btn_proximoInspecao2)
-        btnproximoInspecao2.setOnClickListener {
-
+        binding.btnProximoInspecao2.setOnClickListener {
             if (etapaAtual < totalEtapas - 1) {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1)
             }
@@ -65,18 +50,14 @@ class Inspecao2Fragment : Fragment() {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_right,
-                    R.anim.slide_out_left,
-
+                    R.anim.slide_out_left
                 )
                 .replace(R.id.FragmentContainerView2, Inspecao3Fragment())
                 .addToBackStack(null)
                 .commit()
         }
 
-
-
-
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,8 +67,6 @@ class Inspecao2Fragment : Fragment() {
             (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual)
         }
     }
-
-
 
     override fun onResume() {
         super.onResume()
@@ -109,8 +88,9 @@ class Inspecao2Fragment : Fragment() {
         }
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
-
-
 

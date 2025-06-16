@@ -90,14 +90,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.73" />
+        app:layout_constraintGuide_percent="0.72" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline44"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8484849" />
+        app:layout_constraintGuide_percent="0.97" />
 
     <ImageView
         android:id="@+id/imageView22"
@@ -122,18 +122,6 @@
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView22"
         app:layout_constraintStart_toStartOf="@+id/imageView22"
-        app:layout_constraintTop_toTopOf="@+id/imageView22" />
-
-
-    <RadioButton
-        android:id="@+id/radioButtonManutencao"
-        android:layout_width="44dp"
-        android:layout_height="42dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="20dp"
-        app:buttonCompat="@drawable/bg_button3"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-        app:layout_constraintEnd_toEndOf="@+id/imageView22"
         app:layout_constraintTop_toTopOf="@+id/imageView22" />
 
 
@@ -187,27 +175,39 @@
         app:layout_constraintStart_toStartOf="@+id/imageView23"
         app:layout_constraintTop_toTopOf="@+id/imageView23" />
 
-    <RadioButton
-        android:id="@+id/radioButtonSubstituicao"
-        android:layout_width="44dp"
-        android:layout_height="42dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="20dp"
-        app:buttonCompat="@drawable/bg_button3"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView24"
-        app:layout_constraintEnd_toEndOf="@+id/imageView24"
-        app:layout_constraintTop_toTopOf="@+id/imageView24" />
-
-    <RadioButton
-        android:id="@+id/radioButtonSugestao"
-        android:layout_width="44dp"
-        android:layout_height="42dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="20dp"
-        app:buttonCompat="@drawable/bg_button3"
+    <RadioGroup
+        android:id="@+id/rgViario"
+        android:layout_width="wrap_content"
+        android:layout_height="210dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView23"
-        app:layout_constraintEnd_toEndOf="@+id/imageView23"
-        app:layout_constraintTop_toTopOf="@+id/imageView23" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView24"
+        app:layout_constraintTop_toTopOf="@+id/imageView22">
+
+        <RadioButton
+            android:id="@+id/rbSinaInefi"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingEnd="20dp" />
+
+        <RadioButton
+            android:id="@+id/rbSubstituicao"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="33dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="20dp" />
+
+        <RadioButton
+            android:id="@+id/rbSugestao"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="20dp" />
+
+    </RadioGroup>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline45"

@@ -7,34 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
-import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentViario4Binding
+import android.widget.ImageButton
+import android.widget.ImageView
 
-class Viario4Fragment: Fragment() {
+class Viario4Fragment : Fragment() {
 
-
-    private lateinit var btnVoltarViario4: ImageButton
-    private lateinit var btnProximoViario4: AppCompatButton
-    private lateinit var carrinho: ImageView
+    private var _binding: FragmentViario4Binding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(
-            R.layout.fragment_viario4,
-            container,
-            false
-        )
+    ): View {
+        _binding = FragmentViario4Binding.inflate(inflater, container, false)
 
-
-        btnVoltarViario4 = view.findViewById(R.id.btn_voltarViario4)
-        btnVoltarViario4.setOnClickListener {
-
+        binding.btnVoltarViario4.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_left,
@@ -44,15 +36,13 @@ class Viario4Fragment: Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-        btnProximoViario4 = view.findViewById(R.id.btn_proximoViario4)
-        btnProximoViario4.setOnClickListener {
 
+        binding.btnProximoViario4.setOnClickListener {
             requireActivity().finish()
         }
 
-        return view
+        return binding.root
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -71,4 +61,11 @@ class Viario4Fragment: Fragment() {
                                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         )
             }
-        }}}
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

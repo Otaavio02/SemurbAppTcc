@@ -8,76 +8,58 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.*
+import com.otavioaugusto.app_semurb.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
-    private lateinit var btnHistorico: ImageButton
-    private lateinit var btnViario: ImageButton
-    private lateinit var btnInspecao: ImageButton
-    private lateinit var btnOcorrencia: ImageButton
-    private lateinit var btnNotificacao: ImageButton
-    private lateinit var btnIniciarTurno: AppCompatButton
-
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-
-        btnViario = view.findViewById(R.id.btn_viario_home)
-        btnInspecao = view.findViewById(R.id.btn_inspecao_home)
-        btnHistorico = view.findViewById(R.id.btn_historico_home)
-        btnOcorrencia = view.findViewById(R.id.btn_ocorrencia_home)
-        btnIniciarTurno = view.findViewById(R.id.btn_iniciarTurno)
-
-
-
-
-
-        btnViario.setOnClickListener {
+        binding.btnViarioHome.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "INICIAR_VIARIO")
             startActivity(intent)
         }
 
-        btnInspecao.setOnClickListener {
+        binding.btnInspecaoHome.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "INICIAR_INSPECAO")
             startActivity(intent)
         }
 
-        btnHistorico.setOnClickListener {
+        binding.btnHistoricoHome.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_right,
                     R.anim.slide_out_left,
                 )
-                .replace(R.id.fragmentContainerView, Historico1Fragment())
+                .replace(R.id.fragmentContainerView, HistoricoFragment())
                 .addToBackStack(null)
                 .commit()
         }
 
-        btnOcorrencia.setOnClickListener {
+        binding.btnOcorrenciaHome.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "INICIAR_OCORRENCIAS")
             startActivity(intent)
         }
 
-        btnIniciarTurno.setOnClickListener {
+        binding.btnIniciarTurno.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "INICIAR_TURNO")
             startActivity(intent)
         }
 
-        return view
+        return binding.root
     }
 
     override fun onResume() {
@@ -98,5 +80,10 @@ class HomeFragment : Fragment() {
                         )
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

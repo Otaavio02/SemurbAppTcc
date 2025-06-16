@@ -201,27 +201,26 @@
         android:layout_height="68dp"
         android:background="@drawable/bg_pesquisa"
         android:hint="@string/matricula"
-        android:paddingStart="12dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="12dp"
         android:textColorHint="@color/CinzaClarinho"
         app:layout_constraintBottom_toTopOf="@+id/text_input_senha"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline11">
+        app:layout_constraintTop_toTopOf="@+id/guideline11"
+        app:layout_constraintVertical_bias="0.432">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@android:color/transparent"
             android:id="@+id/edit_text_matricula"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:backgroundTint="@color/CinzaClarinho"
-            android:textColor="@color/black"
-            tools:ignore="TouchTargetSizeCheck"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
             android:singleLine="true"
-            android:imeOptions="actionDone"/>
+            android:textColor="@color/black"
+            tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -230,9 +229,6 @@
         android:layout_height="68dp"
         android:background="@drawable/bg_pesquisa"
         android:hint="@string/senha"
-        android:paddingStart="12dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="12dp"
         android:textColorHint="@color/CinzaClarinho"
         app:boxBackgroundMode="none"
         app:endIconMode="password_toggle"
@@ -245,14 +241,14 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_senha"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:backgroundTint="@color/CinzaClarinho"
+            android:imeOptions="actionDone"
             android:inputType="text|textPassword"
-            android:textColor="@color/black"
-            tools:ignore="TouchTargetSizeCheck"
             android:maxLines="1"
             android:singleLine="true"
-            android:imeOptions="actionDone"/>
+            android:textColor="@color/black"
+            tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

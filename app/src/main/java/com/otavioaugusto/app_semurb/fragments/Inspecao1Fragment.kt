@@ -7,44 +7,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.CheckBox
-import android.widget.ImageButton
-import android.widget.ImageView
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
-
 import com.otavioaugusto.app_semurb.R
-
-
+import com.otavioaugusto.app_semurb.databinding.FragmentInspecaoBinding
 
 class Inspecao1Fragment : Fragment() {
 
-
-
-
-
-    private lateinit var btnvoltarInspecao: ImageButton
-    private lateinit var btnproximoInspecao: AppCompatButton
-    private lateinit var checkBoxSemAvaria: CheckBox
+    private var _binding: FragmentInspecaoBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_inspecao, container, false)
-        checkBoxSemAvaria = view.findViewById(R.id.checkBox_SemAvaria)
-        btnproximoInspecao = view.findViewById(R.id.btn_proximoInspecao1)
-        btnvoltarInspecao = view.findViewById(R.id.btn_voltarInspecao)
-        btnvoltarInspecao.setOnClickListener {
+    ): View {
+        _binding = FragmentInspecaoBinding.inflate(inflater, container, false)
+
+        binding.btnVoltarInspecao.setOnClickListener {
             requireActivity().finish()
         }
-        btnproximoInspecao.setOnClickListener {
-            if (checkBoxSemAvaria.isChecked){
+
+        binding.btnProximoInspecao1.setOnClickListener {
+            if (binding.checkBoxSemAvaria.isChecked) {
                 requireActivity().finish()
             } else {
-
-
                 parentFragmentManager.beginTransaction()
                     .setCustomAnimations(
                         R.anim.slide_in_right,
@@ -56,7 +42,7 @@ class Inspecao1Fragment : Fragment() {
             }
         }
 
-        return view
+        return binding.root
     }
 
     override fun onResume() {
@@ -66,7 +52,8 @@ class Inspecao1Fragment : Fragment() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {
                     it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                    it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    it.systemBarsBehavior =
+                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 }
             } else {
                 @Suppress("DEPRECATION")
@@ -77,5 +64,10 @@ class Inspecao1Fragment : Fragment() {
                         )
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

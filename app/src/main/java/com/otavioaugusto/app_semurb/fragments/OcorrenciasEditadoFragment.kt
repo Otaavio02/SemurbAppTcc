@@ -7,49 +7,40 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
-import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciaseditadoBinding
 
 class OcorrenciasEditadoFragment : Fragment() {
 
-    private lateinit var btnvoltarOcorrenciasEditado: ImageButton
-    private lateinit var btnfinalizarOcorrenciasEdicao: AppCompatButton
+    private var _binding: FragmentOcorrenciaseditadoBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(
-            R.layout.fragment_ocorrenciaseditado,
-            container,
-            false
-        )
+    ): View {
+        _binding = FragmentOcorrenciaseditadoBinding.inflate(inflater, container, false)
 
-        btnvoltarOcorrenciasEditado = view.findViewById(R.id.btn_voltarOcorrenciasEditado)
-        btnvoltarOcorrenciasEditado.setOnClickListener {
-
-            requireActivity().finish()
-        }
-        btnfinalizarOcorrenciasEdicao = view.findViewById(R.id.btn_finalizarOcorrenciasEditado)
-        btnfinalizarOcorrenciasEdicao.setOnClickListener {
+        binding.btnVoltarOcorrenciasEditado.setOnClickListener {
             requireActivity().finish()
         }
 
-        return view
+        binding.btnFinalizarOcorrenciasEditado.setOnClickListener {
+            requireActivity().finish()
+        }
+
+        return binding.root
     }
-
 
     override fun onResume() {
         super.onResume()
-
         activity?.window?.let { window ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {
                     it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                    it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    it.systemBarsBehavior =
+                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 }
             } else {
                 @Suppress("DEPRECATION")
@@ -59,4 +50,11 @@ class OcorrenciasEditadoFragment : Fragment() {
                                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         )
             }
-        }}}
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

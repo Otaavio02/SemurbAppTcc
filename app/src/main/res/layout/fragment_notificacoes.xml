@@ -83,7 +83,6 @@
             android:id="@+id/imageButton12"
             android:layout_width="41dp"
             android:layout_height="41dp"
-            android:layout_marginTop="8dp"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toStartOf="@+id/textView22"

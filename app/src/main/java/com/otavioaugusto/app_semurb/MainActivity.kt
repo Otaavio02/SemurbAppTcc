@@ -3,6 +3,7 @@ package com.otavioaugusto.app_semurb
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -11,8 +12,10 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.util.TypedValueCompat.dpToPx
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.otavioaugusto.app_semurb.databinding.ActivityMainBinding
 
@@ -35,8 +38,8 @@ class MainActivity : AppCompatActivity() {
         binding.Esqueceusenha.setOnClickListener {
             mostrarBottonSheet()
         }
-        binding.btnEntrar.setOnClickListener {
-            checarCampos()
+        binding.btnEntrar.setOnClickListener { view ->
+            checarCampos(view)
 
         }
 
@@ -57,12 +60,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
-      private fun checarCampos() {
+      private fun checarCampos(view: View) {
 
         val campoMatricula = binding.editTextMatricula.text.toString()
         val campoSenha = binding.editTextSenha.text.toString()
 
-        val resultadoChecagemNulo = checagemNulo(campoMatricula, campoSenha)
+        val resultadoChecagemNulo = checagemNulo(campoMatricula, campoSenha, view)
         if (resultadoChecagemNulo){
 
             if(campoSenha == "1" && campoMatricula == "u"){
@@ -71,13 +74,36 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             else {
-                    val builder = androidx.appcompat.app.AlertDialog.Builder(this)
-                    builder.setTitle("Erro de login")
-                    builder.setMessage("Matrícula ou senha incorreta")
-                    builder.setPositiveButton("OK", null)
-                    val dialog = builder.create()
-                    dialog.show()
 
+                binding.textInputMatricula.error = "Senha está vazia"
+                binding.textInputSenha.error = "Matricula está vazia"
+
+
+
+
+                   val snackBarErroLogin = Snackbar.make(view, "Erro de login: Matrícula ou senha incorretos", Snackbar.LENGTH_LONG)
+
+
+
+                snackBarErroLogin.setTextColor(getColor(R.color.Vermelho))
+                val snackbarText = snackBarErroLogin.view.findViewById<TextView>(
+                    com.google.android.material.R.id.snackbar_text
+                )
+
+                val fontecustomizada = ResourcesCompat.getFont(this, R.font.montserrat_bold)
+                snackbarText.typeface = fontecustomizada
+
+
+                snackbarText.textSize = 16f
+
+
+                snackbarText.gravity = Gravity.CENTER
+                snackbarText.textAlignment = View.TEXT_ALIGNMENT_CENTER
+
+                val params = snackBarErroLogin.view.layoutParams
+                params.height = 150
+                snackBarErroLogin.view.layoutParams = params
+                snackBarErroLogin.show()
             }
 
         }
@@ -85,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun checagemNulo(cMatricula: String, cSenha: String): Boolean {
+    private fun checagemNulo(cMatricula: String, cSenha: String, view: View): Boolean {
 
         var isValid = true
 
@@ -93,15 +119,36 @@ class MainActivity : AppCompatActivity() {
         binding.textInputMatricula.error = null
 
         if (cSenha.isEmpty() ) {
-            binding.textInputSenha.error = "A matrícula está vazia"
+            binding.textInputSenha.error = "A senha está vazia"
             isValid = false
         }
         if (cMatricula.isEmpty()) {
            binding.textInputMatricula.error = "A matrícula está vazia"
             isValid = false
         }
+        if (cMatricula.isEmpty() || cSenha.isEmpty()){
+            val snackBarErroNulo = Snackbar.make(view, "Preencha todos os campos!", Snackbar.LENGTH_LONG)
 
 
+            snackBarErroNulo.setTextColor(getColor(R.color.Vermelho))
+            val snackbarText2 = snackBarErroNulo.view.findViewById<TextView>(
+                com.google.android.material.R.id.snackbar_text
+            )
+
+            val fontecustomizada = ResourcesCompat.getFont(this, R.font.montserrat_bold)
+            snackbarText2.typeface = fontecustomizada
+
+            snackbarText2.textSize = 22f
+
+
+            snackbarText2.gravity = Gravity.CENTER
+            snackbarText2.textAlignment = View.TEXT_ALIGNMENT_CENTER
+
+            val params = snackBarErroNulo.view.layoutParams
+            params.height = 150
+            snackBarErroNulo.view.layoutParams = params
+            snackBarErroNulo.show()
+        }
 
         return isValid
     }

@@ -7,44 +7,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
-import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentViarioeditadoBinding
 
 class ViarioEditadoFragment : Fragment() {
 
-    private lateinit var btnvoltarViarioEditado: ImageButton
-    private lateinit var btnfinalizarViarioEdicao: AppCompatButton
+    private var _binding: FragmentViarioeditadoBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(
-            R.layout.fragment_viarioeditado,
-            container,
-            false
-        )
+    ): View {
+        _binding = FragmentViarioeditadoBinding.inflate(inflater, container, false)
 
-        btnvoltarViarioEditado = view.findViewById(R.id.btn_voltarViarioEditado)
-        btnvoltarViarioEditado.setOnClickListener {
-
-            requireActivity().finish()
-        }
-        btnfinalizarViarioEdicao = view.findViewById(R.id.btn_finalizarViarioEdicao)
-        btnfinalizarViarioEdicao.setOnClickListener {
+        binding.btnVoltarViarioEditado.setOnClickListener {
             requireActivity().finish()
         }
 
-        return view
+        binding.btnFinalizarViarioEdicao.setOnClickListener {
+            requireActivity().finish()
+        }
+
+        return binding.root
     }
-
 
     override fun onResume() {
         super.onResume()
-
         activity?.window?.let { window ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {
@@ -59,4 +49,11 @@ class ViarioEditadoFragment : Fragment() {
                                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         )
             }
-        }}}
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

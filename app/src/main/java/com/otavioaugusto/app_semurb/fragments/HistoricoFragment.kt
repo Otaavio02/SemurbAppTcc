@@ -7,29 +7,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentHistorico1Binding
 
-class Historico1Fragment : Fragment() {
+class HistoricoFragment : Fragment() {
 
-    private lateinit var btnVoltarHistorico2: ImageButton
-
+    private var _binding: FragmentHistorico1Binding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_historico1, container, false)
+    ): View {
+        _binding = FragmentHistorico1Binding.inflate(inflater, container, false)
 
 
-        btnVoltarHistorico2 = view.findViewById(R.id.btn_voltarHistorico2)
+        val historicoEspecifico = resources.getStringArray(R.array.historico)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, historicoEspecifico)
+        binding.autoCompleteTextView.setAdapter(arrayAdapter)
 
-
-
-        btnVoltarHistorico2.setOnClickListener {
+        binding.btnVoltarHistorico2.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_left,
@@ -40,9 +41,7 @@ class Historico1Fragment : Fragment() {
                 .commit()
         }
 
-
-
-        return view
+        return binding.root
     }
 
     override fun onResume() {
@@ -63,5 +62,10 @@ class Historico1Fragment : Fragment() {
                         )
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

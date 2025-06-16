@@ -7,28 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentPerfilBinding
 
-class PerfilFragment: Fragment() {
+class PerfilFragment : Fragment() {
 
-    private lateinit var voltarPerfil: ImageButton
+    private var _binding: FragmentPerfilBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(
-            R.layout.fragment_perfil,
-            container,
-            false
-        )
+    ): View {
+        _binding = FragmentPerfilBinding.inflate(inflater, container, false)
 
 
-        return view
+        return binding.root
     }
+
     override fun onResume() {
         super.onResume()
 
@@ -36,7 +33,8 @@ class PerfilFragment: Fragment() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {
                     it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                    it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    it.systemBarsBehavior =
+                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 }
             } else {
                 @Suppress("DEPRECATION")
@@ -47,5 +45,10 @@ class PerfilFragment: Fragment() {
                         )
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
