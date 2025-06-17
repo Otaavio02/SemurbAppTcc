@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentInspecao3Binding
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 class Inspecao3Fragment : Fragment() {
 
@@ -41,11 +44,25 @@ class Inspecao3Fragment : Fragment() {
                 .commit()
         }
 
-        binding.btnFinalizar.setOnClickListener {
-            requireActivity().finish()
-        }
+        val btnFinalizarInspecao = binding.btnFinalizar
+        btnFinalizarInspecao.setOnClickListener {
 
-        return binding.root
+            val deslocamento = 850f
+            val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
+            carrinho.animate()
+                .translationX(deslocamento)
+                .setDuration(500)
+                .start()
+
+
+            (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal()
+
+            Timer().schedule(700) {
+                requireActivity().finish()
+            }
+            }
+
+            return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

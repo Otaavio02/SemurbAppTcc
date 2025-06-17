@@ -135,6 +135,8 @@ class MainActivity : AppCompatActivity() {
         var isValid = true
 
         val textInputSenha = binding.textInputSenha
+        val editTextSenha = binding.editTextSenha
+        val editTextMatricula = binding.editTextMatricula
         val textInputMatricula = binding.textInputMatricula
 
         textInputSenha.error = null
@@ -143,6 +145,8 @@ class MainActivity : AppCompatActivity() {
         if (cSenha.isEmpty() ) {
             textInputSenha.error = "A senha está vazia"
             isValid = false
+            editTextSenha.clearFocus()
+            editTextMatricula.clearFocus()
             textInputSenha.postDelayed({
                 textInputSenha.error = null
             }, 2500)
@@ -150,6 +154,8 @@ class MainActivity : AppCompatActivity() {
         if (cMatricula.isEmpty()) {
            binding.textInputMatricula.error = "A matrícula está vazia"
             isValid = false
+            editTextSenha.clearFocus()
+            editTextMatricula.clearFocus()
             textInputMatricula.postDelayed({
                 textInputMatricula.error = null
             }, 2500)

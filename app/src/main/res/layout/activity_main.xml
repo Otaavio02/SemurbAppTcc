@@ -21,7 +21,7 @@
         android:elevation="15dp"
         android:fontFamily="@font/montserrat_medium"
         android:gravity="center"
-        android:shadowColor="@color/black"
+        android:shadowColor="@color/Preto"
         android:shadowDx="3"
         android:shadowRadius="1"
         android:text="@string/entrar"
@@ -210,16 +210,18 @@
         app:layout_constraintVertical_bias="0.432">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:background="@android:color/transparent"
             android:id="@+id/edit_text_matricula"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:background="@android:color/transparent"
             android:backgroundTint="@color/CinzaClarinho"
+            android:gravity="center|start"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/Preto"
             tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -230,7 +232,6 @@
         android:background="@drawable/bg_pesquisa"
         android:hint="@string/senha"
         android:textColorHint="@color/CinzaClarinho"
-        app:boxBackgroundMode="none"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/CinzaClarinho"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
@@ -241,13 +242,16 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_senha"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:background="@android:color/transparent"
             android:backgroundTint="@color/CinzaClarinho"
+            android:gravity="center|start"
             android:imeOptions="actionDone"
-            android:inputType="text|textPassword"
+            android:inputType="text"
             android:maxLines="1"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/Preto"
             tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 

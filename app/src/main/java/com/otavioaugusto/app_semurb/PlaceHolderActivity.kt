@@ -79,7 +79,6 @@ class PlaceHolderActivity : AppCompatActivity() {
             true
         }
 
-
     }
 
     private fun replaceFragment(fragment: Fragment) {

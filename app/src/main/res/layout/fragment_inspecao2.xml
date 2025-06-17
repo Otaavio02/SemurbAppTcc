@@ -20,15 +20,14 @@
             android:id="@+id/container_avarias_frente"
             android:layout_width="376dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:background="@android:color/transparent"
             android:orientation="vertical"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/guideline80"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline81">
+            app:layout_constraintTop_toBottomOf="@+id/textView46">
 
             <TextView
                 android:id="@+id/textViewFrente"
@@ -41,7 +40,7 @@
                 android:paddingBottom="5dp"
                 android:text="@string/frente"
                 android:textColor="@color/Branco"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -56,51 +55,22 @@
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewFrente"
+                app:layout_constraintVertical_bias="0.0"
                 tools:layout_editor_absoluteX="9dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="250dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center|top"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:gravity="center_vertical"
-                    android:hint="@string/descricao_dano"
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/Preto"
-                    android:textColorHint="#808080" />
-
-                <ImageButton
-                    android:id="@+id/btn_novaavariafrente"
-                    android:layout_width="47dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@android:color/transparent"
-                    android:padding="10dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_add" />
-
-                <ImageButton
-                    android:id="@+id/imageButton1154"
-                    android:layout_width="47dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="top|end"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@android:color/transparent"
-                    android:padding="10dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/cameramais" />
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvFrente"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    tools:listitem="@layout/item_avarias" />
             </FrameLayout>
 
             <ImageButton
-                android:id="@+id/btnInspecaoFechado"
+                android:id="@+id/btnInspecaoFrente"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginEnd="8dp"
@@ -111,6 +81,81 @@
                 app:srcCompat="@drawable/inspecaofechar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:buttonTint="@color/Preto"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/partesemavaria"
+            android:textColor="@color/AzulPetroleoEscuro"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_avarias_frente" />
+
+        <CheckBox
+            android:id="@+id/checkBox6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:buttonTint="@color/Preto"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/partesemavaria"
+            android:textColor="@color/AzulPetroleoEscuro"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_avarias_outras" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:buttonTint="@color/Preto"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/partesemavaria"
+            android:textColor="@color/AzulPetroleoEscuro"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_avarias_traseira" />
+
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:buttonTint="@color/Preto"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/partesemavaria"
+            android:textColor="@color/AzulPetroleoEscuro"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_avarias_esquerda" />
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:buttonTint="@color/Preto"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/partesemavaria"
+            android:textColor="@color/AzulPetroleoEscuro"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_avarias_direita" />
 
         <ImageButton
             android:id="@+id/btn_voltarInspecao2"
@@ -123,6 +168,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline76"
             app:srcCompat="@drawable/voltar" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnFinalizar"
+            android:layout_width="183dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_button"
+            android:backgroundTintMode="add"
+            android:elevation="15dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center"
+            android:shadowColor="@color/Preto"
+            android:shadowDx="3"
+            android:shadowRadius="1"
+            android:text="@string/proximo"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox6" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline76"
@@ -152,13 +221,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline77" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline80"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.73" />
-
         <TextView
             android:id="@+id/textView46"
             android:layout_width="300dp"
@@ -168,63 +230,280 @@
             android:gravity="center"
             android:text="@string/registre_qual"
             android:textColor="@color/Branco"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline81"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline81"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.33" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_proximoInspecao2"
-            android:layout_width="183dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/bg_button"
-            android:backgroundTintMode="add"
-            android:elevation="15dp"
-            android:fontFamily="@font/montserrat_medium"
-            android:gravity="center"
-            android:shadowColor="@color/Preto"
-            android:shadowDx="3"
-            android:shadowRadius="1"
-            android:text="@string/proximo"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline82"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_avarias_traseira"
+            android:layout_width="376dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.84" />
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:buttonTint="@color/Preto"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="@string/partesemavaria"
-            android:textColor="@color/AzulPetroleoEscuro"
-            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container_avarias_frente" />
+            app:layout_constraintTop_toBottomOf="@+id/checkBox">
+
+            <TextView
+                android:id="@+id/textViewTraseira"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/bg_azulpaginas2"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/traseira"
+                android:textColor="@color/Branco"
+                android:textSize="25sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/frame_avaria_traseira"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/bg_partes"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTraseira"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTraseira"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    tools:listitem="@layout/item_avarias" />
+            </FrameLayout>
+
+            <ImageButton
+                android:id="@+id/btnInspecaoTraseira"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/inspecaofechar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_avarias_direita"
+            android:layout_width="376dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox2">
+
+            <TextView
+                android:id="@+id/textViewDireita"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/bg_azulpaginas2"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/lateral_direita"
+                android:textColor="@color/Branco"
+                android:textSize="25sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/frame_avaria_direita"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/bg_partes"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDireita"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDireita"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    tools:listitem="@layout/item_avarias" />
+            </FrameLayout>
+
+            <ImageButton
+                android:id="@+id/btnInspecaoDireita"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/inspecaofechar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_avarias_esquerda"
+            android:layout_width="376dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox4">
+
+            <TextView
+                android:id="@+id/textViewEsquerda"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/bg_azulpaginas2"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/lateral_esquerda"
+                android:textColor="@color/Branco"
+                android:textSize="25sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/frame_avaria_esquerda"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/bg_partes"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEsquerda"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvEsquerda"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    tools:listitem="@layout/item_avarias" />
+            </FrameLayout>
+
+            <ImageButton
+                android:id="@+id/btnInspecaoEsquerda"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/inspecaofechar" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_avarias_outras"
+            android:layout_width="376dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox5">
+
+            <TextView
+                android:id="@+id/textViewOutras"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/bg_azulpaginas2"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/outra"
+                android:textColor="@color/Branco"
+                android:textSize="25sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/frame_avaria_outras"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/bg_partes"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewOutras"
+                app:layout_constraintVertical_bias="0.0">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvOutras"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    tools:listitem="@layout/item_avarias" />
+            </FrameLayout>
+
+            <ImageButton
+                android:id="@+id/btnInspecaoOutras"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/inspecaofechar" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,6 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.transition.AutoTransition
@@ -11,17 +12,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationCompat.getColor
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.adapters.AvariasAdapter
+import com.otavioaugusto.app_semurb.dataClasses.AvariaItem
 import com.otavioaugusto.app_semurb.databinding.FragmentInspecao2Binding
 
 class Inspecao2Fragment : Fragment() {
+
+
+
 
     private var _binding: FragmentInspecao2Binding? = null
     private val binding get() = _binding!!
@@ -35,6 +47,70 @@ class Inspecao2Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentInspecao2Binding.inflate(inflater, container, false)
+
+
+        class AvariasRecyclerHelper(
+            private val context: Context,
+            private val recyclerView: RecyclerView
+        ) {
+            private val avariasList = mutableListOf(AvariaItem())
+            private val adapter = AvariasAdapter(avariasList)
+
+            init {
+                setupRecycler()
+            }
+
+            private fun setupRecycler() {
+                recyclerView.layoutManager = LinearLayoutManager(context)
+                recyclerView.adapter = adapter
+            }
+
+            fun getAvarias(): List<AvariaItem> = avariasList
+
+            fun addAvaria(avaria: AvariaItem) {
+                avariasList.add(avaria)
+                adapter.notifyItemInserted(avariasList.size - 1)
+            }
+
+            fun removeAvaria(index: Int) {
+                if (index in avariasList.indices) {
+                    avariasList.removeAt(index)
+                    adapter.notifyItemRemoved(index)
+                }
+            }
+
+            fun getAdapter(): AvariasAdapter = adapter
+        }
+
+        class AvariaToggleController(
+            private val context: Context,
+            private val container: ConstraintLayout,
+            private val frame: FrameLayout,
+            private val btnToggle: ImageButton,
+            private val headerTextView: TextView
+        ) {
+            init {
+                setupToggle()
+            }
+
+            private fun setupToggle() {
+                btnToggle.setOnClickListener {
+                    TransitionManager.beginDelayedTransition(container, AutoTransition())
+
+                    if (frame.isGone) {
+                        headerTextView.setBackgroundResource(R.drawable.bg_azulpaginas)
+                        frame.setBackgroundResource(R.drawable.bg_fundoinspecao)
+                        btnToggle.setImageResource(R.drawable.inspecaoabrir)
+                        frame.visibility = View.VISIBLE
+                    } else if (frame.isVisible) {
+                        headerTextView.setBackgroundResource(R.drawable.bg_azulpaginas2)
+                        frame.setBackgroundColor(ContextCompat.getColor(context, R.color.Transparente))
+                        btnToggle.setImageResource(R.drawable.inspecaofechar)
+                        frame.visibility = View.GONE
+                    }
+                }
+            }
+        }
 
         binding.btnVoltarInspecao2.setOnClickListener {
             if (etapaAtual > 0) {
@@ -66,24 +142,52 @@ class Inspecao2Fragment : Fragment() {
                 .commit()
         }
 
-        val frameFrente = binding.frameAvariaFrente
-        val btnFechado = binding.btnInspecaoFechado
-        val fundoTextoFrente = binding.textViewFrente
 
-        btnFechado.setOnClickListener {
-            TransitionManager.beginDelayedTransition(binding.containerAvariasFrente, AutoTransition())
-            if (frameFrente.isGone){
-                fundoTextoFrente.setBackgroundResource(R.drawable.bg_azulpaginas)
-                frameFrente.setBackgroundResource(R.drawable.bg_fundoinspecao)
-                btnFechado.setImageResource(R.drawable.inspecaoabrir)
-                frameFrente.visibility = View.VISIBLE
-            } else if (frameFrente.isVisible){
-                fundoTextoFrente.setBackgroundResource(R.drawable.bg_azulpaginas2)
-                frameFrente.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.Transparente))
-                btnFechado.setImageResource(R.drawable.inspecaofechar)
-                frameFrente.visibility = View.GONE
-            }
-        }
+        AvariaToggleController(
+            context = requireContext(),
+            container = binding.containerAvariasTraseira,
+            frame = binding.frameAvariaTraseira,
+            btnToggle = binding.btnInspecaoTraseira,
+            headerTextView = binding.textViewTraseira
+        )
+
+        AvariaToggleController(
+            context = requireContext(),
+            container = binding.containerAvariasEsquerda,
+            frame = binding.frameAvariaEsquerda,
+            btnToggle = binding.btnInspecaoEsquerda,
+            headerTextView = binding.textViewEsquerda
+        )
+
+        AvariaToggleController(
+            context = requireContext(),
+            container = binding.containerAvariasDireita,
+            frame = binding.frameAvariaDireita,
+            btnToggle = binding.btnInspecaoDireita,
+            headerTextView = binding.textViewDireita
+        )
+
+        AvariaToggleController(
+            context = requireContext(),
+            container = binding.containerAvariasOutras,
+            frame = binding.frameAvariaOutras,
+            btnToggle = binding.btnInspecaoOutras,
+            headerTextView = binding.textViewOutras
+        )
+
+        AvariaToggleController(
+            context = requireContext(),
+            container = binding.containerAvariasFrente,
+            frame = binding.frameAvariaFrente,
+            btnToggle = binding.btnInspecaoFrente,
+            headerTextView = binding.textViewFrente
+        )
+
+        val recyclerHelperFrente = AvariasRecyclerHelper(requireContext(), binding.rvFrente)
+        val recyclerHelperTraseira = AvariasRecyclerHelper(requireContext(), binding.rvTraseira)
+        val recyclerHelperDireita = AvariasRecyclerHelper(requireContext(), binding.rvDireita)
+        val recyclerHelperEsquerda = AvariasRecyclerHelper(requireContext(), binding.rvEsquerda)
+        val recyclerHelperOutras = AvariasRecyclerHelper(requireContext(), binding.rvOutras)
 
         return binding.root
     }

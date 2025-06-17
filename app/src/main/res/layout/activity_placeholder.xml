@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     style="@style/BACKGROUND">
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        style="@style/BACKGROUNDFRAMELAYOUT"
         android:id="@+id/bottomNavigationView"
+        style="@style/BACKGROUNDFRAMELAYOUT"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:itemIconSize="45dp"
@@ -40,8 +41,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline96"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline97"
-         />
+        app:layout_constraintTop_toTopOf="@+id/guideline97" />
 
     <ImageView
         android:id="@+id/imageView2"
