@@ -1,6 +1,9 @@
 package com.otavioaugusto.app_semurb
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -54,12 +57,39 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
     fun moverCarrinhoParaEtapa(index: Int) {
         val carrinho = binding.carrinho
         val etapas = listOf(
-            binding.progressBarCircle1,
+           binding.progressBarCircle1,
             binding.progressBarCircle2,
-            binding.progressBarCircle3
+            binding.progressBarCircle3,
+        )
+        val etapasLinha = listOf(
+            binding.progressBarLine1,
+            binding.progressBarLine2,
         )
 
-        if (index !in etapas.indices) return
+        if (index < 0 || index >= etapas.size) return
+
+        etapas.forEachIndexed { i, etapa ->
+            val corFinal = if (i < index) {
+                R.color.VerdeLimao
+            } else {
+                R.color.AzulEscuroProfundo
+            }
+
+            val duration = 500;
+            animarCorElemento(etapa, corFinal, duration)
+        }
+
+        etapasLinha.forEachIndexed { i, etapa ->
+            val corFinal = if (i < index) {
+                R.color.VerdeLimao
+            } else {
+                R.color.AzulEscuroProfundo
+            }
+            val duration = 500;
+
+            animarCorElemento(etapa, corFinal, duration);
+
+        }
 
         val destino = etapas[index]
         destino.post {
@@ -71,5 +101,27 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
                 .start()
         }
     }
-}
 
+    fun animarCorElemento(view: ImageView, corFinalRes: Int, durationTime: Int) {
+        val drawable = view.background?.mutate() as? android.graphics.drawable.GradientDrawable ?: return;
+        val corFinal = getColor(corFinalRes);
+        val corAtual = (drawable.color?.defaultColor ?: corFinal);
+
+        if (corAtual == corFinal) return;
+
+        val animator = ValueAnimator.ofObject(ArgbEvaluator(), corAtual, corFinal).apply {
+            duration = durationTime.toLong();
+            addUpdateListener { animation ->
+                val cor = animation.animatedValue as Int;
+                drawable.setColor(cor);
+            }
+        }
+        animator.start()
+    }
+
+    fun concluirEtapaFinal() {
+        val etapa = findViewById<ImageView>(R.id.progress_bar_circle3);
+        animarCorElemento(etapa, R.color.VerdeLimao, 500);
+    }
+
+}

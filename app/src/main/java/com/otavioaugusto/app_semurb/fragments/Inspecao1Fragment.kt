@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentInspecaoBinding
@@ -22,6 +23,21 @@ class Inspecao1Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentInspecaoBinding.inflate(inflater, container, false)
+
+
+        val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
+        val bolinhaInicial = requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
+        val destino = bolinhaInicial
+        destino.post {
+            val destinoX = destino.x + destino.width / 2 - carrinho.width / 2
+
+            carrinho.animate()
+                .x(destinoX)
+                .setDuration(700)
+                .start()
+        }
+
+
 
         binding.btnVoltarInspecao.setOnClickListener {
             requireActivity().finish()

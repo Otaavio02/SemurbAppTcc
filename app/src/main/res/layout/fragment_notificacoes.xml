@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline62"
@@ -33,7 +33,7 @@
             app:layout_constraintGuide_percent="0.10" />
 
         <ImageButton
-            android:id="@+id/imageButton5"
+            android:id="@+id/btnNotificacoesLidas"
             android:layout_width="41dp"
             android:layout_height="41dp"
             android:layout_marginTop="8dp"
@@ -41,7 +41,7 @@
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toStartOf="@+id/textView27"
             app:layout_constraintTop_toTopOf="@+id/guideline64"
-            app:srcCompat="@drawable/notificacaoabrirfechar" />
+            app:srcCompat="@drawable/notificacaoaberto" />
 
         <TextView
             android:id="@+id/textView27"
@@ -51,9 +51,9 @@
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/naolidas"
             android:textColor="@color/CinzaMedio"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButton5"
+            app:layout_constraintBottom_toBottomOf="@+id/btnNotificacoesLidas"
             app:layout_constraintStart_toStartOf="@+id/textView30"
-            app:layout_constraintTop_toTopOf="@+id/imageButton5" />
+            app:layout_constraintTop_toTopOf="@+id/btnNotificacoesLidas" />
 
         <ImageView
             android:id="@+id/imageView16"
@@ -86,8 +86,8 @@
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toStartOf="@+id/textView22"
-            app:layout_constraintTop_toTopOf="@+id/guideline65"
-            app:srcCompat="@drawable/notificacaoabrirfechar" />
+            app:layout_constraintTop_toBottomOf="@+id/rvNotificacoesNLidas"
+            app:srcCompat="@drawable/notificacaoaberto" />
 
         <TextView
             android:id="@+id/textView22"
@@ -95,8 +95,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:fontFamily="@font/montserrat_semibold"
-            android:textColor="@color/CinzaMedio"
             android:text="@string/lidas"
+            android:textColor="@color/CinzaMedio"
             app:layout_constraintBottom_toBottomOf="@+id/imageButton12"
             app:layout_constraintStart_toStartOf="@+id/textView34"
             app:layout_constraintTop_toTopOf="@+id/imageButton12" />
@@ -145,7 +145,7 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/AzulPaginas"
+            android:background="@color/CianoEscuro"
             app:layout_constraintBottom_toTopOf="@+id/guideline64"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -161,19 +161,10 @@
                 android:textColor="#FFFFFF"
                 android:textSize="35sp" />
 
-            <ImageButton
-                android:id="@+id/btn_voltarNotifacoes"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center|start"
-                android:layout_marginStart="16dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/botaovoltarconfig"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/voltar" />
         </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotificacoesNLidas"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline30"
@@ -219,7 +210,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView34"
-            tools:listitem="@layout/item_notifacacaolida"/>
+            tools:listitem="@layout/item_notifacacaolida" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

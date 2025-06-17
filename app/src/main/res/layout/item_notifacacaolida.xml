@@ -26,27 +26,27 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView38"
+                android:id="@+id/textViewHorario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="9:47"
-                android:textColor="@color/black"
+                android:textColor="@color/Preto"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/textViewTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="4dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="@string/notifica_o_de_turno"
-                android:textColor="@color/black"
+                android:textColor="@color/Preto"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -56,25 +56,25 @@
             android:id="@+id/guideline23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/AzulPaginas"
+            android:background="@color/CianoEscuro"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.25" />
 
         <TextView
-            android:id="@+id/textView40"
+            android:id="@+id/textViewData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="23/01/2026"
-            android:textColor="@color/black"
+            android:textColor="@color/Preto"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView43"
+            android:id="@+id/textViewDescricao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

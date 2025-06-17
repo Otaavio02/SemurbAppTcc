@@ -1,7 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.TelaLoginTeste" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Base.Theme.AppSemurb" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary Brand Color -->
+
+            <!-- Primary Brand Color -->
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+            <item name="colorOnPrimary">@color/colorOnPrimary</item>
+            <!-- Secondary Brand Color -->
+            <item name="colorSecondary">@color/colorSecondary</item>
+            <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+            <item name="colorOnSecondary">@color/colorOnSecondary</item>
     </style>
+
+    <style name="BACKGROUND">
+        <item name="android:background">@color/AzulEscuroProfundo</item>
+    </style>
+    <style name="BACKGROUNDFRAMELAYOUT">
+        <item name="android:background">@color/AzulPetroleo</item>
+    </style>
+    <style name="TEXTCOLOR">
+        <item name="android:textColor">@color/Branco</item>
+    </style>
+
 </resources>

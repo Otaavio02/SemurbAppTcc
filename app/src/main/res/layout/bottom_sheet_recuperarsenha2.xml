@@ -13,7 +13,7 @@
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
         android:text="Redefinir Senha"
-        android:textColor="@color/black"
+        android:textColor="@color/Preto"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -42,7 +42,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:singleLine="true"
-            android:textColor="@color/black" />
+            android:textColor="@color/Preto" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -54,7 +54,7 @@
         android:background="@drawable/bg_button"
         android:fontFamily="@font/montserrat_bold"
         android:text="Verificar"
-        android:textColor="@color/white"
+        android:textColor="@color/Branco"
         android:textSize="20sp" />
 
 

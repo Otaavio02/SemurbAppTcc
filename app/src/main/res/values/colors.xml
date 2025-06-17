@@ -1,24 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="AzulEstranho">#06202d</color>
+
+    <!-- Tema Claro -->
+
+    <color name="AzulPetroleoEscuro">#06202d</color>
     <color name="CinzaClarinho">#4B6065</color>
     <color name="CinzaMedio">#828282</color>
-    <color name="CinzaBorda">#B6B6B6</color>
-    <color name="AzulTexto">#122F32</color>
-    <color name="TextoTurno">#081A31</color>
-    <color name="AzulEscuroBotoes">#081A31</color>
-    <color name="AzulPaginas">#295678</color>
-    <color name="AzulSelecionado">#012362</color>
-    <color name="VermelhoExcluir">#EB564E</color>
-    <color name="CinzaNotificacao">#524B4B</color>
-    <color name="AzulSelecionado2">#6ABDF8</color>
-    <color name="CorGradiente2">#6ABDF9</color>
-    <color name="BrancoFundo">#DDE9f1</color>
+    <color name="CinzaClaro">#B6B6B6</color>
+    <color name="VerdeAzuladoEscuro">#122F32</color>
+    <color name="CianoEscuro">#295678</color>
+    <color name="AzulMarinhoIntenso">#012362</color>
+    <color name="VermelhoCoral">#EB564E</color>
+    <color name="CinzaEscuroToqueMarrom">#524B4B</color>
+    <color name="AzulBebeClaro">#6ABDF9</color>
+    <color name="BrancoAzulado">#DDE9f1</color>
     <color name="Vermelho">#ff0000</color>
+    <color name="Transparente">#00000000</color>
+    <color name="VerdeLimao">#3FFF6F</color>
+
+    <!-- Tema Escuro -->
+    <color name="AzulPetroleo">#134366</color>
+    <color name="AzulMarinhoProfundo">#001530</color>
+    <color name="AzulNegro">#010E19</color>
+    <color name="VermelhoTomate">#EA3323</color>
+    <color name="AzulAcinzentadoClaro">#B1CFD3</color>
+    <color name="VerdeFluorescente">#28FF00</color>
+    <color name="AzulCelesteClaro">#7BB3F9</color>
+    <color name="AzulCeu">#4AA5F8</color>
 
 
+    <!-- Dois temas -->
+    <color name="AzulEscuroProfundo">#081A31</color>
+    <color name="AzulBebe">#6ABDF8</color>
+    <color name="Branco">#FFFFFFFF</color>
+    <color name="Preto">#FF000000</color>
 
-
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSecondary">#03DAC6</color>
+    <color name="colorSecondaryVariant">#018786</color>
+    <color name="colorOnSecondary">#000000</color>
 </resources>

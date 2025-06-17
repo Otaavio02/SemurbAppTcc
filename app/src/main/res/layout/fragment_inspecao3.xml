@@ -20,10 +20,10 @@
             android:layout_height="wrap_content"
 
             android:layout_marginTop="16dp"
-            android:buttonTint="@color/black"
+            android:buttonTint="@color/Preto"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/partesemavaria"
-            android:textColor="@color/AzulEstranho"
+            android:textColor="@color/AzulPetroleoEscuro"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -36,10 +36,10 @@
             android:layout_height="wrap_content"
 
             android:layout_marginTop="16dp"
-            android:buttonTint="@color/black"
+            android:buttonTint="@color/Preto"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/partesemavaria"
-            android:textColor="@color/AzulEstranho"
+            android:textColor="@color/AzulPetroleoEscuro"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -52,10 +52,10 @@
             android:layout_height="wrap_content"
 
             android:layout_marginTop="16dp"
-            android:buttonTint="@color/black"
+            android:buttonTint="@color/Preto"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/partesemavaria"
-            android:textColor="@color/AzulEstranho"
+            android:textColor="@color/AzulPetroleoEscuro"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -81,7 +81,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
                 android:text="@string/outra"
-                android:textColor="@color/white"
+                android:textColor="@color/Branco"
                 android:textSize="24sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -112,7 +112,7 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/black"
+                        android:textColor="@color/Preto"
                         android:textColorHint="#808080" />
 
                     <ImageButton
@@ -166,7 +166,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
                 android:text="@string/lateral_esquerda"
-                android:textColor="@color/white"
+                android:textColor="@color/Branco"
                 android:textSize="24sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -197,7 +197,7 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/black"
+                        android:textColor="@color/Preto"
                         android:textColorHint="#808080" />
 
                     <ImageButton
@@ -232,7 +232,7 @@
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:text="@string/xxxx_inspecao"
-            android:textColor="@color/white"
+            android:textColor="@color/Branco"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -246,7 +246,7 @@
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:text="@string/registre_qual"
-            android:textColor="@color/white"
+            android:textColor="@color/Branco"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -296,7 +296,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
                 android:text="@string/lateral_direita"
-                android:textColor="@color/white"
+                android:textColor="@color/Branco"
                 android:textSize="24sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -327,7 +327,7 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/black"
+                        android:textColor="@color/Preto"
                         android:textColorHint="#808080" />
 
                     <ImageButton

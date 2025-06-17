@@ -5,126 +5,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradientegameficado"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/gradient_background"
         tools:context=".ViarioEditadoActivity">
 
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="376dp"
-            android:layout_height="280dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/bg_fundoinspecao"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox">
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_azulpaginas"
-                android:fontFamily="@font/montserrat_bold"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="@string/traseira"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_partes"
-                android:gravity="center">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="250dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:gravity="center_vertical"
-                    android:hint="@string/descricao_dano"
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textColorHint="#808080" />
-
-                <ImageButton
-                    android:id="@+id/btn_novaAvaritraseira"
-                    android:layout_width="47dp"
-                    android:layout_height="48dp"
-                    android:background="@android:color/transparent"
-                    android:padding="10dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_add" />
-
-                <ImageButton
-                    android:id="@+id/imageButton11541"
-                    android:layout_width="47dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="end"
-                    android:background="@android:color/transparent"
-                    android:padding="10dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/cameramais" />
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_avarias_frente"
             android:layout_width="376dp"
-            android:layout_height="280dp"
-            android:background="@drawable/bg_fundoinspecao"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
             android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline80"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline81">
 
             <TextView
-                android:id="@+id/textView93"
+                android:id="@+id/textViewFrente"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_azulpaginas"
+                android:layout_height="70dp"
+                android:background="@drawable/bg_azulpaginas2"
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:text="@string/frente"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textColor="@color/Branco"
+                android:textSize="30sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <FrameLayout
                 android:id="@+id/frame_avaria_frente"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="200dp"
                 android:background="@drawable/bg_partes"
-                android:gravity="center">
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFrente"
+                tools:layout_editor_absoluteX="9dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="250dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="5dp"
                     android:fontFamily="@font/montserrat_semibold"
                     android:gravity="center_vertical"
                     android:hint="@string/descricao_dano"
@@ -132,13 +70,16 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textColor="@color/black"
+                    android:textColor="@color/Preto"
                     android:textColorHint="#808080" />
 
                 <ImageButton
                     android:id="@+id/btn_novaavariafrente"
                     android:layout_width="47dp"
                     android:layout_height="48dp"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
                     android:background="@android:color/transparent"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
@@ -148,7 +89,9 @@
                     android:id="@+id/imageButton1154"
                     android:layout_width="47dp"
                     android:layout_height="48dp"
-                    android:layout_gravity="end"
+                    android:layout_gravity="top|end"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="16dp"
                     android:background="@android:color/transparent"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
@@ -156,23 +99,18 @@
 
             </FrameLayout>
 
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/btnInspecaoFechado"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/inspecaofechar" />
 
-        <CheckBox
-            android:id="@+id/checkBox3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="16dp"
-            android:buttonTint="@color/black"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="@string/partesemavaria"
-            android:textColor="@color/AzulEstranho"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageButton
             android:id="@+id/btn_voltarInspecao2"
@@ -207,27 +145,12 @@
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:text="@string/xxxx_inspecao"
-            android:textColor="@color/white"
+            android:textColor="@color/Branco"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline77" />
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:buttonTint="@color/black"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="@string/partesemavaria"
-            android:textColor="@color/AzulEstranho"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container_avarias_frente" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline80"
@@ -240,11 +163,13 @@
             android:id="@+id/textView46"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:text="@string/registre_qual"
-            android:textColor="@color/white"
+            android:textColor="@color/Branco"
             android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline81"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
@@ -261,14 +186,13 @@
             android:id="@+id/btn_proximoInspecao2"
             android:layout_width="183dp"
             android:layout_height="50dp"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/bg_button"
             android:backgroundTintMode="add"
             android:elevation="15dp"
             android:fontFamily="@font/montserrat_medium"
             android:gravity="center"
-            android:shadowColor="@color/black"
+            android:shadowColor="@color/Preto"
             android:shadowDx="3"
             android:shadowRadius="1"
             android:text="@string/proximo"
@@ -278,8 +202,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline82"
@@ -287,6 +210,21 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.84" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:buttonTint="@color/Preto"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/partesemavaria"
+            android:textColor="@color/AzulPetroleoEscuro"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_avarias_frente" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,7 +10,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="@color/Branco">
 
         <ImageView
             android:id="@+id/imageView12"
@@ -84,7 +84,7 @@
             android:id="@+id/frameLayout3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/AzulPaginas"
+            android:background="@color/CianoEscuro"
             app:layout_constraintBottom_toTopOf="@+id/guideline87"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
