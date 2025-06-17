@@ -127,7 +127,7 @@ class Inspecao2Fragment : Fragment() {
                 .commit()
         }
 
-        binding.btnProximoInspecao2.setOnClickListener {
+        binding.btnFinalizar.setOnClickListener {
             if (etapaAtual < totalEtapas - 1) {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1)
             }
