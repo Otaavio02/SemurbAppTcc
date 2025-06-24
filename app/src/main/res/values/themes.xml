@@ -3,24 +3,16 @@
     <style name="Base.Theme.AppSemurb" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary Brand Color -->
 
-            <!-- Primary Brand Color -->
-            <item name="colorPrimary">@color/colorPrimary</item>
-            <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-            <item name="colorOnPrimary">@color/colorOnPrimary</item>
-            <!-- Secondary Brand Color -->
-            <item name="colorSecondary">@color/colorSecondary</item>
-            <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
-            <item name="colorOnSecondary">@color/colorOnSecondary</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
-    <style name="BACKGROUND">
-        <item name="android:background">@color/Branco</item>
-    </style>
-    <style name="BACKGROUNDFRAMELAYOUT">
-        <item name="android:background">@color/CianoEscuro</item>
-    </style>
-    <style name="TEXTCOLOR">
-        <item name="android:textColor">@color/Preto</item>
+
+        <item name="colorFundo">@color/Fundo</item>
+        <item name="colorFundoElementos">@color/FundoElementos</item>
+        <item name="colorFundoCaixas">@color/FundoCaixas</item>
+        <item name="colorTextoBranco">@color/CorTextoBranco</item>
+        <item name="colorVermelho">@color/CorVermelho</item>
+        <item name="colorVerde">@color/CorVerde</item>
+        <item name="CorTextoPadrao">@color/CorTextoPadrao</item>
+        <item name="colorTextoGrandeGameficado">@color/TextoGrandeGameficado</item>
+
     </style>
 
 

@@ -68,7 +68,7 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
             val corFinal = if (i < index) {
                 R.color.VerdeLimao
             } else {
-                R.color.AzulEscuroProfundo
+                R.color.CorBolas
             }
 
             val duration = 500;
@@ -79,7 +79,7 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
             val corFinal = if (i < index) {
                 R.color.VerdeLimao
             } else {
-                R.color.AzulEscuroProfundo
+                R.color.CorBolas
             }
             val duration = 500;
 

@@ -32,31 +32,22 @@ class ConfigFragment : Fragment() {
             requireActivity().finish()
         }
 
-       /* val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
-        when (currentNightMode) {
-            Configuration.UI_MODE_NIGHT_YES -> {
 
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            Configuration.UI_MODE_NIGHT_NO, Configuration.UI_MODE_NIGHT_UNDEFINED -> {
-
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-        }
-    }*/
 
 
         binding.btnTrocarTema.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
+
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
             }
             (activity as? AppCompatActivity)?.supportActionBar?.hide()
 
-            // Garante que system bars continuam escondidas
+
             activity?.window?.let { window ->
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     window.insetsController?.let {
@@ -72,7 +63,7 @@ class ConfigFragment : Fragment() {
                             )}}
 
 
-        }
+
 
 
         return binding.root

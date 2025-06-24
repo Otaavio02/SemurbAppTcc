@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Cores -->
-
-    <color name="Fundo">#FFFF</color>
-    <color name="FundoElementos">#295678</color>
-    <color name="FundoCaixas">#FFFF</color>
+    <!-- Cores  -->
+    <color name="Fundo">#081A31</color>
+    <color name="FundoElementos">#134366</color>
+    <color name="FundoCaixas">#010E19</color>
+    <color name="CorTextoPadrao">#FFFF</color>
     <color name="CorTextoBranco">#FFFF</color>
-    <color name="CorTextoPadrao">#000000</color>
-    <color name="CorVermelho">#EB564E</color>
-    <color name="CorVerde">#3FFF6F</color>
-    <color name="TextoGrandeGameficado">#DEF1FF</color>
+    <color name="CorVermelho">#EA3323</color>
+    <color name="CorVerde">#28FF00</color>
+    <color name="TextoGrandeGameficado">#4AA5F8</color>
     <color name="CorUmGradiente">#295678</color>
-    <color name="CorDoisGradiente">#6ABDF9</color>
-    <color name="CorBgButton2">#0D1F2C</color>
-    <color name="BaseLineAddColor">#FFFF</color>
-    <color name="CarroCor">#081A31</color>
-    <color name="CorBolas">#081A31</color>
-    <color name="FundoNotificacoes">#FFFF</color>
-    <color name="CorBordaNotificacoesN">#295678</color>
-
+    <color name="CorDoisGradiente">#081A31</color>
+    <color name="CorBgButton2">#010E19</color>
+    <color name="BaseLineAddColor">#6ABDF9</color>
+    <color name="CarroCor">#7BB3F9</color>
+    <color name="CorBolas">#B1CFD3</color>
+    <color name="FundoNotificacoes">#001530</color>
+    <color name="CorBordaNotificacoesN">#012362</color>
 
 
     <color name="AzulPetroleoEscuro">#06202d</color>

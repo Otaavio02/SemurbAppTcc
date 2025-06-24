@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+
         binding.Esqueceusenha.setOnClickListener {
             mostrarBottonSheet()
         }
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             checarCampos(view)
 
         }
+
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    style="@style/BACKGROUND">
+    android:background="?attr/colorFundo">
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:background="?attr/colorFundoElementos"
         android:id="@+id/bottomNavigationView"
-        style="@style/BACKGROUNDFRAMELAYOUT"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:itemIconSize="45dp"

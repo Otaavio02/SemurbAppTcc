@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorFundo" format="color" />
+    <attr name="colorFundoElementos" format="color" />
+    <attr name="colorFundoCaixas" format="color" />
+    <attr name="colorTextoBranco" format="color" />
+    <attr name="colorVermelho" format="color" />
+    <attr name="colorVerde" format="color" />
+    <attr name="colorTextoGrandeGameficado" format="color" />
+    <attr name="CorTextoPadrao" format="color" />
+    <attr name="CorBgButton2" format="color" />
+    <attr name="BaseLineAddColor" format="color" />
+</resources>

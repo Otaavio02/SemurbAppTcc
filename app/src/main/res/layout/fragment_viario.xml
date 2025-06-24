@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/Branco">
+    android:layout_height="match_parent">
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -42,7 +41,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/montserrat_semibold"
         android:text="@string/listagemad"
-        android:textColor="@color/AzulEscuroProfundo"
+        android:textColor="@color/CorTextoPadrao"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline38"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +95,7 @@
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/CianoEscuro"
+        android:background="?attr/colorFundoElementos"
         app:layout_constraintBottom_toTopOf="@+id/guideline36"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
