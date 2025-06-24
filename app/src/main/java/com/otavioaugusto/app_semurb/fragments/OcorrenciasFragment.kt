@@ -30,6 +30,7 @@ class OcorrenciasFragment : Fragment() {
         binding.btnEnviarOcorrencia.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "OCORRENCIAS_EDITADO")
+            intent.putExtra("VISIBILITY","GONE")
             startActivity(intent)
         }
 

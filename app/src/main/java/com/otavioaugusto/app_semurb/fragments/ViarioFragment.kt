@@ -31,7 +31,10 @@ class ViarioFragment : Fragment() {
         _binding = FragmentViarioBinding.inflate(inflater, container, false)
 
         binding.btnEnviarViario.setOnClickListener {
-            navigateToFragment("VIARIO-EDITADO")
+            val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
+            intent.putExtra("FRAGMENT_KEY", "VIARIO_EDITADO")
+            intent.putExtra("VISIBILITY","GONE")
+            startActivity(intent)
         }
 
         binding.btnAdicionarViario.setOnClickListener {

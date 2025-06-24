@@ -36,15 +36,17 @@ class ConfigFragment : Fragment() {
 
 
 
+        val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        binding.btnTrocarTema.isChecked = isNightMode
+
         binding.btnTrocarTema.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
-
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
-            }
+        }
+
             (activity as? AppCompatActivity)?.supportActionBar?.hide()
 
 

@@ -3,7 +3,9 @@ package com.otavioaugusto.app_semurb
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -20,12 +22,13 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_FRAGMENT_KEY = "FRAGMENT_KEY"
+        const val VISIBILITY = "VISIBILITY"
 
-        const val INICIAR_TURNO = "INICIAR_TURNO"
+        const val VERIFICAR_TURNO = "VERIFICAR_TURNO"
         const val INICIAR_INSPECAO = "INICIAR_INSPECAO"
         const val INICIAR_OCORRENCIAS = "INICIAR_OCORRENCIAS"
         const val INICIAR_VIARIO = "INICIAR_VIARIO"
-        const val VIARIO_EDITADO = "VIARIO-EDITADO"
+        const val VIARIO_EDITADO = "VIARIO_EDITADO"
         const val OCORRENCIAS_EDITADO = "OCORRENCIAS_EDITADO"
     }
 
@@ -37,13 +40,23 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
         val fragmentKey = intent.getStringExtra(EXTRA_FRAGMENT_KEY)
 
         val fragmentToShow: Fragment = when (fragmentKey) {
-            INICIAR_TURNO -> VerificarTurnoFragment()
+            VERIFICAR_TURNO -> VerificarTurnoFragment()
             INICIAR_INSPECAO -> Inspecao1Fragment()
-            INICIAR_OCORRENCIAS -> Ocorrencias1Fragment()
             INICIAR_VIARIO -> Viario1Fragment()
             VIARIO_EDITADO -> ViarioEditadoFragment()
+            INICIAR_OCORRENCIAS -> Ocorrencias1Fragment()
             OCORRENCIAS_EDITADO -> OcorrenciasEditadoFragment()
             else -> HomeFragment()
+        }
+
+        val progressBarVisibility = intent.getStringExtra(VISIBILITY)
+        if (progressBarVisibility == "GONE") {
+            val barraProgresso = binding.progressBar
+            barraProgresso.visibility = View.GONE
+            val gradientTransition = binding.gradientTransition
+            gradientTransition.visibility = View.GONE
+            val guidelineBarraProgresso = binding.guideline5
+            guidelineBarraProgresso.visibility = View.GONE
         }
 
         supportFragmentManager.beginTransaction()
@@ -55,7 +68,7 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
     fun moverCarrinhoParaEtapa(index: Int, pularEtapa: String) {
         val carrinho = binding.carrinho
         val etapas = listOf(
-           binding.progressBarCircle1,
+            binding.progressBarCircle1,
             binding.progressBarCircle2,
             binding.progressBarCircle3,
         )
@@ -123,7 +136,7 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
 
     fun concluirEtapaFinal(index: Int) {
         if (index == 3){
-        moverCarrinhoParaEtapa(2, "finalizar")
+            moverCarrinhoParaEtapa(2, "finalizar")
         }
 
         val deslocamento = 850f

@@ -65,7 +65,8 @@ class HomeFragment : Fragment() {
 
         binding.btnIniciarTurno.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY", "INICIAR_TURNO")
+            intent.putExtra("FRAGMENT_KEY", "VERIFICAR_TURNO")
+            intent.putExtra("VISIBILITY","GONE")
             startActivity(intent)
         }
 

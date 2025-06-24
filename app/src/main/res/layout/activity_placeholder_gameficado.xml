@@ -7,6 +7,20 @@
     android:animateLayoutChanges="true"
     android:background="@drawable/gradient_background">
 
+    <RelativeLayout
+        android:id="@+id/gradient_transition"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_gradientegameficado"
+        app:layout_constraintBottom_toTopOf="@+id/progress_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline27"
+        app:layout_constraintVertical_bias="0.0">
+
+    </RelativeLayout>
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
@@ -30,20 +44,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.84" />
-
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/bg_gradientegameficado"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/progress_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline27"
-        app:layout_constraintVertical_bias="0.0">
-
-    </RelativeLayout>
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -145,5 +145,7 @@
         app:layout_constraintBottom_toTopOf="@+id/progress_bar"
         app:layout_constraintTop_toBottomOf="@+id/FragmentContainerView2"
         app:srcCompat="@drawable/carro" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
