@@ -13,7 +13,7 @@
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
         android:padding="16dp"
-        android:text="@string/qual_tipo_ocorrencia"
+        android:text="@string/preencha_detalhamento"
         android:textAlignment="center"
         android:textColor="@color/Branco"
         android:textSize="24sp"
@@ -34,7 +34,6 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
-
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
@@ -47,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
-        android:text="@string/ocorrencias"
+        android:text="@string/ocorrencia"
         android:textColor="@color/AzulEscuroProfundo"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +58,7 @@
         android:id="@+id/btn_proximoOcorrencias3"
         android:layout_width="183dp"
         android:layout_height="50dp"
-        android:background="@drawable/bg_button"
+        android:background="@drawable/bg_buttonverde"
         android:backgroundTintMode="add"
         android:elevation="15dp"
         android:fontFamily="@font/montserrat_medium"
@@ -67,13 +66,13 @@
         android:shadowColor="@color/Preto"
         android:shadowDx="3"
         android:shadowRadius="1"
-        android:text="@string/proximo"
-        android:textColor="@android:color/white"
+        android:text="@string/finalizar"
+        android:textColor="@color/VerdePalido"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline44"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline43" />
 
@@ -82,143 +81,112 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.10" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline43"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.72" />
+        app:layout_constraintGuide_percent="0.74" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline44"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.97" />
+        app:layout_constraintGuide_percent="0.96" />
 
-    <ImageView
-        android:id="@+id/imageView22"
-        android:layout_width="337.32dp"
-        android:layout_height="56.39dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline45"
-        app:srcCompat="@drawable/inspecaonegocio" />
+
+
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/nome_contato"
+        android:textColor="@color/Branco"
+        app:layout_constraintBottom_toTopOf="@+id/editTextText3"
+        app:layout_constraintStart_toStartOf="@+id/editTextText3" />
+
+    <EditText
+        android:id="@+id/editTextText3"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:ems="10"
+        android:hint="@string/digite_nome"
+        android:inputType="text"
+        android:padding="15dp"
+        android:textColor="@color/Preto"
+        android:textColorHint="@color/Branco"
+        android:textColorLink="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/editTextText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline46" />
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextText3"
+        app:layout_constraintEnd_toStartOf="@+id/editTextText3"
+        app:layout_constraintTop_toTopOf="@+id/editTextText3"
+        app:srcCompat="@drawable/perfil_simbolo" />
+
+    <EditText
+        android:id="@+id/editTextText2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:ems="10"
+        android:hint="@string/digite_contato"
+        android:inputType="phone"
+        android:padding="15dp"
+        android:textColor="@color/Preto"
+        android:textColorHint="@color/Branco"
+        android:textColorLink="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextText3" />
+    <TextView
+        android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_semibold"
-        android:paddingStart="20dp"
+        android:paddingStart="5dp"
         android:paddingEnd="5dp"
-        android:text="@string/atendimento"
-        android:textColor="#000000"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-        app:layout_constraintStart_toStartOf="@+id/imageView22"
-        app:layout_constraintTop_toTopOf="@+id/imageView22" />
-
-
-    <ImageView
-        android:id="@+id/imageView23"
-        android:layout_width="337.32dp"
-        android:layout_height="56.39dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView24"
-        app:srcCompat="@drawable/inspecaonegocio" />
-
-    <ImageView
-        android:id="@+id/imageView24"
-        android:layout_width="337.32dp"
-        android:layout_height="56.39dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView22"
-        app:srcCompat="@drawable/inspecaonegocio" />
-
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_semibold"
-        android:paddingStart="20dp"
-        android:paddingEnd="5dp"
-        android:text="@string/sinistrotra"
-        android:textColor="#000000"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView24"
-        app:layout_constraintStart_toStartOf="@+id/imageView24"
-        app:layout_constraintTop_toTopOf="@+id/imageView24" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_semibold"
-        android:paddingStart="20dp"
-        android:paddingEnd="5dp"
-        android:text="@string/Grande_Vulto"
-        android:textColor="#000000"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView23"
-        app:layout_constraintStart_toStartOf="@+id/imageView23"
-        app:layout_constraintTop_toTopOf="@+id/imageView23" />
+        android:text="@string/contact"
+        android:textColor="@color/Branco"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextText2"
+        app:layout_constraintStart_toStartOf="@+id/editTextText2" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline45"
+        android:id="@+id/guideline46"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.4" />
 
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="210dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView23"
-        app:layout_constraintEnd_toEndOf="@+id/imageView24"
-        app:layout_constraintTop_toTopOf="@+id/imageView22">
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextText2"
+        app:layout_constraintEnd_toStartOf="@+id/editTextText2"
+        app:layout_constraintTop_toTopOf="@+id/editTextText2"
+        app:srcCompat="@drawable/viario_telefone" />
 
-        <RadioButton
-            android:id="@+id/rbSinistro"
-            android:layout_width="48dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="5dp"
-            android:paddingEnd="20dp" />
 
-        <RadioButton
-            android:id="@+id/rbGrandeVulto"
-            android:layout_width="44dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="33dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="20dp" />
 
-        <RadioButton
-            android:id="@+id/rbAtendimento"
-            android:layout_width="44dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="31dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="20dp" />
 
-    </RadioGroup>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline48"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.640853" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

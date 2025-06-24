@@ -1,6 +1,5 @@
 package com.otavioaugusto.app_semurb.fragments
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,33 +7,55 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
-import com.otavioaugusto.app_semurb.PlaceHolderActivity
-import com.otavioaugusto.app_semurb.databinding.FragmentViarioBinding
+import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
+import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentViario2Binding
+import com.otavioaugusto.app_semurb.databinding.FragmentViario3Binding
 
 class Viario2Fragment : Fragment() {
 
-    private var _binding: FragmentViarioBinding? = null
+    private var _binding: FragmentViario2Binding? = null
     private val binding get() = _binding!!
+
+    private var etapaAtual = 1 // etapa 2
+    private var totalEtapas = 3
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentViarioBinding.inflate(inflater, container, false)
+        _binding = FragmentViario2Binding.inflate(inflater, container, false)
 
         binding.btnVoltarViario2.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY2", "INICIAR_HOME")
-            startActivity(intent)
+            if (etapaAtual > 0) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+            }
+
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
+                .replace(R.id.FragmentContainerView2, Viario1Fragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         binding.btnProximoViario2.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY2", "INICIAR_VIARIOHOME")
-            startActivity(intent)
+            if (etapaAtual < totalEtapas - 1) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
+            }
+
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+                )
+                .replace(R.id.FragmentContainerView2, Viario3Fragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return binding.root

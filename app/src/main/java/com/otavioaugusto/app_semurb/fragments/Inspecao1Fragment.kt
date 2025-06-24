@@ -9,27 +9,31 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.databinding.FragmentInspecaoBinding
+import com.otavioaugusto.app_semurb.databinding.FragmentInspecao1Binding
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 class Inspecao1Fragment : Fragment() {
 
-    private var _binding: FragmentInspecaoBinding? = null
+    private var _binding: FragmentInspecao1Binding? = null
     private val binding get() = _binding!!
+
+    private var etapaAtual = 0 // etapa 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentInspecaoBinding.inflate(inflater, container, false)
+        _binding = FragmentInspecao1Binding.inflate(inflater, container, false)
 
-
+        // Animação inicial do carrinho chegando
         val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
         val bolinhaInicial = requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
-        val destino = bolinhaInicial
-        destino.post {
-            val destinoX = destino.x + destino.width / 2 - carrinho.width / 2
+        bolinhaInicial.post {
+            val destinoX = bolinhaInicial.x + bolinhaInicial.width / 2 - carrinho.width / 2
 
             carrinho.animate()
                 .x(destinoX)
@@ -37,15 +41,18 @@ class Inspecao1Fragment : Fragment() {
                 .start()
         }
 
-
-
         binding.btnVoltarInspecao.setOnClickListener {
             requireActivity().finish()
         }
 
         binding.btnProximoInspecao1.setOnClickListener {
             if (binding.checkBoxSemAvaria.isChecked) {
-                requireActivity().finish()
+
+                (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(3)
+
+                Timer().schedule(700) {
+                    requireActivity().finish()
+                }
             } else {
                 parentFragmentManager.beginTransaction()
                     .setCustomAnimations(

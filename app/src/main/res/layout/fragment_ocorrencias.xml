@@ -5,128 +5,124 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Ocorrencias2Activity">
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp">
 
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="350dp"
-        android:layout_height="100dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="@string/confirmar_viario"
-        android:textAlignment="center"
-        android:textColor="@color/Branco"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline40"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.0" />
-
-    <ImageButton
-        android:id="@+id/btn_voltarOcorrencias2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/guideline41"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline40"
-        app:srcCompat="@drawable/voltar" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="@string/ocorrencia"
-        android:textColor="@color/AzulEscuroProfundo"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline41" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_proximoOcorrencia2"
-        android:layout_width="183dp"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_button"
+        android:id="@+id/btn_adicionarOcorrencia"
+        android:layout_width="353.64dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_button2"
         android:backgroundTintMode="add"
+        android:drawableStart="@drawable/baseline_add_24"
+        android:elegantTextHeight="false"
         android:elevation="15dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:gravity="center"
+        android:fontFamily="@font/montserrat_semibold"
+        android:gravity="center|start"
+        android:isScrollContainer="false"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:shadowColor="@color/Preto"
         android:shadowDx="3"
         android:shadowRadius="1"
-        android:text="@string/proximo"
+        android:text="@string/novaoc"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline44"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline43" />
+        app:layout_constraintTop_toTopOf="@+id/guideline38" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="@string/listagemoc"
+        android:textColor="@color/AzulEscuroProfundo"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline38"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline36" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline41"
+        android:id="@+id/guideline36"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.10" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline42"
+        android:id="@+id/guideline37"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.29" />
+        app:layout_constraintGuide_percent="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline43"
+        android:id="@+id/guideline38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.79" />
+        app:layout_constraintGuide_percent="0.17" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline44"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.98" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_enviarOcorrencia"
+        android:layout_width="123.69dp"
+        android:layout_height="41.1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_button2"
+        android:backgroundTintMode="add"
+        android:elegantTextHeight="false"
+        android:elevation="15dp"
 
-    <ScrollView
-        android:id="@+id/scrollView3"
+        android:fontFamily="@font/montserrat_semibold"
+        android:gravity="center"
+        android:isScrollContainer="false"
+        android:shadowColor="@color/Preto"
+        android:shadowDx="3"
+        android:shadowRadius="1"
+        android:text="@string/enviar"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_retangulo"
-        app:layout_constraintBottom_toTopOf="@+id/guideline43"
+        android:background="@color/CianoEscuro"
+        app:layout_constraintBottom_toTopOf="@+id/guideline36"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline42"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="@+id/guideline37">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/btn_voltarOcorrencia"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center|start"
+            android:layout_marginStart="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/botaovoltarconfig"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/voltar" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
-    </ScrollView>
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/ocorrencias"
+            android:textColor="#FFFFFF"
+            android:textSize="34sp" />
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -88,10 +88,10 @@
     <string name="ineficiente">Sinalização ineficiente</string>
     <string name="substitui_o">Substituição</string>
     <string name="sugest_o">Sugestão</string>
-    <string name="endereco">Digite o endereço…</string>
+    <string name="endereco">Digite o endereço...</string>
     <string name="endereco2">Endereço</string>
     <string name="escreva">Escreva Aqui…</string>
-    <string name="descricao_viario">XXXXXX XXXXX</string>
+    <string name="descricao_viario">Descrição</string>
     <string name="categorias23">CATEGORIAS</string>
     <string name="atendimento">Atendimento ao Cidadão</string>
     <string name="listagemoc">Listagem de Ocorrências</string>
@@ -125,6 +125,9 @@
     <string name="partesemavaria">Parte sem Avária</string>
     <string name="veiculosemavaria">Sem Avárias no veículo</string>
     <string name="registre_qual">Registre qualquer avaria das seguintes partes do veículo:</string>
+    <string name="houve_avaria">Houve qualquer avaria na viatura?</string>
+    <string name="rb_sim_avaria">Sim, há avarias.</string>
+    <string name="rb_nao_avaria">Não, não há avarias</string>
     <string name="lateral_direita">Lateral Direita</string>
     <string name="lateral_esquerda">Lateral Esquerda</string>
     <string name="traseira">Traseira</string>

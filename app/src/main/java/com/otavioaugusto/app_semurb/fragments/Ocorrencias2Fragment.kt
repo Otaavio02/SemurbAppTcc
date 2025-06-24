@@ -10,30 +10,54 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderActivity
-import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciasBinding
+import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
+import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias2Binding
+import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias3Binding
 
 class Ocorrencias2Fragment : Fragment() {
 
-    private var _binding: FragmentOcorrenciasBinding? = null
+    private var _binding: FragmentOcorrencias2Binding? = null
     private val binding get() = _binding!!
+
+    private var etapaAtual = 1 // etapa 2
+    private var totalEtapas = 3
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentOcorrenciasBinding.inflate(inflater, container, false)
+        _binding = FragmentOcorrencias2Binding.inflate(inflater, container, false)
 
         binding.btnVoltarOcorrencias2.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY2", "INICIAR_HOME")
-            startActivity(intent)
+            if (etapaAtual > 0) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+            }
+
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
+                .replace(R.id.FragmentContainerView2, Ocorrencias1Fragment())
+                .addToBackStack(null)
+                .commit()
         }
 
-        binding.btnProximoOcorrencia2.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY2", "INICIAR_OCORRENCIASHOME")
-            startActivity(intent)
+        binding.btnProximoOcorrencias2.setOnClickListener {
+            if (etapaAtual < totalEtapas - 1) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
+            }
+
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+                )
+                .replace(R.id.FragmentContainerView2, Ocorrencias3Fragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return binding.root

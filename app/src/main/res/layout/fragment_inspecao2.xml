@@ -16,147 +16,6 @@
         tools:context=".ViarioEditadoActivity">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container_avarias_frente"
-            android:layout_width="376dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:background="@android:color/transparent"
-            android:orientation="vertical"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView46">
-
-            <TextView
-                android:id="@+id/textViewFrente"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@drawable/bg_azulpaginas2"
-                android:fontFamily="@font/montserrat_bold"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="@string/frente"
-                android:textColor="@color/Branco"
-                android:textSize="25sp"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <FrameLayout
-                android:id="@+id/frame_avaria_frente"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/bg_partes"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewFrente"
-                app:layout_constraintVertical_bias="0.0"
-                tools:layout_editor_absoluteX="9dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvFrente"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    tools:listitem="@layout/item_avarias" />
-            </FrameLayout>
-
-            <ImageButton
-                android:id="@+id/btnInspecaoFrente"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="8dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/inspecaofechar" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:buttonTint="@color/Preto"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="@string/partesemavaria"
-            android:textColor="@color/AzulPetroleoEscuro"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container_avarias_frente" />
-
-        <CheckBox
-            android:id="@+id/checkBox6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:buttonTint="@color/Preto"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="@string/partesemavaria"
-            android:textColor="@color/AzulPetroleoEscuro"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container_avarias_outras" />
-
-        <CheckBox
-            android:id="@+id/checkBox2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:buttonTint="@color/Preto"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="@string/partesemavaria"
-            android:textColor="@color/AzulPetroleoEscuro"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container_avarias_traseira" />
-
-        <CheckBox
-            android:id="@+id/checkBox5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:buttonTint="@color/Preto"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="@string/partesemavaria"
-            android:textColor="@color/AzulPetroleoEscuro"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container_avarias_esquerda" />
-
-        <CheckBox
-            android:id="@+id/checkBox4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:buttonTint="@color/Preto"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="@string/partesemavaria"
-            android:textColor="@color/AzulPetroleoEscuro"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container_avarias_direita" />
-
         <ImageButton
             android:id="@+id/btn_voltarInspecao2"
             android:layout_width="60dp"
@@ -173,8 +32,7 @@
             android:id="@+id/btnFinalizar"
             android:layout_width="183dp"
             android:layout_height="50dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="56dp"
             android:background="@drawable/bg_button"
             android:backgroundTintMode="add"
             android:elevation="15dp"
@@ -190,8 +48,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox6" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline76"
@@ -228,7 +85,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
-            android:text="@string/registre_qual"
+            android:text="@string/houve_avaria"
             android:textColor="@color/Branco"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -237,270 +94,80 @@
             app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container_avarias_traseira"
-            android:layout_width="376dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:orientation="vertical"
-            android:visibility="visible"
+        <ImageView
+            android:id="@+id/imageView24"
+            android:layout_width="337.32dp"
+            android:layout_height="56.39dp"
+            android:layout_marginTop="70dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox">
+            app:layout_constraintTop_toBottomOf="@+id/textView46"
+            app:srcCompat="@drawable/inspecaonegocio" />
 
-            <TextView
-                android:id="@+id/textViewTraseira"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@drawable/bg_azulpaginas2"
-                android:fontFamily="@font/montserrat_bold"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="@string/traseira"
-                android:textColor="@color/Branco"
-                android:textSize="25sp"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <FrameLayout
-                android:id="@+id/frame_avaria_traseira"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/bg_partes"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTraseira"
-                app:layout_constraintVertical_bias="0.0">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvTraseira"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    tools:listitem="@layout/item_avarias" />
-            </FrameLayout>
-
-            <ImageButton
-                android:id="@+id/btnInspecaoTraseira"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="8dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/inspecaofechar" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container_avarias_direita"
-            android:layout_width="376dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:orientation="vertical"
-            android:visibility="visible"
+        <ImageView
+            android:id="@+id/imageView234"
+            android:layout_width="337.32dp"
+            android:layout_height="56.39dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox2">
+            app:layout_constraintTop_toBottomOf="@+id/imageView24"
+            app:srcCompat="@drawable/inspecaonegocio" />
 
-            <TextView
-                android:id="@+id/textViewDireita"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@drawable/bg_azulpaginas2"
-                android:fontFamily="@font/montserrat_bold"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="@string/lateral_direita"
-                android:textColor="@color/Branco"
-                android:textSize="25sp"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <FrameLayout
-                android:id="@+id/frame_avaria_direita"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/bg_partes"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDireita"
-                app:layout_constraintVertical_bias="0.0">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvDireita"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    tools:listitem="@layout/item_avarias" />
-            </FrameLayout>
-
-            <ImageButton
-                android:id="@+id/btnInspecaoDireita"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="8dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/inspecaofechar" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container_avarias_esquerda"
-            android:layout_width="376dp"
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:orientation="vertical"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox4">
+            android:fontFamily="@font/montserrat_semibold"
+            android:paddingStart="20dp"
+            android:paddingEnd="5dp"
+            android:text="@string/rb_sim_avaria"
+            android:textColor="#000000"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView24"
+            app:layout_constraintStart_toStartOf="@+id/imageView24"
+            app:layout_constraintTop_toTopOf="@+id/imageView24" />
 
-            <TextView
-                android:id="@+id/textViewEsquerda"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@drawable/bg_azulpaginas2"
-                android:fontFamily="@font/montserrat_bold"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="@string/lateral_esquerda"
-                android:textColor="@color/Branco"
-                android:textSize="25sp"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <FrameLayout
-                android:id="@+id/frame_avaria_esquerda"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/bg_partes"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewEsquerda"
-                app:layout_constraintVertical_bias="0.0">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvEsquerda"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    tools:listitem="@layout/item_avarias" />
-            </FrameLayout>
-
-            <ImageButton
-                android:id="@+id/btnInspecaoEsquerda"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="8dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/inspecaofechar" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container_avarias_outras"
-            android:layout_width="376dp"
+        <TextView
+            android:id="@+id/textView233"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:orientation="vertical"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox5">
+            android:fontFamily="@font/montserrat_semibold"
+            android:paddingStart="20dp"
+            android:paddingEnd="5dp"
+            android:text="@string/rb_nao_avaria"
+            android:textColor="#000000"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView234"
+            app:layout_constraintStart_toStartOf="@+id/imageView234"
+            app:layout_constraintTop_toTopOf="@+id/imageView234" />
 
-            <TextView
-                android:id="@+id/textViewOutras"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@drawable/bg_azulpaginas2"
-                android:fontFamily="@font/montserrat_bold"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="@string/outra"
-                android:textColor="@color/Branco"
-                android:textSize="25sp"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView234"
+            app:layout_constraintEnd_toEndOf="@+id/imageView24"
+            app:layout_constraintTop_toTopOf="@+id/imageView24">
 
-            <FrameLayout
-                android:id="@+id/frame_avaria_outras"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/bg_partes"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewOutras"
-                app:layout_constraintVertical_bias="0.0">
+            <RadioButton
+                android:id="@+id/rbSinistro"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="20dp" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvOutras"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    tools:listitem="@layout/item_avarias" />
-            </FrameLayout>
+            <RadioButton
+                android:id="@+id/rbGrandeVulto"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="49dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="20dp" />
 
-            <ImageButton
-                android:id="@+id/btnInspecaoOutras"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="8dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/inspecaofechar" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RadioGroup>
 
 
 

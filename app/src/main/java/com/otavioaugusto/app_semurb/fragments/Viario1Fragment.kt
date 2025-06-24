@@ -7,38 +7,56 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import androidx.appcompat.widget.AppCompatButton
-import androidx.fragment.app.Fragment
-import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.databinding.FragmentViario4Binding
-import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
+import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
+import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentViario1Binding
 
-class Viario4Fragment : Fragment() {
+class Viario1Fragment : Fragment() {
 
-    private var _binding: FragmentViario4Binding? = null
+    private var _binding: FragmentViario1Binding? = null
     private val binding get() = _binding!!
+
+    private var etapaAtual = 0 // etapa 2
+    private var totalEtapas = 3
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentViario4Binding.inflate(inflater, container, false)
+        _binding = FragmentViario1Binding.inflate(inflater, container, false)
 
-        binding.btnVoltarViario4.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_left,
-                    R.anim.slide_out_right
-                )
-                .replace(R.id.FragmentContainerView2, Viario3Fragment())
-                .addToBackStack(null)
-                .commit()
+        // Animação inicial do carrinho chegando
+        val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
+        val bolinhaInicial = requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
+        bolinhaInicial.post {
+            val destinoX = bolinhaInicial.x + bolinhaInicial.width / 2 - carrinho.width / 2
+
+            carrinho.animate()
+                .x(destinoX)
+                .setDuration(700)
+                .start()
         }
 
-        binding.btnProximoViario4.setOnClickListener {
+        binding.btnVoltarViario1.setOnClickListener {
             requireActivity().finish()
+        }
+
+        binding.btnProximoViario1.setOnClickListener {
+            if (etapaAtual < totalEtapas - 1) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
+            }
+
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left,
+                )
+                .replace(R.id.FragmentContainerView2, Viario2Fragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return binding.root

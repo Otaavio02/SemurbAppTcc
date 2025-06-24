@@ -7,35 +7,56 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias4Binding
+import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias1Binding
 
-class Ocorrencias4Fragment : Fragment() {
+class Ocorrencias1Fragment : Fragment() {
 
-    private var _binding: FragmentOcorrencias4Binding? = null
+    private var _binding: FragmentOcorrencias1Binding? = null
     private val binding get() = _binding!!
+
+    private var etapaAtual = 0 // etapa 2
+    private var totalEtapas = 3
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentOcorrencias4Binding.inflate(inflater, container, false)
+        _binding = FragmentOcorrencias1Binding.inflate(inflater, container, false)
 
-        binding.btnVoltarOcorrencias4.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_left,
-                    R.anim.slide_out_right
-                )
-                .replace(R.id.FragmentContainerView2, Ocorrencias3Fragment())
-                .addToBackStack(null)
-                .commit()
+        // Animação inicial do carrinho chegando
+        val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
+        val bolinhaInicial = requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
+        bolinhaInicial.post {
+            val destinoX = bolinhaInicial.x + bolinhaInicial.width / 2 - carrinho.width / 2
+
+            carrinho.animate()
+                .x(destinoX)
+                .setDuration(700)
+                .start()
         }
 
-        binding.btnProximoOcorrencias4.setOnClickListener {
+        binding.btnVoltarOcorrencias1.setOnClickListener {
             requireActivity().finish()
+        }
+
+        binding.btnProximoOcorrencias1.setOnClickListener {
+            if (etapaAtual < totalEtapas - 1) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
+            }
+
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left,
+                )
+                .replace(R.id.FragmentContainerView2, Ocorrencias2Fragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return binding.root
@@ -48,8 +69,7 @@ class Ocorrencias4Fragment : Fragment() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {
                     it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                    it.systemBarsBehavior =
-                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 }
             } else {
                 @Suppress("DEPRECATION")

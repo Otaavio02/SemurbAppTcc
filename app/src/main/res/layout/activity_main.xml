@@ -198,7 +198,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_matricula"
         android:layout_width="350dp"
-        android:layout_height="68dp"
+        android:layout_height="60dp"
         android:background="@drawable/bg_pesquisa"
         android:hint="@string/matricula"
         android:textColorHint="@color/CinzaClarinho"
@@ -228,7 +228,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_senha"
         android:layout_width="350dp"
-        android:layout_height="68dp"
+        android:layout_height="60dp"
         android:background="@drawable/bg_pesquisa"
         android:hint="@string/senha"
         android:textColorHint="@color/CinzaClarinho"

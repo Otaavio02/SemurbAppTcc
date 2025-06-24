@@ -7,16 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
+import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentViario2Binding
 import com.otavioaugusto.app_semurb.databinding.FragmentViario3Binding
-import android.widget.ImageButton
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 class Viario3Fragment : Fragment() {
 
     private var _binding: FragmentViario3Binding? = null
     private val binding get() = _binding!!
+
+    private var etapaAtual = 2 // etapa 3
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,20 +30,26 @@ class Viario3Fragment : Fragment() {
         _binding = FragmentViario3Binding.inflate(inflater, container, false)
 
         binding.btnVoltarViario3.setOnClickListener {
-            val intent = android.content.Intent(requireContext(), com.otavioaugusto.app_semurb.PlaceHolderActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY2", "INICIAR_VIARIOHOME")
-            startActivity(intent)
+            if (etapaAtual > 0) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+            }
+
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
+                .replace(R.id.FragmentContainerView2, Viario2Fragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         binding.btnProximoViario3.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left
-                )
-                .replace(R.id.FragmentContainerView2, Viario4Fragment())
-                .addToBackStack(null)
-                .commit()
+            (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
+
+            Timer().schedule(700) {
+                requireActivity().finish()
+            }
         }
 
         return binding.root

@@ -134,7 +134,7 @@
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/perfil"
             android:textColor="#FFFFFF"
-            android:textSize="50sp" />
+            android:textSize="35sp" />
     </FrameLayout>
 
     <androidx.constraintlayout.widget.Guideline

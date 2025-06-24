@@ -10,11 +10,14 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
+import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias1Binding
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias2Binding
+import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciasBinding
 
 class OcorrenciasFragment : Fragment() {
 
-    private var _binding: FragmentOcorrencias2Binding? = null
+    private var _binding: FragmentOcorrenciasBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,7 +25,7 @@ class OcorrenciasFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentOcorrencias2Binding.inflate(inflater, container, false)
+        _binding = FragmentOcorrenciasBinding.inflate(inflater, container, false)
 
         binding.btnEnviarOcorrencia.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
@@ -32,14 +35,19 @@ class OcorrenciasFragment : Fragment() {
 
         binding.btnAdicionarOcorrencia.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY", "INICIAR_OCORRENCIAS2")
+            intent.putExtra("FRAGMENT_KEY", "INICIAR_OCORRENCIAS")
             startActivity(intent)
         }
 
         binding.btnVoltarOcorrencia.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY", "INICIAR_OCORRENCIAS")
-            startActivity(intent)
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
+                .replace(R.id.fragmentContainerView, HomeFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return binding.root

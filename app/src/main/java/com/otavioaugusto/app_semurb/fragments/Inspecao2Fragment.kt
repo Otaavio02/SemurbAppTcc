@@ -38,7 +38,7 @@ class Inspecao2Fragment : Fragment() {
     private var _binding: FragmentInspecao2Binding? = null
     private val binding get() = _binding!!
 
-    private var etapaAtual = 1
+    private var etapaAtual = 1 // etapa 2
     private var totalEtapas = 3
 
     override fun onCreateView(
@@ -49,72 +49,9 @@ class Inspecao2Fragment : Fragment() {
         _binding = FragmentInspecao2Binding.inflate(inflater, container, false)
 
 
-        class AvariasRecyclerHelper(
-            private val context: Context,
-            private val recyclerView: RecyclerView
-        ) {
-            private val avariasList = mutableListOf(AvariaItem())
-            private val adapter = AvariasAdapter(avariasList)
-
-            init {
-                setupRecycler()
-            }
-
-            private fun setupRecycler() {
-                recyclerView.layoutManager = LinearLayoutManager(context)
-                recyclerView.adapter = adapter
-            }
-
-            fun getAvarias(): List<AvariaItem> = avariasList
-
-            fun addAvaria(avaria: AvariaItem) {
-                avariasList.add(avaria)
-                adapter.notifyItemInserted(avariasList.size - 1)
-            }
-
-            fun removeAvaria(index: Int) {
-                if (index in avariasList.indices) {
-                    avariasList.removeAt(index)
-                    adapter.notifyItemRemoved(index)
-                }
-            }
-
-            fun getAdapter(): AvariasAdapter = adapter
-        }
-
-        class AvariaToggleController(
-            private val context: Context,
-            private val container: ConstraintLayout,
-            private val frame: FrameLayout,
-            private val btnToggle: ImageButton,
-            private val headerTextView: TextView
-        ) {
-            init {
-                setupToggle()
-            }
-
-            private fun setupToggle() {
-                btnToggle.setOnClickListener {
-                    TransitionManager.beginDelayedTransition(container, AutoTransition())
-
-                    if (frame.isGone) {
-                        headerTextView.setBackgroundResource(R.drawable.bg_azulpaginas)
-                        frame.setBackgroundResource(R.drawable.bg_fundoinspecao)
-                        btnToggle.setImageResource(R.drawable.inspecaoabrir)
-                        frame.visibility = View.VISIBLE
-                    } else if (frame.isVisible) {
-                        headerTextView.setBackgroundResource(R.drawable.bg_azulpaginas2)
-                        frame.setBackgroundColor(ContextCompat.getColor(context, R.color.Transparente))
-                        btnToggle.setImageResource(R.drawable.inspecaofechar)
-                        frame.visibility = View.GONE
-                    }
-                }
-            }
-        }
-
         binding.btnVoltarInspecao2.setOnClickListener {
             if (etapaAtual > 0) {
-                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1)
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
             }
 
             parentFragmentManager.beginTransaction()
@@ -129,7 +66,7 @@ class Inspecao2Fragment : Fragment() {
 
         binding.btnFinalizar.setOnClickListener {
             if (etapaAtual < totalEtapas - 1) {
-                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1)
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
             }
 
             parentFragmentManager.beginTransaction()
@@ -142,53 +79,6 @@ class Inspecao2Fragment : Fragment() {
                 .commit()
         }
 
-
-        AvariaToggleController(
-            context = requireContext(),
-            container = binding.containerAvariasTraseira,
-            frame = binding.frameAvariaTraseira,
-            btnToggle = binding.btnInspecaoTraseira,
-            headerTextView = binding.textViewTraseira
-        )
-
-        AvariaToggleController(
-            context = requireContext(),
-            container = binding.containerAvariasEsquerda,
-            frame = binding.frameAvariaEsquerda,
-            btnToggle = binding.btnInspecaoEsquerda,
-            headerTextView = binding.textViewEsquerda
-        )
-
-        AvariaToggleController(
-            context = requireContext(),
-            container = binding.containerAvariasDireita,
-            frame = binding.frameAvariaDireita,
-            btnToggle = binding.btnInspecaoDireita,
-            headerTextView = binding.textViewDireita
-        )
-
-        AvariaToggleController(
-            context = requireContext(),
-            container = binding.containerAvariasOutras,
-            frame = binding.frameAvariaOutras,
-            btnToggle = binding.btnInspecaoOutras,
-            headerTextView = binding.textViewOutras
-        )
-
-        AvariaToggleController(
-            context = requireContext(),
-            container = binding.containerAvariasFrente,
-            frame = binding.frameAvariaFrente,
-            btnToggle = binding.btnInspecaoFrente,
-            headerTextView = binding.textViewFrente
-        )
-
-        val recyclerHelperFrente = AvariasRecyclerHelper(requireContext(), binding.rvFrente)
-        val recyclerHelperTraseira = AvariasRecyclerHelper(requireContext(), binding.rvTraseira)
-        val recyclerHelperDireita = AvariasRecyclerHelper(requireContext(), binding.rvDireita)
-        val recyclerHelperEsquerda = AvariasRecyclerHelper(requireContext(), binding.rvEsquerda)
-        val recyclerHelperOutras = AvariasRecyclerHelper(requireContext(), binding.rvOutras)
-
         return binding.root
     }
 
@@ -196,7 +86,7 @@ class Inspecao2Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.post {
-            (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual)
+            (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual, "continuar")
         }
     }
 

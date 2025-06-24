@@ -10,11 +10,13 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
+import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentViario2Binding
+import com.otavioaugusto.app_semurb.databinding.FragmentViarioBinding
 
 class ViarioFragment : Fragment() {
 
-    private var _binding: FragmentViario2Binding? = null
+    private var _binding: FragmentViarioBinding? = null
     private val binding get() = _binding!!
 
     companion object {
@@ -26,18 +28,25 @@ class ViarioFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentViario2Binding.inflate(inflater, container, false)
+        _binding = FragmentViarioBinding.inflate(inflater, container, false)
 
         binding.btnEnviarViario.setOnClickListener {
             navigateToFragment("VIARIO-EDITADO")
         }
 
         binding.btnAdicionarViario.setOnClickListener {
-            navigateToFragment("INICIAR_VIARIO2")
+            navigateToFragment("INICIAR_VIARIO")
         }
 
         binding.btnVoltarViario.setOnClickListener {
-            navigateToFragment("INICIAR_VIARIO")
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
+                .replace(R.id.fragmentContainerView, HomeFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return binding.root

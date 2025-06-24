@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.databinding.ActivityPlaceholderGameficadoBinding
 import com.otavioaugusto.app_semurb.fragments.*
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 class PlaceHolderGameficadoActivity : AppCompatActivity() {
 
@@ -25,8 +27,6 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
         const val INICIAR_VIARIO = "INICIAR_VIARIO"
         const val VIARIO_EDITADO = "VIARIO-EDITADO"
         const val OCORRENCIAS_EDITADO = "OCORRENCIAS_EDITADO"
-        const val INICIAR_VIARIO2 = "INICIAR_VIARIO2"
-        const val INICIAR_OCORRENCIAS2 = "INICIAR_OCORRENCIAS2"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,12 +39,10 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
         val fragmentToShow: Fragment = when (fragmentKey) {
             INICIAR_TURNO -> VerificarTurnoFragment()
             INICIAR_INSPECAO -> Inspecao1Fragment()
-            INICIAR_OCORRENCIAS -> Ocorrencias2Fragment()
-            INICIAR_VIARIO -> Viario2Fragment()
+            INICIAR_OCORRENCIAS -> Ocorrencias1Fragment()
+            INICIAR_VIARIO -> Viario1Fragment()
             VIARIO_EDITADO -> ViarioEditadoFragment()
             OCORRENCIAS_EDITADO -> OcorrenciasEditadoFragment()
-            INICIAR_VIARIO2 -> Viario3Fragment()
-            INICIAR_OCORRENCIAS2 -> Ocorrencias3Fragment()
             else -> HomeFragment()
         }
 
@@ -54,7 +52,7 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
     }
 
 
-    fun moverCarrinhoParaEtapa(index: Int) {
+    fun moverCarrinhoParaEtapa(index: Int, pularEtapa: String) {
         val carrinho = binding.carrinho
         val etapas = listOf(
            binding.progressBarCircle1,
@@ -65,8 +63,6 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
             binding.progressBarLine1,
             binding.progressBarLine2,
         )
-
-        if (index < 0 || index >= etapas.size) return
 
         etapas.forEachIndexed { i, etapa ->
             val corFinal = if (i < index) {
@@ -93,13 +89,19 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
 
         val destino = etapas[index]
         destino.post {
-            val destinoX = destino.x + destino.width / 2 - carrinho.width / 2
+
+            val destinoX = if (pularEtapa == "finalizar") {
+                750f // Valor caso for pular etapa
+            } else {
+                destino.x + destino.width / 2 - carrinho.width / 2 // Valor para usar o a posição X da proxima etapa
+            }
 
             carrinho.animate()
                 .x(destinoX)
                 .setDuration(400)
                 .start()
         }
+
     }
 
     fun animarCorElemento(view: ImageView, corFinalRes: Int, durationTime: Int) {
@@ -119,7 +121,18 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
         animator.start()
     }
 
-    fun concluirEtapaFinal() {
+    fun concluirEtapaFinal(index: Int) {
+        if (index == 3){
+        moverCarrinhoParaEtapa(2, "finalizar")
+        }
+
+        val deslocamento = 850f
+        val carrinho = binding.carrinho
+        carrinho.animate()
+            .translationX(deslocamento)
+            .setDuration(500)
+            .start()
+
         val etapa = findViewById<ImageView>(R.id.progress_bar_circle3);
         animarCorElemento(etapa, R.color.VerdeLimao, 500);
     }

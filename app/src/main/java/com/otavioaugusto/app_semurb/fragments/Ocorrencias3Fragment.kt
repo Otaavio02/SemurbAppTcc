@@ -1,6 +1,5 @@
 package com.otavioaugusto.app_semurb.fragments
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,15 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.otavioaugusto.app_semurb.PlaceHolderActivity
+import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias2Binding
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias3Binding
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 class Ocorrencias3Fragment : Fragment() {
 
     private var _binding: FragmentOcorrencias3Binding? = null
     private val binding get() = _binding!!
+
+    private var etapaAtual = 2 // etapa 3
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,20 +31,26 @@ class Ocorrencias3Fragment : Fragment() {
         _binding = FragmentOcorrencias3Binding.inflate(inflater, container, false)
 
         binding.btnVoltarOcorrencias3.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY2", "INICIAR_OCORRENCIASHOME")
-            startActivity(intent)
+            if (etapaAtual > 0) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+            }
+
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
+                .replace(R.id.FragmentContainerView2, Ocorrencias2Fragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         binding.btnProximoOcorrencias3.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left
-                )
-                .replace(R.id.FragmentContainerView2, Ocorrencias4Fragment())
-                .addToBackStack(null)
-                .commit()
+            (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
+
+            Timer().schedule(700) {
+                requireActivity().finish()
+            }
         }
 
         return binding.root
@@ -52,7 +63,8 @@ class Ocorrencias3Fragment : Fragment() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {
                     it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                    it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    it.systemBarsBehavior =
+                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 }
             } else {
                 @Suppress("DEPRECATION")
