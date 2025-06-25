@@ -11,19 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/textView41"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView41"
-            app:layout_constraintTop_toTopOf="@+id/textView41"
-            app:srcCompat="@drawable/notificacaolinha" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline86"
             android:layout_width="wrap_content"
@@ -51,7 +38,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/ver_mais"
-            android:textColor="@color/CinzaMedio"
+            android:textColor="@color/CorTextoscinza"
             android:textSize="13sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline95"
             app:layout_constraintEnd_toEndOf="parent"
@@ -138,30 +125,6 @@
                 android:text="@string/tudo" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_pesquisa"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView42"
-            app:startIconDrawable="@drawable/outline_calendar_month_24">
-
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/montserrat_semibold"
-                android:text="Pesquisar Data..."
-                android:textColor="@color/CinzaMedio" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <TextView
             android:id="@+id/textView41"
             android:layout_width="wrap_content"
@@ -170,9 +133,9 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_semibold"
             android:text="Dia XX/XX/2025"
-            android:textColor="@color/CinzaMedio"
+            android:textColor="@color/CorTextoscinza"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
@@ -191,6 +154,72 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.58" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_pesquisa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline95" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_pesquisa"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline95">
+
+            <ImageView
+                android:id="@+id/imageView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:foregroundGravity="center"
+                app:srcCompat="@drawable/outline_calendar_month_24" />
+
+            <EditText
+                android:id="@+id/editTextText4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="@string/PesquisarData"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColorHint="@color/CinzaMedio" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/CorTextoscinza"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/textView41"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView41"
+            app:layout_constraintTop_toTopOf="@+id/textView41">
+
+            <TextView
+                android:id="@+id/tefsdsd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView" />
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

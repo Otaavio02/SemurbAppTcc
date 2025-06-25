@@ -14,6 +14,137 @@
         tools:context=".ViarioEditadoActivity">
 
 
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="?attr/CorTextoPadrao"
+            app:layout_constraintBottom_toTopOf="@+id/guideline54"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="370dp"
+            android:layout_height="296dp"
+            android:background="@drawable/bg_editados"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView29">
+
+            <ImageView
+                android:id="@+id/imageView22"
+                android:layout_width="340dp"
+                android:layout_height="56dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/inspecaonegocio" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:paddingStart="20dp"
+                android:paddingEnd="5dp"
+                android:text="@string/ineficiente"
+                android:textColor="#000000"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@id/imageView22"
+                app:layout_constraintStart_toStartOf="@id/imageView22"
+                app:layout_constraintTop_toTopOf="@id/imageView22" />
+
+            <ImageView
+                android:id="@+id/imageView24"
+                android:layout_width="340dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageView22"
+                app:srcCompat="@drawable/inspecaonegocio" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:paddingStart="20dp"
+                android:paddingEnd="5dp"
+                android:text="@string/substitui_o"
+                android:textColor="#000000"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@id/imageView24"
+                app:layout_constraintStart_toStartOf="@id/imageView24"
+                app:layout_constraintTop_toTopOf="@id/imageView24" />
+
+            <ImageView
+                android:id="@+id/imageView23"
+                android:layout_width="340dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageView24"
+                app:srcCompat="@drawable/inspecaonegocio" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:paddingStart="20dp"
+                android:paddingEnd="5dp"
+                android:text="@string/sugest_o"
+                android:textColor="#000000"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@id/imageView23"
+                app:layout_constraintStart_toStartOf="@id/imageView23"
+                app:layout_constraintTop_toTopOf="@id/imageView23" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="210dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView23"
+                app:layout_constraintEnd_toEndOf="@+id/imageView24"
+                app:layout_constraintTop_toTopOf="@+id/imageView22">
+
+                <RadioButton
+                    android:id="@+id/rbSinistro"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="20dp" />
+
+                <RadioButton
+                    android:id="@+id/rbGrandeVulto"
+                    android:layout_width="44dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="25dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="20dp" />
+
+                <RadioButton
+                    android:id="@+id/rbAtendimento"
+                    android:layout_width="44dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="23dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="20dp" />
+
+            </RadioGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ImageButton
             android:id="@+id/btn_voltarViarioEditado"
             android:layout_width="60dp"
@@ -39,7 +170,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/xxxx_xxxx"
-            android:textColor="@color/AzulEscuroProfundo"
+            android:textColor="?attr/CorTextoPadrao"
             android:textSize="32sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline53"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,133 +184,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.10" />
-
-        <FrameLayout
-            android:id="@+id/frameLayout2"
-            android:layout_width="370dp"
-            android:layout_height="296dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline54"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline53">
-
-
-            <ImageView
-                android:id="@+id/imageView26"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/retanguloedicao" />
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
-
-
-                <ImageView
-                    android:id="@+id/imageView22"
-                    android:layout_width="340dp"
-                    android:layout_height="56dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/inspecaonegocio" />
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="5dp"
-                    android:text="@string/ineficiente"
-                    android:textColor="#000000"
-                    android:textSize="17sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView22"
-                    app:layout_constraintStart_toStartOf="@id/imageView22"
-                    app:layout_constraintTop_toTopOf="@id/imageView22" />
-
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="44dp"
-                    android:layout_height="42dp"
-                    app:buttonCompat="@drawable/bg_button3"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView22"
-                    app:layout_constraintEnd_toEndOf="@id/imageView22"
-                    app:layout_constraintTop_toTopOf="@id/imageView22" />
-
-
-                <ImageView
-                    android:id="@+id/imageView24"
-                    android:layout_width="340dp"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageView22"
-                    app:srcCompat="@drawable/inspecaonegocio" />
-
-                <TextView
-                    android:id="@+id/textView23"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="5dp"
-                    android:text="@string/substitui_o"
-                    android:textColor="#000000"
-                    android:textSize="17sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView24"
-                    app:layout_constraintStart_toStartOf="@id/imageView24"
-                    app:layout_constraintTop_toTopOf="@id/imageView24" />
-
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="44dp"
-                    android:layout_height="42dp"
-                    app:buttonCompat="@drawable/bg_button3"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView24"
-                    app:layout_constraintEnd_toEndOf="@id/imageView24"
-                    app:layout_constraintTop_toTopOf="@id/imageView24" />
-
-                <!-- Botão 3 -->
-                <ImageView
-                    android:id="@+id/imageView23"
-                    android:layout_width="340dp"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageView24"
-                    app:srcCompat="@drawable/inspecaonegocio" />
-
-                <TextView
-                    android:id="@+id/textView24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semibold"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="5dp"
-                    android:text="@string/sugest_o"
-                    android:textColor="#000000"
-                    android:textSize="17sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView23"
-                    app:layout_constraintStart_toStartOf="@id/imageView23"
-                    app:layout_constraintTop_toTopOf="@id/imageView23" />
-
-                <RadioButton
-                    android:id="@+id/radioButton3"
-                    android:layout_width="44dp"
-                    android:layout_height="42dp"
-                    app:buttonCompat="@drawable/bg_button3"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView23"
-                    app:layout_constraintEnd_toEndOf="@id/imageView23"
-                    app:layout_constraintTop_toTopOf="@id/imageView23" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </FrameLayout>
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -195,17 +199,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5837616" />
-
-        <ImageView
-            android:id="@+id/imageView27"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.531"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline54"
-            app:srcCompat="@drawable/turno4_linha" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline55"
@@ -329,7 +322,7 @@
             android:layout_width="170dp"
             android:layout_height="50dp"
             android:layout_marginTop="120dp"
-            android:background="@drawable/bg_button"
+            android:background="@drawable/bg_buttonverde"
             android:backgroundTintMode="add"
             android:elevation="15dp"
             android:fontFamily="@font/montserrat_medium"
@@ -337,7 +330,7 @@
             android:shadowDx="3"
             android:shadowRadius="1"
             android:text="@string/finalizar"
-            android:textColor="@android:color/white"
+            android:textColor="@color/VerdeLimao"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -381,7 +374,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/detalhamento"
-            android:textColor="@color/AzulEscuroProfundo"
+            android:textColor="?attr/CorTextoPadrao"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline56"
             app:layout_constraintEnd_toEndOf="parent"
@@ -392,12 +385,10 @@
             android:id="@+id/textView29"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/tipo_alteracao"
-            android:textColor="@color/AzulEscuroProfundo"
+            android:textColor="?attr/CorTextoPadrao"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

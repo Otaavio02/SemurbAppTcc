@@ -12,6 +12,8 @@
     <item name="colorVerde">@color/CorVerde</item>
     <item name="CorTextoPadrao">@color/CorTextoPadrao</item>
     <item name="colorTextoGrandeGameficado">@color/TextoGrandeGameficado</item>
+    <item name="statusBarBackground">@color/Preto</item>
+
 
     </style>
 </resources>

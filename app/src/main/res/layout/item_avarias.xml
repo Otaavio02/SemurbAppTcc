@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:background="@drawable/bg_partes"
+    android:background="@drawable/bg_infoavarias"
     android:gravity="center">
 
     <com.google.android.material.textfield.TextInputEditText
@@ -19,7 +19,7 @@
         android:inputType="text"
         android:maxLines="1"
         android:singleLine="true"
-        android:textColor="@color/Preto"
+        android:textColor="?attr/CorTextoPadrao"
         android:textColorHint="#808080" />
 
     <ImageButton
@@ -27,6 +27,7 @@
         android:layout_width="47dp"
         android:layout_height="48dp"
         android:layout_gravity="start"
+        android:layout_marginStart="5dp"
         android:background="@android:color/transparent"
         android:contentDescription="Adicionar avaria"
         android:padding="10dp"
@@ -35,12 +36,13 @@
 
     <ImageButton
         android:id="@+id/btnFoto"
-        android:layout_width="47dp"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_gravity="end"
+        android:layout_marginEnd="5dp"
         android:background="@android:color/transparent"
         android:contentDescription="Tirar foto"
         android:padding="10dp"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/cameramais" />
+        app:srcCompat="@drawable/ic_camera" />
 </FrameLayout>

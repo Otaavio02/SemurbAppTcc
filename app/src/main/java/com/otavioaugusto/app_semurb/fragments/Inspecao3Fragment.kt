@@ -101,12 +101,12 @@ class Inspecao3Fragment : Fragment() {
                     TransitionManager.beginDelayedTransition(container, AutoTransition())
 
                     if (frame.isGone) {
-                        headerTextView.setBackgroundResource(R.drawable.bg_azulpaginas)
+                        headerTextView.setBackgroundResource(R.drawable.bg_btninspecaoativado)
                         frame.setBackgroundResource(R.drawable.bg_fundoinspecao)
                         btnToggle.setImageResource(R.drawable.inspecaoabrir)
                         frame.visibility = View.VISIBLE
                     } else if (frame.isVisible) {
-                        headerTextView.setBackgroundResource(R.drawable.bg_azulpaginas2)
+                        headerTextView.setBackgroundResource(R.drawable.bg_btninspecaodesativado)
                         frame.setBackgroundColor(ContextCompat.getColor(context, R.color.Transparente))
                         btnToggle.setImageResource(R.drawable.inspecaofechar)
                         frame.visibility = View.GONE

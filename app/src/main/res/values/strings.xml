@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">App_Semurb</string>
+    <string name="app_name">Semurb</string>
     <string name="matricula"> Digite sua Matrícula:</string>
     <string name="senha"> Digite sua senha:</string>
     <string name="entrar">Entrar</string>
+    <string name="PesquisarData">Pesquisar data…</string>
     <string name="esqueceu_a_senha">Esqueceu a senha?</string>
     <string name="secretaria_de_mobilidade_urbana">Secretaria de Mobilidade Urbana</string>
     <string name="semurb">SEMURB</string>

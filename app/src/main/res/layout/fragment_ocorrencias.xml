@@ -42,7 +42,7 @@
         android:layout_marginStart="16dp"
         android:fontFamily="@font/montserrat_semibold"
         android:text="@string/listagemoc"
-        android:textColor="@color/AzulEscuroProfundo"
+        android:textColor="?attr/CorTextoPadrao"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline38"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +96,7 @@
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/CianoEscuro"
+        android:background="@color/FundoElementos"
         app:layout_constraintBottom_toTopOf="@+id/guideline36"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

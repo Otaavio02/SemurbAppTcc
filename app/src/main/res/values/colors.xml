@@ -19,6 +19,15 @@
     <color name="CorBolas">#081A31</color>
     <color name="FundoNotificacoes">#FFFF</color>
     <color name="CorBordaNotificacoesN">#295678</color>
+    <color name="CorBtnInspecao">#295678</color>
+    <color name="CorFundoInspecao">#FFFF</color>
+    <color name="CorBordasInspecao">#295678</color>
+    <color name="CorIconesInspecao">#000000</color>
+    <color name="CorBordasInfoAvarias">#6ABDF8</color>
+    <color name="CorFundoInfoAvarias">#FFFF</color>
+    <color name="CorTextoscinza">#828282</color>
+
+
 
 
 

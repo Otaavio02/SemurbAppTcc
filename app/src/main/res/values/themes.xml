@@ -3,7 +3,7 @@
     <style name="Base.Theme.AppSemurb" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary Brand Color -->
 
-
+        <item name="colorPrimary">@color/Preto</item>
         <item name="colorFundo">@color/Fundo</item>
         <item name="colorFundoElementos">@color/FundoElementos</item>
         <item name="colorFundoCaixas">@color/FundoCaixas</item>
@@ -12,7 +12,8 @@
         <item name="colorVerde">@color/CorVerde</item>
         <item name="CorTextoPadrao">@color/CorTextoPadrao</item>
         <item name="colorTextoGrandeGameficado">@color/TextoGrandeGameficado</item>
-
+        <item name="android:statusBarColor">@color/Preto</item>
+        <item name="android:navigationBarColor">@color/Preto</item>
     </style>
 
 

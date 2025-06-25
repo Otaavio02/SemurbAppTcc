@@ -227,10 +227,10 @@
         android:layout_height="wrap_content"
 
         android:layout_marginBottom="16dp"
-        android:buttonTint="@color/Preto"
+        android:buttonTint="?attr/CorTextoPadrao"
         android:fontFamily="@font/montserrat_bold"
         android:text="@string/veiculosemavaria"
-        android:textColor="@color/AzulPetroleoEscuro"
+        android:textColor="?attr/CorTextoPadrao"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline73"
         app:layout_constraintEnd_toEndOf="parent"

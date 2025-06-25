@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.*
 import com.otavioaugusto.app_semurb.databinding.FragmentHomeBinding
@@ -66,7 +68,7 @@ class HomeFragment : Fragment() {
         binding.btnIniciarTurno.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "VERIFICAR_TURNO")
-            intent.putExtra("VISIBILITY","GONE")
+            intent.putExtra("VISIBILITY", "GONE")
             startActivity(intent)
         }
 
