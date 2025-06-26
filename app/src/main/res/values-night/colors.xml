@@ -10,7 +10,7 @@
     <color name="CorVermelho">#EA3323</color>
     <color name="CorVerde">#28FF00</color>
     <color name="TextoGrandeGameficado">#4AA5F8</color>
-    <color name="CorUmGradiente">#295678</color>
+    <color name="CorUmGradiente">#143651</color>
     <color name="CorDoisGradiente">#081A31</color>
     <color name="CorBgButton2">#010E19</color>
     <color name="BaseLineAddColor">#6ABDF9</color>
@@ -25,7 +25,8 @@
     <color name="CorBordasInfoAvarias">#6ABDF8</color>
     <color name="CorFundoInfoAvarias">#010E19</color>
     <color name="CorTextoscinza">#FFFF</color>
-
+    <color name="Teste">#010E19</color>
+    <color name="FundoEditados">#010E19</color>
 
 
 
@@ -45,6 +46,7 @@
     <color name="Transparente">#00000000</color>
     <color name="VerdeLimao">#3FFF6F</color>
 
+
     <!-- Tema Escuro -->
     <color name="AzulPetroleo">#134366</color>
     <color name="AzulMarinhoProfundo">#001530</color>
@@ -57,7 +59,7 @@
 
 
     <!-- Dois temas -->
-    <color name="AzulEscuroProfundo">#081A31</color>
+    <color name="AzulEscuroProfundo">#6ABDF8</color>
     <color name="AzulBebe">#6ABDF8</color>
     <color name="Branco">#FFFFFFFF</color>
     <color name="Preto">#FF000000</color>

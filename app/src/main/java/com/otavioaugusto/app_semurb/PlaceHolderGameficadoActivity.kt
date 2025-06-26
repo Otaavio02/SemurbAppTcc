@@ -55,8 +55,6 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
             barraProgresso.visibility = View.GONE
             val gradientTransition = binding.gradientTransition
             gradientTransition.visibility = View.GONE
-            val guidelineBarraProgresso = binding.guideline5
-            guidelineBarraProgresso.visibility = View.GONE
         }
 
         supportFragmentManager.beginTransaction()

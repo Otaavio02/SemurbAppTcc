@@ -10,6 +10,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.updatePadding
 import com.otavioaugusto.app_semurb.databinding.ActivityPlaceholderBinding
 import com.otavioaugusto.app_semurb.fragments.*
 
@@ -24,7 +25,7 @@ class PlaceHolderActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowCompat.setDecorFitsSystemWindows(window, true)
 
         window.statusBarColor = Color.TRANSPARENT
 
@@ -54,13 +55,9 @@ class PlaceHolderActivity : AppCompatActivity() {
                 systemBars.right,
                 0
             )
-
-
-            binding.bottomNavigationView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                bottomMargin = systemBars.bottom
-            }
-
             insets
+
+
         }
 
 
