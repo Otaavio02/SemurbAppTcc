@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"> <!-- Garante que o conteúdo preenche toda a tela inicialmente -->
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -103,7 +103,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="150dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/textView42"
             app:layout_constraintEnd_toEndOf="parent"
@@ -166,8 +166,8 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
+            android:layout_width="247dp"
+            android:layout_height="49dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_pesquisa"
             android:orientation="horizontal"
@@ -186,18 +186,23 @@
                 app:srcCompat="@drawable/outline_calendar_month_24" />
 
             <EditText
-                android:id="@+id/editTextText4"
+                android:id="@+id/editTextData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="3dp"
+                android:layout_marginStart="4dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
+                android:clickable="true"
                 android:ems="10"
+                android:focusable="false"
                 android:fontFamily="@font/montserrat"
+                android:foregroundGravity="center"
+                android:gravity="center|start"
                 android:hint="@string/PesquisarData"
                 android:inputType="text"
                 android:maxLines="1"
+                android:padding="3dp"
                 android:textColorHint="@color/CinzaMedio" />
         </LinearLayout>
 
