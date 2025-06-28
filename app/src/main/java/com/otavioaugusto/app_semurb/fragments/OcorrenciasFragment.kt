@@ -25,6 +25,7 @@ class OcorrenciasFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentOcorrenciasBinding.inflate(inflater, container, false)
 
         binding.btnEnviarOcorrencia.setOnClickListener {
@@ -50,6 +51,9 @@ class OcorrenciasFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+
+
 
         return binding.root
     }

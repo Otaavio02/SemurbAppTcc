@@ -141,6 +141,9 @@
     <string name="digite_o_motivo">Digite o motivo</string>
     <string name="nome_contato">Nome do Contato</string>
     <string name="notifica_o_de_turno">Notificação de Turno</string>
+    <string name="RuaPlaceholder">Rua Place holder</string>
+    <string name="OcoAvaPlaceholder">OcoAva Place holder</string>
+    <string name="OQPH">O que foi PH</string>
     <string-array name="historico">
         <item>Tudo</item>
         <item>Serviço Viário</item>

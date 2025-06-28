@@ -28,6 +28,10 @@
     <color name="CorTextoscinza">#828282</color>
     <color name="Teste">#FFFFFF</color>
     <color name="FundoEditados">#295678</color>
+    <color name="FundoItemOcoAva">#FFFFFF</color>
+    <color name="BordaItemOcoAva">#000000</color>
+    <color name="NomeTextoItemOcoAva">#295678</color>
+
 
 
 

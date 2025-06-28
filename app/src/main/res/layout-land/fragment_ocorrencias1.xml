@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
     <TextView
         android:id="@+id/textView20"
@@ -28,18 +35,19 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.0" />
 
-    <ImageButton
-        android:id="@+id/btnVoltarOcorrencias1"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
+        <ImageButton
+            android:id="@+id/btnVoltarOcorrencias1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
 
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/guideline41"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline40"
-        app:srcCompat="@drawable/voltar" />
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/guideline41"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline40"
+            app:srcCompat="@drawable/voltar" />
 
     <TextView
         android:id="@+id/textView17"
@@ -222,3 +230,4 @@
         app:layout_constraintGuide_percent="0.640853" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

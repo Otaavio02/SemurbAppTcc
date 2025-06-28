@@ -29,6 +29,7 @@ class Inspecao1Fragment : Fragment() {
     ): View {
         _binding = FragmentInspecao1Binding.inflate(inflater, container, false)
 
+
         // Animação inicial do carrinho chegando
         val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
         val bolinhaInicial = requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
@@ -40,6 +41,7 @@ class Inspecao1Fragment : Fragment() {
                 .setDuration(700)
                 .start()
         }
+
 
         binding.btnVoltarInspecao.setOnClickListener {
             requireActivity().finish()

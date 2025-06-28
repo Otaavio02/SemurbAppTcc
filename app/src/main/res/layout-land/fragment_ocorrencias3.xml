@@ -35,17 +35,18 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.0" />
 
-    <ImageButton
-        android:id="@+id/btn_voltarOcorrencias3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/guideline41"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline40"
-        app:srcCompat="@drawable/voltar" />
+        <ImageButton
+            android:id="@+id/btn_voltarOcorrencias3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/guideline41"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline40"
+            app:srcCompat="@drawable/voltar" />
 
     <TextView
         android:id="@+id/textView17"

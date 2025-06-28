@@ -3,7 +3,7 @@
 
     <!-- Cores  -->
     <color name="Fundo">#081A31</color>
-    <color name="FundoElementos">#012362</color>
+    <color name="FundoElementos">#0F3754</color>
     <color name="FundoCaixas">#010E19</color>
     <color name="CorTextoPadrao">#FFFF</color>
     <color name="CorTextoBranco">#FFFF</color>
@@ -27,6 +27,9 @@
     <color name="CorTextoscinza">#FFFF</color>
     <color name="Teste">#010E19</color>
     <color name="FundoEditados">#010E19</color>
+    <color name="FundoItemOcoAva">#010E19</color>
+    <color name="BordaItemOcoAva">#6ABDF8</color>
+    <color name="NomeTextoItemOcoAva">#6ABDF8</color>
 
 
 

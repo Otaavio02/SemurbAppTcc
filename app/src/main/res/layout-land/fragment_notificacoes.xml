@@ -12,13 +12,12 @@
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
-            android:layout_width="0dp"
+            android:layout_width="250dp"
             android:layout_height="3dp"
             android:layout_marginStart="8dp"
             android:background="@color/CorTextoscinza"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/textView22"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView22"
             app:layout_constraintTop_toTopOf="@+id/textView22">
 
@@ -31,14 +30,12 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="0dp"
+            android:layout_width="250dp"
             android:layout_height="3dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:background="@color/CorTextoscinza"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/textView27"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toTopOf="@+id/textView27">
 
@@ -69,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.10" />
+            app:layout_constraintGuide_percent="0.1" />
 
         <ImageButton
             android:id="@+id/btnNotificacoesLidas"
@@ -201,7 +198,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.67" />
+            app:layout_constraintGuide_percent="0.86" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline31"
