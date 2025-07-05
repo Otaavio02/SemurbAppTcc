@@ -1,86 +1,54 @@
 package com.otavioaugusto.app_semurb.fragments
 
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.view.WindowInsetsController
 import androidx.fragment.app.Fragment
-import com.otavioaugusto.app_semurb.PlaceHolderActivity
-import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias2Binding
-import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias3Binding
 
 class Ocorrencias2Fragment : Fragment() {
 
     private var _binding: FragmentOcorrencias2Binding? = null
     private val binding get() = _binding!!
 
-    private var etapaAtual = 1 // etapa 2
-    private var totalEtapas = 3
+    private var ocorrenciaId: Long = 0L
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentOcorrencias2Binding.inflate(inflater, container, false)
 
-        binding.btnVoltarOcorrencias2.setOnClickListener {
-            if (etapaAtual > 0) {
-                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+        ocorrenciaId = arguments?.getLong("ocorrencia_id") ?: 0L
+
+        binding.btnProximoOcorrencias2.setOnClickListener {
+            val endereco = binding.EditTextEnderecoOcorrencia.text.toString()
+            if (endereco.isEmpty()) {
+                // opcional: mostrar erro
+                return@setOnClickListener
+            }
+            val dbHelper = ocorrenciasDBHelper(requireContext())
+            dbHelper.updateEndereco(ocorrenciaId, endereco)
+
+            // Passa para o fragment contato
+            val fragmentContato = Ocorrencias3Fragment().apply {
+                arguments = Bundle().apply {
+                    putLong("ocorrencia_id", ocorrenciaId)
+                }
             }
 
             parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_left,
-                    R.anim.slide_out_right
-                )
-                .replace(R.id.FragmentContainerView2, Ocorrencias1Fragment())
+                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                .replace(R.id.FragmentContainerView2, fragmentContato)
                 .addToBackStack(null)
                 .commit()
         }
 
-        binding.btnProximoOcorrencias2.setOnClickListener {
-            if (etapaAtual < totalEtapas - 1) {
-                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
-            }
-
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left
-                )
-                .replace(R.id.FragmentContainerView2, Ocorrencias3Fragment())
-                .addToBackStack(null)
-                .commit()
+        binding.btnVoltarOcorrencias2.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
 
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        activity?.window?.let { window ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                window.insetsController?.let {
-                    it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                    it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-                }
-            } else {
-                @Suppress("DEPRECATION")
-                window.decorView.systemUiVisibility = (
-                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                                View.SYSTEM_UI_FLAG_FULLSCREEN or
-                                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        )
-            }
-        }
     }
 
     override fun onDestroyView() {

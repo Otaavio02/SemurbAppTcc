@@ -252,7 +252,7 @@
             android:backgroundTint="@color/CinzaClarinho"
             android:gravity="center|start"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:inputType="phone"
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="@color/Preto"

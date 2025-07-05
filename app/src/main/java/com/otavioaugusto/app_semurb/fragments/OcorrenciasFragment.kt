@@ -9,16 +9,20 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.adapters.OcorrenciasAdapter
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias1Binding
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias2Binding
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciasBinding
+import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 
 class OcorrenciasFragment : Fragment() {
 
     private var _binding: FragmentOcorrenciasBinding? = null
     private val binding get() = _binding!!
+    private lateinit var adapter: OcorrenciasAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +31,10 @@ class OcorrenciasFragment : Fragment() {
     ): View {
 
         _binding = FragmentOcorrenciasBinding.inflate(inflater, container, false)
+
+        adapter = OcorrenciasAdapter()
+        binding.rvOcorrencias?.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvOcorrencias?.adapter = adapter
 
         binding.btnEnviarOcorrencia.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
@@ -56,6 +64,13 @@ class OcorrenciasFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val dbHelper = ocorrenciasDBHelper(requireContext())
+        val lista = dbHelper.getAllOcorrencias()
+        adapter.submitList(lista)
     }
 
     override fun onDestroyView() {

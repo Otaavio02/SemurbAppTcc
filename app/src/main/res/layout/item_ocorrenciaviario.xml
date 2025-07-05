@@ -27,7 +27,7 @@
             app:srcCompat="@drawable/ic_localizacao" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/textEndereco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -49,7 +49,7 @@
             app:srcCompat="@drawable/ic_edicao" />
 
         <TextView
-            android:id="@+id/textView38"
+            android:id="@+id/textTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -62,14 +62,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView40"
+            android:id="@+id/textTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/OQPH"
             android:textColor="?attr/CorTextoPadrao"
-            app:layout_constraintStart_toStartOf="@+id/textView38"
-            app:layout_constraintTop_toBottomOf="@+id/textView38" />
+            app:layout_constraintStart_toStartOf="@+id/textTitulo"
+            app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
