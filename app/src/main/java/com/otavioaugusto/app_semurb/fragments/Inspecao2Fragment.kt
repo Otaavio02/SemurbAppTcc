@@ -1,8 +1,11 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.transition.AutoTransition
 import android.transition.Fade
 import android.transition.PathMotion
@@ -29,6 +32,8 @@ import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.AvariasAdapter
 import com.otavioaugusto.app_semurb.dataClasses.AvariaItem
 import com.otavioaugusto.app_semurb.databinding.FragmentInspecao2Binding
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 class Inspecao2Fragment : Fragment() {
 
@@ -37,6 +42,7 @@ class Inspecao2Fragment : Fragment() {
 
     private var _binding: FragmentInspecao2Binding? = null
     private val binding get() = _binding!!
+
 
     private var etapaAtual = 1 // etapa 2
     private var totalEtapas = 3
@@ -64,21 +70,71 @@ class Inspecao2Fragment : Fragment() {
                 .commit()
         }
 
-        binding.btnFinalizar.setOnClickListener {
-            if (etapaAtual < totalEtapas - 1) {
-                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
+        val btnProximoInspecao2 = binding.btnProximoInspecao2
+        val rgInspecao2 = binding.rgInspecao2
+
+
+        btnProximoInspecao2?.setOnClickListener {
+        val selectedRgId = rgInspecao2?.checkedRadioButtonId
+        if (selectedRgId == -1 || selectedRgId == null){
+
+            val titulo = SpannableString("Clique em alguma opção").apply {
+                setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                    0, length, 0
+                )
             }
 
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left
+            val mensagem = SpannableString("Para Avançar, escolha uma opção").apply {
+                setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                    0, length, 0
                 )
-                .replace(R.id.FragmentContainerView2, Inspecao3Fragment())
-                .addToBackStack(null)
-                .commit()
-        }
+            }
 
+                val builder = AlertDialog.Builder(context)
+                    builder.setTitle(titulo)
+                    builder.setMessage(mensagem)
+
+
+
+                    builder.setPositiveButton("Ok") { dialog, _ ->
+
+                        dialog.dismiss()
+                    }
+
+                    val dialog = builder.create()
+
+            dialog.setOnShowListener {
+
+                dialog.window?.setBackgroundDrawableResource(R.color.Branco)
+            }
+                    dialog.show()
+
+            } else {
+                if (selectedRgId == R.id.rbSimAvarias){
+
+                    if (etapaAtual < totalEtapas - 1) {
+                        (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
+                    }
+
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left
+                        )
+                        .replace(R.id.FragmentContainerView2, Inspecao3Fragment())
+                        .addToBackStack(null)
+                        .commit()
+                } else if (selectedRgId == R.id.rbNaoAvarias){
+                    (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(3)
+
+                    Timer().schedule(700) {
+                        requireActivity().finish()
+                    }
+                }
+            }
+        }
         return binding.root
     }
 

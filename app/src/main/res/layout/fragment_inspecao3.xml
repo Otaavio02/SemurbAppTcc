@@ -77,6 +77,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/inspecaofechar" />
 
+            <ImageButton
+                android:id="@+id/btnInfoFrente"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="@+id/textViewFrente"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/info_circle" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <CheckBox
@@ -297,6 +309,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/inspecaofechar" />
 
+            <ImageButton
+                android:id="@+id/btnInfoTraseira"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="@+id/textViewTraseira"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/info_circle" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -362,6 +386,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/inspecaofechar" />
+
+            <ImageButton
+                android:id="@+id/btnInfoDireita"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/info_circle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -429,6 +465,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/inspecaofechar" />
 
+            <ImageButton
+                android:id="@+id/btnInfoEsquerda"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="@+id/textViewEsquerda"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/info_circle" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -495,6 +543,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/inspecaofechar" />
+
+            <ImageButton
+                android:id="@+id/btnInfoOutros"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="@+id/textViewOutras"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/info_circle" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,12 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.app.AlertDialog
+import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +14,7 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
@@ -43,7 +48,30 @@ class Inspecao3Fragment : Fragment() {
         setupListeners()
         setupToggles()
         setupRecyclers()
+
+
+
+        binding.btnInfoFrente?.setOnClickListener {
+            mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Capo, Farol esquerdo/direito, Pisca esquerdo/direito, Para-brisa, Para-choque, Grade frontal, etc." )
+        }
+
+        binding.btnInfoTraseira?.setOnClickListener {
+            mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Para-Choque traseiro, Farol esquerdo/direito, Pisca esquerdo/direito, Vidro traseiro, Luz de ré, Escapamento, etc," )
+        }
+        binding.btnInfoDireita?.setOnClickListener {
+            mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Para-choque lateral direito, porta dianteira direita, porta traseira direita, retrovisor direito, vidros laterais direitos, maçanetas, Pneus direitos etc." )
+        }
+        binding.btnInfoEsquerda?.setOnClickListener {
+            mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Para-choque lateral esquerda, porta dianteira esquerda, porta traseira esquerda, retrovisor esquerdo, vidros laterais esquerda, maçanetas, Pneus esquerdos etc" )
+        }
+        binding.btnInfoOutros?.setOnClickListener {
+            mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Teto, Chassi, Motor, Suspensão, Freios, etc." )
+        }
         return binding.root
+
+
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -130,4 +158,35 @@ class Inspecao3Fragment : Fragment() {
             fotoFile
         )
     }
+
+    private fun mostrarAlertDialogAvaria(context: Context, tituloTexto: String, mensagemTexto: String) {
+        val titulo = SpannableString(tituloTexto)
+        titulo.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(context, R.color.CinzaMedio)),
+            0,
+            titulo.length,
+            0
+        )
+
+        val mensagem = SpannableString(mensagemTexto)
+        mensagem.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(context, R.color.CinzaMedio)),
+            0,
+            mensagem.length,
+            0
+        )
+
+        val dialog = AlertDialog.Builder(context)
+            .setTitle(titulo)
+            .setMessage(mensagem)
+            .setPositiveButton("OK") { dialogInterface, _ -> dialogInterface.dismiss() }
+            .create()
+
+        dialog.setOnShowListener {
+            dialog.window?.setBackgroundDrawableResource(R.color.Branco)
+        }
+
+        dialog.show()
+    }
+
 }

@@ -30,7 +30,6 @@ class Inspecao1Fragment : Fragment() {
         _binding = FragmentInspecao1Binding.inflate(inflater, container, false)
 
 
-        // Animação inicial do carrinho chegando
         val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
         val bolinhaInicial = requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
         bolinhaInicial.post {
@@ -48,14 +47,7 @@ class Inspecao1Fragment : Fragment() {
         }
 
         binding.btnProximoInspecao1.setOnClickListener {
-            if (binding.checkBoxSemAvaria.isChecked) {
 
-                (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(3)
-
-                Timer().schedule(700) {
-                    requireActivity().finish()
-                }
-            } else {
                 parentFragmentManager.beginTransaction()
                     .setCustomAnimations(
                         R.anim.slide_in_right,
@@ -65,7 +57,6 @@ class Inspecao1Fragment : Fragment() {
                     .addToBackStack(null)
                     .commit()
             }
-        }
 
         return binding.root
     }
