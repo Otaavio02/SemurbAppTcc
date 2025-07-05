@@ -1,6 +1,6 @@
 package com.otavioaugusto.app_semurb.fragments
 
-
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,17 +8,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentInspecao3Binding
 import com.otavioaugusto.app_semurb.funcoes.AvariaToggleController
 import com.otavioaugusto.app_semurb.funcoes.AvariasRecyclerHelper
+import java.io.File
 import java.util.Timer
 import kotlin.concurrent.schedule
 
 class Inspecao3Fragment : Fragment() {
+
+    private var imagemTempUri: Uri? = null
+
+    private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        if (success) {
+            Toast.makeText(requireContext(), "Foto salva em: $imagemTempUri", Toast.LENGTH_SHORT).show()
+
+        } else {
+            Toast.makeText(requireContext(), "Falha ao tirar foto", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private var _binding: FragmentInspecao3Binding? = null
     private val binding get() = _binding!!
@@ -78,11 +92,16 @@ class Inspecao3Fragment : Fragment() {
 
     private fun setupRecyclers() {
         val context = requireContext()
-        AvariasRecyclerHelper(context, binding.rvFrente)
-        AvariasRecyclerHelper(context, binding.rvTraseira)
-        AvariasRecyclerHelper(context, binding.rvDireita)
-        AvariasRecyclerHelper(context, binding.rvEsquerda)
-        AvariasRecyclerHelper(context, binding.rvOutras)
+
+        val callbackFoto = { _: Int ->
+            imagemTempUri = criarUriImagem()
+            takePictureLauncher.launch(imagemTempUri)
+        }
+        AvariasRecyclerHelper(context, binding.rvFrente, callbackFoto)
+        AvariasRecyclerHelper(context, binding.rvTraseira, callbackFoto)
+        AvariasRecyclerHelper(context, binding.rvDireita, callbackFoto)
+        AvariasRecyclerHelper(context, binding.rvEsquerda, callbackFoto)
+        AvariasRecyclerHelper(context, binding.rvOutras, callbackFoto)
     }
 
     private fun hideSystemUI() {
@@ -101,5 +120,14 @@ class Inspecao3Fragment : Fragment() {
                         )
             }
         }
+    }
+
+    private fun criarUriImagem(): Uri {
+        val fotoFile = File(requireContext().getExternalFilesDir(null), "foto_${System.currentTimeMillis()}.jpg")
+        return FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.provider",
+            fotoFile
+        )
     }
 }

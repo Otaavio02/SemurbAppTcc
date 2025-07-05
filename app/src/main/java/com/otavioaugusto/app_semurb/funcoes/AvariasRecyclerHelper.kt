@@ -7,10 +7,11 @@ import com.otavioaugusto.app_semurb.dataClasses.AvariaItem
 
 class AvariasRecyclerHelper(
     private val context: Context,
-    private val recyclerView: RecyclerView
+    private val recyclerView: RecyclerView,
+    onFotoClick: (position: Int) -> Unit
 ) {
     private val avariasList = mutableListOf(AvariaItem())
-    private val adapter = AvariasAdapter(avariasList)
+    private val adapter = AvariasAdapter(avariasList, onFotoClick)
 
     init {
         recyclerView.layoutManager = LinearLayoutManager(context)
