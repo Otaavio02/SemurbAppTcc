@@ -18,8 +18,7 @@
             android:id="@+id/btn_adicionarOcorrencia"
             android:layout_width="353.64dp"
             android:layout_height="45dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_button2"
             android:backgroundTintMode="add"
             android:drawableStart="@drawable/baseline_add_24"
@@ -37,6 +36,7 @@
             android:textAllCaps="false"
             android:textColor="@color/BaseLineAddColor"
             android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rvOcorrencias" />
 
@@ -132,7 +132,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvOcorrencias"
             android:layout_width="0dp"
-            android:layout_height="450dp"
+            android:layout_height="120dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"

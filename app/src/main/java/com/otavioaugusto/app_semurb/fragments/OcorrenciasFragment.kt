@@ -71,6 +71,17 @@ class OcorrenciasFragment : Fragment() {
         val dbHelper = ocorrenciasDBHelper(requireContext())
         val lista = dbHelper.getAllOcorrencias()
         adapter.submitList(lista)
+
+        val heightPerItemDp = 120
+        val totalHeightDp = heightPerItemDp * lista.size
+
+
+        val scale = resources.displayMetrics.density
+        val totalHeightPx = (totalHeightDp * scale).toInt()
+
+
+        binding.rvOcorrencias?.layoutParams?.height = totalHeightPx
+        binding.rvOcorrencias?.requestLayout()
     }
 
     override fun onDestroyView() {

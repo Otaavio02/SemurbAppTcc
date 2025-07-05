@@ -1,9 +1,14 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.app.AlertDialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
@@ -27,6 +32,35 @@ class Ocorrencias3Fragment : Fragment() {
             val nome = binding.EditTextNomeContato.text.toString()
             val telefone = binding.EditTextNumContato.text.toString()
             if (nome.isEmpty() || telefone.isEmpty()) {
+
+                val titulo = SpannableString("Digite um nome e telefone").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
+
+                val mensagem = SpannableString("Para Avançar, digite um nome e telefone").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
+
+                val builder = AlertDialog.Builder(requireContext())
+                    .setTitle(titulo)
+                    .setMessage(mensagem)
+                    .setPositiveButton("Ok") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+
+                val dialog = builder.create()
+                dialog.setOnShowListener {
+                    dialog.window?.setBackgroundDrawable(
+                        ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
+                    )
+                }
+                dialog.show()
 
                 return@setOnClickListener
             }
