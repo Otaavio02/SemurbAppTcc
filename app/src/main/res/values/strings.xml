@@ -55,7 +55,7 @@
     <string name="perfil_nome">XXXX XXXX XXXX</string>
     <string name="estat_gerais">Estatísticas Gerais</string>
     <string name="inspe_es">Inspeções:</string>
-    <string name="ocorrencias">Ocorrências:</string>
+    <string name="ocorrencias">Ocorrências</string>
     <string name="placeholder_estatisticas">XX</string>
     <string name="servi_os">Serviços:</string>
     <string name="foto">foto</string>
@@ -81,7 +81,7 @@
     <string name="motorista">Motorista</string>
     <string name="todo">TODO</string>
     <string name="servico_viario">Serviço Viário</string>
-    <string name="listagemad">Listagem de Adições</string>
+    <string name="listagem_viario">Listagem de Sinalizações</string>
     <string name="nova_adicao">Nova Adição</string>
     <string name="enviar">Enviar</string>
     <string name="confirmar_viario">Confirme as informarções do plantão:</string>
@@ -133,7 +133,7 @@
     <string name="lateral_esquerda">Lateral Esquerda</string>
     <string name="traseira">Traseira</string>
     <string name="outra">Outra Avária</string>
-    <string name="historicos">Historicos</string>
+    <string name="historicos">Históricos</string>
     <string name="tudo">Tudo</string>
     <string name="ver_mais">Clique em um item para ver mais</string>
     <string name="Justificativa">Justificativa</string>

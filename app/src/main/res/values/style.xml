@@ -10,4 +10,5 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/bottom_nav_color_selector</item>
     </style>
+
 </resources>

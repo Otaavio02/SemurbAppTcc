@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.otavioaugusto.app_semurb.dataClasses.DataOcorrencia
 
-
 class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorrencias.db", null, 1) {
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("""

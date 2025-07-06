@@ -14,6 +14,10 @@
         <item name="colorTextoGrandeGameficado">@color/TextoGrandeGameficado</item>
         <item name="android:statusBarColor">@color/Preto</item>
         <item name="android:navigationBarColor">@color/Preto</item>
+
+
+        <!-- Sombra mais forte nos botões -->
+        <item name="android:spotShadowAlpha">0.5</item>
     </style>
 
 

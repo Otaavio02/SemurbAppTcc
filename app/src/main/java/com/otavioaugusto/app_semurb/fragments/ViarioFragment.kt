@@ -1,23 +1,23 @@
 package com.otavioaugusto.app_semurb.fragments
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.view.WindowInsetsController
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.databinding.FragmentViario2Binding
+import com.otavioaugusto.app_semurb.adapters.ViarioAdapter
+import com.otavioaugusto.app_semurb.database.ViarioDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentViarioBinding
 
 class ViarioFragment : Fragment() {
 
     private var _binding: FragmentViarioBinding? = null
     private val binding get() = _binding!!
+    private lateinit var adapter: ViarioAdapter
 
     companion object {
         private const val FRAGMENT_KEY = "FRAGMENT_KEY"
@@ -30,6 +30,10 @@ class ViarioFragment : Fragment() {
     ): View {
         _binding = FragmentViarioBinding.inflate(inflater, container, false)
 
+        adapter = ViarioAdapter()
+        binding.rvOcorrencias?.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvOcorrencias?.adapter = adapter
+
         binding.btnEnviarViario.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "VIARIO_EDITADO")
@@ -38,7 +42,9 @@ class ViarioFragment : Fragment() {
         }
 
         binding.btnAdicionarViario.setOnClickListener {
-            navigateToFragment("INICIAR_VIARIO")
+            val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
+            intent.putExtra("FRAGMENT_KEY", "INICIAR_VIARIO")
+            startActivity(intent)
         }
 
         binding.btnVoltarViario.setOnClickListener {
@@ -59,6 +65,24 @@ class ViarioFragment : Fragment() {
         val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
         intent.putExtra(FRAGMENT_KEY, fragmentKey)
         startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val dbHelper = ViarioDBHelper(requireContext())
+        val lista = dbHelper.getAllViario()
+        adapter.submitList(lista)
+
+        val heightPerItemDp = 120
+        val totalHeightDp = heightPerItemDp * lista.size
+
+
+        val scale = resources.displayMetrics.density
+        val totalHeightPx = (totalHeightDp * scale).toInt()
+
+
+        binding.rvOcorrencias?.layoutParams?.height = totalHeightPx
+        binding.rvOcorrencias?.requestLayout()
     }
 
 

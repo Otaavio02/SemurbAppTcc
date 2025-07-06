@@ -15,11 +15,13 @@ import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias3Binding
 import java.util.*
+import kotlin.concurrent.schedule
 
 class Ocorrencias3Fragment : Fragment() {
 
     private var _binding: FragmentOcorrencias3Binding? = null
     private val binding get() = _binding!!
+    private var etapaAtual = 2 // etapa 3
 
     private var ocorrenciaId: Long = 0L
 
@@ -68,12 +70,25 @@ class Ocorrencias3Fragment : Fragment() {
             val dbHelper = ocorrenciasDBHelper(requireContext())
             dbHelper.updateContato(ocorrenciaId, nome, telefone)
 
+            (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
 
-            requireActivity().finish()
+            Timer().schedule(700) {
+                requireActivity().finish()
+            }
         }
 
         binding.btnVoltarOcorrencias3.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            if (etapaAtual > 0) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+            }
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
+                .replace(R.id.FragmentContainerView2, Ocorrencias2Fragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return binding.root

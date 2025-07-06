@@ -5,11 +5,13 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias2Binding
@@ -19,6 +21,8 @@ class Ocorrencias2Fragment : Fragment() {
     private var _binding: FragmentOcorrencias2Binding? = null
     private val binding get() = _binding!!
 
+    private var etapaAtual = 1 // etapa 2
+    private var totalEtapas = 3
     private var ocorrenciaId: Long = 0L
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -63,12 +67,17 @@ class Ocorrencias2Fragment : Fragment() {
             }
             val dbHelper = ocorrenciasDBHelper(requireContext())
             dbHelper.updateEndereco(ocorrenciaId, endereco)
+            Log.d("DEBUG", "ID OCORRENCIA: $ocorrenciaId")
 
 
             val fragmentContato = Ocorrencias3Fragment().apply {
                 arguments = Bundle().apply {
                     putLong("ocorrencia_id", ocorrenciaId)
                 }
+            }
+
+            if (etapaAtual < totalEtapas - 1) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
             }
 
             parentFragmentManager.beginTransaction()
@@ -79,7 +88,18 @@ class Ocorrencias2Fragment : Fragment() {
         }
 
         binding.btnVoltarOcorrencias2.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            if (etapaAtual > 0) {
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+            }
+
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
+                )
+                .replace(R.id.FragmentContainerView2, Ocorrencias1Fragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return binding.root

@@ -1,17 +1,25 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.app.AlertDialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.database.ViarioDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentViario1Binding
+import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 
 class Viario1Fragment : Fragment() {
 
@@ -20,6 +28,7 @@ class Viario1Fragment : Fragment() {
 
     private var etapaAtual = 0 // etapa 2
     private var totalEtapas = 3
+    private var novoViarioId: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,16 +54,65 @@ class Viario1Fragment : Fragment() {
         }
 
         binding.btnProximoViario1.setOnClickListener {
+            val tipo = when (binding.rgViario?.checkedRadioButtonId) {
+                R.id.rbSinaInefi -> "Sinalização Ineficiente"
+                R.id.rbSubstituicao -> "Substituição"
+                R.id.rbSugestao -> "Sugestão"
+                // Provavelmente vai ter mais
+                else -> ""
+            }
+
+            if (tipo.isEmpty()) {
+                val titulo = SpannableString("Campo incompleto").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
+
+                val mensagem = SpannableString("Para Avançar, escolha uma opção.").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
+
+                val builder = AlertDialog.Builder(requireContext())
+                    .setTitle(titulo)
+                    .setMessage(mensagem)
+                    .setPositiveButton("Ok") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+
+                val dialog = builder.create()
+                dialog.setOnShowListener {
+                    dialog.window?.setBackgroundDrawable(
+                        ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
+                    )
+                }
+                dialog.show()
+
+                return@setOnClickListener
+            }
+
+            val dbHelper = ViarioDBHelper(requireContext())
+            val id = dbHelper.insertTipoViario(tipo)
+            novoViarioId = id
+            Log.d("DEBUG", "ID VIARIO 1: $novoViarioId")
+
+            val fragmentEndereco = Viario2Fragment().apply {
+                arguments = Bundle().apply {
+                    putLong("viario_id", id)
+                }
+            }
+
             if (etapaAtual < totalEtapas - 1) {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
             }
 
             parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left,
-                )
-                .replace(R.id.FragmentContainerView2, Viario2Fragment())
+                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                .replace(R.id.FragmentContainerView2, fragmentEndereco)
                 .addToBackStack(null)
                 .commit()
         }

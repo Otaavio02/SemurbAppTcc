@@ -1,17 +1,24 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.app.AlertDialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.database.ViarioDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentViario2Binding
 import com.otavioaugusto.app_semurb.databinding.FragmentViario3Binding
+import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 import java.util.Timer
 import kotlin.concurrent.schedule
 
@@ -19,6 +26,8 @@ class Viario3Fragment : Fragment() {
 
     private var _binding: FragmentViario3Binding? = null
     private val binding get() = _binding!!
+
+    private var viarioId: Long = 0L
 
     private var etapaAtual = 2 // etapa 3
 
@@ -28,6 +37,8 @@ class Viario3Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentViario3Binding.inflate(inflater, container, false)
+
+        viarioId = arguments?.getLong("viario_id") ?: 0L
 
         binding.btnVoltarViario3.setOnClickListener {
             if (etapaAtual > 0) {
@@ -45,6 +56,44 @@ class Viario3Fragment : Fragment() {
         }
 
         binding.btnProximoViario3.setOnClickListener {
+            val descricao = binding.EditTextDescricaoViario.text.toString()
+            if (descricao.isEmpty()) {
+
+                val titulo = SpannableString("Campo incompleto").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
+
+                val mensagem = SpannableString("Para Finalizar, digite a descrição da sinalização feita.").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
+
+                val builder = AlertDialog.Builder(requireContext())
+                    .setTitle(titulo)
+                    .setMessage(mensagem)
+                    .setPositiveButton("Ok") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+
+                val dialog = builder.create()
+                dialog.setOnShowListener {
+                    dialog.window?.setBackgroundDrawable(
+                        ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
+                    )
+                }
+                dialog.show()
+
+                return@setOnClickListener
+            }
+
+            val dbHelper = ViarioDBHelper(requireContext())
+            dbHelper.updateDescricao(viarioId, descricao)
+
             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
 
             Timer().schedule(700) {
