@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.otavioaugusto.app_semurb.dataClasses.DataViario
+import com.otavioaugusto.app_semurb.dataClasses.DataClassViario
 
 class ViarioDBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -53,14 +53,14 @@ class ViarioDBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.update("viario", cv, "id = ?", arrayOf(id.toString()))
     }
 
-    fun getAllViario(): List<DataViario> {
+    fun getAllViario(): List<DataClassViario> {
         val db = readableDatabase
         val cursor = db.query("viario", null, null, null, null, null, "id DESC")
-        val lista = mutableListOf<DataViario>()
+        val lista = mutableListOf<DataClassViario>()
         cursor.use {
             while (it.moveToNext()) {
                 lista.add(
-                    DataViario(
+                    DataClassViario(
                         id = it.getInt(it.getColumnIndexOrThrow("id")),
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getString(it.getColumnIndexOrThrow("endereco")) ?: "",

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.transition.TransitionManager
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.dataClasses.Notificacoes
+import com.otavioaugusto.app_semurb.dataClasses.DataClassNotificacoes
 import com.otavioaugusto.app_semurb.databinding.FragmentNotificacoesBinding
 import java.time.LocalDate
 import java.time.LocalTime
@@ -31,9 +31,9 @@ class NotificacoesFragment : Fragment() {
         _binding = FragmentNotificacoesBinding.inflate(inflater, container, false)
 
         val listaTeste = listOf(
-            Notificacoes("teste1", "teste", LocalTime.of(9, 30), LocalDate.now(), false),
-            Notificacoes("Ablubluble", "bleble", LocalTime.of(15, 0), LocalDate.now(), true),
-            Notificacoes("SFGGDG", "ssdfsdf", LocalTime.of(12, 45), LocalDate.now().minusDays(1), false)
+            DataClassNotificacoes("teste1", "teste", LocalTime.of(9, 30), LocalDate.now(), false),
+            DataClassNotificacoes("Ablubluble", "bleble", LocalTime.of(15, 0), LocalDate.now(), true),
+            DataClassNotificacoes("SFGGDG", "ssdfsdf", LocalTime.of(12, 45), LocalDate.now().minusDays(1), false)
         )
 
         adapter = NotificacoesAdapter(listaTeste)

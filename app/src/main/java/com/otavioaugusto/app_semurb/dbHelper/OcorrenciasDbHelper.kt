@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.otavioaugusto.app_semurb.dataClasses.DataOcorrencia
+import com.otavioaugusto.app_semurb.dataClasses.DataClassOcorrencia
 
 class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorrencias.db", null, 1) {
     override fun onCreate(db: SQLiteDatabase) {
@@ -49,14 +49,14 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
         db.update("ocorrencias", cv, "id = ?", arrayOf(id.toString()))
     }
 
-    fun getAllOcorrencias(): List<DataOcorrencia> {
+    fun getAllOcorrencias(): List<DataClassOcorrencia> {
         val db = readableDatabase
         val cursor = db.query("ocorrencias", null, null, null, null, null, "id DESC")
-        val lista = mutableListOf<DataOcorrencia>()
+        val lista = mutableListOf<DataClassOcorrencia>()
         cursor.use {
             while (it.moveToNext()) {
                 lista.add(
-                    DataOcorrencia(
+                    DataClassOcorrencia(
                         id = it.getInt(it.getColumnIndexOrThrow("id")),
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getString(it.getColumnIndexOrThrow("endereco")) ?: "",

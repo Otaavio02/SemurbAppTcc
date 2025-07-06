@@ -1,5 +1,5 @@
 package com.otavioaugusto.app_semurb.dataClasses
 
-data class AvariaItem(
+data class DataClassAvariaItem(
     var descricao: String = ""
 )

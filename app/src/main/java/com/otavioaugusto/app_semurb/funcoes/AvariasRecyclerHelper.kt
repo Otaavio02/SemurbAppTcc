@@ -3,14 +3,14 @@ import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.otavioaugusto.app_semurb.adapters.AvariasAdapter
-import com.otavioaugusto.app_semurb.dataClasses.AvariaItem
+import com.otavioaugusto.app_semurb.dataClasses.DataClassAvariaItem
 
 class AvariasRecyclerHelper(
     private val context: Context,
     private val recyclerView: RecyclerView,
     onFotoClick: (position: Int) -> Unit
 ) {
-    private val avariasList = mutableListOf(AvariaItem())
+    private val avariasList = mutableListOf(DataClassAvariaItem())
     private val adapter = AvariasAdapter(avariasList, onFotoClick)
 
     init {
@@ -18,9 +18,9 @@ class AvariasRecyclerHelper(
         recyclerView.adapter = adapter
     }
 
-    fun getAvarias(): List<AvariaItem> = avariasList
+    fun getAvarias(): List<DataClassAvariaItem> = avariasList
 
-    fun addAvaria(avaria: AvariaItem) {
+    fun addAvaria(avaria: DataClassAvariaItem) {
         avariasList.add(avaria)
         adapter.notifyItemInserted(avariasList.size - 1)
     }

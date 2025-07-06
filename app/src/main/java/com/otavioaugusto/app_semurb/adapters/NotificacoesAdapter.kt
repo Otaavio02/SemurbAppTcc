@@ -4,10 +4,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.dataClasses.Notificacoes
+import com.otavioaugusto.app_semurb.dataClasses.DataClassNotificacoes
 
 class NotificacoesAdapter(
-    private val notificacoes: List<Notificacoes>
+    private val notificacoes: List<DataClassNotificacoes>
 ): RecyclerView.Adapter<NotificacoesAdapter.ViewHolder>(){
 
 

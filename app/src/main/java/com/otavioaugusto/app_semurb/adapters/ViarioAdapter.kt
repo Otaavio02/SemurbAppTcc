@@ -1,26 +1,35 @@
 package com.otavioaugusto.app_semurb.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.otavioaugusto.app_semurb.dataClasses.DataViario
+import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
+import com.otavioaugusto.app_semurb.dataClasses.DataClassViario
 import com.otavioaugusto.app_semurb.databinding.ItemOcorrenciaviarioBinding
 
 class ViarioAdapter : RecyclerView.Adapter<ViarioAdapter.ViewHolder>() {
 
-    private val lista = mutableListOf<DataViario>()
+    private val lista = mutableListOf<DataClassViario>()
 
-    fun submitList(novaLista: List<DataViario>) {
+    fun submitList(novaLista: List<DataClassViario>) {
         lista.clear()
         lista.addAll(novaLista)
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(val binding: ItemOcorrenciaviarioBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: DataViario) {
+        fun bind(item: DataClassViario) {
             binding.textTitulo.text = "Sinalização ${item.id}"
             binding.textTipo.text = item.tipo ?: ""
             binding.textEndereco.text = item.endereco ?: ""
+            binding.btnEditarOcoVia.setOnClickListener {
+                val context = binding.root.context
+                val intent = Intent(context, PlaceHolderGameficadoActivity::class.java)
+                intent.putExtra("FRAGMENT_KEY", "OCORRENCIAS_EDITADO")
+                intent.putExtra("VISIBILITY", "GONE")
+                context.startActivity(intent)
+            }
 
         }
     }

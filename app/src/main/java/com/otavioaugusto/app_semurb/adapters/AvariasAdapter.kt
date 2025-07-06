@@ -7,10 +7,10 @@ import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.dataClasses.AvariaItem
+import com.otavioaugusto.app_semurb.dataClasses.DataClassAvariaItem
 
 class AvariasAdapter(
-    private val avarias: MutableList<AvariaItem>,
+    private val avarias: MutableList<DataClassAvariaItem>,
     private val onFotoClick: (position: Int) -> Unit
 ) : RecyclerView.Adapter<AvariasAdapter.AvariaViewHolder>() {
 
@@ -40,7 +40,7 @@ class AvariasAdapter(
         if (position == avarias.size - 1) {
             holder.btnAdicionar.setImageResource(R.drawable.ic_add)
             holder.btnAdicionar.setOnClickListener {
-                avarias.add(AvariaItem())
+                avarias.add(DataClassAvariaItem())
                 notifyItemInserted(avarias.size - 1)
                 notifyItemChanged(avarias.size - 2)
             }

@@ -209,7 +209,7 @@
 
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editTextContato"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -222,16 +222,16 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/imageView17"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextNome" />
 
         <ImageView
             android:id="@+id/imageView17"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/editText2"
-            app:layout_constraintEnd_toStartOf="@+id/editText2"
-            app:layout_constraintTop_toTopOf="@+id/editText2"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextContato"
+            app:layout_constraintEnd_toStartOf="@+id/editTextContato"
+            app:layout_constraintTop_toTopOf="@+id/editTextContato"
             app:srcCompat="@drawable/viario_telefone" />
 
         <TextView
@@ -244,12 +244,12 @@
             android:text="@string/contato"
             android:textColor="@color/Branco"
             android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/editText2"
-            app:layout_constraintStart_toStartOf="@+id/editText2" />
+            app:layout_constraintBottom_toTopOf="@+id/editTextContato"
+            app:layout_constraintStart_toStartOf="@+id/editTextContato" />
 
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/editTextEndereco"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -267,9 +267,9 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextText"
-            app:layout_constraintEnd_toStartOf="@+id/editTextText"
-            app:layout_constraintTop_toTopOf="@+id/editTextText"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextEndereco"
+            app:layout_constraintEnd_toStartOf="@+id/editTextEndereco"
+            app:layout_constraintTop_toTopOf="@+id/editTextEndereco"
             app:srcCompat="@drawable/viario_endereco" />
 
         <TextView
@@ -282,8 +282,8 @@
             android:text="@string/endereco2"
             android:textColor="@color/Branco"
             android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextText"
-            app:layout_constraintStart_toStartOf="@+id/editTextText" />
+            app:layout_constraintBottom_toTopOf="@+id/editTextEndereco"
+            app:layout_constraintStart_toStartOf="@+id/editTextEndereco" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_finalizarOcorrenciasEditado"
@@ -337,9 +337,9 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextText3"
-            app:layout_constraintEnd_toStartOf="@+id/editTextText3"
-            app:layout_constraintTop_toTopOf="@+id/editTextText3"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextNome"
+            app:layout_constraintEnd_toStartOf="@+id/editTextNome"
+            app:layout_constraintTop_toTopOf="@+id/editTextNome"
             app:srcCompat="@drawable/perfil_simbolo" />
 
         <TextView
@@ -349,11 +349,11 @@
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/nome_contato"
             android:textColor="@color/Branco"
-            app:layout_constraintBottom_toTopOf="@+id/editTextText3"
-            app:layout_constraintStart_toStartOf="@+id/editTextText3" />
+            app:layout_constraintBottom_toTopOf="@+id/editTextNome"
+            app:layout_constraintStart_toStartOf="@+id/editTextNome" />
 
         <EditText
-            android:id="@+id/editTextText3"
+            android:id="@+id/editTextNome"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -366,7 +366,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextEndereco" />
 
         <RelativeLayout
             android:id="@+id/relativeLayout2"

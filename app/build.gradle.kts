@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.otavioaugusto.app_semurb"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.otavioaugusto.app_semurb"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
