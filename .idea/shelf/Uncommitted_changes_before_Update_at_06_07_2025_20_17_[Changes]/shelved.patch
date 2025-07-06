@@ -1,0 +1,19 @@
+Index: app/src/main/java/com/otavioaugusto/app_semurb/adapters/OcorrenciasAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.otavioaugusto.app_semurb.adapters\r\n\r\nimport android.content.Intent\r\nimport android.view.LayoutInflater\r\nimport android.view.ViewGroup\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity\r\nimport com.otavioaugusto.app_semurb.dataClasses.DataClassOcorrencia\r\nimport com.otavioaugusto.app_semurb.databinding.ItemOcorrenciaviarioBinding\r\n\r\nclass OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>() {\r\n\r\n    private val lista = mutableListOf<DataClassOcorrencia>()\r\n\r\n    fun submitList(novaLista: List<DataClassOcorrencia>) {\r\n        lista.clear()\r\n        lista.addAll(novaLista)\r\n        notifyDataSetChanged()\r\n    }\r\n\r\n    inner class ViewHolder(val binding: ItemOcorrenciaviarioBinding) : RecyclerView.ViewHolder(binding.root) {\r\n        fun bind(item: DataClassOcorrencia) {\r\n            binding.textTitulo.text = \"Ocorrência ${item.id}\"\r\n            binding.textTipo.text = item.tipo\r\n            binding.textEndereco.text = item.endereco\r\n\r\n            binding.btnEditarOcoVia.setOnClickListener {\r\n                val context = binding.root.context\r\n                val intent = Intent(context, PlaceHolderGameficadoActivity::class.java)\r\n                intent.putExtra(\"FRAGMENT_KEY\", \"OCORRENCIAS_EDITADO\")\r\n                intent.putExtra(\"VISIBILITY\", \"GONE\")\r\n\r\n                intent.putExtra(\"ID_OCORRENCIA\", item.id.toLong())\r\n                intent.putExtra(\"TIPO\", item.tipo)\r\n                intent.putExtra(\"ENDERECO\", item.endereco)\r\n                intent.putExtra(\"NOME\", item.nome)\r\n                intent.putExtra(\"CONTATO\", item.numcontato)\r\n\r\n                context.startActivity(intent)\r\n            }\r\n\r\n        }\r\n    }\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {\r\n        val binding = ItemOcorrenciaviarioBinding.inflate(LayoutInflater.from(parent.context), parent, false)\r\n        return ViewHolder(binding)\r\n    }\r\n\r\n    override fun getItemCount() = lista.size\r\n\r\n    override fun onBindViewHolder(holder: ViewHolder, position: Int) {\r\n        holder.bind(lista[position])\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/otavioaugusto/app_semurb/adapters/OcorrenciasAdapter.kt b/app/src/main/java/com/otavioaugusto/app_semurb/adapters/OcorrenciasAdapter.kt
+--- a/app/src/main/java/com/otavioaugusto/app_semurb/adapters/OcorrenciasAdapter.kt	(revision 6048cc6abdbb35bd4ec8d2fc18f23864b9ae8e4f)
++++ b/app/src/main/java/com/otavioaugusto/app_semurb/adapters/OcorrenciasAdapter.kt	(date 1751832811073)
+@@ -20,7 +20,7 @@
+ 
+     inner class ViewHolder(val binding: ItemOcorrenciaviarioBinding) : RecyclerView.ViewHolder(binding.root) {
+         fun bind(item: DataClassOcorrencia) {
+-            binding.textTitulo.text = "Ocorrência ${item.id}"
++            binding.textTitulo.text = "Ocorrência ${position + 1}"
+             binding.textTipo.text = item.tipo
+             binding.textEndereco.text = item.endereco
+ 

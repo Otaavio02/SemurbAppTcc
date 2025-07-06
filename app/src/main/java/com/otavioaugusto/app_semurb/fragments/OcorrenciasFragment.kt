@@ -36,12 +36,6 @@ class OcorrenciasFragment : Fragment() {
         binding.rvOcorrencias.layoutManager = LinearLayoutManager(requireContext())
         binding.rvOcorrencias.adapter = adapter
 
-        binding.btnEnviarOcorrencia.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY", "OCORRENCIAS_EDITADO")
-            intent.putExtra("VISIBILITY","GONE")
-            startActivity(intent)
-        }
 
         binding.btnAdicionarOcorrencia.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
