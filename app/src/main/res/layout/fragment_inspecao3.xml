@@ -171,7 +171,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
-            android:background="@android:color/transparent"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toTopOf="@+id/guideline77"
             app:layout_constraintStart_toStartOf="parent"

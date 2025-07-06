@@ -34,7 +34,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:background="@android:color/transparent"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Voltar para a etapa 1 de serviço viário."
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/guideline41"

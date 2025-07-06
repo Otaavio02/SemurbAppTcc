@@ -127,7 +127,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center|start"
             android:layout_marginStart="16dp"
-            android:background="@android:color/transparent"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/botaovoltarconfig"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/voltar" />
