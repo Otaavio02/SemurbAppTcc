@@ -15,4 +15,9 @@
     <item android:title="@string/config"
         android:id="@+id/config"
         android:icon="@drawable/config_icon"/>
+
+    <item android:title="teste"
+        android:id="@+id/teste"
+        android:icon="@drawable/config_icon"
+        android:visible="false"/>
 </menu>

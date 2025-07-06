@@ -7,8 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.database.ViarioDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentViarioeditadoBinding
+import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 
 class ViarioEditadoFragment : Fragment() {
 
@@ -28,6 +32,60 @@ class ViarioEditadoFragment : Fragment() {
 
         binding.btnFinalizarViarioEdicao.setOnClickListener {
             requireActivity().finish()
+        }
+
+        val idViario = activity?.intent?.getLongExtra("ID_VIARIO", -1L) ?: -1L
+        val tipo = activity?.intent?.getStringExtra("TIPO")
+        val endereco = activity?.intent?.getStringExtra("ENDERECO")
+        val descricao = activity?.intent?.getStringExtra("DESCRICAO")
+
+        binding.editTextEndereco.setText(endereco)
+        binding.editTextDescricao.setText(descricao)
+
+        when (tipo) {
+            "Sinalização Ineficiente" -> binding.rbSinaInefi.isChecked = true
+            "Substituição" -> binding.rbSubstituicao.isChecked = true
+            "Sugestão" -> binding.rbSugestao.isChecked = true
+        }
+
+
+        binding.btnFinalizarViarioEdicao.setOnClickListener {
+            val tipoSelecionado = when (binding.rgViarioEditado.checkedRadioButtonId) {
+                R.id.rbSinaInefi -> "Sinalização Ineficiente"
+                R.id.rbSubstituicao -> "Substituição"
+                R.id.rbSugestao -> "Sugestão"
+                else -> ""
+            }
+
+            val novoEndereco = binding.editTextEndereco.text.toString()
+            val novaDescricao = binding.editTextDescricao.text.toString()
+
+            if (idViario != -1L) {
+                val dbHelper = ViarioDBHelper(requireContext())
+                dbHelper.updateViarioCompleto(
+                    id = idViario,
+                    tipo = tipoSelecionado,
+                    endereco = novoEndereco,
+                    descricao = novaDescricao
+                )
+
+                Toast.makeText(requireContext(), "Sinalização atualizada com sucesso!", Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
+            } else {
+                Toast.makeText(requireContext(), "ID da sinalização inválido!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.btnExcluirViario.setOnClickListener {
+            if (idViario != -1L) {
+                val dbHelper = ViarioDBHelper(requireContext())
+                dbHelper.deleteViario(idViario)
+
+                Toast.makeText(requireContext(), "Sinalização excluída com sucesso!", Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
+            } else {
+                Toast.makeText(requireContext(), "ID da sinalização inválido!", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return binding.root

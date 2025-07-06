@@ -126,7 +126,7 @@ class PlaceHolderActivity : AppCompatActivity() {
             "INICIAR_HOME" -> R.id.home
             "INICIAR_PERFIL" -> R.id.perfil
             "INICIAR_CONFIG" -> R.id.config
-            "INICIAR_VIARIOHOME" -> R.id.notificacao // ajuste conforme sua lógica
+            "INICIAR_VIARIOHOME" -> R.id.notificacao 
             "INICIAR_OCORRENCIASHOME" -> R.id.notificacao
             "INICIAR_NOTIFICACOES" -> R.id.notificacao
             else -> R.id.home

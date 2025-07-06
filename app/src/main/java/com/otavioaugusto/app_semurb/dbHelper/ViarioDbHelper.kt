@@ -37,6 +37,21 @@ class ViarioDBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return db.insert("viario", null, cv)
     }
 
+    fun updateViarioCompleto(id: Long, tipo: String, endereco: String, descricao: String,) {
+        val db = writableDatabase
+        val cv = ContentValues().apply {
+            put("tipo", tipo)
+            put("endereco", endereco)
+            put("descricao", descricao)
+        }
+        db.update("viario", cv, "id = ?", arrayOf(id.toString()))
+    }
+
+    fun deleteViario(id: Long) {
+        val db = writableDatabase
+        db.delete("viario", "id = ?", arrayOf(id.toString()))
+    }
+
     fun updateEndereco(id: Long, endereco: String) {
         val db = writableDatabase
         val cv = ContentValues().apply {

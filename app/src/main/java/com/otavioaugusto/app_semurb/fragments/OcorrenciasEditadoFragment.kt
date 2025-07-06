@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.R
@@ -29,9 +30,6 @@ class OcorrenciasEditadoFragment : Fragment() {
             requireActivity().finish()
         }
 
-        binding.btnFinalizarOcorrenciasEditado.setOnClickListener {
-            requireActivity().finish()
-        }
 
         val idOcorrencia = activity?.intent?.getLongExtra("ID_OCORRENCIA", -1L) ?: -1L
         val tipo = activity?.intent?.getStringExtra("TIPO")
@@ -100,8 +98,7 @@ class OcorrenciasEditadoFragment : Fragment() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {
                     it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                    it.systemBarsBehavior =
-                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 }
             } else {
                 @Suppress("DEPRECATION")

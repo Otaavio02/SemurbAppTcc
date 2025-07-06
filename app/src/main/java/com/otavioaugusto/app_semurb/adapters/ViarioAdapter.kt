@@ -20,14 +20,21 @@ class ViarioAdapter : RecyclerView.Adapter<ViarioAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemOcorrenciaviarioBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DataClassViario) {
-            binding.textTitulo.text = "Sinalização ${item.id}"
+            binding.textTitulo.text = "Sinalização ${position + 1}"
             binding.textTipo.text = item.tipo ?: ""
             binding.textEndereco.text = item.endereco ?: ""
+
             binding.btnEditarOcoVia.setOnClickListener {
                 val context = binding.root.context
                 val intent = Intent(context, PlaceHolderGameficadoActivity::class.java)
-                intent.putExtra("FRAGMENT_KEY", "OCORRENCIAS_EDITADO")
+                intent.putExtra("FRAGMENT_KEY", "VIARIO_EDITADO")
                 intent.putExtra("VISIBILITY", "GONE")
+
+                intent.putExtra("ID_VIARIO", item.id.toLong())
+                intent.putExtra("TIPO", item.tipo)
+                intent.putExtra("ENDERECO", item.endereco)
+                intent.putExtra("DESCRICAO", item.descricao)
+
                 context.startActivity(intent)
             }
 
