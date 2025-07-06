@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.otavioaugusto.app_semurb.dataClasses.DataClassOcorrencia
+import com.otavioaugusto.app_semurb.utils.getStringOrNull
 
 class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorrencias.db", null, 1) {
     override fun onCreate(db: SQLiteDatabase) {
@@ -30,6 +31,22 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
             put("tipo", tipo)
         }
         return db.insert("ocorrencias", null, cv)
+    }
+
+    fun updateOcorrenciaCompleta(id: Long, tipo: String, endereco: String, nome: String, telefone: String) {
+        val db = writableDatabase
+        val cv = ContentValues().apply {
+            put("tipo", tipo)
+            put("endereco", endereco)
+            put("nome_contato", nome)
+            put("telefone_contato", telefone)
+        }
+        db.update("ocorrencias", cv, "id = ?", arrayOf(id.toString()))
+    }
+
+    fun deleteOcorrencia(id: Long) {
+        val db = writableDatabase
+        db.delete("ocorrencias", "id = ?", arrayOf(id.toString()))
     }
 
     fun updateEndereco(id: Long, endereco: String) {
@@ -58,14 +75,15 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
                 lista.add(
                     DataClassOcorrencia(
                         id = it.getInt(it.getColumnIndexOrThrow("id")),
-                        tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
-                        endereco = it.getString(it.getColumnIndexOrThrow("endereco")) ?: "",
-                        nome = it.getString(it.getColumnIndexOrThrow("nome_contato")) ?: "",
-                        numcontato = it.getString(it.getColumnIndexOrThrow("telefone_contato")) ?: ""
+                        tipo = it.getStringOrNull("tipo") ?: "",
+                        endereco = it.getStringOrNull("endereco") ?: "",
+                        nome = it.getStringOrNull("nome_contato") ?: "",
+                        numcontato = it.getStringOrNull("telefone_contato") ?: ""
                     )
                 )
             }
         }
         return lista
     }
+
 }

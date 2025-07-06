@@ -33,8 +33,8 @@ class OcorrenciasFragment : Fragment() {
         _binding = FragmentOcorrenciasBinding.inflate(inflater, container, false)
 
         adapter = OcorrenciasAdapter()
-        binding.rvOcorrencias?.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvOcorrencias?.adapter = adapter
+        binding.rvOcorrencias.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvOcorrencias.adapter = adapter
 
         binding.btnEnviarOcorrencia.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
@@ -80,8 +80,8 @@ class OcorrenciasFragment : Fragment() {
         val totalHeightPx = (totalHeightDp * scale).toInt()
 
 
-        binding.rvOcorrencias?.layoutParams?.height = totalHeightPx
-        binding.rvOcorrencias?.requestLayout()
+        binding.rvOcorrencias.layoutParams?.height = totalHeightPx
+        binding.rvOcorrencias.requestLayout()
     }
 
     override fun onDestroyView() {

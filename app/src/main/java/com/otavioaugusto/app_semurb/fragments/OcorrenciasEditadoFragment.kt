@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciaseditadoBinding
+import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 
 class OcorrenciasEditadoFragment : Fragment() {
 
@@ -28,6 +31,64 @@ class OcorrenciasEditadoFragment : Fragment() {
 
         binding.btnFinalizarOcorrenciasEditado.setOnClickListener {
             requireActivity().finish()
+        }
+
+        val idOcorrencia = activity?.intent?.getLongExtra("ID_OCORRENCIA", -1L) ?: -1L
+        val tipo = activity?.intent?.getStringExtra("TIPO")
+        val endereco = activity?.intent?.getStringExtra("ENDERECO")
+        val nome = activity?.intent?.getStringExtra("NOME")
+        val contato = activity?.intent?.getStringExtra("CONTATO")
+
+        binding.editTextEndereco.setText(endereco)
+        binding.editTextNome.setText(nome)
+        binding.editTextContato.setText(contato)
+
+        when (tipo) {
+            "Sinistro de Trânsito" -> binding.rbSinistro.isChecked = true
+            "Sinistro de Grande Vulto" -> binding.rbGrandeVulto.isChecked = true
+            "Atendimento ao Cidadão" -> binding.rbAtendimento.isChecked = true
+        }
+
+
+        binding.btnFinalizarOcorrenciasEditado.setOnClickListener {
+            val tipoSelecionado = when (binding.rgOcorrenciasEditado.checkedRadioButtonId) {
+                R.id.rbSinistro -> "Sinistro de Trânsito"
+                R.id.rbGrandeVulto -> "Sinistro de Grande Vulto"
+                R.id.rbAtendimento -> "Atendimento ao Cidadão"
+                else -> ""
+            }
+
+            val novoEndereco = binding.editTextEndereco.text.toString()
+            val novoNome = binding.editTextNome.text.toString()
+            val novoContato = binding.editTextContato.text.toString()
+
+            if (idOcorrencia != -1L) {
+                val dbHelper = ocorrenciasDBHelper(requireContext())
+                dbHelper.updateOcorrenciaCompleta(
+                    id = idOcorrencia,
+                    tipo = tipoSelecionado,
+                    endereco = novoEndereco,
+                    nome = novoNome,
+                    telefone = novoContato
+                )
+
+                Toast.makeText(requireContext(), "Ocorrência atualizada com sucesso!", Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
+            } else {
+                Toast.makeText(requireContext(), "ID da ocorrência inválido!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.btnExcluirOcorrencia.setOnClickListener {
+            if (idOcorrencia != -1L) {
+                val dbHelper = ocorrenciasDBHelper(requireContext())
+                dbHelper.deleteOcorrencia(idOcorrencia)
+
+                Toast.makeText(requireContext(), "Ocorrência excluída com sucesso!", Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
+            } else {
+                Toast.makeText(requireContext(), "ID da ocorrência inválido!", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return binding.root

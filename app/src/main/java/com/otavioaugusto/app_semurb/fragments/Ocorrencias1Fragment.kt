@@ -28,7 +28,6 @@ class Ocorrencias1Fragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentOcorrencias1Binding.inflate(inflater, container, false)
 
-        // Animação inicial do carrinho chegando
         val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
         val bolinhaInicial = requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
         bolinhaInicial.post {
@@ -46,7 +45,7 @@ class Ocorrencias1Fragment : Fragment() {
 
         binding.btnProximoOcorrencias1.setOnClickListener {
 
-            val tipo = when (binding.rgOcorrencias?.checkedRadioButtonId) {
+            val tipo = when (binding.rgOcorrencias.checkedRadioButtonId) {
                 R.id.rbSinistro -> "Sinistro de Trânsito"
                 R.id.rbGrandeVulto -> "Sinistro de Grande Vulto"
                 R.id.rbAtendimento -> "Atendimento ao Cidadão"
@@ -84,10 +83,10 @@ class Ocorrencias1Fragment : Fragment() {
                 dialog.show()
 
                 return@setOnClickListener
-            }
+            } else {
 
             val dbHelper = ocorrenciasDBHelper(requireContext())
-            val id = dbHelper.insertOcorrencia(tipo) // Como assim? vai inserir o tipo no lugar do ID?
+            val id = dbHelper.insertOcorrencia(tipo)
             novaOcorrenciaId = id
 
             val fragmentEndereco = Ocorrencias2Fragment().apply {
@@ -104,7 +103,7 @@ class Ocorrencias1Fragment : Fragment() {
                 .replace(R.id.FragmentContainerView2, fragmentEndereco)
                 .addToBackStack(null)
                 .commit()
-        }
+        }}
 
         return binding.root
     }
