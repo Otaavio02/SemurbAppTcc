@@ -29,9 +29,6 @@ class OcorrenciasEditadoFragment : Fragment() {
             requireActivity().finish()
         }
 
-        binding.btnFinalizarOcorrenciasEditado.setOnClickListener {
-            requireActivity().finish()
-        }
 
         val idOcorrencia = activity?.intent?.getLongExtra("ID_OCORRENCIA", -1L) ?: -1L
         val tipo = activity?.intent?.getStringExtra("TIPO")
