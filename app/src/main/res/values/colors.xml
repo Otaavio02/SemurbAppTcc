@@ -31,6 +31,8 @@
     <color name="FundoItemOcoAva">#FFFFFF</color>
     <color name="BordaItemOcoAva">#000000</color>
     <color name="NomeTextoItemOcoAva">#295678</color>
+    <color name="CorCheckBox">#295678</color>
+
 
 
 

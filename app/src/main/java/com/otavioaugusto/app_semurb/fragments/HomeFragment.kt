@@ -35,6 +35,8 @@ class HomeFragment : Fragment() {
                 .replace(R.id.fragmentContainerView, ViarioFragment())
                 .addToBackStack(null)
                 .commit()
+
+            (activity as? PlaceHolderActivity)?.clearBottomNavigationSelection()
         }
 
         binding.btnInspecaoHome.setOnClickListener {
@@ -42,6 +44,8 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "INICIAR_INSPECAO")
             startActivity(intent)
+
+
         }
 
         binding.btnHistoricoHome.setOnClickListener {
@@ -53,6 +57,8 @@ class HomeFragment : Fragment() {
                 .replace(R.id.fragmentContainerView, HistoricoFragment())
                 .addToBackStack(null)
                 .commit()
+
+            (activity as? PlaceHolderActivity)?.clearBottomNavigationSelection()
         }
 
         binding.btnOcorrenciaHome.setOnClickListener {
@@ -64,6 +70,8 @@ class HomeFragment : Fragment() {
                 .replace(R.id.fragmentContainerView, OcorrenciasFragment())
                 .addToBackStack(null)
                 .commit()
+
+            (activity as? PlaceHolderActivity)?.clearBottomNavigationSelection()
         }
 
         binding.btnIniciarTurno.setOnClickListener {

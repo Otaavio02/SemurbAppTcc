@@ -13,6 +13,7 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
             CREATE TABLE ocorrencias (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 tipo TEXT,
+                numero_sequencial INTEGER,
                 endereco TEXT,
                 nome_contato TEXT,
                 telefone_contato TEXT
@@ -27,8 +28,19 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
 
     fun insertOcorrencia(tipo: String): Long {
         val db = writableDatabase
+
+        val cursor = db.rawQuery("SELECT MAX(numero_sequencial) FROM ocorrencias", null)
+        var proximoNumero = 1
+        cursor.use {
+            if (it.moveToFirst()) {
+                val maxNum = it.getInt(0)
+                if (maxNum > 0) proximoNumero = maxNum + 1
+            }
+        }
+
         val cv = ContentValues().apply {
             put("tipo", tipo)
+            put("numero_sequencial", proximoNumero)
         }
         return db.insert("ocorrencias", null, cv)
     }
@@ -68,13 +80,14 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
 
     fun getAllOcorrencias(): List<DataClassOcorrencia> {
         val db = readableDatabase
-        val cursor = db.query("ocorrencias", null, null, null, null, null, "id DESC")
+        val cursor = db.query("ocorrencias", null, null, null, null, null, "numero_sequencial ASC")
         val lista = mutableListOf<DataClassOcorrencia>()
         cursor.use {
             while (it.moveToNext()) {
                 lista.add(
                     DataClassOcorrencia(
                         id = it.getInt(it.getColumnIndexOrThrow("id")),
+                        numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
                         tipo = it.getStringOrNull("tipo") ?: "",
                         endereco = it.getStringOrNull("endereco") ?: "",
                         nome = it.getStringOrNull("nome_contato") ?: "",

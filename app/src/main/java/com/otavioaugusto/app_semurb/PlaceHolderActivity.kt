@@ -55,7 +55,7 @@ class PlaceHolderActivity : AppCompatActivity() {
             insets
         }
 
-        // Restaurar estado salvo ou pegar do Intent
+
         if (savedInstanceState != null) {
             currentFragmentKey = savedInstanceState.getString("CURRENT_FRAGMENT_KEY", "INICIAR_HOME")
             currentMenuItemId = savedInstanceState.getInt("CURRENT_MENU_ITEM_ID", R.id.home)
@@ -126,8 +126,6 @@ class PlaceHolderActivity : AppCompatActivity() {
             "INICIAR_HOME" -> R.id.home
             "INICIAR_PERFIL" -> R.id.perfil
             "INICIAR_CONFIG" -> R.id.config
-            "INICIAR_VIARIOHOME" -> R.id.notificacao 
-            "INICIAR_OCORRENCIASHOME" -> R.id.notificacao
             "INICIAR_NOTIFICACOES" -> R.id.notificacao
             else -> R.id.home
         }
@@ -142,4 +140,17 @@ class PlaceHolderActivity : AppCompatActivity() {
             else -> "INICIAR_HOME"
         }
     }
+
+    fun clearBottomNavigationSelection() {
+        binding.bottomNavigationView.menu.setGroupCheckable(0, true, false)
+        for (i in 0 until binding.bottomNavigationView.menu.size()) {
+            binding.bottomNavigationView.menu.getItem(i).isChecked = false
+        }
+        binding.bottomNavigationView.menu.setGroupCheckable(0, true, true)
+
+
+        currentMenuItemId = -1
+    }
+
+
 }

@@ -3,7 +3,13 @@
     <style name="Base.Theme.AppSemurb" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary Brand Color -->
 
-        <item name="colorPrimary">@color/Preto</item>
+        <item name="colorPrimary">@color/FundoElementos</item>
+        <item name="colorPrimaryContainer">@color/FundoElementos</item>
+        <item name="colorPrimaryVariant">@color/FundoElementos</item>
+        <item name="colorSecondary">@color/FundoElementos</item>
+        <item name="colorSecondaryVariant">@color/FundoElementos</item>
+        <item name="colorSecondaryContainer">@color/FundoElementos</item>
+
         <item name="colorFundo">@color/Fundo</item>
         <item name="colorFundoElementos">@color/FundoElementos</item>
         <item name="colorFundoCaixas">@color/FundoCaixas</item>

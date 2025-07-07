@@ -20,7 +20,7 @@ class OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>()
 
     inner class ViewHolder(val binding: ItemOcorrenciaviarioBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DataClassOcorrencia) {
-            binding.textTitulo.text = "Ocorrência ${position + 1}"
+            binding.textTitulo.text = "Ocorrência ${item.numeroSequencial}"
             binding.textTipo.text = item.tipo
             binding.textEndereco.text = item.endereco
 

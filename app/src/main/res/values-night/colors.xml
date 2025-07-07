@@ -17,7 +17,7 @@
     <color name="CarroCor">#7BB3F9</color>
     <color name="CorBolas">#7BB3F9</color>
     <color name="FundoNotificacoes">#001530</color>
-    <color name="CorBordaNotificacoesN">#012362</color>
+    <color name="CorBordaNotificacoesN">#0F3754</color>
     <color name="CorBtnInspecao">#010E19</color>
     <color name="CorFundoInspecao">#081A31</color>
     <color name="CorBordasInspecao">#6ABDF8</color>
@@ -30,6 +30,7 @@
     <color name="FundoItemOcoAva">#010E19</color>
     <color name="BordaItemOcoAva">#6ABDF8</color>
     <color name="NomeTextoItemOcoAva">#6ABDF8</color>
+    <color name="CorCheckBox">#6ABDF8</color>
 
 
 

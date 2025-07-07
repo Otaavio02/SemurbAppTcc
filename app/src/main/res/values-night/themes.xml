@@ -4,6 +4,13 @@
         <!-- Primary Brand Color -->
 
             <!-- Primary Brand Color -->
+    <item name="colorPrimary">@color/AzulBebe</item>
+    <item name="colorPrimaryContainer">@color/AzulBebe</item>
+    <item name="colorPrimaryVariant">@color/AzulBebe</item>
+    <item name="colorSecondary">@color/AzulBebe</item>
+    <item name="colorSecondaryVariant">@color/AzulBebe</item>
+    <item name="colorSecondaryContainer">@color/AzulBebe</item>
+
     <item name="colorFundo">@color/Fundo</item>
     <item name="colorFundoElementos">@color/FundoElementos</item>
     <item name="colorFundoCaixas">@color/FundoCaixas</item>

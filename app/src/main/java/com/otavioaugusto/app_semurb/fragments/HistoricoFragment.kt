@@ -10,6 +10,7 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import com.otavioaugusto.app_semurb.PlaceHolderActivity
 
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentHistorico1Binding
@@ -32,16 +33,6 @@ class HistoricoFragment : Fragment() {
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, historicoEspecifico)
         binding.autoCompleteTextView.setAdapter(arrayAdapter)
 
-        binding.btnVoltarHistorico2.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_left,
-                    R.anim.slide_out_right
-                )
-                .replace(R.id.fragmentContainerView, HomeFragment())
-                .addToBackStack(null)
-                .commit()
-        }
 
 
         val editTextDate = binding.editTextData

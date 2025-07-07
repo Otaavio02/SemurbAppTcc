@@ -121,17 +121,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline37">
 
-        <ImageButton
-            android:id="@+id/btn_voltarOcorrencia"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center|start"
-            android:layout_marginStart="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/botaovoltarconfig"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/voltar" />
-
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
