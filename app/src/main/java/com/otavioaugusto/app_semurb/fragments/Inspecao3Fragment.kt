@@ -50,21 +50,40 @@ class Inspecao3Fragment : Fragment() {
         setupRecyclers()
 
 
+        binding.cbFrente.setOnCheckedChangeListener { _, isChecked ->
+            binding.btnInspecaoFrente.isEnabled  = !isChecked
+        }
+        binding.cbTraseira.setOnCheckedChangeListener { _, isChecked ->
+            binding.btnInspecaoTraseira.isEnabled = !isChecked
+        }
+        binding.cbDireita.setOnCheckedChangeListener { _, isChecked ->
+            binding.btnInspecaoDireita.isEnabled  = !isChecked
+        }
+        binding.cbEsquerda.setOnCheckedChangeListener { _, isChecked ->
+            binding.btnInspecaoEsquerda.isEnabled  = !isChecked
+        }
+        binding.cbOutra.setOnCheckedChangeListener { _, isChecked ->
+            binding.btnInspecaoOutras.isEnabled  = !isChecked
+        }
 
-        binding.btnInfoFrente?.setOnClickListener {
+
+
+
+
+        binding.btnInfoFrente.setOnClickListener {
             mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Capo, Farol esquerdo/direito, Pisca esquerdo/direito, Para-brisa, Para-choque, Grade frontal, etc." )
         }
 
-        binding.btnInfoTraseira?.setOnClickListener {
+        binding.btnInfoTraseira.setOnClickListener {
             mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Para-Choque traseiro, Farol esquerdo/direito, Pisca esquerdo/direito, Vidro traseiro, Luz de ré, Escapamento, etc," )
         }
-        binding.btnInfoDireita?.setOnClickListener {
+        binding.btnInfoDireita.setOnClickListener {
             mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Para-choque lateral direito, porta dianteira direita, porta traseira direita, retrovisor direito, vidros laterais direitos, maçanetas, Pneus direitos etc." )
         }
-        binding.btnInfoEsquerda?.setOnClickListener {
+        binding.btnInfoEsquerda.setOnClickListener {
             mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Para-choque lateral esquerda, porta dianteira esquerda, porta traseira esquerda, retrovisor esquerdo, vidros laterais esquerda, maçanetas, Pneus esquerdos etc" )
         }
-        binding.btnInfoOutros?.setOnClickListener {
+        binding.btnInfoOutros.setOnClickListener {
             mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Teto, Chassi, Motor, Suspensão, Freios, etc." )
         }
         return binding.root

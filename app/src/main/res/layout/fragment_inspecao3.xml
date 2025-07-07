@@ -92,7 +92,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/cbFrente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -106,7 +106,7 @@
             app:layout_constraintTop_toBottomOf="@+id/container_avarias_frente" />
 
         <CheckBox
-            android:id="@+id/checkBox6"
+            android:id="@+id/cbOutra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -120,7 +120,7 @@
             app:layout_constraintTop_toBottomOf="@+id/container_avarias_outras" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/cbTraseira"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -134,7 +134,7 @@
             app:layout_constraintTop_toBottomOf="@+id/container_avarias_traseira" />
 
         <CheckBox
-            android:id="@+id/checkBox5"
+            android:id="@+id/cbEsquerda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -148,7 +148,7 @@
             app:layout_constraintTop_toBottomOf="@+id/container_avarias_esquerda" />
 
         <CheckBox
-            android:id="@+id/checkBox4"
+            android:id="@+id/cbDireita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -195,7 +195,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox6" />
+            app:layout_constraintTop_toBottomOf="@+id/cbOutra" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline76"
@@ -252,7 +252,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox">
+            app:layout_constraintTop_toBottomOf="@+id/cbFrente">
 
             <TextView
                 android:id="@+id/textViewTraseira"
@@ -330,7 +330,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox2">
+            app:layout_constraintTop_toBottomOf="@+id/cbTraseira">
 
             <TextView
                 android:id="@+id/textViewDireita"
@@ -408,7 +408,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox4">
+            app:layout_constraintTop_toBottomOf="@+id/cbDireita">
 
             <TextView
                 android:id="@+id/textViewEsquerda"
@@ -487,7 +487,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox5">
+            app:layout_constraintTop_toBottomOf="@+id/cbEsquerda">
 
             <TextView
                 android:id="@+id/textViewOutras"
