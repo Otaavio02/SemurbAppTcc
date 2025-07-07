@@ -29,15 +29,17 @@ class ViarioDBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         onCreate(db)
     }
 
-    fun insertTipoViario(tipo: String): Long {
+    fun insertViarioCompleto(tipo: String?, endereco: String?, descricao: String?) {
         val db = writableDatabase
         val cv = ContentValues().apply {
             put("tipo", tipo)
+            put("endereco", endereco)
+            put("descricao", descricao)
         }
-        return db.insert("viario", null, cv)
+        db.insert("viario", null, cv)
     }
 
-    fun updateViarioCompleto(id: Long, tipo: String, endereco: String, descricao: String,) {
+    fun updateViarioCompleto(id: Long, tipo: String, endereco: String, descricao: String) {
         val db = writableDatabase
         val cv = ContentValues().apply {
             put("tipo", tipo)
@@ -50,22 +52,6 @@ class ViarioDBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     fun deleteViario(id: Long) {
         val db = writableDatabase
         db.delete("viario", "id = ?", arrayOf(id.toString()))
-    }
-
-    fun updateEndereco(id: Long, endereco: String) {
-        val db = writableDatabase
-        val cv = ContentValues().apply {
-            put("endereco", endereco)
-        }
-        db.update("viario", cv, "id = ?", arrayOf(id.toString()))
-    }
-
-    fun updateDescricao(id: Long, descricao: String) {
-        val db = writableDatabase
-        val cv = ContentValues().apply {
-            put("descricao", descricao)
-        }
-        db.update("viario", cv, "id = ?", arrayOf(id.toString()))
     }
 
     fun getAllViario(): List<DataClassViario> {

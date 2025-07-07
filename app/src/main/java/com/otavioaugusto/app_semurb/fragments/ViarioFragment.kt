@@ -34,13 +34,6 @@ class ViarioFragment : Fragment() {
         binding.rvOcorrencias?.layoutManager = LinearLayoutManager(requireContext())
         binding.rvOcorrencias?.adapter = adapter
 
-        binding.btnEnviarViario.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY", "VIARIO_EDITADO")
-            intent.putExtra("VISIBILITY","GONE")
-            startActivity(intent)
-        }
-
         binding.btnAdicionarViario.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "INICIAR_VIARIO")

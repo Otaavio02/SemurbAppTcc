@@ -28,7 +28,9 @@ class Viario1Fragment : Fragment() {
 
     private var etapaAtual = 0 // etapa 2
     private var totalEtapas = 3
-    private var novoViarioId: Long? = null
+    private var tipo: String? = null
+    private var endereco: String? = null
+    private var descricao: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +38,10 @@ class Viario1Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentViario1Binding.inflate(inflater, container, false)
+
+        tipo = arguments?.getString("tipo")
+        endereco = arguments?.getString("endereco")
+        descricao = arguments?.getString("descricao")
 
         // Animação inicial do carrinho chegando
         val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
@@ -49,7 +55,18 @@ class Viario1Fragment : Fragment() {
                 .start()
         }
 
+        if (tipo != null) {
+            when (tipo) {
+                "Sinalização Ineficiente" ->  binding.rgViario.check(R.id.rbSinaInefi)
+                "Substituição" ->  binding.rgViario.check(R.id.rbSubstituicao)
+                "Sugestão" ->  binding.rgViario.check(R.id.rbSugestao)
+            }
+        }
+
         binding.btnVoltarViario1.setOnClickListener {
+            val dbHelper = ViarioDBHelper(requireContext())
+            val id = arguments?.getLong("viario_id") ?: 0L
+            dbHelper.deleteViario(id)
             requireActivity().finish()
         }
 
@@ -95,14 +112,11 @@ class Viario1Fragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val dbHelper = ViarioDBHelper(requireContext())
-            val id = dbHelper.insertTipoViario(tipo)
-            novoViarioId = id
-            Log.d("DEBUG", "ID VIARIO 1: $novoViarioId")
-
             val fragmentEndereco = Viario2Fragment().apply {
                 arguments = Bundle().apply {
-                    putLong("viario_id", id)
+                    putString("tipo", tipo)
+                    putString("endereco", endereco)
+                    putString("descricao", descricao)
                 }
             }
 

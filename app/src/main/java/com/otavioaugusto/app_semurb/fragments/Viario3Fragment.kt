@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,9 +28,10 @@ class Viario3Fragment : Fragment() {
     private var _binding: FragmentViario3Binding? = null
     private val binding get() = _binding!!
 
-    private var viarioId: Long = 0L
-
     private var etapaAtual = 2 // etapa 3
+    private var tipo: String? = null
+    private var endereco: String? = null
+    private var descricao: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,11 +40,26 @@ class Viario3Fragment : Fragment() {
     ): View {
         _binding = FragmentViario3Binding.inflate(inflater, container, false)
 
-        viarioId = arguments?.getLong("viario_id") ?: 0L
+        tipo = arguments?.getString("tipo")
+        endereco = arguments?.getString("endereco")
+        descricao = arguments?.getString("descricao")
+
+        if (descricao != null) {
+            binding.EditTextDescricaoViario.setText(descricao)
+        }
 
         binding.btnVoltarViario3.setOnClickListener {
+            descricao = binding.EditTextDescricaoViario.text.toString()
             if (etapaAtual > 0) {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+            }
+
+            val fragmentDescricao = Viario2Fragment().apply {
+                arguments = Bundle().apply {
+                    putString("tipo", tipo)
+                    putString("endereco", endereco)
+                    putString("descricao", descricao)
+                }
             }
 
             parentFragmentManager.beginTransaction()
@@ -50,14 +67,14 @@ class Viario3Fragment : Fragment() {
                     R.anim.slide_in_left,
                     R.anim.slide_out_right
                 )
-                .replace(R.id.FragmentContainerView2, Viario2Fragment())
+                .replace(R.id.FragmentContainerView2, fragmentDescricao)
                 .addToBackStack(null)
                 .commit()
         }
 
         binding.btnProximoViario3.setOnClickListener {
-            val descricao = binding.EditTextDescricaoViario.text.toString()
-            if (descricao.isEmpty()) {
+            descricao = binding.EditTextDescricaoViario.text.toString()
+            if (descricao == "") {
 
                 val titulo = SpannableString("Campo incompleto").apply {
                     setSpan(
@@ -92,7 +109,11 @@ class Viario3Fragment : Fragment() {
             }
 
             val dbHelper = ViarioDBHelper(requireContext())
-            dbHelper.updateDescricao(viarioId, descricao)
+
+            dbHelper.insertViarioCompleto(tipo, endereco, descricao)
+
+            Log.d("DEBUG", "Endereço digitado: $endereco")
+            Log.d("DEBUG", "Tipo digitado: $tipo")
 
             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
 
