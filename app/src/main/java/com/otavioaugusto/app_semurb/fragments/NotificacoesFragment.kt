@@ -108,7 +108,7 @@ class NotificacoesFragment : Fragment() {
                 alvoAdapter.addItem(item)
 
 
-                binding.btnNotificacoesLidas.isEnabled = alvoAdapter.itemCount != 0
+                binding.btnNotificacoesLidas.isEnabled = alvoAdapter.itemCount > 0
 
                     ajustarAlturaRecyclerView(rvNotificacoesLidas,alvoAdapter.itemCount )
 
