@@ -9,14 +9,14 @@ import com.otavioaugusto.app_semurb.utils.getStringOrNull
 
 class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorrencias.db", null, 1) {
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL("""
+        db.execSQL(/* sql = */ """
             CREATE TABLE ocorrencias (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 tipo TEXT,
                 numero_sequencial INTEGER,
                 endereco TEXT,
-                nome_contato TEXT,
-                telefone_contato TEXT
+                nome TEXT,
+                numcontato TEXT
             )
         """.trimIndent())
     }
@@ -26,7 +26,7 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
         onCreate(db)
     }
 
-    fun insertOcorrencia(tipo: String): Long {
+    fun insertOcorrencia(tipo: String?, endereco: String?, nome: String?, numcontato: String?) {
         val db = writableDatabase
 
         val cursor = db.rawQuery("SELECT MAX(numero_sequencial) FROM ocorrencias", null)
@@ -41,17 +41,20 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
         val cv = ContentValues().apply {
             put("tipo", tipo)
             put("numero_sequencial", proximoNumero)
+            put("endereco", endereco)
+            put("nome", nome)
+            put("numcontato", numcontato)
         }
-        return db.insert("ocorrencias", null, cv)
+        db.insert("ocorrencias", null, cv)
     }
 
-    fun updateOcorrenciaCompleta(id: Long, tipo: String, endereco: String, nome: String, telefone: String) {
+    fun updateOcorrenciaCompleta(id: Long, tipo: String, endereco: String, nome: String, numcontato: String) {
         val db = writableDatabase
         val cv = ContentValues().apply {
             put("tipo", tipo)
             put("endereco", endereco)
-            put("nome_contato", nome)
-            put("telefone_contato", telefone)
+            put("nome", nome)
+            put("numcontato", numcontato)
         }
         db.update("ocorrencias", cv, "id = ?", arrayOf(id.toString()))
     }
@@ -88,10 +91,10 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
                     DataClassOcorrencia(
                         id = it.getInt(it.getColumnIndexOrThrow("id")),
                         numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
-                        tipo = it.getStringOrNull("tipo") ?: "",
+                        tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getStringOrNull("endereco") ?: "",
-                        nome = it.getStringOrNull("nome_contato") ?: "",
-                        numcontato = it.getStringOrNull("telefone_contato") ?: ""
+                        nome = it.getStringOrNull("nome") ?: "",
+                        numcontato = it.getStringOrNull("numcontato") ?: ""
                     )
                 )
             }

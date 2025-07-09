@@ -64,14 +64,11 @@ class Viario1Fragment : Fragment() {
         }
 
         binding.btnVoltarViario1.setOnClickListener {
-            val dbHelper = ViarioDBHelper(requireContext())
-            val id = arguments?.getLong("viario_id") ?: 0L
-            dbHelper.deleteViario(id)
             requireActivity().finish()
         }
 
         binding.btnProximoViario1.setOnClickListener {
-            val tipo = when (binding.rgViario?.checkedRadioButtonId) {
+            tipo = when (binding.rgViario.checkedRadioButtonId) {
                 R.id.rbSinaInefi -> "Sinalização Ineficiente"
                 R.id.rbSubstituicao -> "Substituição"
                 R.id.rbSugestao -> "Sugestão"
@@ -79,7 +76,7 @@ class Viario1Fragment : Fragment() {
                 else -> ""
             }
 
-            if (tipo.isEmpty()) {
+            if (tipo == "") {
                 val titulo = SpannableString("Campo incompleto").apply {
                     setSpan(
                         ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),

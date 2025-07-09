@@ -55,7 +55,7 @@ class Viario2Fragment : Fragment() {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
             }
 
-            val fragmentDescricao = Viario1Fragment().apply {
+            val fragmentTipo = Viario1Fragment().apply {
                 arguments = Bundle().apply {
                     putString("tipo", tipo)
                     putString("endereco", endereco)
@@ -68,14 +68,13 @@ class Viario2Fragment : Fragment() {
                     R.anim.slide_in_left,
                     R.anim.slide_out_right
                 )
-                .replace(R.id.FragmentContainerView2, fragmentDescricao)
+                .replace(R.id.FragmentContainerView2, fragmentTipo)
                 .addToBackStack(null)
                 .commit()
         }
 
         binding.btnProximoViario2.setOnClickListener {
             endereco = binding.EditTextEnderecoViario.text.toString()
-            Log.d("DEBUG", "Endereço digitado: $endereco")
 
 
             if (endereco == "") {

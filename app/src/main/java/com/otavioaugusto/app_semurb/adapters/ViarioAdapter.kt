@@ -20,7 +20,7 @@ class ViarioAdapter : RecyclerView.Adapter<ViarioAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemOcorrenciaviarioBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DataClassViario) {
-            binding.textTitulo.text = "Sinalização ${position + 1}"
+            binding.textTitulo.text = "Sinalização ${item.numeroSequencial}"
             binding.textTipo.text = item.tipo ?: ""
             binding.textEndereco.text = item.endereco ?: ""
 

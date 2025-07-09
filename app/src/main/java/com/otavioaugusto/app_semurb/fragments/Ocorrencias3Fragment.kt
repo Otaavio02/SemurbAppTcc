@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,19 +22,30 @@ class Ocorrencias3Fragment : Fragment() {
 
     private var _binding: FragmentOcorrencias3Binding? = null
     private val binding get() = _binding!!
+    
     private var etapaAtual = 2 // etapa 3
-
-    private var ocorrenciaId: Long = 0L
+    private var tipo: String? = null
+    private var endereco: String? = null
+    private var nome: String? = null
+    private var numContato: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentOcorrencias3Binding.inflate(inflater, container, false)
 
-        ocorrenciaId = arguments?.getLong("ocorrencia_id") ?: 0L
+        tipo = arguments?.getString("tipo")
+        endereco = arguments?.getString("endereco")
+        nome = arguments?.getString("nome")
+        numContato = arguments?.getString("numContato")
+
+        if (nome != null || numContato != null) {
+            binding.EditTextNomeContato.setText(nome)
+            binding.EditTextNumContato.setText(numContato)
+        }
 
         binding.btnProximoOcorrencias3.setOnClickListener {
-            val nome = binding.EditTextNomeContato.text.toString()
-            val telefone = binding.EditTextNumContato.text.toString()
-            if (nome.isEmpty() || telefone.isEmpty()) {
+            nome = binding.EditTextNomeContato.text.toString()
+            numContato = binding.EditTextNumContato.text.toString()
+            if (nome == "" || numContato == "") {
 
                 val titulo = SpannableString("Digite um nome e telefone").apply {
                     setSpan(
@@ -68,7 +80,7 @@ class Ocorrencias3Fragment : Fragment() {
             }
 
             val dbHelper = ocorrenciasDBHelper(requireContext())
-            dbHelper.updateContato(ocorrenciaId, nome, telefone)
+            dbHelper.insertOcorrencia(tipo, endereco, nome, numContato)
 
             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
 
@@ -78,15 +90,27 @@ class Ocorrencias3Fragment : Fragment() {
         }
 
         binding.btnVoltarOcorrencias3.setOnClickListener {
+            nome = binding.EditTextNomeContato.text.toString()
+            numContato = binding.EditTextNumContato.text.toString()
             if (etapaAtual > 0) {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
             }
+
+            val fragmentEndereco = Ocorrencias2Fragment().apply {
+                arguments = Bundle().apply {
+                    putString("tipo", tipo)
+                    putString("endereco", endereco)
+                    putString("nome", nome)
+                    putString("numContato", numContato)
+                }
+            }
+
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_left,
                     R.anim.slide_out_right
                 )
-                .replace(R.id.FragmentContainerView2, Ocorrencias2Fragment())
+                .replace(R.id.FragmentContainerView2, fragmentEndereco)
                 .addToBackStack(null)
                 .commit()
         }

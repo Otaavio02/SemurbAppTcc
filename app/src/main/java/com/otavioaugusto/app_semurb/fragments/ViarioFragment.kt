@@ -2,6 +2,7 @@ package com.otavioaugusto.app_semurb.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +32,8 @@ class ViarioFragment : Fragment() {
         _binding = FragmentViarioBinding.inflate(inflater, container, false)
 
         adapter = ViarioAdapter()
-        binding.rvOcorrencias?.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvOcorrencias?.adapter = adapter
+        binding.rvOcorrencias.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvOcorrencias.adapter = adapter
 
         binding.btnAdicionarViario.setOnClickListener {
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
@@ -63,8 +64,8 @@ class ViarioFragment : Fragment() {
         val totalHeightPx = (totalHeightDp * scale).toInt()
 
 
-        binding.rvOcorrencias?.layoutParams?.height = totalHeightPx
-        binding.rvOcorrencias?.requestLayout()
+        binding.rvOcorrencias.layoutParams?.height = totalHeightPx
+        binding.rvOcorrencias.requestLayout()
     }
 
 

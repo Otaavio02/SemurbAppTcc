@@ -109,11 +109,7 @@ class Viario3Fragment : Fragment() {
             }
 
             val dbHelper = ViarioDBHelper(requireContext())
-
             dbHelper.insertViarioCompleto(tipo, endereco, descricao)
-
-            Log.d("DEBUG", "Endereço digitado: $endereco")
-            Log.d("DEBUG", "Tipo digitado: $tipo")
 
             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
 
