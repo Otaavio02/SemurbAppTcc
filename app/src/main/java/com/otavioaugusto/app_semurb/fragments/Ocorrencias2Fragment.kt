@@ -23,16 +23,26 @@ class Ocorrencias2Fragment : Fragment() {
 
     private var etapaAtual = 1 // etapa 2
     private var totalEtapas = 3
-    private var ocorrenciaId: Long = 0L
+    private var tipo: String? = null
+    private var endereco: String? = null
+    private var nome: String? = null
+    private var numContato: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentOcorrencias2Binding.inflate(inflater, container, false)
 
-        ocorrenciaId = arguments?.getLong("ocorrencia_id") ?: 0L
+        tipo = arguments?.getString("tipo")
+        endereco = arguments?.getString("endereco")
+        nome = arguments?.getString("nome")
+        numContato = arguments?.getString("numContato")
+
+        if (endereco != null) {
+            binding.EditTextEnderecoOcorrencia.setText(endereco)
+        }
 
         binding.btnProximoOcorrencias2.setOnClickListener {
-            val endereco = binding.EditTextEnderecoOcorrencia.text.toString()
-            if (endereco.isEmpty()) {
+            endereco = binding.EditTextEnderecoOcorrencia.text.toString()
+            if (endereco == "") {
 
                 val titulo = SpannableString("Digite um endereço").apply {
                     setSpan(
@@ -65,14 +75,13 @@ class Ocorrencias2Fragment : Fragment() {
 
                 return@setOnClickListener
             }
-            val dbHelper = ocorrenciasDBHelper(requireContext())
-            dbHelper.updateEndereco(ocorrenciaId, endereco)
-            Log.d("DEBUG", "ID OCORRENCIA: $ocorrenciaId")
-
 
             val fragmentContato = Ocorrencias3Fragment().apply {
                 arguments = Bundle().apply {
-                    putLong("ocorrencia_id", ocorrenciaId)
+                    putString("tipo", tipo)
+                    putString("endereco", endereco)
+                    putString("nome", nome)
+                    putString("numContato", numContato)
                 }
             }
 
@@ -88,8 +97,18 @@ class Ocorrencias2Fragment : Fragment() {
         }
 
         binding.btnVoltarOcorrencias2.setOnClickListener {
+            endereco = binding.EditTextEnderecoOcorrencia.text.toString()
             if (etapaAtual > 0) {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+            }
+
+            val fragmentTipo = Ocorrencias1Fragment().apply {
+                arguments = Bundle().apply {
+                    putString("tipo", tipo)
+                    putString("endereco", endereco)
+                    putString("nome", nome)
+                    putString("numContato", numContato)
+                }
             }
 
             parentFragmentManager.beginTransaction()
@@ -97,7 +116,7 @@ class Ocorrencias2Fragment : Fragment() {
                     R.anim.slide_in_left,
                     R.anim.slide_out_right
                 )
-                .replace(R.id.FragmentContainerView2, Ocorrencias1Fragment())
+                .replace(R.id.FragmentContainerView2, fragmentTipo)
                 .addToBackStack(null)
                 .commit()
         }

@@ -23,10 +23,18 @@ class Ocorrencias1Fragment : Fragment() {
 
     private var etapaAtual = 0 // etapa 2
     private var totalEtapas = 3
-    private var novaOcorrenciaId: Long? = null
+    private var tipo: String? = null
+    private var endereco: String? = null
+    private var nome: String? = null
+    private var numContato: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentOcorrencias1Binding.inflate(inflater, container, false)
+
+        tipo = arguments?.getString("tipo")
+        endereco = arguments?.getString("endereco")
+        nome = arguments?.getString("nome")
+        numContato = arguments?.getString("numContato")
 
         val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
         val bolinhaInicial = requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
@@ -39,21 +47,29 @@ class Ocorrencias1Fragment : Fragment() {
                 .start()
         }
 
+        if (tipo != null) {
+            when (tipo) {
+                "Sinistro de Trânsito" ->  binding.rgOcorrencias.check(R.id.rbSinistro)
+                "Sinistro de Grande Vulto" ->  binding.rgOcorrencias.check(R.id.rbGrandeVulto)
+                "Atendimento ao Cidadão" ->  binding.rgOcorrencias.check(R.id.rbAtendimento)
+            }
+        }
+
         binding.btnVoltarOcorrencias1.setOnClickListener {
             requireActivity().finish()
         }
 
         binding.btnProximoOcorrencias1.setOnClickListener {
 
-            val tipo = when (binding.rgOcorrencias.checkedRadioButtonId) {
+            tipo = when (binding.rgOcorrencias.checkedRadioButtonId) {
                 R.id.rbSinistro -> "Sinistro de Trânsito"
                 R.id.rbGrandeVulto -> "Sinistro de Grande Vulto"
                 R.id.rbAtendimento -> "Atendimento ao Cidadão"
                 else -> ""
             }
 
-            if (tipo.isEmpty()) {
-                val titulo = SpannableString("Clique em alguma opção").apply {
+            if (tipo == "") {
+                val titulo = SpannableString("Campo  incompleto").apply {
                     setSpan(
                         ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
                         0, length, 0
@@ -85,19 +101,19 @@ class Ocorrencias1Fragment : Fragment() {
                 return@setOnClickListener
             } else {
 
-            val dbHelper = ocorrenciasDBHelper(requireContext())
-            val id = dbHelper.insertOcorrencia(tipo)
-            novaOcorrenciaId = id
-
             val fragmentEndereco = Ocorrencias2Fragment().apply {
                 arguments = Bundle().apply {
-                    putLong("ocorrencia_id", id)
+                    putString("tipo", tipo)
+                    putString("endereco", endereco)
+                    putString("nome", nome)
+                    putString("numContato", numContato)
                 }
             }
 
             if (etapaAtual < totalEtapas - 1) {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
             }
+
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                 .replace(R.id.FragmentContainerView2, fragmentEndereco)

@@ -67,7 +67,7 @@ class OcorrenciasEditadoFragment : Fragment() {
                     tipo = tipoSelecionado,
                     endereco = novoEndereco,
                     nome = novoNome,
-                    telefone = novoContato
+                    numcontato = novoContato
                 )
 
                 Toast.makeText(requireContext(), "Ocorrência atualizada com sucesso!", Toast.LENGTH_SHORT).show()
