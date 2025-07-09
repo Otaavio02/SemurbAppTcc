@@ -8,6 +8,6 @@ data class DataClassNotificacoes(
     val descricao: String,
     val horario: LocalTime,
     val data: LocalDate,
-    val lida: Boolean
+    var lida: Boolean
 
 )
