@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:background="@drawable/bg_infoavarias"
-    android:gravity="center">
+    android:background="@drawable/bg_infoavarias">
+
+    <ImageButton
+        android:id="@+id/btnAdicionar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Adicionar ou remover avaria"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_add" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextDescricao"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
         android:fontFamily="@font/montserrat_semibold"
         android:gravity="center_vertical"
         android:hint="@string/descricao_dano"
@@ -20,29 +31,37 @@
         android:maxLines="1"
         android:singleLine="true"
         android:textColor="?attr/CorTextoPadrao"
-        android:textColorHint="#808080" />
+        android:textColorHint="#808080"
+        app:layout_constraintStart_toEndOf="@id/btnAdicionar"
+        app:layout_constraintEnd_toStartOf="@id/frameFoto"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp" />
 
-    <ImageButton
-        android:id="@+id/btnAdicionar"
-        android:layout_width="47dp"
-        android:layout_height="48dp"
-        android:layout_gravity="start"
-        android:layout_marginStart="5dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="Adicionar avaria"
-        android:padding="10dp"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/ic_add" />
+    <FrameLayout
+        android:id="@+id/frameFoto"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/btnFoto"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_gravity="end"
-        android:layout_marginEnd="5dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="Tirar foto"
-        android:padding="10dp"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/ic_camera" />
-</FrameLayout>
+        <ImageView
+            android:id="@+id/imageFoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Foto de avaria"
+            android:scaleType="centerCrop"
+            android:src="@null" />
+
+        <ImageButton
+            android:id="@+id/btnFoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Tirar foto"
+            android:src="@drawable/ic_camera" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

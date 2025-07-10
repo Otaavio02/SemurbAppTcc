@@ -14,14 +14,20 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.adapters.AvariasAdapter
+import com.otavioaugusto.app_semurb.dataClasses.DataClassAvariaItem
 import com.otavioaugusto.app_semurb.databinding.FragmentInspecao3Binding
 import com.otavioaugusto.app_semurb.funcoes.AvariaToggleController
 import com.otavioaugusto.app_semurb.funcoes.AvariasRecyclerHelper
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Timer
 import kotlin.concurrent.schedule
@@ -29,13 +35,30 @@ import kotlin.concurrent.schedule
 class Inspecao3Fragment : Fragment() {
 
     private var imagemTempUri: Uri? = null
+    private var ultimaPosicaoFoto: Int? = null
+    private lateinit var lista: MutableList<DataClassAvariaItem>
 
-    private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-        if (success) {
-            Toast.makeText(requireContext(), "Foto salva em: $imagemTempUri", Toast.LENGTH_SHORT).show()
 
+    private lateinit var adapter: AvariasAdapter
+    private lateinit var avariasFrenteHelper: AvariasRecyclerHelper
+    private lateinit var avariasTraseiraHelper: AvariasRecyclerHelper
+    private lateinit var avariasDireitaHelper: AvariasRecyclerHelper
+    private lateinit var avariasEsquerdaHelper: AvariasRecyclerHelper
+    private lateinit var avariasOutrasHelper: AvariasRecyclerHelper
+
+
+
+    private val TirarFoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        if (success && imagemTempUri !=null && ultimaPosicaoFoto != null){
+            when (ladoAtual) {
+                "Frente" -> avariasFrenteHelper.atualizarFoto(ultimaPosicaoFoto!!, imagemTempUri!!)
+                "Traseira" -> avariasTraseiraHelper.atualizarFoto(ultimaPosicaoFoto!!, imagemTempUri!!)
+                "Direita" -> avariasDireitaHelper.atualizarFoto(ultimaPosicaoFoto!!, imagemTempUri!!)
+                "Esquerda" -> avariasEsquerdaHelper.atualizarFoto(ultimaPosicaoFoto!!, imagemTempUri!!)
+                "Outro" -> avariasOutrasHelper.atualizarFoto(ultimaPosicaoFoto!!, imagemTempUri!!)
+            }
         } else {
-            Toast.makeText(requireContext(), "Falha ao tirar foto", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Falha ao tirar a foto", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -122,9 +145,11 @@ class Inspecao3Fragment : Fragment() {
 
         binding.btnFinalizar.setOnClickListener {
             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(etapaAtual)
-            Timer().schedule(700) {
+            lifecycleScope.launch {
+                delay(700)
                 requireActivity().finish()
             }
+
         }
     }
 
@@ -137,18 +162,48 @@ class Inspecao3Fragment : Fragment() {
         AvariaToggleController(context, binding.containerAvariasOutras, binding.frameAvariaOutras, binding.btnInspecaoOutras, binding.textViewOutras)
     }
 
+    private var ladoAtual: String? = null
+
     private fun setupRecyclers() {
         val context = requireContext()
 
-        val callbackFoto = { _: Int ->
+        val callBackFotoFrente = { posicao: Int ->
+            ladoAtual = "Frente"
             imagemTempUri = criarUriImagem()
-            takePictureLauncher.launch(imagemTempUri)
+            ultimaPosicaoFoto = posicao
+            TirarFoto.launch(imagemTempUri)
         }
-        AvariasRecyclerHelper(context, binding.rvFrente, callbackFoto)
-        AvariasRecyclerHelper(context, binding.rvTraseira, callbackFoto)
-        AvariasRecyclerHelper(context, binding.rvDireita, callbackFoto)
-        AvariasRecyclerHelper(context, binding.rvEsquerda, callbackFoto)
-        AvariasRecyclerHelper(context, binding.rvOutras, callbackFoto)
+        val callBackFotoTraseira = { posicao: Int ->
+            ladoAtual = "Traseira"
+            imagemTempUri = criarUriImagem()
+            ultimaPosicaoFoto = posicao
+            TirarFoto.launch(imagemTempUri)
+        }
+        val callBackFotoDireita = { posicao: Int ->
+            ladoAtual = "Direita"
+            imagemTempUri = criarUriImagem()
+            ultimaPosicaoFoto = posicao
+            TirarFoto.launch(imagemTempUri)
+        }
+        val callBackFotoEsquerda = { posicao: Int ->
+            ladoAtual = "Esquerda"
+            imagemTempUri = criarUriImagem()
+            ultimaPosicaoFoto = posicao
+            TirarFoto.launch(imagemTempUri)
+        }
+        val callBackFotoOutro = { posicao: Int ->
+            ladoAtual = "Outro"
+            imagemTempUri = criarUriImagem()
+            ultimaPosicaoFoto = posicao
+            TirarFoto.launch(imagemTempUri)
+        }
+
+
+        avariasFrenteHelper = AvariasRecyclerHelper(context, binding.rvFrente, callBackFotoFrente)
+        avariasTraseiraHelper = AvariasRecyclerHelper(context, binding.rvTraseira, callBackFotoTraseira)
+        avariasDireitaHelper = AvariasRecyclerHelper(context, binding.rvDireita, callBackFotoDireita)
+        avariasEsquerdaHelper = AvariasRecyclerHelper(context, binding.rvEsquerda, callBackFotoEsquerda)
+        avariasOutrasHelper = AvariasRecyclerHelper(context, binding.rvOutras, callBackFotoOutro)
     }
 
     private fun hideSystemUI() {

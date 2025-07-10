@@ -1,5 +1,6 @@
 package com.otavioaugusto.app_semurb.funcoes
 import android.content.Context
+import android.net.Uri
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.otavioaugusto.app_semurb.adapters.AvariasAdapter
@@ -29,8 +30,18 @@ class AvariasRecyclerHelper(
         if (index in avariasList.indices) {
             avariasList.removeAt(index)
             adapter.notifyItemRemoved(index)
+
         }
     }
 
     fun getAdapter(): AvariasAdapter = adapter
+
+    fun atualizarFoto(posicao: Int, novaUri: Uri){
+        if (posicao in avariasList.indices){
+            avariasList[posicao].uriFoto = novaUri
+            adapter.notifyItemChanged(posicao)
+        }
+    }
 }
+
+
