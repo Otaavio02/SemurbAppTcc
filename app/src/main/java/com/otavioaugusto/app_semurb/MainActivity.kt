@@ -35,9 +35,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        binding.Esqueceusenha.setOnClickListener {
-            mostrarBottonSheet()
-        }
+
         binding.btnEntrar.setOnClickListener { view ->
             checarCampos(view)
 
@@ -190,17 +188,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun mostrarBottonSheet() {
-        val bottomSheetView = layoutInflater.inflate(R.layout.bottom_sheet_recuperarsenha1, null)
-        val bottomSheetDialog = BottomSheetDialog(this)
-        bottomSheetDialog.setContentView(bottomSheetView)
 
-
-        val botaoVerificar = bottomSheetView.findViewById<Button>(R.id.btn_verificar)
-        botaoVerificar.setOnClickListener {
-            bottomSheetDialog.dismiss()
-        }
-        bottomSheetDialog.show()
-    }
 
 }

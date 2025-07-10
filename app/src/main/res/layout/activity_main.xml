@@ -31,28 +31,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/Esqueceusenha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:shadowColor="#000000"
-        android:shadowDx="3"
-        android:shadowDy="0"
-        android:shadowRadius="1"
-        android:text="@string/esqueceu_a_senha"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline10"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
     <TextView
         android:id="@+id/Login_nome"
@@ -104,20 +84,12 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.54" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
-
     <ImageView
         android:id="@+id/Logo_Semurb_Login"
         android:layout_width="214dp"
         android:layout_height="212dp"
         android:layout_marginTop="16dp"
         android:contentDescription="@string/semurblogo"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +100,6 @@
         android:id="@+id/Nao_Abreviacao_Login"
         android:layout_width="180dp"
         android:layout_height="90dp"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat_medium"
         android:gravity="center"
         android:shadowColor="#000000"
@@ -143,22 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline15"
         tools:ignore="TextSizeCheck" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.28" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2502806" />
 
     <TextView
         android:id="@+id/Semurb_Nome"
@@ -175,10 +131,9 @@
         android:textColor="@android:color/white"
         android:textSize="60sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline8"
+        app:layout_constraintTop_toBottomOf="@+id/Logo_Semurb_Login"
         tools:ignore="TextSizeCheck" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -187,13 +142,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.44893378" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.34567901" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_matricula"
