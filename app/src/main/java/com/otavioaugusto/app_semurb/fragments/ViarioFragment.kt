@@ -7,12 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.ViarioAdapter
 import com.otavioaugusto.app_semurb.database.ViarioDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentViarioBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ViarioFragment : Fragment() {
 
@@ -52,20 +56,24 @@ class ViarioFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val dbHelper = ViarioDBHelper(requireContext())
-        val lista = dbHelper.getAllViario()
-        adapter.submitList(lista)
 
-        val heightPerItemDp = 120
-        val totalHeightDp = heightPerItemDp * lista.size
+        lifecycleScope.launch {
 
+            val lista =  withContext(Dispatchers.IO){
+                val dbHelper = ViarioDBHelper(requireContext())
+                dbHelper.getAllViario()
+            }
+                adapter.submitList(lista)
+            val heightPorItemDp = 120
+            val totalHeightDp = heightPorItemDp * lista.size
 
-        val scale = resources.displayMetrics.density
-        val totalHeightPx = (totalHeightDp * scale).toInt()
+            val escala = resources.displayMetrics.density
+            val totalHeightPx = (totalHeightDp * escala).toInt()
 
+            binding.rvOcorrencias.layoutParams?.height = totalHeightPx
+            binding.rvOcorrencias.requestLayout()
+        }
 
-        binding.rvOcorrencias.layoutParams?.height = totalHeightPx
-        binding.rvOcorrencias.requestLayout()
     }
 
 

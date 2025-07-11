@@ -18,6 +18,9 @@ class OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>()
         notifyDataSetChanged()
     }
 
+    val currentList: List<DataClassOcorrencia>
+        get()= lista
+
     inner class ViewHolder(val binding: ItemOcorrenciaviarioBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DataClassOcorrencia) {
             binding.textTitulo.text = "Ocorrência ${item.numeroSequencial}"

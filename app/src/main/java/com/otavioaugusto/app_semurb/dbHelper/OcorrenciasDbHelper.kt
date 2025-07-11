@@ -64,6 +64,12 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
         db.delete("ocorrencias", "id = ?", arrayOf(id.toString()))
     }
 
+    fun deleteAllOcorrencias(){
+        val db = writableDatabase
+        db.delete("ocorrencias", null, null)
+        db.close()
+    }
+
     fun updateEndereco(id: Long, endereco: String) {
         val db = writableDatabase
         val cv = ContentValues().apply {
