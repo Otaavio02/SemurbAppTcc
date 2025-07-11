@@ -114,8 +114,8 @@
     <string name="tipo_de_ocorrencia">Tipo de Ocorrência</string>
     <string name="contato">Contato</string>
     <string name="notificacoes">Notificações</string>
-    <string name="naolidas">Notifações Não-Lidas</string>
-    <string name="lidas">Notifações Lidas</string>
+    <string name="naolidas">Notificações Novas</string>
+    <string name="lidas">Notificações Lidas</string>
     <string name="deslize_lado">Deslize para o lado para marcar como lida</string>
     <string name="deslize_excluir">Deslize para o lado para excluir</string>
     <string name="agente_inspecao">Agente XXXX XXXX</string>

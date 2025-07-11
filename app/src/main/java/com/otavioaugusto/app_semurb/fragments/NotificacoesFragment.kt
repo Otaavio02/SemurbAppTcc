@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import android.transition.TransitionManager
-import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,8 +42,8 @@ class NotificacoesFragment : Fragment() {
 
         val listaTeste =  mutableListOf(
             DataClassNotificacoes("teste1", "teste", LocalTime.of(9, 30), LocalDate.now(), false),
-        DataClassNotificacoes("Ablubluble", "bleble", LocalTime.of(15, 0), LocalDate.now(), false),
-        DataClassNotificacoes("SFGGDG", "ssdfsdf", LocalTime.of(12, 45), LocalDate.now().minusDays(1), false)
+            DataClassNotificacoes("Ablubluble", "bleble", LocalTime.of(15, 0), LocalDate.now(), false),
+            DataClassNotificacoes("SFGGDG", "ssdfsdf", LocalTime.of(12, 45), LocalDate.now().minusDays(1), false)
         )
 
         adapterN = NotificacoesAdapter(listaTeste)
@@ -61,22 +60,46 @@ class NotificacoesFragment : Fragment() {
         ajustarAlturaRecyclerView(rvNotificacoesN, listaTeste.size)
 
         val btnNotificacoesLidas = binding.btnNotificacoesLidas
+        val SubtituloLidas = binding.notificacaoLidasSubtitulo
+        val btnLixeira = binding.btnLixeira
         btnNotificacoesLidas.isEnabled = adapterLidas.itemCount > 0
 
         btnNotificacoesLidas.setOnClickListener {
             TransitionManager.beginDelayedTransition(rvNotificacoesLidas, AutoTransition())
             if (rvNotificacoesLidas.isVisible) {
                 rvNotificacoesLidas.visibility = View.GONE
+                SubtituloLidas.visibility = View.GONE
+                btnLixeira.visibility = View.GONE
                 btnNotificacoesLidas.setImageResource(R.drawable.notificacaofechado)
             } else {
                 rvNotificacoesLidas.visibility = View.VISIBLE
+                SubtituloLidas.visibility = View.VISIBLE
+                btnLixeira.visibility = View.VISIBLE
                 btnNotificacoesLidas.setImageResource(R.drawable.notificacaoaberto)
             }
 
             ajustarAlturaRecyclerView(rvNotificacoesLidas, adapterLidas.itemCount)
         }
 
-        val btnLixeira = binding.btnLixeira
+        val btnNotificacoesNLidas = binding.btnNotificacoesNaoLidas
+        val SubtituloNLidas = binding.notificacaoNaoLidasSubtitulo
+
+        btnNotificacoesNLidas.setOnClickListener {
+            TransitionManager.beginDelayedTransition(rvNotificacoesN, AutoTransition())
+            if (rvNotificacoesN.isVisible) {
+                rvNotificacoesN.visibility = View.GONE
+                SubtituloNLidas.visibility = View.GONE
+                btnNotificacoesNLidas.setImageResource(R.drawable.notificacaofechado)
+            } else {
+                rvNotificacoesN.visibility = View.VISIBLE
+                SubtituloNLidas.visibility = View.VISIBLE
+                btnNotificacoesNLidas.setImageResource(R.drawable.notificacaoaberto)
+            }
+
+            ajustarAlturaRecyclerView(rvNotificacoesN, adapterLidas.itemCount)
+        }
+
+
 
         btnLixeira.setOnClickListener {
             adapterLidas.clearAll()
@@ -110,7 +133,7 @@ class NotificacoesFragment : Fragment() {
 
                 binding.btnNotificacoesLidas.isEnabled = alvoAdapter.itemCount > 0
 
-                    ajustarAlturaRecyclerView(rvNotificacoesLidas,alvoAdapter.itemCount )
+                ajustarAlturaRecyclerView(rvNotificacoesLidas,alvoAdapter.itemCount )
 
 
             } })

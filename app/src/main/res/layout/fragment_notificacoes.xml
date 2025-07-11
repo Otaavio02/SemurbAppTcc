@@ -10,46 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="0dp"
-            android:layout_height="3dp"
-            android:layout_marginStart="8dp"
-            android:background="@color/CorTextoscinza"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/textView22"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView22"
-            app:layout_constraintTop_toTopOf="@+id/textView22">
-
-            <TextView
-                android:id="@+id/tefsdsdds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="3dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/CorTextoscinza"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/textView27"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView27"
-            app:layout_constraintTop_toTopOf="@+id/textView27">
-
-            <TextView
-                android:id="@+id/tefsdsd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
-        </RelativeLayout>
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline62"
             android:layout_width="wrap_content"
@@ -64,15 +24,17 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.0" />
 
+
         <ImageButton
             android:id="@+id/btnNotificacoesNaoLidas"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="5dp"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toStartOf="@+id/textView27"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
             app:srcCompat="@drawable/notificacaoaberto" />
 
@@ -80,35 +42,64 @@
             android:id="@+id/textView27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
+            android:layout_marginStart="4dp"
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/naolidas"
             android:textColor="@color/CorTextoscinza"
             app:layout_constraintBottom_toBottomOf="@+id/btnNotificacoesNaoLidas"
-            app:layout_constraintStart_toStartOf="@+id/textView30" />
+            app:layout_constraintStart_toEndOf="@+id/btnNotificacoesNaoLidas"
+            app:layout_constraintTop_toTopOf="@+id/btnNotificacoesNaoLidas"
+            app:layout_constraintVertical_bias="0.666" />
+
+        <RelativeLayout
+            android:id="@+id/linhaDivisoraNLidas"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/CorTextoscinza"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/textView27"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintTop_toTopOf="@+id/textView27">
+
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/textView30"
+            android:id="@+id/notificacaoNaoLidasSubtitulo"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
             android:text="@string/deslize_lado"
             android:textColor="@color/CorTextoscinza"
+            app:layout_constraintLeft_toLeftOf="@+id/btnNotificacoesNaoLidas"
+            app:layout_constraintRight_toRightOf="@+id/linhaDivisoraNLidas"
+            app:layout_constraintTop_toBottomOf="@+id/linhaDivisoraNLidas" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotificacoesNLidas"
+            android:layout_width="380dp"
+            android:layout_height="260dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+            app:layout_constraintTop_toBottomOf="@+id/notificacaoNaoLidasSubtitulo"
+            tools:listitem="@layout/item_notificacaonaolida" />
 
         <ImageButton
             android:id="@+id/btnNotificacoesLidas"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="34dp"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toStartOf="@+id/textView22"
+            app:layout_constraintHorizontal_bias="0.26"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rvNotificacoesNLidas"
             app:srcCompat="@drawable/notificacaoaberto" />
 
@@ -116,36 +107,55 @@
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
+            android:layout_marginStart="4dp"
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/lidas"
             android:textColor="@color/CorTextoscinza"
             app:layout_constraintBottom_toBottomOf="@+id/btnNotificacoesLidas"
-            app:layout_constraintStart_toStartOf="@+id/textView34"
+            app:layout_constraintStart_toEndOf="@+id/btnNotificacoesLidas"
             app:layout_constraintTop_toTopOf="@+id/btnNotificacoesLidas" />
 
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/CorTextoscinza"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/textView22"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView22"
+            app:layout_constraintTop_toTopOf="@+id/textView22">
+
+        </RelativeLayout>
+
         <TextView
-            android:id="@+id/textView34"
-            android:layout_width="320dp"
+            android:id="@+id/notificacaoLidasSubtitulo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
             android:text="@string/deslize_excluir"
             android:textColor="@color/CorTextoscinza"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView22" />
+            app:layout_constraintStart_toStartOf="@id/btnNotificacoesLidas"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
         <ImageButton
             android:id="@+id/btnLixeira"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="5dp"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            app:layout_constraintStart_toEndOf="@+id/textView34"
+            app:layout_constraintBottom_toBottomOf="@+id/notificacaoLidasSubtitulo"
+            app:layout_constraintStart_toEndOf="@+id/notificacaoLidasSubtitulo"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+            app:layout_constraintVertical_bias="0.6"
             app:srcCompat="@drawable/notifacao_lixeira" />
 
         <FrameLayout
@@ -169,16 +179,6 @@
 
         </FrameLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvNotificacoesNLidas"
-            android:layout_width="380dp"
-            android:layout_height="260dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView30"
-            tools:listitem="@layout/item_notificacaonaolida" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline32"
             android:layout_width="wrap_content"
@@ -200,9 +200,8 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView34"
+            app:layout_constraintTop_toBottomOf="@+id/notificacaoLidasSubtitulo"
             tools:listitem="@layout/item_notifacacaolida" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
