@@ -14,7 +14,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
+import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentConfigBinding
+import com.otavioaugusto.app_semurb.databinding.FragmentPoliticaBinding
 
 class ConfigFragment : Fragment() {
 
@@ -30,6 +32,19 @@ class ConfigFragment : Fragment() {
 
         binding.btnLogout.setOnClickListener {
             requireActivity().finish()
+        }
+
+        binding.btnPolitica.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left,
+                )
+                .replace(R.id.fragmentContainerView, PoliticaFragment())
+                .addToBackStack(null)
+                .commit()
+
+            (activity as? PlaceHolderActivity)?.clearBottomNavigationSelection()
         }
 
         val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES

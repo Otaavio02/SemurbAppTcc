@@ -13,6 +13,7 @@
     <string name="reparos">Reparos</string>
     <string name="bem_vindo">Bem Vindo!</string>
     <string name="nome">(Nome)</string>
+    <string name="PoliticasPrivacidade">Políticas e Privacidade</string>
     <string name="historico">Historico</string>
     <string name="notificacao">Notificação</string>
     <string name="qr_home">Qr_Home</string>
@@ -35,7 +36,7 @@
     <string name="config">Config.</string>
     <string name="perfil_logo">perfil_logo</string>
     <string name="termos">termos</string>
-    <string name="politica">politica</string>
+    <string name="politica">politicas</string>
     <string name="contraste">contraste</string>
     <string name="site">site</string>
     <string name="modo">modo</string>
@@ -97,6 +98,7 @@
     <string name="atendimento">Atendimento ao Cidadão</string>
     <string name="listagemoc">Listagem de Ocorrências</string>
     <string name="novaoc">Nova Ocorrência</string>
+    <string name="novasi">Nova Sinalização</string>
     <string name="Grande_Vulto">Sinistro de Grande Vulto</string>
     <string name="sinistrotra">Sinistro de Trânsito</string>
     <string name="contact">Contato</string>

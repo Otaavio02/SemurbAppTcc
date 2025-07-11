@@ -75,8 +75,8 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
     fun updateContato(id: Long, nome: String, telefone: String) {
         val db = writableDatabase
         val cv = ContentValues().apply {
-            put("nome_contato", nome)
-            put("telefone_contato", telefone)
+            put("nome", nome)
+            put("numcontato", telefone)
         }
         db.update("ocorrencias", cv, "id = ?", arrayOf(id.toString()))
     }

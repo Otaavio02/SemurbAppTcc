@@ -20,9 +20,9 @@
             android:textColor="?attr/CorTextoPadrao"
             android:text="@string/pol_tica_e_privacidade"
             android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-            app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toTopOf="@+id/imageView6" />
+            app:layout_constraintBottom_toBottomOf="@+id/btnPolitica"
+            app:layout_constraintStart_toEndOf="@+id/btnPolitica"
+            app:layout_constraintTop_toTopOf="@+id/btnPolitica" />
 
         <TextView
             android:id="@+id/texto_logout"
@@ -102,13 +102,13 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView5"
             app:srcCompat="@drawable/configuracoes_contraste" />
 
-        <ImageView
-            android:id="@+id/imageView6"
+        <ImageButton
+            android:id="@+id/btnPolitica"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/politica"
             android:scaleType="fitCenter"
             app:layout_constraintStart_toStartOf="parent"
@@ -209,7 +209,7 @@
             android:contentDescription="@string/logoutconfig"
             android:scaleType="fitCenter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6"
+            app:layout_constraintTop_toBottomOf="@+id/btnPolitica"
             app:srcCompat="@drawable/configuracoes_logout" />
 
         <androidx.constraintlayout.widget.Guideline

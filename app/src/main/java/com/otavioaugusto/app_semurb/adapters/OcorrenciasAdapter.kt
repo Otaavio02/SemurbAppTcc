@@ -29,7 +29,6 @@ class OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>()
                 val intent = Intent(context, PlaceHolderGameficadoActivity::class.java)
                 intent.putExtra("FRAGMENT_KEY", "OCORRENCIAS_EDITADO")
                 intent.putExtra("VISIBILITY", "GONE")
-
                 intent.putExtra("ID_OCORRENCIA", item.id.toLong())
                 intent.putExtra("TIPO", item.tipo)
                 intent.putExtra("ENDERECO", item.endereco)
