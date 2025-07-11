@@ -47,6 +47,19 @@ class ConfigFragment : Fragment() {
             (activity as? PlaceHolderActivity)?.clearBottomNavigationSelection()
         }
 
+        binding.textPolitica.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left,
+                )
+                .replace(R.id.fragmentContainerView, PoliticaFragment())
+                .addToBackStack(null)
+                .commit()
+
+            (activity as? PlaceHolderActivity)?.clearBottomNavigationSelection()
+        }
+
         val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
         binding.btnTrocarTema.isChecked = isNightMode
 
