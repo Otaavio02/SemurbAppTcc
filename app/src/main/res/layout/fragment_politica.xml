@@ -50,20 +50,16 @@
 
         <TextView
             android:id="@+id/textView12"
-            android:layout_width="0dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
             android:fontFamily="@font/montserrat"
             android:gravity="start"
             android:text="A Secretaria Municipal de Urbanismo (SEMURB), comprometida com a privacidade e a proteção dos dados pessoais dos usuários, estabelece a presente Política de Privacidade para esclarecer como os dados são coletados, utilizados, armazenados e protegidos no aplicativo da SEMURB."
             android:textColor="@color/CorTextoPadrao"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:ignore="HardcodedText"/>
+            tools:ignore="HardcodedText"
+            tools:layout_editor_absoluteX="16dp" />
 
         <TextView
             android:id="@+id/textView18"
