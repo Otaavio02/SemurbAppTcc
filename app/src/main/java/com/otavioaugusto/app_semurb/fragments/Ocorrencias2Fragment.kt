@@ -5,7 +5,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,19 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias2Binding
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Looper
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.*
+import android.location.Geocoder
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.Locale
 
 class Ocorrencias2Fragment : Fragment() {
 
@@ -28,20 +38,66 @@ class Ocorrencias2Fragment : Fragment() {
     private var nome: String? = null
     private var numContato: String? = null
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var localizacaoSolicitacao: LocationRequest
+    private lateinit var localizacaoCallBack: LocationCallback
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentOcorrencias2Binding.inflate(inflater, container, false)
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        localizacaoSolicitacao = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 5000).build()
+
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+
+            localizacaoCallBack = object: LocationCallback(){
+
+                override fun onLocationResult(locationResult: LocationResult) {
+
+                    val location = locationResult.lastLocation
+                    if (location != null){
+                        lifecycleScope.launch {
+
+                            val enderecoTexto = withContext(Dispatchers.IO){
+                                try{
+                                    val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                                    val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                                    if (!addresses.isNullOrEmpty()){
+                                        val address = addresses[0]
+                                        val rua = address.thoroughfare ?: "Rua Não identificada"
+                                        val numero = address.subThoroughfare ?: "s/n"
+                                        "$rua, $numero"
+                                } else {
+                                    "Endereço não encontrado"
+                                    }
+                                }catch (e: Exception){
+                                        "Erro ao obter endereço"
+                                    }
+                                }
+                            binding.editTextEnderecoOcorrencia.setText(enderecoTexto)
+
+                            fusedLocationClient.removeLocationUpdates { localizacaoCallBack }
+                        }
+
+                    }
+                }
+            }
+            fusedLocationClient.requestLocationUpdates(localizacaoSolicitacao, localizacaoCallBack, Looper.getMainLooper())
+        } else {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1010)
+        }
         tipo = arguments?.getString("tipo")
         endereco = arguments?.getString("endereco")
         nome = arguments?.getString("nome")
         numContato = arguments?.getString("numContato")
 
         if (endereco != null) {
-            binding.EditTextEnderecoOcorrencia.setText(endereco)
+            binding.editTextEnderecoOcorrencia.setText(endereco)
         }
 
         binding.btnProximoOcorrencias2.setOnClickListener {
-            endereco = binding.EditTextEnderecoOcorrencia.text.toString()
+            endereco = binding.editTextEnderecoOcorrencia.text.toString()
             if (endereco == "") {
 
                 val titulo = SpannableString("Digite um endereço").apply {
@@ -97,7 +153,7 @@ class Ocorrencias2Fragment : Fragment() {
         }
 
         binding.btnVoltarOcorrencias2.setOnClickListener {
-            endereco = binding.EditTextEnderecoOcorrencia.text.toString()
+            endereco = binding.editTextEnderecoOcorrencia.text.toString()
             if (etapaAtual > 0) {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
             }
@@ -124,8 +180,23 @@ class Ocorrencias2Fragment : Fragment() {
         return binding.root
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1010 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            parentFragmentManager.beginTransaction().detach(this).attach(this).commit()
+        }else
+            Toast.makeText(requireContext(), "Permissão de localização negada!", Toast.LENGTH_SHORT).show()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        if (::localizacaoCallBack.isInitialized) {
+            fusedLocationClient.removeLocationUpdates(localizacaoCallBack)
+        }
     }
 }
