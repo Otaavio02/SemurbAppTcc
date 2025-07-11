@@ -1,22 +1,16 @@
 package com.otavioaugusto.app_semurb.fragments
 
-import android.content.Intent
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderActivity
-import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentConfigBinding
-import com.otavioaugusto.app_semurb.databinding.FragmentPoliticaBinding
 
 class ConfigFragment : Fragment() {
 
@@ -44,7 +38,7 @@ class ConfigFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
 
-            (activity as? PlaceHolderActivity)?.clearBottomNavigationSelection()
+            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
         }
 
         binding.textPolitica.setOnClickListener {
@@ -57,7 +51,7 @@ class ConfigFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
 
-            (activity as? PlaceHolderActivity)?.clearBottomNavigationSelection()
+            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
         }
 
         val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES

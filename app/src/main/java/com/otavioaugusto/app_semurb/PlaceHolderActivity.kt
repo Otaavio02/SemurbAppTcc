@@ -2,16 +2,12 @@ package com.otavioaugusto.app_semurb
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.view.updatePadding
 import com.otavioaugusto.app_semurb.databinding.ActivityPlaceholderBinding
 import com.otavioaugusto.app_semurb.fragments.*
 
@@ -141,7 +137,7 @@ class PlaceHolderActivity : AppCompatActivity() {
         }
     }
 
-    fun clearBottomNavigationSelection() {
+    fun limparBottomNavBar() {
         binding.bottomNavigationView.menu.setGroupCheckable(0, true, false)
         for (i in 0 until binding.bottomNavigationView.menu.size()) {
             binding.bottomNavigationView.menu.getItem(i).isChecked = false
@@ -150,6 +146,19 @@ class PlaceHolderActivity : AppCompatActivity() {
 
 
         currentMenuItemId = -1
+    }
+
+    fun selecionarBottomNavBar(itemId: Int) {
+        binding.bottomNavigationView.menu.setGroupCheckable(0, true, false)
+
+        for (i in 0 until binding.bottomNavigationView.menu.size()) {
+            val item = binding.bottomNavigationView.menu.getItem(i)
+            item.isChecked = (item.itemId == itemId)
+        }
+
+        binding.bottomNavigationView.menu.setGroupCheckable(0, true, true)
+
+        currentMenuItemId = itemId
     }
 
 

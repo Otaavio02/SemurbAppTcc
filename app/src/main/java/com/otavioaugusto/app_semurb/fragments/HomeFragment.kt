@@ -1,15 +1,10 @@
 package com.otavioaugusto.app_semurb.fragments
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.view.WindowInsetsController
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.*
 import com.otavioaugusto.app_semurb.databinding.FragmentHomeBinding
@@ -36,7 +31,7 @@ class HomeFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
 
-            (activity as? PlaceHolderActivity)?.clearBottomNavigationSelection()
+            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
         }
 
         binding.btnInspecaoHome.setOnClickListener {
@@ -58,7 +53,7 @@ class HomeFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
 
-            (activity as? PlaceHolderActivity)?.clearBottomNavigationSelection()
+            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
         }
 
         binding.btnOcorrenciaHome.setOnClickListener {
@@ -71,7 +66,7 @@ class HomeFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
 
-            (activity as? PlaceHolderActivity)?.clearBottomNavigationSelection()
+            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
         }
 
         binding.btnIniciarTurno.setOnClickListener {
