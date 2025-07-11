@@ -1,9 +1,13 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.Manifest
 import android.app.AlertDialog
+import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
+import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
@@ -12,15 +16,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.database.ViarioDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentViario2Binding
-import com.otavioaugusto.app_semurb.databinding.FragmentViario3Binding
-import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
-import kotlin.math.log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.Locale
 
 class Viario2Fragment : Fragment() {
 
@@ -33,12 +46,59 @@ class Viario2Fragment : Fragment() {
     private var endereco: String? = null
     private var descricao: String? = null
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var localizacaoSolicitacao: LocationRequest
+    private lateinit var localizacaoCallBack: LocationCallback
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentViario2Binding.inflate(inflater, container, false)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        localizacaoSolicitacao = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 5000).build()
+
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+
+            localizacaoCallBack = object: LocationCallback(){
+
+                override fun onLocationResult(locationResult: LocationResult) {
+
+                    val location = locationResult.lastLocation
+                    if (location != null){
+                        lifecycleScope.launch {
+
+                            val enderecoTexto = withContext(Dispatchers.IO){
+                                try{
+                                    val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                                    val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                                    if (!addresses.isNullOrEmpty()){
+                                        val address = addresses[0]
+                                        val rua = address.thoroughfare ?: "Rua Não identificada"
+                                        val numero = address.subThoroughfare ?: "s/n"
+                                        "$rua, $numero"
+                                    } else {
+                                        "Endereço não encontrado"
+                                    }
+                                }catch (e: Exception){
+                                    "Erro ao obter endereço"
+                                }
+                            }
+                            binding.EditTextEnderecoViario.setText(enderecoTexto)
+
+                            fusedLocationClient.removeLocationUpdates { localizacaoCallBack }
+                        }
+
+                    }
+                }
+            }
+            fusedLocationClient.requestLocationUpdates(localizacaoSolicitacao, localizacaoCallBack, Looper.getMainLooper())
+        } else {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1010)
+        }
 
         tipo = arguments?.getString("tipo")
         endereco = arguments?.getString("endereco")
@@ -155,8 +215,23 @@ class Viario2Fragment : Fragment() {
         }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1010 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            parentFragmentManager.beginTransaction().detach(this).attach(this).commit()
+        }else
+            Toast.makeText(requireContext(), "Permissão de localização negada!", Toast.LENGTH_SHORT).show()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        if (::localizacaoCallBack.isInitialized) {
+            fusedLocationClient.removeLocationUpdates(localizacaoCallBack)
+        }
     }
 }

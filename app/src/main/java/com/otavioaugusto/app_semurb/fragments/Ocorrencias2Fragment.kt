@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import android.location.Geocoder
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

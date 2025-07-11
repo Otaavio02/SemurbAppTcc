@@ -135,6 +135,7 @@
         android:id="@+id/textInputLayout2"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:background="@drawable/bg_pesquisa"
         app:layout_constraintBottom_toTopOf="@+id/guideline43"
         app:layout_constraintEnd_toEndOf="parent"
