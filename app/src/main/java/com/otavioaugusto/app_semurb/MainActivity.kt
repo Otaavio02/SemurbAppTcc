@@ -1,6 +1,7 @@
 package com.otavioaugusto.app_semurb
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
@@ -13,12 +14,17 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.util.TypedValueCompat.dpToPx
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.otavioaugusto.app_semurb.databinding.ActivityMainBinding
+import android.Manifest
+import android.os.Looper
+import android.widget.Toast
+import com.google.android.gms.location.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
+
+        verificarPermissaoLocalizacao()
 
 
         binding.btnEntrar.setOnClickListener { view ->
@@ -188,6 +196,27 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun verificarPermissaoLocalizacao() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1001
+            )
+        } else {
+            Toast.makeText(this, "Permissão de localização" +
+                    " já concedida", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1001 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        } else {
+            Toast.makeText(this, "Permissão de localização negada", Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
 }
