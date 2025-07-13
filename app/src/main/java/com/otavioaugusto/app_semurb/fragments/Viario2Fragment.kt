@@ -63,6 +63,9 @@ class Viario2Fragment : Fragment() {
 
         binding.textViewPreencherViario2.setOnClickListener {
 
+            binding.progressBar2 .visibility = View.VISIBLE
+            binding.btnProximoViario2.isEnabled = false
+
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 
             localizacaoCallBack = object: LocationCallback(){
@@ -87,7 +90,13 @@ class Viario2Fragment : Fragment() {
                                     }
                                 }catch (e: Exception){
                                     "Erro ao obter endereço"
-                                }
+                                }finally {
+
+                                    withContext(Dispatchers.Main){
+                                        binding.progressBar2.visibility = View.GONE
+                                        binding.btnProximoViario2.isEnabled = true
+                                    }
+                                    }
                             }
                             binding.EditTextEnderecoViario.setText(enderecoTexto)
 
