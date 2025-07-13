@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
@@ -74,19 +75,36 @@ class Inspecao3Fragment : Fragment() {
 
 
         binding.cbFrente.setOnCheckedChangeListener { _, isChecked ->
+
             binding.btnInspecaoFrente.isEnabled  = !isChecked
+            binding.frameAvariaFrente.visibility = View.GONE
+            binding.textViewFrente.setBackgroundResource(R.drawable.bg_btninspecaodesativado)
+            binding.btnInspecaoFrente.setImageResource(R.drawable.inspecaofechar)
+
         }
         binding.cbTraseira.setOnCheckedChangeListener { _, isChecked ->
             binding.btnInspecaoTraseira.isEnabled = !isChecked
+            binding.frameAvariaTraseira.visibility = View.GONE
+            binding.textViewTraseira.setBackgroundResource(R.drawable.bg_btninspecaodesativado)
+            binding.btnInspecaoTraseira.setImageResource(R.drawable.inspecaofechar)
         }
         binding.cbDireita.setOnCheckedChangeListener { _, isChecked ->
             binding.btnInspecaoDireita.isEnabled  = !isChecked
+            binding.frameAvariaDireita.visibility = View.GONE
+            binding.textViewDireita.setBackgroundResource(R.drawable.bg_btninspecaodesativado)
+            binding.btnInspecaoDireita.setImageResource(R.drawable.inspecaofechar)
         }
         binding.cbEsquerda.setOnCheckedChangeListener { _, isChecked ->
             binding.btnInspecaoEsquerda.isEnabled  = !isChecked
+            binding.frameAvariaEsquerda.visibility = View.GONE
+            binding.textViewEsquerda.setBackgroundResource(R.drawable.bg_btninspecaodesativado)
+            binding.btnInspecaoEsquerda.setImageResource(R.drawable.inspecaofechar)
         }
         binding.cbOutra.setOnCheckedChangeListener { _, isChecked ->
             binding.btnInspecaoOutras.isEnabled  = !isChecked
+            binding.frameAvariaOutras.visibility = View.GONE
+            binding.textViewOutras.setBackgroundResource(R.drawable.bg_btninspecaodesativado)
+            binding.btnInspecaoOutras.setImageResource(R.drawable.inspecaofechar)
         }
 
 

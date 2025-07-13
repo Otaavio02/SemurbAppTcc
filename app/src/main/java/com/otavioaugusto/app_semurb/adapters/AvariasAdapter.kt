@@ -58,6 +58,7 @@ class AvariasAdapter(
         }
 
         if (avaria.uriFoto != null) {
+            holder.imageFoto.visibility = View.VISIBLE
             holder.imageFoto.setImageURI(avaria.uriFoto)
             holder.btnFoto.isEnabled = false
             holder.btnFoto.visibility = View.GONE
@@ -77,6 +78,7 @@ class AvariasAdapter(
             }
 
         } else {
+            holder.imageFoto.visibility = View.INVISIBLE
             holder.imageFoto.setImageResource(R.drawable.ic_camera)
             holder.btnFoto.isEnabled = true
             holder.btnFoto.visibility = View.VISIBLE

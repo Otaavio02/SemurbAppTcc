@@ -41,25 +41,28 @@
 
     <FrameLayout
         android:id="@+id/frameFoto"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="15dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="11dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageFoto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
             android:contentDescription="Foto de avaria"
             android:scaleType="centerCrop"
-            android:src="@null" />
+            android:src="@null"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/btnFoto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Tirar foto"
             android:src="@drawable/ic_camera" />
