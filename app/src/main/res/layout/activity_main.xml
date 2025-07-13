@@ -7,82 +7,139 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:animateLayoutChanges="false"
-    android:background="@drawable/login_fundo"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/bg_loginimage">
 
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_Entrar"
-        android:layout_width="200dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/bg_button"
-        android:backgroundTintMode="add"
-        android:elevation="15dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:gravity="center"
-        android:shadowColor="@color/Preto"
-        android:shadowDx="3"
-        android:shadowRadius="1"
-        android:text="@string/entrar"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline10" />
-
-    <TextView
-        android:id="@+id/Login_nome"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="200dp"
-        android:fontFamily="@font/montserrat_bold_italic"
-        android:shadowColor="#000000"
-        android:shadowDx="1"
-        android:shadowDy="12"
-        android:shadowRadius="2"
-        android:text="@string/login"
-        android:textColor="@android:color/white"
-        android:textSize="60sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/guideline11"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="TextSizeCheck" />
+        android:fillViewport="true"
+        android:elevation="50dp"
+        tools:ignore="MissingConstraints">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="230dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.97" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.83" />
+            <LinearLayout
+                android:id="@+id/login_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:orientation="vertical"
+                android:background="@drawable/bg_loginscroll"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline11"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.64" />
+                <TextView
+                    android:id="@+id/Login_nome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/montserrat_bold_italic"
+                    android:shadowColor="#000000"
+                    android:shadowDx="1"
+                    android:shadowDy="12"
+                    android:shadowRadius="2"
+                    android:layout_gravity="center"
+                    android:text="@string/login"
+                    android:textColor="@android:color/white"
+                    android:textSize="35sp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.54" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_matricula"
+                    android:layout_width="350dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/bg_pesquisa"
+                    android:hint="@string/matricula"
+                    android:textColorHint="@color/CinzaClarinho"
+                    app:boxStrokeColor="@color/Preto"
+                    app:hintTextColor="@color/CinzaClarinho"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.508"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Login_nome">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_matricula"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:background="@android:color/transparent"
+                        android:backgroundTint="@color/CinzaClarinho"
+                        android:gravity="center|start"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/Preto"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_senha"
+                    android:layout_width="350dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_pesquisa"
+                    android:hint="@string/senha"
+                    android:textColorHint="@color/CinzaClarinho"
+                    app:boxStrokeColor="@color/Preto"
+                    app:endIconMode="password_toggle"
+                    app:endIconTint="@color/CinzaClarinho"
+                    app:hintTextColor="@color/CinzaClarinho"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_input_matricula">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_senha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:background="@android:color/transparent"
+                        android:backgroundTint="@color/CinzaClarinho"
+                        android:gravity="center|start"
+                        android:imeOptions="actionDone"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/Preto"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_Entrar"
+                    android:layout_width="200dp"
+                    android:layout_height="52dp"
+
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/bg_button"
+                    android:backgroundTintMode="add"
+                    android:elevation="15dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:gravity="center"
+                    android:shadowColor="@color/Preto"
+                    android:shadowDx="3"
+                    android:shadowRadius="1"
+                    android:text="@string/entrar"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_input_senha" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+
+
 
     <ImageView
         android:id="@+id/Logo_Semurb_Login"
@@ -99,29 +156,29 @@
     <TextView
         android:id="@+id/Nao_Abreviacao_Login"
         android:layout_width="180dp"
-        android:layout_height="90dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_medium"
         android:gravity="center"
+        android:layout_marginTop="-5dp"
         android:shadowColor="#000000"
         android:shadowDx="2"
         android:shadowRadius="1"
         android:text="@string/secretaria_de_mobilidade_urbana"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Semurb_Nome"
         tools:ignore="TextSizeCheck" />
 
     <TextView
         android:id="@+id/Semurb_Nome"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:elevation="200dp"
+        android:elevation="20dp"
         android:fontFamily="@font/montserrat_bold_italic"
         android:shadowColor="#000000"
         android:shadowDx="1"
@@ -136,75 +193,6 @@
         app:layout_constraintTop_toBottomOf="@+id/Logo_Semurb_Login"
         tools:ignore="TextSizeCheck" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.44893378" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_matricula"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:background="@drawable/bg_pesquisa"
-        android:hint="@string/matricula"
-        android:textColorHint="@color/CinzaClarinho"
-        app:boxStrokeColor="@color/Preto"
-        app:hintTextColor="@color/CinzaClarinho"
-        app:layout_constraintBottom_toTopOf="@+id/text_input_senha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline11"
-        app:layout_constraintVertical_bias="0.432">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_matricula"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|start"
-            android:background="@android:color/transparent"
-            android:backgroundTint="@color/CinzaClarinho"
-            android:gravity="center|start"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/Preto"
-            tools:ignore="TouchTargetSizeCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_senha"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:background="@drawable/bg_pesquisa"
-        android:hint="@string/senha"
-        android:textColorHint="@color/CinzaClarinho"
-        app:boxStrokeColor="@color/Preto"
-        app:endIconMode="password_toggle"
-        app:endIconTint="@color/CinzaClarinho"
-        app:hintTextColor="@color/CinzaClarinho"
-        app:layout_constraintBottom_toTopOf="@+id/guideline10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_senha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|start"
-            android:background="@android:color/transparent"
-            android:backgroundTint="@color/CinzaClarinho"
-            android:gravity="center|start"
-            android:imeOptions="actionDone"
-            android:inputType="phone"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/Preto"
-            tools:ignore="TouchTargetSizeCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
