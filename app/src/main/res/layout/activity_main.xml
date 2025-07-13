@@ -53,6 +53,8 @@
                     android:layout_width="350dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="50dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:background="@drawable/bg_pesquisa"
                     android:hint="@string/matricula"
                     android:textColorHint="@color/CinzaClarinho"
@@ -84,6 +86,9 @@
                     android:layout_width="350dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="20dp"
+
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:background="@drawable/bg_pesquisa"
                     android:hint="@string/senha"
                     android:textColorHint="@color/CinzaClarinho"

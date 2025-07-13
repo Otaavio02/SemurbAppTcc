@@ -1,7 +1,14 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.SpannableString
+import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +16,12 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciaseditadoBinding
 import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
+import java.util.regex.Pattern
 
 class OcorrenciasEditadoFragment : Fragment() {
 
@@ -36,6 +45,7 @@ class OcorrenciasEditadoFragment : Fragment() {
         val endereco = activity?.intent?.getStringExtra("ENDERECO")
         val nome = activity?.intent?.getStringExtra("NOME")
         val contato = activity?.intent?.getStringExtra("CONTATO")
+        var confirmarAlteracao = "sem alteração"
 
         binding.editTextEndereco.setText(endereco)
         binding.editTextNome.setText(nome)
@@ -47,33 +57,84 @@ class OcorrenciasEditadoFragment : Fragment() {
             "Atendimento ao Cidadão" -> binding.rbAtendimento.isChecked = true
         }
 
+        binding.editTextContato.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (mobileValidate(binding.editTextContato.text.toString())){
+                    confirmarAlteracao = "com alteração"
+                } else {
+                    confirmarAlteracao = "erro"
+                    binding.editTextContato.setError("Telefone Inválido - (xx) xxxxx-xxxx")
+                }
+            }
+        })
 
         binding.btnFinalizarOcorrenciasEditado.setOnClickListener {
-            val tipoSelecionado = when (binding.rgOcorrenciasEditado.checkedRadioButtonId) {
-                R.id.rbSinistro -> "Sinistro de Trânsito"
-                R.id.rbGrandeVulto -> "Sinistro de Grande Vulto"
-                R.id.rbAtendimento -> "Atendimento ao Cidadão"
-                else -> ""
+            if (confirmarAlteracao == "com alteração" || confirmarAlteracao == "sem alteração"){
+                val tipoSelecionado = when (binding.rgOcorrenciasEditado.checkedRadioButtonId) {
+                    R.id.rbSinistro -> "Sinistro de Trânsito"
+                    R.id.rbGrandeVulto -> "Sinistro de Grande Vulto"
+                    R.id.rbAtendimento -> "Atendimento ao Cidadão"
+                    else -> ""
+                }
+
+                val novoEndereco = binding.editTextEndereco.text.toString()
+                val novoNome = binding.editTextNome.text.toString()
+                val novoContato = binding.editTextContato.text.toString()
+
+                if (idOcorrencia != -1L) {
+                    val dbHelper = ocorrenciasDBHelper(requireContext())
+                    dbHelper.updateOcorrenciaCompleta(
+                        id = idOcorrencia,
+                        tipo = tipoSelecionado,
+                        endereco = novoEndereco,
+                        nome = novoNome,
+                        numcontato = novoContato
+                    )
+
+                        Toast.makeText(
+                            requireContext(),
+                            "Ocorrência atualizada com sucesso!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    requireActivity().finish()
+                } else {
+                    Toast.makeText(requireContext(), "ID da ocorrência inválido!", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
+            if (confirmarAlteracao == "erro"){
+                val titulo = SpannableString("Erro ao finalizar.").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
+                val mensagem = SpannableString("Por favor, confira se você digitou o telefone no formato certo.").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
 
-            val novoEndereco = binding.editTextEndereco.text.toString()
-            val novoNome = binding.editTextNome.text.toString()
-            val novoContato = binding.editTextContato.text.toString()
+                val builder = AlertDialog.Builder(requireContext())
+                    .setTitle(titulo)
+                    .setMessage(mensagem)
+                    .setPositiveButton("Ok") { dialog, _ ->
+                        dialog.dismiss()
+                    }
 
-            if (idOcorrencia != -1L) {
-                val dbHelper = ocorrenciasDBHelper(requireContext())
-                dbHelper.updateOcorrenciaCompleta(
-                    id = idOcorrencia,
-                    tipo = tipoSelecionado,
-                    endereco = novoEndereco,
-                    nome = novoNome,
-                    numcontato = novoContato
-                )
-
-                Toast.makeText(requireContext(), "Ocorrência atualizada com sucesso!", Toast.LENGTH_SHORT).show()
-                requireActivity().finish()
-            } else {
-                Toast.makeText(requireContext(), "ID da ocorrência inválido!", Toast.LENGTH_SHORT).show()
+                val dialog = builder.create()
+                dialog.setOnShowListener {
+                    dialog.window?.setBackgroundDrawable(
+                        ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
+                    )
+                }
+                dialog.show()
             }
         }
 
@@ -114,5 +175,11 @@ class OcorrenciasEditadoFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun mobileValidate(text: String): Boolean {
+        var padraoNumero = Pattern.compile("^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}\$") // Padrão de numero telefone brasileiro, que deixa os parênteses, o espaço em branco e hífen opcionais
+        val m = padraoNumero.matcher(text)
+        return m.matches()
     }
 }

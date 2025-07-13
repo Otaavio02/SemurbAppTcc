@@ -3,9 +3,12 @@ package com.otavioaugusto.app_semurb.fragments
 import android.app.AlertDialog
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableString
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +19,7 @@ import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias3Binding
 import java.util.*
+import java.util.regex.Pattern
 import kotlin.concurrent.schedule
 
 class Ocorrencias3Fragment : Fragment() {
@@ -41,6 +45,24 @@ class Ocorrencias3Fragment : Fragment() {
             binding.EditTextNomeContato.setText(nome)
             binding.EditTextNumContato.setText(numContato)
         }
+
+
+        binding.EditTextNumContato.addTextChangedListener(object:TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (mobileValidate(binding.EditTextNumContato.text.toString())){
+                    binding.btnProximoOcorrencias3.visibility = View.VISIBLE
+
+                } else {
+                    binding.EditTextNumContato.setError("Telefone Inválido - (xx) xxxxx-xxxx")
+                    binding.btnProximoOcorrencias3.visibility = View.GONE
+                }
+            }
+        })
+
 
         binding.btnProximoOcorrencias3.setOnClickListener {
             nome = binding.EditTextNomeContato.text.toString()
@@ -121,5 +143,11 @@ class Ocorrencias3Fragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun mobileValidate(text: String): Boolean {
+        var padraoNumero = Pattern.compile("^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}\$") // Padrão de numero telefone brasileiro, que deixa os parênteses, o espaço em branco e hífen opcionais
+        val m = padraoNumero.matcher(text)
+        return m.matches()
     }
 }
