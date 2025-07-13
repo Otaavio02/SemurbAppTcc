@@ -2,16 +2,15 @@ package com.otavioaugusto.app_semurb.fragments
 
 import android.app.AlertDialog
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
-import android.text.Editable
 import android.text.SpannableString
-import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
-import android.util.Log
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
@@ -36,67 +35,28 @@ class Ocorrencias3Fragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentOcorrencias3Binding.inflate(inflater, container, false)
 
+
+
         tipo = arguments?.getString("tipo")
         endereco = arguments?.getString("endereco")
         nome = arguments?.getString("nome")
         numContato = arguments?.getString("numContato")
 
-        if (nome != null || numContato != null) {
-            binding.EditTextNomeContato.setText(nome)
-            binding.EditTextNumContato.setText(numContato)
-        }
-
-
-        binding.EditTextNumContato.addTextChangedListener(object:TextWatcher{
-            override fun afterTextChanged(p0: Editable?) {
-            }
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (mobileValidate(binding.EditTextNumContato.text.toString())){
-                    binding.btnProximoOcorrencias3.visibility = View.VISIBLE
-
-                } else {
-                    binding.EditTextNumContato.setError("Telefone Inválido - (xx) xxxxx-xxxx")
-                    binding.btnProximoOcorrencias3.visibility = View.GONE
-                }
-            }
-        })
-
 
         binding.btnProximoOcorrencias3.setOnClickListener {
             nome = binding.EditTextNomeContato.text.toString()
             numContato = binding.EditTextNumContato.text.toString()
-            if (nome == "" || numContato == "") {
+            if (nome?.isBlank() == true || numContato?.isBlank() == true) {
+                mostrarAlerta(
+                    titulo = "Digite um nome e telefone",
+                    mensagem = "Para avançar, digite um nome e telefone"
+                )
+                return@setOnClickListener
+            }
+            if (!mobileValidate(numContato)) {
 
-                val titulo = SpannableString("Digite um nome e telefone").apply {
-                    setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
-                        0, length, 0
-                    )
-                }
-
-                val mensagem = SpannableString("Para Avançar, digite um nome e telefone").apply {
-                    setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
-                        0, length, 0
-                    )
-                }
-
-                val builder = AlertDialog.Builder(requireContext())
-                    .setTitle(titulo)
-                    .setMessage(mensagem)
-                    .setPositiveButton("Ok") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-
-                val dialog = builder.create()
-                dialog.setOnShowListener {
-                    dialog.window?.setBackgroundDrawable(
-                        ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
-                    )
-                }
-                dialog.show()
+                binding.EditTextNumContato.error = "Telefone inválido – (xx) xxxxx‑xxxx"
+                binding.EditTextNumContato.requestFocus()
 
                 return@setOnClickListener
             }
@@ -145,9 +105,57 @@ class Ocorrencias3Fragment : Fragment() {
         _binding = null
     }
 
-    private fun mobileValidate(text: String): Boolean {
+    private fun mobileValidate(text: String?): Boolean {
         var padraoNumero = Pattern.compile("^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}\$") // Padrão de numero telefone brasileiro, que deixa os parênteses, o espaço em branco e hífen opcionais
         val m = padraoNumero.matcher(text)
         return m.matches()
+    }
+
+    private fun Fragment.mostrarAlerta(titulo: String, mensagem: String) {
+        val tituloSpan = SpannableString(titulo).apply {
+            setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                0, length, 0
+            )
+        }
+        val mensagemSpan = SpannableString(mensagem).apply {
+            setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                0, length, 0
+            )
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(tituloSpan)
+            .setMessage(mensagemSpan)
+            .setPositiveButton("Ok") { dialog, _ -> dialog.dismiss() }
+            .create().apply {
+                setOnShowListener {
+                    window?.setBackgroundDrawable(
+                        ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
+                    )
+                }
+                show()
+            }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        activity?.window?.let { window ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.insetsController?.let {
+                    it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                    it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                }
+            } else {
+                @Suppress("DEPRECATION")
+                window.decorView.systemUiVisibility = (
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                                View.SYSTEM_UI_FLAG_FULLSCREEN or
+                                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        )
+            }
+        }
     }
 }

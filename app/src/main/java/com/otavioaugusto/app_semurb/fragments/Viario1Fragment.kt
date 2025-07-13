@@ -43,7 +43,7 @@ class Viario1Fragment : Fragment() {
         endereco = arguments?.getString("endereco")
         descricao = arguments?.getString("descricao")
 
-        // Animação inicial do carrinho chegando
+
         val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
         val bolinhaInicial = requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
         bolinhaInicial.post {

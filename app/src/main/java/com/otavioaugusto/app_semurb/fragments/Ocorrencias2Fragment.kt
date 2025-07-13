@@ -50,9 +50,16 @@ class Ocorrencias2Fragment : Fragment() {
 
         localizacaoSolicitacao = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 5000).build()
 
+        binding.textViewPreencherOcorrencias.setOnClickListener {
+
+            binding.progressBar.visibility = View.VISIBLE
+            binding.btnProximoOcorrencias2.isEnabled = false
+
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 
             localizacaoCallBack = object: LocationCallback(){
+
+
 
                 override fun onLocationResult(locationResult: LocationResult) {
 
@@ -74,7 +81,13 @@ class Ocorrencias2Fragment : Fragment() {
                                     }
                                 }catch (e: Exception){
                                         "Erro ao obter endereço"
-                                    }
+                                    }finally {
+
+                                    withContext(Dispatchers.Main){
+                                        binding.progressBar.visibility = View.GONE
+                                    binding.btnProximoOcorrencias2.isEnabled = true
+                                        }
+                                }
                                 }
                             binding.editTextEnderecoOcorrencia.setText(enderecoTexto)
 
@@ -87,6 +100,7 @@ class Ocorrencias2Fragment : Fragment() {
             fusedLocationClient.requestLocationUpdates(localizacaoSolicitacao, localizacaoCallBack, Looper.getMainLooper())
         } else {
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1010)
+        }
         }
         tipo = arguments?.getString("tipo")
         endereco = arguments?.getString("endereco")

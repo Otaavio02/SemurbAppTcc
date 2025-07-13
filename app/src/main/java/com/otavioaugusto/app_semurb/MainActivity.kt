@@ -204,10 +204,8 @@ class MainActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 1001
             )
-        } else {
-            Toast.makeText(this, "Permissão de localização" +
-                    " já concedida", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

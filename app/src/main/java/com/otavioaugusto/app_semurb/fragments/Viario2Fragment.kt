@@ -61,6 +61,8 @@ class Viario2Fragment : Fragment() {
 
         localizacaoSolicitacao = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 5000).build()
 
+        binding.textViewPreencherViario2.setOnClickListener {
+
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 
             localizacaoCallBack = object: LocationCallback(){
@@ -98,6 +100,7 @@ class Viario2Fragment : Fragment() {
             fusedLocationClient.requestLocationUpdates(localizacaoSolicitacao, localizacaoCallBack, Looper.getMainLooper())
         } else {
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1010)
+        }
         }
 
         tipo = arguments?.getString("tipo")

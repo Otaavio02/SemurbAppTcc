@@ -13,6 +13,9 @@ import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias1Binding
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.ImageView
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 
@@ -127,5 +130,25 @@ class Ocorrencias1Fragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        activity?.window?.let { window ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.insetsController?.let {
+                    it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                    it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                }
+            } else {
+                @Suppress("DEPRECATION")
+                window.decorView.systemUiVisibility = (
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                                View.SYSTEM_UI_FLAG_FULLSCREEN or
+                                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        )
+            }
+        }
     }
 }
