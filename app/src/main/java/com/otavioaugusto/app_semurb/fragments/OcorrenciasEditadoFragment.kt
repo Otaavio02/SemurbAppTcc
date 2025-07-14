@@ -1,6 +1,5 @@
 package com.otavioaugusto.app_semurb.fragments
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
@@ -14,13 +13,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciaseditadoBinding
-import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
+import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import java.util.regex.Pattern
 
 class OcorrenciasEditadoFragment : Fragment() {
@@ -72,6 +70,7 @@ class OcorrenciasEditadoFragment : Fragment() {
             }
         })
 
+
         binding.btnFinalizarOcorrenciasEditado.setOnClickListener {
             if (confirmarAlteracao == "com alteração" || confirmarAlteracao == "sem alteração"){
                 val tipoSelecionado = when (binding.rgOcorrenciasEditado.checkedRadioButtonId) {
@@ -86,7 +85,7 @@ class OcorrenciasEditadoFragment : Fragment() {
                 val novoContato = binding.editTextContato.text.toString()
 
                 if (idOcorrencia != -1L) {
-                    val dbHelper = ocorrenciasDBHelper(requireContext())
+                    val dbHelper = AppDatabaseHelper(requireContext())
                     dbHelper.updateOcorrenciaCompleta(
                         id = idOcorrencia,
                         tipo = tipoSelecionado,
@@ -140,7 +139,7 @@ class OcorrenciasEditadoFragment : Fragment() {
 
         binding.btnExcluirOcorrencia.setOnClickListener {
             if (idOcorrencia != -1L) {
-                val dbHelper = ocorrenciasDBHelper(requireContext())
+                val dbHelper = AppDatabaseHelper(requireContext())
                 dbHelper.deleteOcorrencia(idOcorrencia)
 
                 Toast.makeText(requireContext(), "Ocorrência excluída com sucesso!", Toast.LENGTH_SHORT).show()

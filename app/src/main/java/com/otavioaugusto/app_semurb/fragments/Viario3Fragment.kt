@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +15,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.database.ViarioDBHelper
-import com.otavioaugusto.app_semurb.databinding.FragmentViario2Binding
 import com.otavioaugusto.app_semurb.databinding.FragmentViario3Binding
-import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
+import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import java.util.Timer
 import kotlin.concurrent.schedule
 
@@ -108,7 +105,7 @@ class Viario3Fragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val dbHelper = ViarioDBHelper(requireContext())
+            val dbHelper = AppDatabaseHelper(requireContext())
             dbHelper.insertViarioCompleto(tipo, endereco, descricao)
 
             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)

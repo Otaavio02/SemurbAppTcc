@@ -12,11 +12,17 @@ import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.OcorrenciasAdapter
+import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico1Ocorrencias
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciasBinding
-import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
+import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
+import com.otavioaugusto.app_semurb.funcoes.VerificarHorario
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.time.LocalTime
+import java.util.Date
+import java.util.Locale
 
 class OcorrenciasFragment : Fragment() {
 
@@ -62,7 +68,7 @@ class OcorrenciasFragment : Fragment() {
 
     private fun atualizarListaOcorrencias(){  lifecycleScope.launch {
         val lista = withContext(Dispatchers.IO) {
-            val dbHelper = ocorrenciasDBHelper(requireContext())
+            val dbHelper = AppDatabaseHelper(requireContext())
             dbHelper.getAllOcorrenciasNaoEnviadas()
         }
 
@@ -77,20 +83,40 @@ class OcorrenciasFragment : Fragment() {
 
 
         binding.btnEnviarOcorrencia.setOnClickListener {
-            if (lista.isEmpty()) {
+            val listaAtual = adapter.currentList
+            if (listaAtual.isEmpty()) {
                 Toast.makeText(requireContext(), "Não há nenhuma ocorrência", Toast.LENGTH_SHORT).show()
             } else {
-                enviarOcorrencias()
+                val idsParaEnviar = listaAtual.map { it.id }
+                enviarOcorrencias(idsParaEnviar)
+
+
+                val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+                val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+
+                val itemHistorico = DataClassHistorico1Ocorrencias(
+                    id = 0, // ou algum valor padrão
+                    numeroSequencial = 0,
+                    tipo = "Ocorrência",
+                    endereco = "-",
+                    nome = "-",
+                    numcontato = "-",
+                    titulo = "Envio de ${listaAtual.size} ocorrência(s)",
+                    horarioEnvio = horarioAtual,
+                    dataEnvio = dataAtual,
+                    quantidadeTotal = listaAtual.size
+                )
             }
         }
     }
     }
 
 
-    private fun enviarOcorrencias(){
+    private fun enviarOcorrencias(ids: List<Int>){
         lifecycleScope.launch {
             withContext(Dispatchers.IO){
-                ocorrenciasDBHelper(requireContext()).marcarOcorrenciasComoEnviadas()
+               val dbHelper = AppDatabaseHelper(requireContext())
+                dbHelper.marcarOcorrenciasComoEnviadas(ids)
             }
 
             adapter.submitList(emptyList())
@@ -107,6 +133,8 @@ class OcorrenciasFragment : Fragment() {
                 .commit()
         }
     }
+
+
 
 }
 

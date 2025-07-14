@@ -15,8 +15,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias3Binding
+import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import java.util.*
 import java.util.regex.Pattern
 import kotlin.concurrent.schedule
@@ -61,7 +61,7 @@ class Ocorrencias3Fragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val dbHelper = ocorrenciasDBHelper(requireContext())
+            val dbHelper = AppDatabaseHelper(requireContext())
             dbHelper.insertOcorrencia(tipo, endereco, nome, numContato)
 
             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)

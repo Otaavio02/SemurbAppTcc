@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias1Binding
 import android.graphics.drawable.ColorDrawable
 import android.os.Build

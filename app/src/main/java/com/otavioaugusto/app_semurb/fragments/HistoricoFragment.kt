@@ -9,15 +9,13 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.HistoricoAdapter
-import com.otavioaugusto.app_semurb.adapters.NotificacoesAdapter
-import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico1
-import com.otavioaugusto.app_semurb.dataClasses.DataClassNotificacoes
+import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico1Ocorrencias
+import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico1Viario
 import com.otavioaugusto.app_semurb.databinding.FragmentHistorico1Binding
-import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
+import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,13 +43,9 @@ class HistoricoFragment : Fragment() {
 
         binding.textDiaHistorico1.text = "Dia ${LocalDate.now()}"
 
-        lifecycleScope.launch {
-            val dbHelper = ocorrenciasDBHelper(requireContext())
-            withContext(Dispatchers.IO){
-            dbHelper.getAllOcorrenciasNaoEnviadas()
-            }
 
-        }
+
+
 
 
         val historicoEspecifico = resources.getStringArray(R.array.historico)
@@ -80,18 +74,60 @@ class HistoricoFragment : Fragment() {
         }
 
 
-        val listaTeste =  mutableListOf(
-            DataClassHistorico1("Ocorrências", LocalTime.of(9, 30),),
-            DataClassHistorico1("Ocorrências", LocalTime.of(9, 30)),
-            DataClassHistorico1("Ocorrências", LocalTime.of(9, 30))
-        )
-
-        adapter = HistoricoAdapter(listaTeste)
-        binding.rvHistorico.layoutManager= LinearLayoutManager(requireContext())
-
-        binding.rvHistorico.adapter = adapter
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch {
+            val dbHelper = AppDatabaseHelper(requireContext())
+            withContext(Dispatchers.IO){
+                val listaHistoricoOcorrenciasEnviadas = dbHelper.getAllOcorrenciasEnviadas()
+
+                val quantidadeTotalOcorrencias = listaHistoricoOcorrenciasEnviadas.size
+
+                val itemHistoricoOcorrencia = DataClassHistorico1Ocorrencias(
+                    titulo = "Envio de $quantidadeTotalOcorrencias ocorrência(s)",
+                    horarioEnvio = listaHistoricoOcorrenciasEnviadas.firstOrNull()?.horarioEnvio ?: "",
+                    dataEnvio = listaHistoricoOcorrenciasEnviadas.firstOrNull()?.dataEnvio ?: "",
+                    id = 0,
+                    numeroSequencial = 0,
+                    tipo = "-",
+                    endereco = "-",
+                    nome = "-",
+                    numcontato = "-",
+                    quantidadeTotal = quantidadeTotalOcorrencias
+                )
+                val listaHistoricoOcorrencias = mutableListOf(itemHistoricoOcorrencia)
+
+
+                val quantidadeTotalViario = listaHistoricoOcorrenciasEnviadas.size
+
+                val listaHistoricoViarioEnviados = dbHelper.getAllViarioEnviados()
+
+                val itemHistoricoViario = DataClassHistorico1Viario(
+                    titulo = "Envio de $quantidadeTotalViario ocorrência(s)",
+                    horarioEnvio = listaHistoricoViarioEnviados.firstOrNull()?.horarioEnvio ?: "",
+                    dataEnvio = listaHistoricoViarioEnviados.firstOrNull()?.dataEnvio ?: "",
+                    id = 0,
+                    numeroSequencial = 0,
+                    tipo = "-",
+                    endereco = "-",
+                    descricao = "-",
+                    quantidadeTotal = quantidadeTotalViario
+                )
+                val listaHistoricoViario = mutableListOf(itemHistoricoViario)
+
+
+                withContext(Dispatchers.Main){
+                    val adapter = HistoricoAdapter(listaHistoricoOcorrencias, listaHistoricoViario)
+                    binding.rvHistorico.adapter = adapter
+                    binding.rvHistorico.layoutManager = LinearLayoutManager(requireContext())}
+
+
+            }
+        }
     }
 
 

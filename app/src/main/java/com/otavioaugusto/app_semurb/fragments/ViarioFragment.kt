@@ -2,7 +2,6 @@ package com.otavioaugusto.app_semurb.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
-import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.ViarioAdapter
-import com.otavioaugusto.app_semurb.database.ViarioDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentViarioBinding
+import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -60,8 +58,8 @@ class ViarioFragment : Fragment() {
         lifecycleScope.launch {
 
             val lista =  withContext(Dispatchers.IO){
-                val dbHelper = ViarioDBHelper(requireContext())
-                dbHelper.getAllViario()
+                val dbHelper = AppDatabaseHelper(requireContext())
+                dbHelper.getAllViariosNaoEnviados()
             }
                 adapter.submitList(lista)
             val heightPorItemDp = 120

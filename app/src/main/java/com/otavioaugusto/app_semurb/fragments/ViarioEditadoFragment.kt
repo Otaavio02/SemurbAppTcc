@@ -10,9 +10,8 @@ import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.R
-import com.otavioaugusto.app_semurb.database.ViarioDBHelper
 import com.otavioaugusto.app_semurb.databinding.FragmentViarioeditadoBinding
-import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
+import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 
 class ViarioEditadoFragment : Fragment() {
 
@@ -61,7 +60,7 @@ class ViarioEditadoFragment : Fragment() {
             val novaDescricao = binding.editTextDescricao.text.toString()
 
             if (idViario != -1L) {
-                val dbHelper = ViarioDBHelper(requireContext())
+                val dbHelper = AppDatabaseHelper(requireContext())
                 dbHelper.updateViarioCompleto(
                     id = idViario,
                     tipo = tipoSelecionado,
@@ -78,7 +77,7 @@ class ViarioEditadoFragment : Fragment() {
 
         binding.btnExcluirViario.setOnClickListener {
             if (idViario != -1L) {
-                val dbHelper = ViarioDBHelper(requireContext())
+                val dbHelper = AppDatabaseHelper(requireContext())
                 dbHelper.deleteViario(idViario)
 
                 Toast.makeText(requireContext(), "Sinalização excluída com sucesso!", Toast.LENGTH_SHORT).show()
