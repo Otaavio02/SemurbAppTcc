@@ -16,7 +16,8 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
                 numero_sequencial INTEGER,
                 endereco TEXT,
                 nome TEXT,
-                numcontato TEXT
+                numcontato TEXT,
+                ENVIADO INTEGER DEFAULT 0
             )
         """.trimIndent())
     }
@@ -87,6 +88,33 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
         db.update("ocorrencias", cv, "id = ?", arrayOf(id.toString()))
     }
 
+    fun getAllOcorrenciasNaoEnviadas(): List<DataClassOcorrencia> {
+        val db = readableDatabase
+        val cursor = db.query( "ocorrencias",
+            null,
+            "enviado = ?",
+            arrayOf("0"),
+            null,
+            null,
+            "numero_sequencial ASC")
+        val lista = mutableListOf<DataClassOcorrencia>()
+        cursor.use {
+            while (it.moveToNext()) {
+                lista.add(
+                    DataClassOcorrencia(
+                        id = it.getInt(it.getColumnIndexOrThrow("id")),
+                        numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
+                        tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
+                        endereco = it.getStringOrNull("endereco") ?: "",
+                        nome = it.getStringOrNull("nome") ?: "",
+                        numcontato = it.getStringOrNull("numcontato") ?: ""
+                    )
+                )
+            }
+        }
+        return lista
+    }
+
     fun getAllOcorrencias(): List<DataClassOcorrencia> {
         val db = readableDatabase
         val cursor = db.query("ocorrencias", null, null, null, null, null, "numero_sequencial ASC")
@@ -106,6 +134,11 @@ class ocorrenciasDBHelper(context: Context) : SQLiteOpenHelper(context, "ocorren
             }
         }
         return lista
+    }
+
+    fun marcarOcorrenciasComoEnviadas() {
+        val db = writableDatabase
+        db.execSQL("UPDATE ocorrencias SET enviado = 1 WHERE enviado = 0")
     }
 
 }

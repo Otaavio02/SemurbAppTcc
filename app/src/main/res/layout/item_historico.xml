@@ -10,7 +10,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_fundonotificacoeslida"
+        android:background="@drawable/bg_fundonotificacoesnaolida"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -28,47 +28,47 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/bg_cinzad9"
+            android:background="@drawable/bg_azulpaginas"
             app:layout_constraintBottom_toTopOf="@+id/guideline35"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView45"
+                android:id="@+id/textViewHorarioHistorico1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="9:47"
-                android:textColor="@color/CinzaMedio"
+                android:textColor="@color/CorTextoPadrao"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
-                android:id="@+id/textView47"
+                android:id="@+id/textViewTituloHistorico1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="2dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="@string/servico_viario"
-                android:textColor="@color/Preto"
+                android:textColor="@color/CorTextoPadrao"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView48"
+            android:id="@+id/textViewTamanhoHistorico1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="7 Ocorrências"
-            android:textColor="@color/Preto"
+            android:textColor="@color/CorTextoPadrao"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

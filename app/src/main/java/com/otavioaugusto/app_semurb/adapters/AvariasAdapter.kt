@@ -17,7 +17,7 @@ class AvariasAdapter(
 ) : RecyclerView.Adapter<AvariasAdapter.AvariaViewHolder>() {
 
     inner class AvariaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val descricaoEditText: TextInputEditText? = itemView.findViewById(R.id.editTextDescricao)
+        val descricaoEditText: TextInputEditText = itemView.findViewById(R.id.editTextDescricao)
         val btnAdicionar: ImageButton = itemView.findViewById(R.id.btnAdicionar)
         val btnFoto: ImageButton = itemView.findViewById(R.id.btnFoto)
 
@@ -33,9 +33,9 @@ class AvariasAdapter(
     override fun onBindViewHolder(holder: AvariaViewHolder, position: Int) {
         val avaria = avarias[position]
 
-        holder.descricaoEditText?.setText(avaria.descricao)
+        holder.descricaoEditText.setText(avaria.descricao)
 
-        holder.descricaoEditText?.setOnFocusChangeListener { _, hasFocus ->
+        holder.descricaoEditText.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 avaria.descricao = holder.descricaoEditText.text.toString()
             }

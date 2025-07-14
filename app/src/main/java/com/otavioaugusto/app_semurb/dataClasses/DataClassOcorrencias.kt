@@ -1,5 +1,7 @@
 package com.otavioaugusto.app_semurb.dataClasses
 
+import java.io.Serializable
+
 data class DataClassOcorrencia(
     val id: Int = 0,
     val numeroSequencial: Int,
@@ -8,4 +10,4 @@ data class DataClassOcorrencia(
     val nome: String,
     val numcontato: String
 
-)
+): Serializable

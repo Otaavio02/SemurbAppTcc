@@ -1,25 +1,39 @@
 package com.otavioaugusto.app_semurb.fragments
 
 import android.app.DatePickerDialog
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.view.WindowInsetsController
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import com.otavioaugusto.app_semurb.PlaceHolderActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.otavioaugusto.app_semurb.R
+import com.otavioaugusto.app_semurb.adapters.HistoricoAdapter
+import com.otavioaugusto.app_semurb.adapters.NotificacoesAdapter
+import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico1
+import com.otavioaugusto.app_semurb.dataClasses.DataClassNotificacoes
 import com.otavioaugusto.app_semurb.databinding.FragmentHistorico1Binding
+import com.otavioaugusto.app_semurb.dbHelper.ocorrenciasDBHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.LocalTime
 import java.util.Calendar
+import kotlin.collections.mutableListOf
 
 class HistoricoFragment : Fragment() {
 
     private var _binding: FragmentHistorico1Binding? = null
     private val binding get() = _binding!!
+
+    private lateinit var adapter: HistoricoAdapter
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +41,17 @@ class HistoricoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHistorico1Binding.inflate(inflater, container, false)
+
+
+        binding.textDiaHistorico1.text = "Dia ${LocalDate.now()}"
+
+        lifecycleScope.launch {
+            val dbHelper = ocorrenciasDBHelper(requireContext())
+            withContext(Dispatchers.IO){
+            dbHelper.getAllOcorrenciasNaoEnviadas()
+            }
+
+        }
 
 
         val historicoEspecifico = resources.getStringArray(R.array.historico)
@@ -54,6 +79,17 @@ class HistoricoFragment : Fragment() {
             ).show()
         }
 
+
+        val listaTeste =  mutableListOf(
+            DataClassHistorico1("Ocorrências", LocalTime.of(9, 30),),
+            DataClassHistorico1("Ocorrências", LocalTime.of(9, 30)),
+            DataClassHistorico1("Ocorrências", LocalTime.of(9, 30))
+        )
+
+        adapter = HistoricoAdapter(listaTeste)
+        binding.rvHistorico.layoutManager= LinearLayoutManager(requireContext())
+
+        binding.rvHistorico.adapter = adapter
 
         return binding.root
     }

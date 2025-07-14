@@ -63,7 +63,7 @@ class OcorrenciasFragment : Fragment() {
     private fun atualizarListaOcorrencias(){  lifecycleScope.launch {
         val lista = withContext(Dispatchers.IO) {
             val dbHelper = ocorrenciasDBHelper(requireContext())
-            dbHelper.getAllOcorrencias()
+            dbHelper.getAllOcorrenciasNaoEnviadas()
         }
 
         adapter.submitList(lista)
@@ -89,9 +89,8 @@ class OcorrenciasFragment : Fragment() {
 
     private fun enviarOcorrencias(){
         lifecycleScope.launch {
-            val dbHelper = ocorrenciasDBHelper(requireContext())
-            withContext(Dispatchers.IO) {
-                dbHelper.deleteAllOcorrencias()
+            withContext(Dispatchers.IO){
+                ocorrenciasDBHelper(requireContext()).marcarOcorrenciasComoEnviadas()
             }
 
             adapter.submitList(emptyList())
