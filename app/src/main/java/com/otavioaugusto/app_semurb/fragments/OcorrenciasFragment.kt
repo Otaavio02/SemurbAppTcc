@@ -95,7 +95,7 @@ class OcorrenciasFragment : Fragment() {
                 val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
                 val itemHistorico = DataClassHistorico1Ocorrencias(
-                    id = 0, // ou algum valor padrão
+                    id = 0,
                     numeroSequencial = 0,
                     tipo = "Ocorrência",
                     endereco = "-",
