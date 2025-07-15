@@ -27,9 +27,9 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                 nome TEXT,
                 numcontato TEXT,
                 titulo TEXT,
-                horario_envio TEXT,
-                data_envio TEXT,
-                enviado INTEGER DEFAULT 0
+                
+                id_lista INTEGER,
+                FOREIGN KEY (id_lista) REFERENCES lista_ocorrencias(id_lista)
             )
         """.trimIndent())
 
@@ -41,16 +41,37 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                 endereco TEXT,
                 descricao TEXT,
                 titulo TEXT,
-                horario_envio TEXT,
-                data_envio TEXT,
-                enviado INTEGER DEFAULT 0
+                
+                id_lista INTEGER,
+                FOREIGN KEY (id_lista) REFERENCES lista_viario(id_lista)
             )
         """.trimIndent())
+
+        db.execSQL("""
+            CREATE TABLE lista_ocorrencias (
+                id_lista INTEGER PRIMARY KEY AUTOINCREMENT,
+                topico TEXT,
+                horario_envio TEXT,
+                data_envio TEXT
+            )
+        """.trimIndent())
+
+        db.execSQL("""
+            CREATE TABLE lista_viario (
+                id_lista INTEGER PRIMARY KEY AUTOINCREMENT,
+                topico TEXT,
+                horario_envio TEXT,
+                data_envio TEXT
+            )
+        """.trimIndent())
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS ocorrencias")
         db.execSQL("DROP TABLE IF EXISTS viario")
+        db.execSQL("DROP TABLE IF EXISTS lista_ocorrencias")
+        db.execSQL("DROP TABLE IF EXISTS lista_viario")
         onCreate(db)
     }
 
