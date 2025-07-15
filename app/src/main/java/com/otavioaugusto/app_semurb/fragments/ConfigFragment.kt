@@ -41,6 +41,7 @@ class ConfigFragment : Fragment() {
             (activity as? PlaceHolderActivity)?.limparBottomNavBar()
         }
 
+
         binding.textPolitica.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(

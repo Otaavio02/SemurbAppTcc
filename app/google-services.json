@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "587644805862",
+    "project_id": "appsemurb",
+    "storage_bucket": "appsemurb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587644805862:android:dc159b89ec138fc1c71127",
+        "android_client_info": {
+          "package_name": "com.otavioaugusto.app_semurb.adapters"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI52dCBEcQ-SWW0YbBU1EctJG9Hoh35W4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
