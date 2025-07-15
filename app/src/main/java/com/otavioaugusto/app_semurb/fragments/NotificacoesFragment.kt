@@ -56,6 +56,7 @@ class NotificacoesFragment : Fragment() {
         rvNotificacoesLidas.adapter = adapterLidas
 
         setupTrocarSlide(rvNotificacoesN, adapterN, adapterLidas)
+        setupRemoverSlide(rvNotificacoesLidas, adapterLidas)
 
         ajustarAlturaRecyclerView(rvNotificacoesN, listaTeste.size)
 
@@ -133,13 +134,33 @@ class NotificacoesFragment : Fragment() {
 
                 binding.btnNotificacoesLidas.isEnabled = alvoAdapter.itemCount > 0
 
+                ajustarAlturaRecyclerView(rvNotificacoesN,fonteAdapter.itemCount )
                 ajustarAlturaRecyclerView(rvNotificacoesLidas,alvoAdapter.itemCount )
-
-
             } })
 
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
+    }
+
+    private fun setupRemoverSlide(
+        recyclerView: RecyclerView,
+        fonteAdapter: NotificacoesAdapter
+    ) {
+        val itemTouchHelper = ItemTouchHelper(object: ItemTouchHelper.SimpleCallback(0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                fonteAdapter.removeItemAt(position)
+                ajustarAlturaRecyclerView(rvNotificacoesLidas,fonteAdapter.itemCount )
+            } })
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
     private fun ajustarAlturaRecyclerView(recyclerView: RecyclerView, qtdItens: Int){
