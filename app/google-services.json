@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:587644805862:android:dc159b89ec138fc1c71127",
+        "mobilesdk_app_id": "1:587644805862:android:61f53e69d11d84d8c71127",
         "android_client_info": {
-          "package_name": "com.otavioaugusto.app_semurb.adapters"
+          "package_name": "com.otavioaugusto.app_semurb"
         }
       },
       "oauth_client": [],

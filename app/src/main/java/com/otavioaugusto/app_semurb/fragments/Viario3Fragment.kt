@@ -105,6 +105,8 @@ class Viario3Fragment : Fragment() {
                 return@setOnClickListener
             }
 
+            binding.btnProximoViario3.isEnabled = false
+
             val dbHelper = AppDatabaseHelper(requireContext())
             dbHelper.insertViarioCompleto(tipo, endereco, descricao)
 

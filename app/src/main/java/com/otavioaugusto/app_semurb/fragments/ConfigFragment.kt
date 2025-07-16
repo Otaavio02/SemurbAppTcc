@@ -1,5 +1,6 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.otavioaugusto.app_semurb.MainActivity
 import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentConfigBinding
@@ -17,6 +20,10 @@ class ConfigFragment : Fragment() {
     private var _binding: FragmentConfigBinding? = null
     private val binding get() = _binding!!
 
+    val autenticacao by lazy {
+        FirebaseAuth.getInstance()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,7 +32,17 @@ class ConfigFragment : Fragment() {
         _binding = FragmentConfigBinding.inflate(inflater, container, false)
 
         binding.btnLogout.setOnClickListener {
-            requireActivity().finish()
+            autenticacao.signOut()
+            startActivity(
+                Intent(requireContext(), MainActivity::class.java)
+            )
+        }
+
+        binding.textViewLogout.setOnClickListener {
+            autenticacao.signOut()
+            startActivity(
+                Intent(requireContext(), MainActivity::class.java)
+            )
         }
 
         binding.btnPolitica.setOnClickListener {

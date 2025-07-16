@@ -60,6 +60,7 @@ class Ocorrencias3Fragment : Fragment() {
 
                 return@setOnClickListener
             }
+            binding.btnProximoOcorrencias3.isEnabled = false
 
             val dbHelper = AppDatabaseHelper(requireContext())
             dbHelper.insertOcorrencia(tipo, endereco, nome, numContato)

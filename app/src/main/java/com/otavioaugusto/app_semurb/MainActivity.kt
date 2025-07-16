@@ -25,11 +25,16 @@ import android.Manifest
 import android.os.Looper
 import android.widget.Toast
 import com.google.android.gms.location.*
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy{
        ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    val autenticacao by lazy {
+        FirebaseAuth.getInstance()
     }
 
 
@@ -45,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.btnEntrar.setOnClickListener { view ->
+
             checarCampos(view)
 
         }
@@ -65,9 +71,24 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    override fun onStart() {
+        super.onStart()
+        verificarUsuarioLogado()
+    }
+
+    private fun verificarUsuarioLogado() {
+        val usuario = autenticacao.currentUser
+
+        if (usuario != null){
+            startActivity(
+                Intent(this, PlaceHolderActivity::class.java)
+            )
+        }
+
+    }
 
 
-      private fun checarCampos(view: View) {
+    private fun checarCampos(view: View) {
 
         val campoMatricula = binding.editTextMatricula.text.toString()
         val campoSenha = binding.editTextSenha.text.toString()
@@ -75,12 +96,16 @@ class MainActivity : AppCompatActivity() {
         val resultadoChecagemNulo = checagemNulo(campoMatricula, campoSenha, view)
         if (resultadoChecagemNulo){
 
-            if(campoSenha == "1" && campoMatricula == "u"){
+                val emailFalso = "$campoMatricula@gmail.com"
 
-                val intent = Intent(this, PlaceHolderActivity::class.java)
-                startActivity(intent)
-            }
-            else {
+            autenticacao.signInWithEmailAndPassword(
+                emailFalso, campoSenha
+            ).addOnSuccessListener { authResult ->
+                binding.btnEntrar.isEnabled = false
+                startActivity(
+                    Intent(this, PlaceHolderActivity::class.java)
+                )
+            }.addOnFailureListener {
                 val textInputMatricula = binding.textInputMatricula
                 val textInputSenha = binding.textInputSenha
                 val editTextSenha = binding.editTextSenha
@@ -107,7 +132,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-                   val snackBarErroLogin = Snackbar.make(view, "Erro de login: Matrícula ou senha incorretos", Snackbar.LENGTH_SHORT)
+                val snackBarErroLogin = Snackbar.make(view, "Erro de login: Matrícula ou senha incorretos", Snackbar.LENGTH_SHORT)
 
 
 
@@ -133,7 +158,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
 
     }
 
