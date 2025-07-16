@@ -12,15 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.HistoricoAdapter
-import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico1Ocorrencias
-import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico1Viario
+import com.otavioaugusto.app_semurb.dataClasses.DataClassHistoricoListItem
 import com.otavioaugusto.app_semurb.databinding.FragmentHistorico1Binding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
-import java.time.LocalTime
 import java.util.Calendar
 import kotlin.collections.mutableListOf
 
@@ -39,14 +36,7 @@ class HistoricoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHistorico1Binding.inflate(inflater, container, false)
-
-
-        binding.textDiaHistorico1.text = "Dia ${LocalDate.now()}"
-
-
-
-
-
+        
 
         val historicoEspecifico = resources.getStringArray(R.array.historico)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, historicoEspecifico)
@@ -83,49 +73,22 @@ class HistoricoFragment : Fragment() {
         lifecycleScope.launch {
             val dbHelper = AppDatabaseHelper(requireContext())
             withContext(Dispatchers.IO){
-                val listaHistoricoOcorrenciasEnviadas = dbHelper.getAllOcorrenciasEnviadas()
+                val todosItens = dbHelper.getAllHistorico()
+                val agrupado = todosItens.groupBy { it.data_envio }
 
-                val quantidadeTotalOcorrencias = listaHistoricoOcorrenciasEnviadas.size
-
-                val itemHistoricoOcorrencia = DataClassHistorico1Ocorrencias(
-                    titulo = "Envio de $quantidadeTotalOcorrencias ocorrência(s)",
-                    horarioEnvio = listaHistoricoOcorrenciasEnviadas.firstOrNull()?.horarioEnvio ?: "",
-                    dataEnvio = listaHistoricoOcorrenciasEnviadas.firstOrNull()?.dataEnvio ?: "",
-                    id = 0,
-                    numeroSequencial = 0,
-                    tipo = "-",
-                    endereco = "-",
-                    nome = "-",
-                    numcontato = "-",
-                    quantidadeTotal = quantidadeTotalOcorrencias
-                )
-                val listaHistoricoOcorrencias = mutableListOf(itemHistoricoOcorrencia)
-
-
-                val quantidadeTotalViario = listaHistoricoOcorrenciasEnviadas.size
-
-                val listaHistoricoViarioEnviados = dbHelper.getAllViarioEnviados()
-
-                val itemHistoricoViario = DataClassHistorico1Viario(
-                    titulo = "Envio de $quantidadeTotalViario ocorrência(s)",
-                    horarioEnvio = listaHistoricoViarioEnviados.firstOrNull()?.horarioEnvio ?: "",
-                    dataEnvio = listaHistoricoViarioEnviados.firstOrNull()?.dataEnvio ?: "",
-                    id = 0,
-                    numeroSequencial = 0,
-                    tipo = "-",
-                    endereco = "-",
-                    descricao = "-",
-                    quantidadeTotal = quantidadeTotalViario
-                )
-                val listaHistoricoViario = mutableListOf(itemHistoricoViario)
+                val listaFinal = mutableListOf<DataClassHistoricoListItem>()
+                agrupado.forEach { (data, itens) ->
+                    listaFinal.add(DataClassHistoricoListItem.Header(data))
+                    itens.forEach { item ->
+                        listaFinal.add(DataClassHistoricoListItem.Item(item))
+                    }
+                }
 
 
                 withContext(Dispatchers.Main){
-                    val adapter = HistoricoAdapter(listaHistoricoOcorrencias, listaHistoricoViario)
+                    adapter = HistoricoAdapter(listaFinal)
                     binding.rvHistorico.adapter = adapter
                     binding.rvHistorico.layoutManager = LinearLayoutManager(requireContext())}
-
-
             }
         }
     }

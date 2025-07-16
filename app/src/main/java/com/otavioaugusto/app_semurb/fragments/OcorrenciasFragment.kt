@@ -12,7 +12,6 @@ import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.OcorrenciasAdapter
-import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico1Ocorrencias
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciasBinding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import com.otavioaugusto.app_semurb.funcoes.VerificarHorario
@@ -87,42 +86,30 @@ class OcorrenciasFragment : Fragment() {
             if (listaAtual.isEmpty()) {
                 Toast.makeText(requireContext(), "Não há nenhuma ocorrência", Toast.LENGTH_SHORT).show()
             } else {
-                val idsParaEnviar = listaAtual.map { it.id }
-                enviarOcorrencias(idsParaEnviar)
-
-
+                val qtd_itens = listaAtual.size
                 val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
                 val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
-                val itemHistorico = DataClassHistorico1Ocorrencias(
-                    id = 0,
-                    numeroSequencial = 0,
-                    tipo = "Ocorrência",
-                    endereco = "-",
-                    nome = "-",
-                    numcontato = "-",
-                    titulo = "Envio de ${listaAtual.size} ocorrência(s)",
-                    horarioEnvio = horarioAtual,
-                    dataEnvio = dataAtual,
-                    quantidadeTotal = listaAtual.size
-                )
+                enviarOcorrencias(qtd_itens, horarioAtual, dataAtual)
+
             }
         }
     }
     }
 
-
-    private fun enviarOcorrencias(ids: List<Int>){
+    private fun enviarOcorrencias(qtd_itens: Int, horario_envio: String, data_envio: String){
         lifecycleScope.launch {
             withContext(Dispatchers.IO){
                val dbHelper = AppDatabaseHelper(requireContext())
-                dbHelper.marcarOcorrenciasComoEnviadas(ids)
+                val idLista = dbHelper.insertListaHistorico("Atendimento de Ocorrências", qtd_itens, horario_envio, data_envio)
+                dbHelper.associarOcorrenciasALista(idLista)
             }
 
             adapter.submitList(emptyList())
             Toast.makeText(requireContext(), "Ocorrências Enviadas", Toast.LENGTH_SHORT).show()
-            (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
 
+
+            (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_in_right,

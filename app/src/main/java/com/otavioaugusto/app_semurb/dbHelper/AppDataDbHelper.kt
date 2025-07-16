@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico
 import com.otavioaugusto.app_semurb.dataClasses.DataClassOcorrencia
 import com.otavioaugusto.app_semurb.dataClasses.DataClassViario
 import com.otavioaugusto.app_semurb.utils.getStringOrNull
@@ -26,10 +27,10 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                 endereco TEXT,
                 nome TEXT,
                 numcontato TEXT,
-                titulo TEXT,
+                topico TEXT,
                 
                 id_lista INTEGER,
-                FOREIGN KEY (id_lista) REFERENCES lista_ocorrencias(id_lista)
+                FOREIGN KEY (id_lista) REFERENCES lista_historico(id_lista)
             )
         """.trimIndent())
 
@@ -40,26 +41,18 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                 tipo TEXT,
                 endereco TEXT,
                 descricao TEXT,
-                titulo TEXT,
+                topico TEXT,
                 
                 id_lista INTEGER,
-                FOREIGN KEY (id_lista) REFERENCES lista_viario(id_lista)
+                FOREIGN KEY (id_lista) REFERENCES lista_historico(id_lista)
             )
         """.trimIndent())
 
         db.execSQL("""
-            CREATE TABLE lista_ocorrencias (
+            CREATE TABLE lista_historico (
                 id_lista INTEGER PRIMARY KEY AUTOINCREMENT,
-                topico TEXT,
-                horario_envio TEXT,
-                data_envio TEXT
-            )
-        """.trimIndent())
-
-        db.execSQL("""
-            CREATE TABLE lista_viario (
-                id_lista INTEGER PRIMARY KEY AUTOINCREMENT,
-                topico TEXT,
+                topico TEXT, -- "Atendimento de Ocorrências", "Serviço Viário", "Inspeção da Viatura".
+                qtd_itens INTEGER,
                 horario_envio TEXT,
                 data_envio TEXT
             )
@@ -70,8 +63,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS ocorrencias")
         db.execSQL("DROP TABLE IF EXISTS viario")
-        db.execSQL("DROP TABLE IF EXISTS lista_ocorrencias")
-        db.execSQL("DROP TABLE IF EXISTS lista_viario")
+        db.execSQL("DROP TABLE IF EXISTS lista_historico")
         onCreate(db)
     }
 
@@ -93,14 +85,40 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             put("endereco", endereco)
             put("nome", nome)
             put("numcontato", numcontato)
-            put("titulo", "Ocorrência ")
+            put("topico", "Atendimento de Ocorrências")
+            putNull("id_lista")
         }
         db.insert("ocorrencias", null, cv)
     }
 
+    fun deleteOcorrencia(id: Long) {
+        val db = writableDatabase
+        db.delete("ocorrencias", "id = ?", arrayOf(id.toString()))
+    }
+
+    fun insertListaHistorico(topico: String, qtd_itens: Int, horario_envio: String, data_envio: String): Long{
+        val db = writableDatabase
+
+        val cv = ContentValues().apply {
+            put("topico", topico)
+            put("qtd_itens", qtd_itens)
+            put("horario_envio", horario_envio)
+            put("data_envio", data_envio)
+        }
+        return db.insert("lista_historico", null, cv)
+    }
+
+    fun associarOcorrenciasALista(idLista: Long) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put("id_lista", idLista)
+        }
+        db.update("ocorrencias", values, "id_lista IS NULL AND topico = ?", arrayOf("Atendimento de Ocorrências"))
+    }
+
     fun getAllOcorrenciasNaoEnviadas(): List<DataClassOcorrencia> {
         val db = readableDatabase
-        val cursor = db.query("ocorrencias", null, "enviado = ?", arrayOf("0"), null, null, "numero_sequencial ASC")
+        val cursor = db.query("ocorrencias", null, "id_lista IS NULL", null, null, null, "numero_sequencial ASC")
         val lista = mutableListOf<DataClassOcorrencia>()
         cursor.use {
             while (it.moveToNext()) {
@@ -137,10 +155,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getStringOrNull("endereco") ?: "",
                         nome = it.getStringOrNull("nome") ?: "",
-                        numcontato = it.getStringOrNull("numcontato") ?: "",
-                        titulo = titulo,
-                        horarioEnvio = horarioEnvio,
-                        dataEnvio = dataEnvio
+                        numcontato = it.getStringOrNull("numcontato") ?: ""
                     )
                 )
             }
@@ -181,10 +196,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         db.update("ocorrencias", cv, "id = ?", arrayOf(id.toString()))
     }
 
-    fun deleteOcorrencia(id: Long) {
-        val db = writableDatabase
-        db.delete("ocorrencias", "id = ?", arrayOf(id.toString()))
-    }
+
 
     fun deleteAllOcorrencias(){
         val db = writableDatabase
@@ -275,6 +287,40 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
     fun deleteViario(id: Long) {
         val db = writableDatabase
         db.delete("viario", "id = ?", arrayOf(id.toString()))
+    }
+
+    fun getAllHistorico(): List<DataClassHistorico> {
+        val historicoList = mutableListOf<DataClassHistorico>()
+        val db = readableDatabase
+
+        val cursor = db.rawQuery("""
+        SELECT id_lista, topico, qtd_itens, horario_envio, data_envio
+        FROM lista_historico
+        ORDER BY data_envio DESC, horario_envio DESC
+    """.trimIndent(), null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                val idLista = cursor.getInt(cursor.getColumnIndexOrThrow("id_lista"))
+                val topico = cursor.getString(cursor.getColumnIndexOrThrow("topico"))
+                val qtdItens = cursor.getInt(cursor.getColumnIndexOrThrow("qtd_itens"))
+                val horario = cursor.getString(cursor.getColumnIndexOrThrow("horario_envio"))
+                val data = cursor.getString(cursor.getColumnIndexOrThrow("data_envio"))
+
+                historicoList.add(
+                    DataClassHistorico(
+                        id_lista = idLista,
+                        topico = topico,
+                        qtd_itens = qtdItens,
+                        horario_envio = horario,
+                        data_envio = data
+                    )
+                )
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        return historicoList
     }
 
     fun marcarViarioComoEnviados(ids: List<Int>) {
