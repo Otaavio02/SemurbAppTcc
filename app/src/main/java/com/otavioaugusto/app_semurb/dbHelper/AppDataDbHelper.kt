@@ -15,7 +15,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
 
     companion object {
         private const val DATABASE_NAME = "app_database.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -28,7 +28,6 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                 nome TEXT,
                 numcontato TEXT,
                 topico TEXT,
-                
                 id_lista INTEGER,
                 FOREIGN KEY (id_lista) REFERENCES lista_historico(id_lista)
             )
@@ -42,7 +41,6 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                 endereco TEXT,
                 descricao TEXT,
                 topico TEXT,
-                
                 id_lista INTEGER,
                 FOREIGN KEY (id_lista) REFERENCES lista_historico(id_lista)
             )

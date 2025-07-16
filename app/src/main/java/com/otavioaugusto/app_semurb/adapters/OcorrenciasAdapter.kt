@@ -30,6 +30,7 @@ class OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>()
             binding.btnEditarOcoVia.setOnClickListener {
                 val context = binding.root.context
                 val intent = Intent(context, PlaceHolderGameficadoActivity::class.java)
+
                 intent.putExtra("FRAGMENT_KEY", "OCORRENCIAS_EDITADO")
                 intent.putExtra("VISIBILITY", "GONE")
                 intent.putExtra("ID_OCORRENCIA", item.id.toLong())
@@ -37,6 +38,7 @@ class OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>()
                 intent.putExtra("ENDERECO", item.endereco)
                 intent.putExtra("NOME", item.nome)
                 intent.putExtra("CONTATO", item.numcontato)
+                intent.putExtra("NUMERO_SEQUENCIAL", item.numeroSequencial.toString())
 
                 context.startActivity(intent)
             }

@@ -43,12 +43,13 @@ class OcorrenciasEditadoFragment : Fragment() {
         val endereco = activity?.intent?.getStringExtra("ENDERECO")
         val nome = activity?.intent?.getStringExtra("NOME")
         val contato = activity?.intent?.getStringExtra("CONTATO")
+        val numSequencial = activity?.intent?.getStringExtra("NUMERO_SEQUENCIAL")
         var confirmarAlteracao = "sem alteração"
 
         binding.editTextEndereco.setText(endereco)
         binding.editTextNome.setText(nome)
         binding.editTextContato.setText(contato)
-
+        binding.textViewIdNomeOcorrenciasEditado.text = "Ocorrência $numSequencial"
         when (tipo) {
             "Sinistro de Trânsito" -> binding.rbSinistro.isChecked = true
             "Sinistro de Grande Vulto" -> binding.rbGrandeVulto.isChecked = true
