@@ -56,7 +56,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:text="@string/servico_viario"
                 android:textColor="@color/CorTextoPadrao"
-                android:textSize="21sp"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

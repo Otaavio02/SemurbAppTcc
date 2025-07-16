@@ -1,16 +1,23 @@
 package com.otavioaugusto.app_semurb.adapters
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico
 import com.otavioaugusto.app_semurb.dataClasses.DataClassHistoricoListItem
+import com.otavioaugusto.app_semurb.databinding.ItemHistoricoBinding
+import com.otavioaugusto.app_semurb.fragments.OcorrenciasFragment
 
 class HistoricoAdapter(
-    private val items: List<DataClassHistoricoListItem>
+    private val items: List<DataClassHistoricoListItem>,
+    private val onItemClick: (DataClassHistorico) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
     companion object {
@@ -22,10 +29,32 @@ class HistoricoAdapter(
         val textHeader: TextView = itemView.findViewById(R.id.textDiaHeader)
     }
 
-    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titulo: TextView = itemView.findViewById(R.id.textViewTituloHistorico1)
-        val horario: TextView = itemView.findViewById(R.id.textViewHorarioHistorico1)
-        val tamanho: TextView = itemView.findViewById(R.id.textViewTamanhoHistorico1)
+    inner class ItemViewHolder(val binding: ItemHistoricoBinding) : RecyclerView.ViewHolder(binding.root)  {
+        fun bind(historico: DataClassHistorico, onClick: (DataClassHistorico) -> Unit) {
+
+            val subtitulo = when (historico.topico) {
+                "Atendimento de Ocorrências" -> "${historico.qtd_itens} ocorrência(s) enviada(s)"
+                "Serviço Viário" -> "${historico.qtd_itens} sinalização(ões) enviada(s)"
+                "Inspeção da Viatura" -> "${historico.qtd_itens} avaria(s)"
+                else -> "${historico.qtd_itens} item(ns)"
+            }
+
+            val tituloEncurtado = when (historico.topico) {
+                "Atendimento de Ocorrências" -> "Atend. de Ocorrências"
+                "Serviço Viário" -> "Serviço Viário"
+                "Inspeção da Viatura" -> "Inspeção da Viatura"
+                else -> "Tópico não identificado"
+            }
+
+            binding.textViewTituloHistorico1.text = tituloEncurtado
+            binding.textViewHorarioHistorico1.text = historico.horario_envio
+            binding.textViewTamanhoHistorico1.text = subtitulo
+
+            binding.root.setOnClickListener {
+                onClick(historico)
+            }
+
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -43,9 +72,8 @@ class HistoricoAdapter(
                 HeaderViewHolder(view)
             }
             else -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_historico, parent, false)
-                ItemViewHolder(view)
+                val binding = ItemHistoricoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ItemViewHolder(binding)
             }
         }
     }
@@ -57,19 +85,7 @@ class HistoricoAdapter(
             }
 
             is DataClassHistoricoListItem.Item -> {
-                val historico = item.historico
-                val subtitulo = when (historico.topico) {
-                    "Atendimento de Ocorrências" -> "${historico.qtd_itens} ocorrência(s) enviada(s)"
-                    "Serviço Viário" -> "${historico.qtd_itens} sinalização(ões) enviada(s)"
-                    "Inspeção da Viatura" -> "${historico.qtd_itens} avaria(s)"
-                    else -> "${historico.qtd_itens} item(ns)"
-                }
-
-                with(holder as ItemViewHolder) {
-                    titulo.text = historico.topico
-                    horario.text = historico.horario_envio
-                    tamanho.text = subtitulo
-                }
+                (holder as ItemViewHolder).bind(item.historico, onItemClick)
             }
         }
     }

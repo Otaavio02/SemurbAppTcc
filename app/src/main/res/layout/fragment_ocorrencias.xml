@@ -58,8 +58,11 @@
 
             <TextView
                 android:id="@+id/ListagemTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/listagemoc"
                 android:textColor="@color/AzulEscuroProfundo"

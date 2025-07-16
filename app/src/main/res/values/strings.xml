@@ -138,6 +138,7 @@
     <string name="historicos">Históricos</string>
     <string name="tudo">Tudo</string>
     <string name="ver_mais">Clique em um item para ver mais</string>
+    <string name="fim_historico">Você chegou ao fim do histórico</string>
     <string name="Justificativa">Justificativa</string>
     <string name="preencha_detalhamento">Preencha o detalhamento:</string>
     <string name="digite_o_motivo">Digite o motivo</string>

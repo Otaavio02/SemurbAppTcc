@@ -143,6 +143,8 @@ class Ocorrencias3Fragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        binding.btnProximoOcorrencias3.isEnabled = true
+
         activity?.window?.let { window ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {

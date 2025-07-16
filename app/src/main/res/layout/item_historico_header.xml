@@ -24,6 +24,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/montserrat_semibold"
             android:text="Dia XX/XX/2025"
+            android:textSize="15sp"
             android:textColor="@color/CorTextoscinza"
             app:layout_constraintStart_toStartOf="parent" />
 

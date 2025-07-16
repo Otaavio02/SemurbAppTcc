@@ -86,7 +86,20 @@ class HistoricoFragment : Fragment() {
 
 
                 withContext(Dispatchers.Main){
-                    adapter = HistoricoAdapter(listaFinal)
+                    adapter = HistoricoAdapter(listaFinal) { historico ->
+                        val fragment = OcorrenciasFragment()
+                        val bundle = Bundle().apply {
+                            putString("ID_LISTA", historico.id_lista.toString())
+                            putString("DATA_ENVIO", historico.data_envio)
+                            putString("TOPICO", historico.topico)
+                        }
+                        fragment.arguments = bundle
+
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, fragment)
+                            .addToBackStack(null)
+                            .commit()
+                    }
                     binding.rvHistorico.adapter = adapter
                     binding.rvHistorico.layoutManager = LinearLayoutManager(requireContext())}
             }

@@ -137,6 +137,27 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         return lista
     }
 
+    fun getAllOcorrenciasByIdLista(id_lista: String?): List<DataClassOcorrencia> {
+        val db = readableDatabase
+        val cursor = db.query("ocorrencias", null, "id_lista = ?", arrayOf(id_lista), null, null, "numero_sequencial ASC")
+        val lista = mutableListOf<DataClassOcorrencia>()
+        cursor.use {
+            while (it.moveToNext()) {
+                lista.add(
+                    DataClassOcorrencia(
+                        id = it.getInt(it.getColumnIndexOrThrow("id")),
+                        numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
+                        tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
+                        endereco = it.getStringOrNull("endereco") ?: "",
+                        nome = it.getStringOrNull("nome") ?: "",
+                        numcontato = it.getStringOrNull("numcontato") ?: ""
+                    )
+                )
+            }
+        }
+        return lista
+    }
+
     fun getAllOcorrenciasEnviadas(): List<DataClassOcorrencia> {
         val db = readableDatabase
         val cursor = db.query("ocorrencias", null, "enviado = ?", arrayOf("1"), null, null, "numero_sequencial ASC")

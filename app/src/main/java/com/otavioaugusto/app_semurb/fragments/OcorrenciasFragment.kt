@@ -1,6 +1,8 @@
 package com.otavioaugusto.app_semurb.fragments
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,13 +31,29 @@ class OcorrenciasFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter: OcorrenciasAdapter
 
+    private var id_lista: String? = null
+    private var data_envio: String? = null
+    private var topico: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentOcorrenciasBinding.inflate(inflater, container, false)
+
+        Log.d("DEBUG", "ID da lista antes de pegar: ${id_lista}")
+        id_lista = arguments?.getString("ID_LISTA")
+        data_envio = arguments?.getString("DATA_ENVIO")
+        topico = arguments?.getString("TOPICO")
+        Log.d("DEBUG", "ID da lista depois de pegar: ${id_lista}")
+
+        if (id_lista != null) {
+            binding.btnEnviarOcorrencia.visibility = View.GONE
+            binding.btnAdicionarOcorrencia.visibility = View.GONE
+            binding.ListagemTitle.setText("${topico} - Dia ${data_envio}")
+            binding.ListagemTitle.setTextColor(getResources().getColor(R.color.CorTextoPadrao))
+        }
 
 
         adapter = OcorrenciasAdapter()
@@ -56,7 +74,7 @@ class OcorrenciasFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        atualizarListaOcorrencias()
+        atualizarListaOcorrencias(id_lista)
         }
 
 
@@ -65,10 +83,14 @@ class OcorrenciasFragment : Fragment() {
         _binding = null
     }
 
-    private fun atualizarListaOcorrencias(){  lifecycleScope.launch {
+    private fun atualizarListaOcorrencias(id_lista: String?){  lifecycleScope.launch {
         val lista = withContext(Dispatchers.IO) {
             val dbHelper = AppDatabaseHelper(requireContext())
-            dbHelper.getAllOcorrenciasNaoEnviadas()
+            if (id_lista == null) {
+                dbHelper.getAllOcorrenciasNaoEnviadas()
+            } else {
+                dbHelper.getAllOcorrenciasByIdLista(id_lista)
+            }
         }
 
         adapter.submitList(lista)

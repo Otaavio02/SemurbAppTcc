@@ -97,7 +97,7 @@ class NotificacoesFragment : Fragment() {
                 btnNotificacoesNLidas.setImageResource(R.drawable.notificacaoaberto)
             }
 
-            ajustarAlturaRecyclerView(rvNotificacoesN, adapterLidas.itemCount)
+            ajustarAlturaRecyclerView(rvNotificacoesN, adapterN.itemCount)
         }
 
 
@@ -164,7 +164,7 @@ class NotificacoesFragment : Fragment() {
     }
 
     private fun ajustarAlturaRecyclerView(recyclerView: RecyclerView, qtdItens: Int){
-        val heighPerItemDp = 260
+        val heighPerItemDp = 260 + 16
         val totalHeightDp = heighPerItemDp * qtdItens
 
         val scale = resources.displayMetrics.density
