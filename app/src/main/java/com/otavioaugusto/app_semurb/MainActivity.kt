@@ -101,10 +101,13 @@ class MainActivity : AppCompatActivity() {
             autenticacao.signInWithEmailAndPassword(
                 emailFalso, campoSenha
             ).addOnSuccessListener { authResult ->
+
                 binding.btnEntrar.isEnabled = false
-                startActivity(
-                    Intent(this, PlaceHolderActivity::class.java)
-                )
+                val intent = Intent(this, PlaceHolderActivity::class.java)
+                intent.putExtra("Matricula", campoMatricula)
+                startActivity(intent)
+
+
             }.addOnFailureListener {
                 val textInputMatricula = binding.textInputMatricula
                 val textInputSenha = binding.textInputSenha
@@ -239,6 +242,8 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Permissão de localização negada", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 
 
 }

@@ -51,6 +51,13 @@ class PlaceHolderActivity : AppCompatActivity() {
             insets
         }
 
+        val matricula = intent.getStringExtra("Matricula")
+
+        val fragment = PerfilFragment()
+        val bundle = Bundle()
+        bundle.putString("MatriculaPerfil", matricula)
+        fragment.arguments = bundle
+
 
         if (savedInstanceState != null) {
             currentFragmentKey = savedInstanceState.getString("CURRENT_FRAGMENT_KEY", "INICIAR_HOME")
@@ -79,6 +86,8 @@ class PlaceHolderActivity : AppCompatActivity() {
         }
     }
 
+
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("CURRENT_FRAGMENT_KEY", currentFragmentKey)
@@ -100,6 +109,7 @@ class PlaceHolderActivity : AppCompatActivity() {
         currentFragmentKey = fragmentKey
         currentMenuItemId = menuItemId
         binding.bottomNavigationView.selectedItemId = menuItemId
+
     }
 
 

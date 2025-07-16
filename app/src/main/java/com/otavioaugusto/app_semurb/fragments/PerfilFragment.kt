@@ -18,6 +18,11 @@ class PerfilFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPerfilBinding.inflate(inflater, container, false)
+
+
+        val matricula = arguments?.getString("Matricula")
+        binding.textViewMatriculaPerfil.text = matricula
+
         return binding.root
     }
 
