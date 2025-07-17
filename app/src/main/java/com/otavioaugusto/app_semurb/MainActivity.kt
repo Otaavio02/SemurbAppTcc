@@ -23,9 +23,12 @@ import com.google.android.material.textfield.TextInputLayout
 import com.otavioaugusto.app_semurb.databinding.ActivityMainBinding
 import android.Manifest
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,6 +38,9 @@ class MainActivity : AppCompatActivity() {
 
     val autenticacao by lazy {
         FirebaseAuth.getInstance()
+    }
+    val bancoDados by lazy {
+        FirebaseFirestore.getInstance()
     }
 
 
@@ -101,6 +107,9 @@ class MainActivity : AppCompatActivity() {
             autenticacao.signInWithEmailAndPassword(
                 emailFalso, campoSenha
             ).addOnSuccessListener { authResult ->
+
+                salvarDados("Otavio", "17", campoMatricula, "25", "34")
+
 
                 binding.btnEntrar.isEnabled = false
                 val intent = Intent(this, PlaceHolderActivity::class.java)
@@ -243,7 +252,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun salvarDados(nome: String, idade: String, matricula: String, ocorrencias: String, viario: String ){
+
+        val idUsuarioLogado = autenticacao.currentUser?.uid
+        if (idUsuarioLogado != null){
+            val dados = mapOf(
+                "nome" to nome,
+                "idade" to idade,
+                "matricula" to matricula,
+                "ocorrencias" to ocorrencias,
+                "viario" to viario
+            )
+            bancoDados.collection("agentes")
+                .document(idUsuarioLogado)
+                .set(dados)
+                .addOnSuccessListener {
+                    Log.i("FIREBASE", "Dados salvos com sucesso")
+
+                }
+                .addOnFailureListener {
+                    Log.i("FIREBASE", "Erro ao salvar dados", )
+                    Toast.makeText(this, "Erro ao salvar dados no Firebase", Toast.LENGTH_SHORT).show()
+                }
+    }
+
 
 
 
 }
+    }

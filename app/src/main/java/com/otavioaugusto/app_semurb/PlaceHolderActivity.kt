@@ -51,12 +51,6 @@ class PlaceHolderActivity : AppCompatActivity() {
             insets
         }
 
-        val matricula = intent.getStringExtra("Matricula")
-
-        val fragment = PerfilFragment()
-        val bundle = Bundle()
-        bundle.putString("MatriculaPerfil", matricula)
-        fragment.arguments = bundle
 
 
         if (savedInstanceState != null) {
