@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "699146705211",
+    "project_id": "tcc-semurb",
+    "storage_bucket": "tcc-semurb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699146705211:android:efb137edd05329dcdb7f1e",
+        "android_client_info": {
+          "package_name": "com.otavioaugusto.app_semurb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj_CW7MHIfW6-13DoLLTl7HaCViEdWb1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
