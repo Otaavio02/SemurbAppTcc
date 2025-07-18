@@ -31,6 +31,8 @@ class ConfigFragment : Fragment() {
     ): View {
         _binding = FragmentConfigBinding.inflate(inflater, container, false)
 
+
+
         binding.btnLogout.setOnClickListener {
             autenticacao.signOut()
             startActivity(
