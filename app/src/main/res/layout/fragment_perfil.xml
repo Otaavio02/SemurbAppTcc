@@ -19,7 +19,7 @@
 
 
     <TextView
-        android:id="@+id/nome_Perfil"
+        android:id="@+id/textViewNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_semibold"
@@ -57,10 +57,10 @@
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nome_Perfil" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewNome" />
 
     <TextView
-        android:id="@+id/textViewMatriculaPerfil"
+        android:id="@+id/textViewMatricula"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -146,14 +146,14 @@
             android:textColor="?attr/CorTextoPadrao"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/servicos_numero"
+            app:layout_constraintEnd_toStartOf="@+id/textViewServicos"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
         <TextView
-            android:id="@+id/servicos_numero"
+            android:id="@+id/textViewServicos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -183,14 +183,14 @@
             android:textColor="?attr/CorTextoPadrao"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ocorrencia_numero"
+            app:layout_constraintEnd_toStartOf="@+id/textViewOcorrencias"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
         <TextView
-            android:id="@+id/ocorrencia_numero"
+            android:id="@+id/textViewOcorrencias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

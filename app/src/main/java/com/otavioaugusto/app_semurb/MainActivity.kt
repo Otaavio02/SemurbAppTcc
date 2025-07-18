@@ -267,11 +267,11 @@ class MainActivity : AppCompatActivity() {
                 .document(idUsuarioLogado)
                 .set(dados)
                 .addOnSuccessListener {
-                    Log.i("FIREBASE", "Dados salvos com sucesso")
+                    Log.i("FIREBASETESTE", "Dados salvos com sucesso")
 
                 }
                 .addOnFailureListener {
-                    Log.i("FIREBASE", "Erro ao salvar dados", )
+                    Log.i("FIREBASETESTE", "Erro ao salvar dados", )
                     Toast.makeText(this, "Erro ao salvar dados no Firebase", Toast.LENGTH_SHORT).show()
                 }
     }
