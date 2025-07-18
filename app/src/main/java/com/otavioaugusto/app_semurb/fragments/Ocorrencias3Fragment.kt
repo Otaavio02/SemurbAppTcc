@@ -55,7 +55,7 @@ class Ocorrencias3Fragment : Fragment() {
             }
             if (!mobileValidate(numContato)) {
 
-                binding.EditTextNumContato.error = "Telefone inválido – (xx) xxxxx‑xxxx"
+                binding.EditTextNumContato.error = "Telefone inválido – (xx) 9xxxx‑xxxx"
                 binding.EditTextNumContato.requestFocus()
 
                 return@setOnClickListener

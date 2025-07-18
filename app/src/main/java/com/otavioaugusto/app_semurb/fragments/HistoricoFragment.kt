@@ -87,7 +87,13 @@ class HistoricoFragment : Fragment() {
 
                 withContext(Dispatchers.Main){
                     adapter = HistoricoAdapter(listaFinal) { historico ->
-                        val fragment = OcorrenciasFragment()
+                        val fragment = when (historico.topico) {
+                            "Atendimento de Ocorrências" -> OcorrenciasFragment()
+                            "Serviço Viário" ->  ViarioFragment()
+                            "Inspeção da Viatura" ->  Inspecao3Fragment()
+                            else -> {HomeFragment()}
+                        }
+
                         val bundle = Bundle().apply {
                             putString("ID_LISTA", historico.id_lista.toString())
                             putString("DATA_ENVIO", historico.data_envio)

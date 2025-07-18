@@ -66,7 +66,7 @@ class OcorrenciasEditadoFragment : Fragment() {
                     confirmarAlteracao = "com alteração"
                 } else {
                     confirmarAlteracao = "erro"
-                    binding.editTextContato.setError("Telefone Inválido - (xx) xxxxx-xxxx")
+                    binding.editTextContato.setError("Telefone Inválido - (xx) 9xxxx-xxxx")
                 }
             }
         })

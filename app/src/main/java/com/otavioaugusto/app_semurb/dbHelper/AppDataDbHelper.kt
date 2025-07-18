@@ -8,8 +8,6 @@ import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico
 import com.otavioaugusto.app_semurb.dataClasses.DataClassOcorrencia
 import com.otavioaugusto.app_semurb.dataClasses.DataClassViario
 import com.otavioaugusto.app_semurb.utils.getStringOrNull
-import java.text.SimpleDateFormat
-import java.util.*
 
 class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -94,18 +92,6 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         db.delete("ocorrencias", "id = ?", arrayOf(id.toString()))
     }
 
-    fun insertListaHistorico(topico: String, qtd_itens: Int, horario_envio: String, data_envio: String): Long{
-        val db = writableDatabase
-
-        val cv = ContentValues().apply {
-            put("topico", topico)
-            put("qtd_itens", qtd_itens)
-            put("horario_envio", horario_envio)
-            put("data_envio", data_envio)
-        }
-        return db.insert("lista_historico", null, cv)
-    }
-
     fun associarOcorrenciasALista(idLista: Long) {
         val db = writableDatabase
         val values = ContentValues().apply {
@@ -156,54 +142,6 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         return lista
     }
 
-    fun getAllOcorrenciasEnviadas(): List<DataClassOcorrencia> {
-        val db = readableDatabase
-        val cursor = db.query("ocorrencias", null, "enviado = ?", arrayOf("1"), null, null, "numero_sequencial ASC")
-        val lista = mutableListOf<DataClassOcorrencia>()
-        cursor.use {
-            while (it.moveToNext()) {
-                val numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial"))
-                val titulo = "Ocorrência"
-                val horarioEnvio = it.getStringOrNull("horario_envio") ?: ""
-                val dataEnvio = it.getStringOrNull("data_envio") ?: ""
-
-                lista.add(
-                    DataClassOcorrencia(
-                        id = it.getInt(it.getColumnIndexOrThrow("id")),
-                        numeroSequencial = numeroSequencial,
-                        tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
-                        endereco = it.getStringOrNull("endereco") ?: "",
-                        nome = it.getStringOrNull("nome") ?: "",
-                        numcontato = it.getStringOrNull("numcontato") ?: ""
-                    )
-                )
-            }
-        }
-        return lista
-    }
-
-    fun marcarOcorrenciasComoEnviadas(ids: List<Int>) {
-        val db = writableDatabase
-        val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-        val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
-
-        db.beginTransaction()
-        try {
-            val values = ContentValues().apply {
-                put("enviado", 1)
-                put("horario_envio", horarioAtual)
-                put("data_envio", dataAtual)
-            }
-            ids.forEach { id ->
-                db.update("ocorrencias", values, "id=?", arrayOf(id.toString()))
-            }
-            db.setTransactionSuccessful()
-        } finally {
-            db.endTransaction()
-            db.close()
-        }
-    }
-
     fun updateOcorrenciaCompleta(id: Long, tipo: String, endereco: String, nome: String, numcontato: String) {
         val db = writableDatabase
         val cv = ContentValues().apply {
@@ -215,13 +153,6 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         db.update("ocorrencias", cv, "id = ?", arrayOf(id.toString()))
     }
 
-
-
-    fun deleteAllOcorrencias(){
-        val db = writableDatabase
-        db.delete("ocorrencias", null, null)
-        db.close()
-    }
 
 
     fun insertViarioCompleto(tipo: String?, endereco: String?, descricao: String?) {
@@ -240,14 +171,15 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             put("numero_sequencial", proximoNumero)
             put("endereco", endereco)
             put("descricao", descricao)
-            put("titulo", "Viário ")
+            put("topico", "Serviço Viário")
+            putNull("id_lista")
         }
         db.insert("viario", null, cv)
     }
 
     fun getAllViariosNaoEnviados(): List<DataClassViario> {
         val db = readableDatabase
-        val cursor = db.query("viario", null, null, null, null, null, "numero_sequencial ASC")
+        val cursor = db.query("viario", null, "id_lista IS NULL", null, null, null, "numero_sequencial ASC")
         val lista = mutableListOf<DataClassViario>()
         cursor.use {
             while (it.moveToNext()) {
@@ -265,33 +197,26 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         return lista
     }
 
-    fun getAllViarioEnviados(): List<DataClassViario> {
+    fun getAllViariosByIdLista(id_lista: String?): List<DataClassViario> {
         val db = readableDatabase
-        val cursor = db.query("viario", null, "enviado = ?", arrayOf("1"), null, null, "numero_sequencial ASC")
+        val cursor = db.query("viario", null, "id_lista = ?", arrayOf(id_lista), null, null, "numero_sequencial ASC")
         val lista = mutableListOf<DataClassViario>()
         cursor.use {
             while (it.moveToNext()) {
-                val numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial"))
-                val titulo = "Viário"
-                val horarioEnvio = it.getStringOrNull("horario_envio") ?: ""
-                val dataEnvio = it.getStringOrNull("data_envio") ?: ""
-
                 lista.add(
                     DataClassViario(
                         id = it.getInt(it.getColumnIndexOrThrow("id")),
                         numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getString(it.getColumnIndexOrThrow("endereco")) ?: "",
-                        descricao = it.getString(it.getColumnIndexOrThrow("descricao")) ?: "",
-                        titulo = titulo,
-                        horarioEnvio = horarioEnvio,
-                        dataEnvio = dataEnvio
+                        descricao = it.getString(it.getColumnIndexOrThrow("descricao")) ?: ""
                     )
                 )
             }
         }
         return lista
     }
+
 
     fun updateViarioCompleto(id: Long, tipo: String, endereco: String, descricao: String) {
         val db = writableDatabase
@@ -306,6 +231,26 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
     fun deleteViario(id: Long) {
         val db = writableDatabase
         db.delete("viario", "id = ?", arrayOf(id.toString()))
+    }
+
+    fun associarViarioALista(idLista: Long) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put("id_lista", idLista)
+        }
+        db.update("viario", values, "id_lista IS NULL AND topico = ?", arrayOf("Serviço Viário"))
+    }
+
+    fun insertListaHistorico(topico: String, qtd_itens: Int, horario_envio: String, data_envio: String): Long{
+        val db = writableDatabase
+
+        val cv = ContentValues().apply {
+            put("topico", topico)
+            put("qtd_itens", qtd_itens)
+            put("horario_envio", horario_envio)
+            put("data_envio", data_envio)
+        }
+        return db.insert("lista_historico", null, cv)
     }
 
     fun getAllHistorico(): List<DataClassHistorico> {
@@ -342,25 +287,4 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         return historicoList
     }
 
-    fun marcarViarioComoEnviados(ids: List<Int>) {
-        val db = writableDatabase
-        val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-        val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
-
-        db.beginTransaction()
-        try {
-            val values = ContentValues().apply {
-                put("enviado", 1)
-                put("horario_envio", horarioAtual)
-                put("data_envio", dataAtual)
-            }
-            ids.forEach { id ->
-                db.update("viario", values, "id=?", arrayOf(id.toString()))
-            }
-            db.setTransactionSuccessful()
-        } finally {
-            db.endTransaction()
-            db.close()
-        }
-    }
 }

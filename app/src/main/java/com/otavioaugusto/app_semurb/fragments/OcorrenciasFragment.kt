@@ -1,5 +1,4 @@
 package com.otavioaugusto.app_semurb.fragments
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,12 +15,10 @@ import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.OcorrenciasAdapter
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciasBinding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
-import com.otavioaugusto.app_semurb.funcoes.VerificarHorario
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.time.LocalTime
 import java.util.Date
 import java.util.Locale
 
@@ -42,11 +39,11 @@ class OcorrenciasFragment : Fragment() {
     ): View {
         _binding = FragmentOcorrenciasBinding.inflate(inflater, container, false)
 
-        Log.d("DEBUG", "ID da lista antes de pegar: ${id_lista}")
+        Log.d("DEBUG", "ID OCORRENCIAS da lista antes de pegar: ${id_lista}")
         id_lista = arguments?.getString("ID_LISTA")
         data_envio = arguments?.getString("DATA_ENVIO")
         topico = arguments?.getString("TOPICO")
-        Log.d("DEBUG", "ID da lista depois de pegar: ${id_lista}")
+        Log.d("DEBUG", "ID OCORRENCIAS da lista depois de pegar: ${id_lista}")
 
         if (id_lista != null) {
             binding.btnEnviarOcorrencia.visibility = View.GONE
@@ -113,7 +110,6 @@ class OcorrenciasFragment : Fragment() {
                 val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
                 enviarOcorrencias(qtd_itens, horarioAtual, dataAtual)
-
             }
         }
     }
@@ -142,8 +138,6 @@ class OcorrenciasFragment : Fragment() {
                 .commit()
         }
     }
-
-
 
 }
 

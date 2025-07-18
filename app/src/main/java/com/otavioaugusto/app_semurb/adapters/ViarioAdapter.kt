@@ -18,22 +18,26 @@ class ViarioAdapter : RecyclerView.Adapter<ViarioAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    val currentList: List<DataClassViario>
+        get()= lista
+
     inner class ViewHolder(val binding: ItemOcorrenciaviarioBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DataClassViario) {
             binding.textTitulo.text = "Sinalização ${item.numeroSequencial}"
-            binding.textTipo.text = item.tipo ?: ""
-            binding.textEndereco.text = item.endereco ?: ""
+            binding.textTipo.text = item.tipo
+            binding.textEndereco.text = item.endereco
 
             binding.btnEditarOcoVia.setOnClickListener {
                 val context = binding.root.context
                 val intent = Intent(context, PlaceHolderGameficadoActivity::class.java)
+
                 intent.putExtra("FRAGMENT_KEY", "VIARIO_EDITADO")
                 intent.putExtra("VISIBILITY", "GONE")
-
                 intent.putExtra("ID_VIARIO", item.id.toLong())
                 intent.putExtra("TIPO", item.tipo)
                 intent.putExtra("ENDERECO", item.endereco)
                 intent.putExtra("DESCRICAO", item.descricao)
+                intent.putExtra("NUMERO_SEQUENCIAL", item.numeroSequencial.toString())
 
                 context.startActivity(intent)
             }
