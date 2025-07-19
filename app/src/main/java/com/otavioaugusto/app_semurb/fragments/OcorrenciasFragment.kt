@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
@@ -31,6 +33,14 @@ class OcorrenciasFragment : Fragment() {
     private var id_lista: String? = null
     private var data_envio: String? = null
     private var topico: String? = null
+
+    private val bancoDados by lazy {
+        FirebaseFirestore.getInstance()
+    }
+
+    private val autenticao by lazy {
+        FirebaseAuth.getInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -121,6 +131,42 @@ class OcorrenciasFragment : Fragment() {
                val dbHelper = AppDatabaseHelper(requireContext())
                 val idLista = dbHelper.insertListaHistorico("Atendimento de Ocorrências", qtd_itens, horario_envio, data_envio)
                 dbHelper.associarOcorrenciasALista(idLista)
+
+                val ocorrencias = dbHelper.getAllOcorrenciasByIdLista(idLista.toString())
+                val idAgenteLogado = autenticao.currentUser?.uid
+                if (idAgenteLogado != null) {
+                  val referenciaAgente = bancoDados.collection("agentes")
+                      .document(idAgenteLogado)
+
+                    val ocorrenciasCollection = referenciaAgente.collection("ocorrencias")
+
+
+                    for (ocorrencia in ocorrencias){
+                        val dados = hashMapOf(
+                            "tipo" to ocorrencia.tipo,
+                            "endereco" to ocorrencia.endereco,
+                            "nome" to ocorrencia.nome,
+                            "numcontato" to ocorrencia.numcontato,
+                            "horario_envio" to horario_envio,
+                            "data_envio" to data_envio
+
+                        )
+
+                        ocorrenciasCollection
+                            .document(ocorrencia.numeroSequencial.toString())
+                            .set(dados)
+                            .addOnSuccessListener {
+                            Log.d("FIREBASE", "Ocorrência enviada com sucesso: ${ocorrencia.numeroSequencial}")
+                        }
+                            .addOnFailureListener { e ->
+                                Log.e("FIREBASE", "Erro ao enviar ocorrência: ${e.message}")
+                            }
+                        }
+                    }
+                }
+
+
+
             }
 
             adapter.submitList(emptyList())
@@ -139,6 +185,6 @@ class OcorrenciasFragment : Fragment() {
         }
     }
 
-}
+
 
 

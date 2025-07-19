@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
@@ -31,6 +33,14 @@ class ViarioFragment : Fragment() {
     private var id_lista: String? = null
     private var data_envio: String? = null
     private var topico: String? = null
+
+    private val bancoDados by lazy {
+        FirebaseFirestore.getInstance()
+    }
+
+    private val autenticao by lazy {
+        FirebaseAuth.getInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -116,6 +126,36 @@ class ViarioFragment : Fragment() {
                 val dbHelper = AppDatabaseHelper(requireContext())
                 val idLista = dbHelper.insertListaHistorico("Serviço Viário", qtd_itens, horario_envio, data_envio)
                 dbHelper.associarViarioALista(idLista)
+
+                val viarios = dbHelper.getAllViariosByIdLista(idLista.toString())
+                val idAgenteLogado = autenticao.currentUser?.uid
+                if (idAgenteLogado != null) {
+                    val referenciaAgente = bancoDados.collection("agentes")
+                        .document(idAgenteLogado)
+
+                    val viarioCollection = referenciaAgente.collection("viario")
+
+                    for (viario in viarios){
+                        val dados = hashMapOf(
+                            "tipo" to viario.tipo,
+                            "endereco" to viario.endereco,
+                            "descricao" to viario.descricao,
+                            "horario_envio" to horario_envio,
+                            "data_envio" to data_envio
+
+                        )
+
+                        viarioCollection
+                            .document(viario.numeroSequencial.toString())
+                            .set(dados)
+                            .addOnSuccessListener {
+                                Log.d("FIREBASE", "Ocorrência enviada com sucesso: ${viario.numeroSequencial}")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e("FIREBASE", "Erro ao enviar ocorrência: ${e.message}")
+                            }
+                    }
+                }
             }
 
             adapter.submitList(emptyList())
