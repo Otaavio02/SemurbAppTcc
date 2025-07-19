@@ -31,6 +31,17 @@ class PerfilFragment : Fragment() {
         _binding = FragmentPerfilBinding.inflate(inflater, container, false)
 
 
+
+
+
+
+
+
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
         val idUsuarioLogado = autenticacao.currentUser?.uid
         if (idUsuarioLogado != null){
             val referenciaUsuario = bancoDados.collection("agentes")
@@ -57,13 +68,8 @@ class PerfilFragment : Fragment() {
                     }
                 }.addOnFailureListener {
                     Log.i("FIREBASETESTE", "Erro ao puxar dados")
-                    Toast.makeText(requireContext(), "Erro ao puxar a matricula ", Toast.LENGTH_SHORT).show()
                 }
-            }
-
-
-
-        return binding.root
+        }
     }
 
     override fun onDestroyView() {

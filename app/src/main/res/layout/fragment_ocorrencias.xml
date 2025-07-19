@@ -10,8 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/guideline36"
-        app:flow_verticalAlign="top">
+        app:flow_verticalAlign="top"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,42 +19,42 @@
             android:paddingTop="15dp"
             android:paddingBottom="200dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvOcorrencias"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ListagemTitle"
-            tools:listitem="@layout/item_ocorrenciaviario" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOcorrencias"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ListagemTitle"
+                tools:listitem="@layout/item_ocorrenciaviario" />
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_adicionarOcorrencia"
-            android:layout_width="353.64dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_button2"
-            android:backgroundTintMode="add"
-            android:drawableStart="@drawable/baseline_add_24"
-            android:elegantTextHeight="false"
-            android:elevation="15dp"
-            android:fontFamily="@font/montserrat_semibold"
-            android:gravity="center|start"
-            android:isScrollContainer="false"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:shadowColor="@color/Preto"
-            android:shadowDx="3"
-            android:shadowRadius="1"
-            android:text="@string/novaoc"
-            android:textAllCaps="false"
-            android:textColor="@color/BaseLineAddColor"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvOcorrencias" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_adicionarOcorrencia"
+                android:layout_width="353.64dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_button2"
+                android:backgroundTintMode="add"
+                android:drawableStart="@drawable/baseline_add_24"
+                android:elegantTextHeight="false"
+                android:elevation="15dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center|start"
+                android:isScrollContainer="false"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:shadowColor="@color/Preto"
+                android:shadowDx="3"
+                android:shadowRadius="1"
+                android:text="@string/novaoc"
+                android:textAllCaps="false"
+                android:textColor="@color/BaseLineAddColor"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvOcorrencias" />
 
             <TextView
                 android:id="@+id/ListagemTitle"
@@ -62,8 +62,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:gravity="center"
                 android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center"
                 android:text="@string/listagemoc"
                 android:textColor="@color/AzulEscuroProfundo"
                 android:textSize="22sp"
@@ -73,20 +73,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline36"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.10" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline37"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline38"
@@ -116,13 +102,13 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
     <FrameLayout
+        android:id="@+id/frameLayout5"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         android:background="@color/FundoElementos"
-        app:layout_constraintBottom_toTopOf="@+id/guideline36"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline37">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView5"
@@ -133,6 +119,16 @@
             android:text="@string/ocorrencias"
             android:textColor="#FFFFFF"
             android:textSize="34sp" />
+
+        <ImageButton
+            android:id="@+id/btnVoltarOcorrencias"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center|start"
+            android:layout_marginStart="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/voltar" />
     </FrameLayout>
 
 

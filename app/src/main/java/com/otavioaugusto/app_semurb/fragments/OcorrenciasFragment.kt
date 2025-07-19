@@ -74,6 +74,19 @@ class OcorrenciasFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.btnVoltarOcorrencias.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+                )
+                .replace(R.id.fragmentContainerView, HomeFragment())
+                .addToBackStack(null)
+                .commit()
+
+            (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
+        }
+
         return binding.root
     }
 

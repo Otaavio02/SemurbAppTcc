@@ -16,11 +16,21 @@
         <FrameLayout
             android:id="@+id/frameLayout2"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:background="@color/FundoElementos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnVoltarPolitica"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center|start"
+                android:layout_marginStart="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/voltar" />
 
             <TextView
                 android:id="@+id/textoTeste"
@@ -30,7 +40,7 @@
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/PoliticasPrivacidade"
                 android:textColor="#FFFFFF"
-                android:textSize="30sp" />
+                android:textSize="21sp" />
 
         </FrameLayout>
 
@@ -52,13 +62,13 @@
             android:id="@+id/textView12"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat"
             android:gravity="start"
             android:text="A Secretaria Municipal de Urbanismo (SEMURB), comprometida com a privacidade e a proteção dos dados pessoais dos usuários, estabelece a presente Política de Privacidade para esclarecer como os dados são coletados, utilizados, armazenados e protegidos no aplicativo da SEMURB."
             android:textColor="@color/CorTextoPadrao"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:ignore="HardcodedText" />
 
@@ -534,13 +544,14 @@
             android:id="@+id/textView83"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat"
-            android:textColor="@color/CorTextoPadrao"
             android:text="O aplicativo não substitui canais oficiais da Prefeitura ou da SEMURB. Informações e registros feitos pelo app poderão ser encaminhados à SEMURB, mas a resolução de solicitações depende da política e da estrutura administrativa do órgão público responsável."
+            android:textColor="@color/CorTextoPadrao"
             app:layout_constraintStart_toStartOf="@+id/textView82"
             app:layout_constraintTop_toBottomOf="@+id/textView82"
-            tools:ignore="HardcodedText"/>
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/textView84"
@@ -560,15 +571,16 @@
             android:id="@+id/textView85"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/montserrat"
-            android:textColor="@color/CorTextoPadrao"
             android:layout_marginBottom="24dp"
+            android:fontFamily="@font/montserrat"
             android:text="Todos os direitos de design, código-fonte, interface e conteúdo do aplicativo pertencem exclusivamente aos desenvolvedores do TCC/Aplicativo/Site, salvo conteúdos oficiais fornecidos pela SEMURB."
+            android:textColor="@color/CorTextoPadrao"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView84"
             app:layout_constraintTop_toBottomOf="@+id/textView84"
-            tools:ignore="HardcodedText"/>
+            tools:ignore="HardcodedText" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,11 +9,12 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.otavioaugusto.app_semurb.PlaceHolderActivity
 
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.HistoricoAdapter
 import com.otavioaugusto.app_semurb.dataClasses.DataClassHistoricoListItem
-import com.otavioaugusto.app_semurb.databinding.FragmentHistorico1Binding
+import com.otavioaugusto.app_semurb.databinding.FragmentHistoricoBinding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ import kotlin.collections.mutableListOf
 
 class HistoricoFragment : Fragment() {
 
-    private var _binding: FragmentHistorico1Binding? = null
+    private var _binding: FragmentHistoricoBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var adapter: HistoricoAdapter
@@ -35,7 +36,7 @@ class HistoricoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHistorico1Binding.inflate(inflater, container, false)
+        _binding = FragmentHistoricoBinding.inflate(inflater, container, false)
         
 
         val historicoEspecifico = resources.getStringArray(R.array.historico)
@@ -63,6 +64,18 @@ class HistoricoFragment : Fragment() {
             ).show()
         }
 
+        binding.btnVoltarHistorico.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+                )
+                .replace(R.id.fragmentContainerView, HomeFragment())
+                .addToBackStack(null)
+                .commit()
+
+            (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
+        }
 
 
         return binding.root
