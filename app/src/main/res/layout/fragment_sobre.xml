@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="150dp">
+
+
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:background="@color/FundoElementos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnVoltar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center|start"
+                android:layout_marginStart="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/voltar" />
+
+            <TextView
+                android:id="@+id/textoTeste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/Sobre"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Sobre o Aplicativo"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="27sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"
+            android:text="O aplicativo SEMURB foi desenvolvido com o objetivo de digitalizar e facilitar os processos de gestão da Secretaria de Mobilidade Urbana de Barueri, promovendo mais agilidade, organização e eficiência na gestão urbana."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/textView12b"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"
+            android:text="Ele foi planejado com 4 funções para auxiliar os trabalhos dos agentes em campo, funcionando em combinação com o site. As funções são:"
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/textViewServicoViario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="1. Serviço Viário"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12b"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewServicoViarioTexto"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Para relatar avarias encontradas em ruas, estradas, placas e etc. Nessa função, o agente criará um relatório com a localização da avaria encontrada junto com uma descrição."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewServicoViario"
+            app:layout_constraintTop_toBottomOf="@+id/textViewServicoViario"
+            tools:ignore="HardcodedText"/>
+
+
+        <TextView
+            android:id="@+id/textViewOcorrencias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="2. Atendimento de Ocorrências"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewServicoViarioTexto"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewOcorrenciasTexto"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Para a criação de ocorrências sobre sinistros de trânsito ou qualquer outro tipo de sinitro. O agente preencherá o detalhamento pedido como tipo de ocorrência, localização e informações de contato."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewOcorrencias"
+            app:layout_constraintTop_toBottomOf="@+id/textViewOcorrencias"
+            tools:ignore="HardcodedText"/>
+
+
+        <TextView
+            android:id="@+id/textViewInspecao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="3. Inspeção da Viatura"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewOcorrenciasTexto"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewInspecaoTexto"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Para registrar quaisquer avarias ocorridas na viatura durante o plantão. Será realizada pelo motorista antes da devolução da viatura."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewInspecao"
+            app:layout_constraintTop_toBottomOf="@+id/textViewInspecao"
+            tools:ignore="HardcodedText"/>
+
+
+        <TextView
+            android:id="@+id/textViewHistorico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="4. Histórico"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewInspecaoTexto"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewHistoricoTexto"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Para exibir todas as listas de Ocorrências, Serviço Viário e Inspeção da Viatura que o agente fez, que pode ser usada para caso o agente precise verificar algum relatório."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewHistorico"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHistorico"
+            tools:ignore="HardcodedText"/>
+
+
+
+        <TextView
+            android:id="@+id/textViewSobreNos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Sobre Nós"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="27sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHistoricoTexto"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewSobreNosTexto"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"
+            android:text="Somos uma equipe formada por cinco desenvolvedores, estudantes do curso técnico em Informática p/ Internet na Etec Antônio Furlan.
+Este aplicativo foi desenvolvido como parte do nosso Trabalho de Conclusão de Curso (TCC), sendo orientado por nossos professores."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintEnd_toEndOf="@+id/textViewSobreNos"
+            app:layout_constraintStart_toStartOf="@+id/textViewSobreNos"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSobreNos"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/textViewDesenvolvedores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Desenvolvedores"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSobreNosTexto"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewDesenvolvedoresTexto1"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"
+            android:text="Otávio Augusto - Desenvolvimento do aplicativo e integração com banco de dados."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewDesenvolvedores"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDesenvolvedores"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewDesenvolvedoresTexto2"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"
+            android:text="Otávio Pinheiro - Desenvolvimento do aplicativo e prototipação."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewDesenvolvedoresTexto1"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDesenvolvedoresTexto1"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewDesenvolvedoresTexto3"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"
+            android:text="Kevin Martins - Desenvolvimento do site e integração do banco de dados."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewDesenvolvedoresTexto2"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDesenvolvedoresTexto2"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewDesenvolvedoresTexto4"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"
+            android:text="Leonardo Alves - Desenvolvimento do site e prototipação."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewDesenvolvedoresTexto3"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDesenvolvedoresTexto3"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewDesenvolvedoresTexto5"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"
+            android:text="Miguel Gonçalves - Criação do banco de dados e documentação."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewDesenvolvedoresTexto4"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDesenvolvedoresTexto4"
+            tools:ignore="HardcodedText" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

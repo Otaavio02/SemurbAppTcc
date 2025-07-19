@@ -1,19 +1,14 @@
 package com.otavioaugusto.app_semurb.adapters
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico
 import com.otavioaugusto.app_semurb.dataClasses.DataClassHistoricoListItem
 import com.otavioaugusto.app_semurb.databinding.ItemHistoricoBinding
-import com.otavioaugusto.app_semurb.fragments.OcorrenciasFragment
 
 class HistoricoAdapter(
     private val items: List<DataClassHistoricoListItem>,

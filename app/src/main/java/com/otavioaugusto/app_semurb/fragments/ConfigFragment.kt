@@ -59,8 +59,6 @@ class ConfigFragment : Fragment() {
 
             (activity as? PlaceHolderActivity)?.limparBottomNavBar()
         }
-
-
         binding.textPolitica.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
@@ -68,6 +66,57 @@ class ConfigFragment : Fragment() {
                     R.anim.slide_out_left,
                 )
                 .replace(R.id.fragmentContainerView, PoliticaFragment())
+                .addToBackStack(null)
+                .commit()
+
+            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
+        }
+
+
+        binding.btnSobre.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left,
+                )
+                .replace(R.id.fragmentContainerView, SobreFragment())
+                .addToBackStack(null)
+                .commit()
+
+            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
+        }
+        binding.textSobre.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left,
+                )
+                .replace(R.id.fragmentContainerView, SobreFragment())
+                .addToBackStack(null)
+                .commit()
+
+            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
+        }
+
+        binding.btnTermosCondicoes.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left,
+                )
+                .replace(R.id.fragmentContainerView, TermosCondicoesFragment())
+                .addToBackStack(null)
+                .commit()
+
+            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
+        }
+        binding.textTermosCondicoes.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left,
+                )
+                .replace(R.id.fragmentContainerView, TermosCondicoesFragment())
                 .addToBackStack(null)
                 .commit()
 

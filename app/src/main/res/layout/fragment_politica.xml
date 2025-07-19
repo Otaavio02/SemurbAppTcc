@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ViarioEditadoActivity">
+        tools:context=".ViarioEditadoActivity"
+        android:paddingBottom="150dp">
 
 
         <FrameLayout
@@ -40,7 +41,7 @@
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/PoliticasPrivacidade"
                 android:textColor="#FFFFFF"
-                android:textSize="21sp" />
+                android:textSize="22.5sp" />
 
         </FrameLayout>
 
@@ -48,12 +49,12 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Política de Privacidade"
             android:textColor="@color/CorTextoPadrao"
             android:textSize="27sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
             tools:ignore="HardcodedText" />
@@ -62,12 +63,13 @@
             android:id="@+id/textView12"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/montserrat"
             android:gravity="start"
             android:text="A Secretaria Municipal de Urbanismo (SEMURB), comprometida com a privacidade e a proteção dos dados pessoais dos usuários, estabelece a presente Política de Privacidade para esclarecer como os dados são coletados, utilizados, armazenados e protegidos no aplicativo da SEMURB."
             android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.538"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:ignore="HardcodedText" />
@@ -76,15 +78,15 @@
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="1. Coleta de Dados"
             android:textColor="@color/CorTextoPadrao"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12"
-            tools:ignore="HardcodedText"/>
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/textView38"
@@ -573,7 +575,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp"
             android:fontFamily="@font/montserrat"
             android:text="Todos os direitos de design, código-fonte, interface e conteúdo do aplicativo pertencem exclusivamente aos desenvolvedores do TCC/Aplicativo/Site, salvo conteúdos oficiais fornecidos pela SEMURB."
             android:textColor="@color/CorTextoPadrao"

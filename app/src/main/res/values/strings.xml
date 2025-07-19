@@ -14,6 +14,8 @@
     <string name="bem_vindo">Bem Vindo!</string>
     <string name="nome">(Nome)</string>
     <string name="PoliticasPrivacidade">Políticas e Privacidade</string>
+    <string name="Sobre">Sobre</string>
+    <string name="TermosCondicoes">Termos e Condições</string>
     <string name="historico">Historico</string>
     <string name="notificacao">Notificação</string>
     <string name="qr_home">Qr_Home</string>

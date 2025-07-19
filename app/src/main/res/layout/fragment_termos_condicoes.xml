@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="40dp">
+
+
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:background="@color/FundoElementos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnVoltar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center|start"
+                android:layout_marginStart="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/voltar" />
+
+            <TextView
+                android:id="@+id/textoTeste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/TermosCondicoes"
+                android:textColor="#FFFFFF"
+                android:textSize="24.5sp" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/ultimaAtualizacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Ultima Atualização: 19/07/2025"
+            android:textColor="@color/CorTextoPadrao"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Termos e Condições
+            de Uso"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="27sp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ultimaAtualizacao"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"
+            android:text="Estes Termos e Condições regulam o uso do aplicativo da SEMURB (Secretaria Municipal de Urbanismo), desenvolvido por alunos da Etec Antônio Furlan como parte de seu Trabalho de Conclusão de Curso (TCC). Ao utilizar o aplicativo, o usuário concorda integralmente com os termos descritos abaixo."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.538"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="HardcodedText" />
+
+
+        <TextView
+            android:id="@+id/textViewTermo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="1. Objetivo do Aplicativo"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewTermo1Texto1"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="O aplicativo tem como finalidade:"
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo1"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo1"
+            tools:ignore="HardcodedText"/>
+        <TextView
+            android:id="@+id/textViewTermo1Texto2"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="• Auxiliar no registro de ocorrências, sinalizações do serviço viário e avarias em viaturas."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo1Texto1"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo1Texto1"
+            tools:ignore="HardcodedText"/>
+        <TextView
+            android:id="@+id/textViewTermo1Texto3"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="• Exibir um histórico desses registros para o usuário."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo1Texto2"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo1Texto2"
+            tools:ignore="HardcodedText"/>
+        <TextView
+            android:id="@+id/textViewTermo1Texto4"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="• Digitalizar os processos e torna-los mais eficientes para o cotidiano dos agentes."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo1Texto3"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo1Texto3"
+            tools:ignore="HardcodedText"/>
+
+
+        <TextView
+            android:id="@+id/textViewTermo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="2. Aceitação dos Termos"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo1Texto4"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewTermo2Texto"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="O uso do aplicativo implica na aceitação integral destes Termos e da nossa Política de Privacidade. Caso o usuário não concorde com qualquer parte, recomenda-se que não utilize o aplicativo."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo2"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo2"
+            tools:ignore="HardcodedText"/>
+
+
+        <TextView
+            android:id="@+id/textViewTermo3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="3. Cadastro e Uso"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo2Texto"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewTermo3Texto1"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="O usuário é responsável por fornecer informações verdadeiras, completas e atualizadas no momento do cadastro ou preenchimento de informações."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo3"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo3"
+            tools:ignore="HardcodedText"/>
+        <TextView
+            android:id="@+id/textViewTermo3Texto2"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="O uso indevido do aplicativo, incluindo o fornecimento de informações falsas, registros falsos ou tentativas de invasão, poderá resultar no bloqueio do acesso e em sanções legais, conforme a legislação vigente."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo3Texto1"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo3Texto1"
+            tools:ignore="HardcodedText"/>
+
+
+        <TextView
+            android:id="@+id/textViewTermo4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="4. Responsabilidades do Usuário"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo3Texto2"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewTermo4Texto1"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Ao utilizar o aplicativo, o usuário se compromete a:"
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo4"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo4"
+            tools:ignore="HardcodedText"/>
+        <TextView
+            android:id="@+id/textViewTermo4Texto2"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="• Utilizar o app de forma ética e responsável;"
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo4Texto1"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo4Texto1"
+            tools:ignore="HardcodedText"/>
+        <TextView
+            android:id="@+id/textViewTermo4Texto3"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="• Não enviar conteúdos ofensivos, discriminatórios ou ilegais;"
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo4Texto2"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo4Texto2"
+            tools:ignore="HardcodedText"/>
+        <TextView
+            android:id="@+id/textViewTermo4Texto4"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="• Não tentar comprometer a segurança ou funcionamento do sistema;"
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo4Texto3"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo4Texto3"
+            tools:ignore="HardcodedText"/>
+
+
+
+        <TextView
+            android:id="@+id/textViewTermo5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="5. Responsabilidades dos Desenvolvedores"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo4Texto4"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewTermo5Texto1"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Como este é um projeto acadêmico, os desenvolvedores:"
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo5"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo5"
+            tools:ignore="HardcodedText"/>
+        <TextView
+            android:id="@+id/textViewTermo5Texto2"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="• Não se responsabilizam por falhas nos servidores públicos, interrupções de acesso ou indisponibilidade de funcionalidades causadas por fatores externos;"
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo5Texto1"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo5Texto1"
+            tools:ignore="HardcodedText"/>
+        <TextView
+            android:id="@+id/textViewTermo5Texto3"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="• Comprometem-se a manter a segurança básica dos dados e a boa funcionalidade do aplicativo, dentro dos limites de um projeto educacional;"
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo5Texto2"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo5Texto2"
+            tools:ignore="HardcodedText"/>
+        <TextView
+            android:id="@+id/textViewTermo5Texto4"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="• Reservam-se o direito de realizar atualizações ou descontinuar o serviço sem aviso prévio, especialmente após a finalização do projeto."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo5Texto3"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo5Texto3"
+            tools:ignore="HardcodedText"/>
+
+
+        <TextView
+            android:id="@+id/textViewTermo6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="6. Limitação de Responsabilidade"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo5Texto4"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewTermo6Texto1"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="O aplicativo não substitui canais oficiais da Prefeitura ou da SEMURB. Informações e registros feitos pelo app poderão ser encaminhados à SEMURB, mas a resolução de solicitações depende da política e da estrutura administrativa do órgão público responsável."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo6"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo6"
+            tools:ignore="HardcodedText"/>
+
+
+        <TextView
+            android:id="@+id/textViewTermo7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="7. Propriedade Intelectual"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo6Texto1"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewTermo7Texto1"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Todos os direitos de design, código-fonte, interface e conteúdo do aplicativo pertencem exclusivamente aos desenvolvedores do TCC/Aplicativo/Site, salvo conteúdos oficiais fornecidos pela SEMURB."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo7"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo7"
+            tools:ignore="HardcodedText"/>
+
+
+        <TextView
+            android:id="@+id/textViewTermo8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="8. Atualizações e Alterações"
+            android:textColor="@color/CorTextoPadrao"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo7Texto1"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/textViewTermo8Texto1"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Estes Termos podem ser modificados a qualquer momento. Sempre que houver alteração significativa, os usuários serão notificados por meio do próprio aplicativo."
+            android:textColor="@color/CorTextoPadrao"
+            app:layout_constraintStart_toStartOf="@+id/textViewTermo8"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo8"
+            tools:ignore="HardcodedText"/>
+
+
+        <TextView
+            android:id="@+id/fimTermosCondicoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Agradecemos por usar nosso aplicativo!"
+            android:textColor="@color/CorTextoscinza"
+            android:textSize="13sp"
+            android:layout_marginTop="120dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTermo8Texto1"
+            tools:ignore="HardcodedText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
