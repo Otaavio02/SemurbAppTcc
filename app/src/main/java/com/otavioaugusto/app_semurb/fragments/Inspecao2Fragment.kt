@@ -1,5 +1,6 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
@@ -17,6 +18,7 @@ import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentInspecao2Binding
 import java.util.Timer
 import kotlin.concurrent.schedule
+import androidx.activity.OnBackPressedCallback
 
 class Inspecao2Fragment : Fragment() {
 
@@ -30,6 +32,7 @@ class Inspecao2Fragment : Fragment() {
     private var etapaAtual = 1 // etapa 2
     private var totalEtapas = 3
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,7 +52,6 @@ class Inspecao2Fragment : Fragment() {
                     R.anim.slide_out_right
                 )
                 .replace(R.id.FragmentContainerView2, Inspecao1Fragment())
-                .addToBackStack(null)
                 .commit()
         }
 
@@ -127,6 +129,22 @@ class Inspecao2Fragment : Fragment() {
         view.post {
             (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual, "continuar")
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (etapaAtual > 0) {
+                    (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+                }
+
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                    .replace(R.id.FragmentContainerView2, Inspecao1Fragment())
+                    .commit()
+            }
+        })
     }
 
     override fun onResume() {

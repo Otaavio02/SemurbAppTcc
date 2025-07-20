@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import android.location.Geocoder
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.Dispatchers
@@ -188,11 +189,45 @@ class Ocorrencias2Fragment : Fragment() {
                     R.anim.slide_out_right
                 )
                 .replace(R.id.FragmentContainerView2, fragmentTipo)
-                .addToBackStack(null)
                 .commit()
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.post {
+            (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual, "continuar")
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+                endereco = binding.editTextEnderecoOcorrencia.text.toString()
+                if (etapaAtual > 0) {
+                    (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+                }
+
+                val fragmentTipo = Ocorrencias1Fragment().apply {
+                    arguments = Bundle().apply {
+                        putString("tipo", tipo)
+                        putString("endereco", endereco)
+                        putString("nome", nome)
+                        putString("numContato", numContato)
+                    }
+                }
+
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                    .replace(R.id.FragmentContainerView2, fragmentTipo)
+                    .commit()
+            }
+        })
     }
 
     override fun onRequestPermissionsResult(

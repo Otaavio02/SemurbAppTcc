@@ -19,6 +19,7 @@ import com.otavioaugusto.app_semurb.databinding.FragmentViario3Binding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import java.util.Timer
 import kotlin.concurrent.schedule
+import androidx.activity.OnBackPressedCallback
 
 class Viario3Fragment : Fragment() {
 
@@ -65,7 +66,6 @@ class Viario3Fragment : Fragment() {
                     R.anim.slide_out_right
                 )
                 .replace(R.id.FragmentContainerView2, fragmentDescricao)
-                .addToBackStack(null)
                 .commit()
         }
 
@@ -118,6 +118,40 @@ class Viario3Fragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.post {
+            (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual, "continuar")
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+                descricao = binding.EditTextDescricaoViario.text.toString()
+                if (etapaAtual > 0) {
+                    (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+                }
+
+                val fragmentDescricao = Viario2Fragment().apply {
+                    arguments = Bundle().apply {
+                        putString("tipo", tipo)
+                        putString("endereco", endereco)
+                        putString("descricao", descricao)
+                    }
+                }
+
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                    .replace(R.id.FragmentContainerView2, fragmentDescricao)
+                    .commit()
+            }
+        })
     }
 
     override fun onResume() {

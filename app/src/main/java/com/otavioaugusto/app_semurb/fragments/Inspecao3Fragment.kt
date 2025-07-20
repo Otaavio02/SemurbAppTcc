@@ -14,10 +14,8 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
@@ -30,8 +28,7 @@ import com.otavioaugusto.app_semurb.funcoes.AvariasRecyclerHelper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
-import java.util.Timer
-import kotlin.concurrent.schedule
+import androidx.activity.OnBackPressedCallback
 
 class Inspecao3Fragment : Fragment() {
 
@@ -139,6 +136,26 @@ class Inspecao3Fragment : Fragment() {
         view.post {
             (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual, "continuar")
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (etapaAtual > 0) {
+                    (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(
+                        etapaAtual - 1,
+                        "voltar"
+                    )
+                }
+
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                    .replace(R.id.FragmentContainerView2, Inspecao2Fragment())
+                    .commit()
+            }
+        })
+
     }
 
     override fun onResume() {
@@ -157,7 +174,6 @@ class Inspecao3Fragment : Fragment() {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
                 .replace(R.id.FragmentContainerView2, Inspecao2Fragment())
-                .addToBackStack(null)
                 .commit()
         }
 

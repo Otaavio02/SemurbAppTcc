@@ -27,7 +27,7 @@
         <FrameLayout
             android:id="@+id/frameLayout3"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:background="@color/FundoElementos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -114,14 +114,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.58" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_pesquisa"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayout"

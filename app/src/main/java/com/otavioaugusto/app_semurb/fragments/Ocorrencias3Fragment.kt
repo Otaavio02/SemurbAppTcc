@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
@@ -99,6 +100,41 @@ class Ocorrencias3Fragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.post {
+            (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual, "continuar")
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                nome = binding.EditTextNomeContato.text.toString()
+                numContato = binding.EditTextNumContato.text.toString()
+                if (etapaAtual > 0) {
+                    (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+                }
+
+                val fragmentEndereco = Ocorrencias2Fragment().apply {
+                    arguments = Bundle().apply {
+                        putString("tipo", tipo)
+                        putString("endereco", endereco)
+                        putString("nome", nome)
+                        putString("numContato", numContato)
+                    }
+                }
+
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                    .replace(R.id.FragmentContainerView2, fragmentEndereco)
+                    .commit()
+            }
+        })
     }
 
     override fun onDestroyView() {

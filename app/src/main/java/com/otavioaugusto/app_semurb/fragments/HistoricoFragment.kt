@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -67,11 +68,10 @@ class HistoricoFragment : Fragment() {
         binding.btnVoltarHistorico.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left
+                    R.anim.slide_in_left,
+                    R.anim.slide_out_right
                 )
                 .replace(R.id.fragmentContainerView, HomeFragment())
-                .addToBackStack(null)
                 .commit()
 
             (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
@@ -129,9 +129,23 @@ class HistoricoFragment : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                    .replace(R.id.fragmentContainerView, HomeFragment())
+                    .commit()
 
-
+                (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
+            }
+        })
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.os.Looper
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Locale
+import androidx.activity.OnBackPressedCallback
 
 class Viario2Fragment : Fragment() {
 
@@ -141,7 +141,6 @@ class Viario2Fragment : Fragment() {
                     R.anim.slide_out_right
                 )
                 .replace(R.id.FragmentContainerView2, fragmentTipo)
-                .addToBackStack(null)
                 .commit()
         }
 
@@ -206,6 +205,40 @@ class Viario2Fragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.post {
+            (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual, "continuar")
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+                endereco = binding.EditTextEnderecoViario.text.toString()
+
+                if (etapaAtual > 0) {
+                    (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
+                }
+
+                val fragmentTipo = Viario1Fragment().apply {
+                    arguments = Bundle().apply {
+                        putString("tipo", tipo)
+                        putString("endereco", endereco)
+                        putString("descricao", descricao)
+                    }
+                }
+
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                    .replace(R.id.FragmentContainerView2, fragmentTipo)
+                    .commit()
+            }
+        })
+    }
 
     override fun onResume() {
         super.onResume()
