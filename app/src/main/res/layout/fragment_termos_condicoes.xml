@@ -57,16 +57,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
             tools:ignore="HardcodedText" />
+
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
             android:fontFamily="@font/montserrat_bold"
-            android:text="Termos e Condições
-            de Uso"
+            android:gravity="center"
+            android:text="Termos e Condições de Uso"
             android:textColor="@color/CorTextoPadrao"
             android:textSize="27sp"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ultimaAtualizacao"

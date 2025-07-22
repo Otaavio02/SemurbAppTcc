@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="textSobre" type="id" />
+    <item name="btnTermosCondicoes" type="id" />
+    <item name="textTermosCondicoes" type="id" />
+</resources>
