@@ -29,12 +29,22 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 import androidx.activity.OnBackPressedCallback
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import java.security.Timestamp
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
 
 class Inspecao3Fragment : Fragment() {
 
     private var imagemTempUri: Uri? = null
     private var ultimaPosicaoFoto: Int? = null
     private lateinit var lista: MutableList<DataClassAvariaItem>
+    val bancoDados by lazy {
+        FirebaseFirestore.getInstance()
+    }
 
 
     private lateinit var adapter: AvariasAdapter
@@ -178,6 +188,7 @@ class Inspecao3Fragment : Fragment() {
         }
 
         binding.btnFinalizar.setOnClickListener {
+            salvarInspecaoComFotos("12345")
             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(etapaAtual)
             lifecycleScope.launch {
                 delay(700)
@@ -297,4 +308,112 @@ class Inspecao3Fragment : Fragment() {
         dialog.show()
     }
 
+    private fun uploadFotosInspecao(
+        parte: String,
+        lista: List<DataClassAvariaItem>,
+        idVeiculo: String,
+        dataHoje: String,
+        onComplete: (List<Map<String, String>>) -> Unit
+    ){
+        val storage = FirebaseStorage.getInstance().reference
+        val avariasComLinks = mutableListOf<Map<String, String>>()
+        val total = lista.size
+        var count = 0
+
+        if (total == 0){
+            onComplete(emptyList())
+            return
+        }
+
+
+        for ((index, item) in lista.withIndex()) {
+            if (item.uriFoto == null) {
+                count++
+                if (count == total) {
+                    onComplete(avariasComLinks)
+                }
+                continue
+            }
+
+            val caminho = "inspecoes/$idVeiculo/$dataHoje/$parte/avaria_$index.jpg"
+            val fotoRef = storage.child(caminho)
+
+            fotoRef.putFile(item.uriFoto!!)
+                .continueWithTask { task ->
+                    if (!task.isSuccessful) throw task.exception!!
+                    fotoRef.downloadUrl
+                }
+                .addOnSuccessListener { uriDownload ->
+                    avariasComLinks.add(
+                        mapOf(
+                            "descricao" to item.descricao,
+                            "uriFoto" to uriDownload.toString()
+                        )
+                    )
+                    count++
+                    if (count == total) {
+                        onComplete(avariasComLinks)
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Erro ao enviar foto: ${it.message}", Toast.LENGTH_SHORT).show()
+                    count++
+                    if (count == total) {
+                        onComplete(avariasComLinks)
+                    }
+                }
+        }
+    }
+
+    private fun salvarInspecaoComFotos(idVeiculo: String){
+
+        val dataHoje = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+        val partesSemAvaria = mutableListOf<String>()
+        if (binding.cbFrente.isChecked) partesSemAvaria.add("frente")
+        if (binding.cbTraseira.isChecked) partesSemAvaria.add("traseira")
+        if (binding.cbDireita.isChecked) partesSemAvaria.add("direita")
+        if (binding.cbEsquerda.isChecked) partesSemAvaria.add("esquerda")
+        if (binding.cbOutra.isChecked) partesSemAvaria.add("outras")
+
+        val frente = avariasFrenteHelper.getAvarias()
+        val traseira = avariasTraseiraHelper.getAvarias()
+        val direita = avariasDireitaHelper.getAvarias()
+        val esquerda = avariasEsquerdaHelper.getAvarias()
+        val outras = avariasOutrasHelper.getAvarias()
+
+        uploadFotosInspecao("frente", frente, idVeiculo, dataHoje) { frenteComLinks ->
+            uploadFotosInspecao("traseira", traseira, idVeiculo, dataHoje) { traseiraComLinks ->
+                uploadFotosInspecao("direita", direita, idVeiculo, dataHoje) { direitaComLinks ->
+                    uploadFotosInspecao("esquerda", esquerda, idVeiculo, dataHoje) { esquerdaComLinks ->
+                        uploadFotosInspecao("outras", outras, idVeiculo, dataHoje) { outrasComLinks ->
+
+                            val dadosInspecao = hashMapOf(
+                                "frente" to frenteComLinks,
+                                "traseira" to traseiraComLinks,
+                                "direita" to direitaComLinks,
+                                "esquerda" to esquerdaComLinks,
+                                "outras" to outrasComLinks,
+                                "partesSemAvaria" to partesSemAvaria,
+                                "dataRegistro" to com.google.firebase.Timestamp.now()
+                            )
+
+                            bancoDados.collection("veiculos")
+                                .document(idVeiculo)
+                                .collection("inspecoes")
+                                .document(dataHoje)
+                                .set(dadosInspecao)
+                                .addOnSuccessListener {
+                                    Toast.makeText(requireContext(), "inspeção Realizada com Sucesso", Toast.LENGTH_SHORT).show()
+                                }.addOnFailureListener {
+                                    Toast.makeText(requireContext(), "Erro ao realizar a inspecao", Toast.LENGTH_SHORT).show()
+
+                                }
+    }
+
+}
+                }
+            }
+        }
+    }
 }

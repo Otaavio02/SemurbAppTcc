@@ -19,7 +19,6 @@ class AvariasRecyclerHelper(
         recyclerView.adapter = adapter
     }
 
-    fun getAvarias(): List<DataClassAvariaItem> = avariasList
 
     fun addAvaria(avaria: DataClassAvariaItem) {
         avariasList.add(avaria)
@@ -41,6 +40,10 @@ class AvariasRecyclerHelper(
             avariasList[posicao].uriFoto = novaUri
             adapter.notifyItemChanged(posicao)
         }
+    }
+
+    fun getAvarias(): List<DataClassAvariaItem> {
+        return adapter.getLista()
     }
 }
 
