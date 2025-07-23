@@ -18,6 +18,7 @@ import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.ViarioAdapter
 import com.otavioaugusto.app_semurb.databinding.FragmentViarioBinding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
+import com.otavioaugusto.app_semurb.funcoes.EnviarNotificacaoBd
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -127,6 +128,7 @@ class ViarioFragment : Fragment() {
                 val qtd_itens = listaAtual.size
                 val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
                 val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+                EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de Viário", "Viário adicionado com sucesso", dataAtual, horarioAtual)
 
                 enviarViario(qtd_itens, horarioAtual, dataAtual)
             }

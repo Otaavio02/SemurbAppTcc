@@ -67,4 +67,10 @@ class NotificacoesAdapter(
         notifyDataSetChanged()
     }
 
+    fun setData(novas: List<DataClassNotificacoes>) {
+        notificacoes.clear()
+        notificacoes.addAll(novas)
+        notifyDataSetChanged()
+    }
+
 }

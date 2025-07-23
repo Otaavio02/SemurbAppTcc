@@ -18,6 +18,7 @@ import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.OcorrenciasAdapter
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciasBinding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
+import com.otavioaugusto.app_semurb.funcoes.EnviarNotificacaoBd
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -146,11 +147,16 @@ class OcorrenciasFragment : Fragment() {
             if (listaAtual.isEmpty()) {
                 Toast.makeText(requireContext(), "Não há nenhuma ocorrência", Toast.LENGTH_SHORT).show()
             } else {
+
+
+
                 val qtd_itens = listaAtual.size
                 val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
                 val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
                 enviarOcorrencias(qtd_itens, horarioAtual, dataAtual)
+
+                EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de ocorrência", "Ocorrências enviadas com sucesso", dataAtual, horarioAtual, )
             }
         }
     }
@@ -182,7 +188,6 @@ class OcorrenciasFragment : Fragment() {
                             "data_envio" to data_envio
 
                         )
-
                         ocorrenciasCollection
                             .document(ocorrencia.numeroSequencial.toString())
                             .set(dados)
@@ -193,6 +198,7 @@ class OcorrenciasFragment : Fragment() {
                                 Log.e("FIREBASE", "Erro ao enviar ocorrência: ${e.message}")
                             }
                         }
+
                     }
                 }
 
@@ -213,7 +219,9 @@ class OcorrenciasFragment : Fragment() {
                 .replace(R.id.fragmentContainerView, HomeFragment())
                 .commit()
         }
-    }
+
+
+}
 
 
 

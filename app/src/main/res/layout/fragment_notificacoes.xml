@@ -152,7 +152,7 @@
             android:layout_height="35dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="5dp"
-            android:background="@android:color/transparent"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="@+id/notificacaoLidasSubtitulo"
             app:layout_constraintStart_toEndOf="@+id/notificacaoLidasSubtitulo"

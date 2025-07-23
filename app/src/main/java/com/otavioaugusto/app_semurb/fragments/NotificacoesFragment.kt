@@ -9,9 +9,12 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import android.transition.TransitionManager
+import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.NotificacoesAdapter
 import com.otavioaugusto.app_semurb.dataClasses.DataClassNotificacoes
@@ -29,6 +32,14 @@ class NotificacoesFragment : Fragment() {
     private lateinit var rvNotificacoesN: RecyclerView
     private lateinit var rvNotificacoesLidas: RecyclerView
 
+    private val bancoDados by lazy {
+        FirebaseFirestore.getInstance()
+    }
+
+    private val autenticao by lazy {
+        FirebaseAuth.getInstance()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,13 +51,8 @@ class NotificacoesFragment : Fragment() {
         rvNotificacoesLidas = binding.rvNotificacoesLidas
 
 
-        val listaTeste =  mutableListOf(
-            DataClassNotificacoes("teste1", "teste", LocalTime.of(9, 30), LocalDate.now(), false),
-            DataClassNotificacoes("Ablubluble", "bleble", LocalTime.of(15, 0), LocalDate.now(), false),
-            DataClassNotificacoes("SFGGDG", "ssdfsdf", LocalTime.of(12, 45), LocalDate.now().minusDays(1), false)
-        )
 
-        adapterN = NotificacoesAdapter(listaTeste)
+        adapterN = NotificacoesAdapter(mutableListOf())
         adapterLidas = NotificacoesAdapter(mutableListOf())
 
         rvNotificacoesN.layoutManager = LinearLayoutManager(requireContext())
@@ -55,10 +61,12 @@ class NotificacoesFragment : Fragment() {
         rvNotificacoesN.adapter = adapterN
         rvNotificacoesLidas.adapter = adapterLidas
 
+
         setupTrocarSlide(rvNotificacoesN, adapterN, adapterLidas)
         setupRemoverSlide(rvNotificacoesLidas, adapterLidas)
 
-        ajustarAlturaRecyclerView(rvNotificacoesN, listaTeste.size)
+        ajustarAlturaRecyclerView(rvNotificacoesN, adapterN.itemCount)
+        ajustarAlturaRecyclerView(rvNotificacoesLidas, adapterLidas.itemCount)
 
         val btnNotificacoesLidas = binding.btnNotificacoesLidas
         val SubtituloLidas = binding.notificacaoLidasSubtitulo
@@ -103,8 +111,28 @@ class NotificacoesFragment : Fragment() {
 
 
         btnLixeira.setOnClickListener {
-            adapterLidas.clearAll()
-            ajustarAlturaRecyclerView(rvNotificacoesN, 0)
+
+            val idUsuario = autenticao.currentUser?.uid
+            if (idUsuario != null) {
+                bancoDados.collection("agentes")
+                    .document(idUsuario)
+                    .collection("notificacoes")
+                    .whereEqualTo("lida", true)
+                    .get()
+                    .addOnSuccessListener { docs ->
+                        for (doc in docs) {
+                            doc.reference.delete()
+                        }
+
+
+                        adapterLidas.clearAll()
+                        ajustarAlturaRecyclerView(rvNotificacoesLidas, 0)
+                        Toast.makeText(requireContext(), "Notificações removidas com sucesso", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(requireContext(), "Erro ao apagar notificações", Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
 
         return binding.root
@@ -128,18 +156,60 @@ class NotificacoesFragment : Fragment() {
                 val position = viewHolder.adapterPosition
                 val item = fonteAdapter.removeItemAt(position)
 
-                item.lida = true
-                alvoAdapter.addItem(item)
+                val idUsuario = autenticao.currentUser?.uid
+                if (idUsuario != null) {
+                    val colecao = bancoDados.collection("agentes")
+                        .document(idUsuario)
+                        .collection("notificacoes")
+
+                    if (item.lida) {
+                        colecao
+                            .whereEqualTo("titulo", item.titulo)
+                            .whereEqualTo("mensagem", item.descricao)
+                            .get()
+                            .addOnSuccessListener { docs ->
+                                for (doc in docs) {
+                                    doc.reference.delete()
+                                }
+                                Toast.makeText(requireContext(), "Notificação removida", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(requireContext(), "Erro ao remover notificação", Toast.LENGTH_SHORT).show()
+                            }
 
 
-                binding.btnNotificacoesLidas.isEnabled = alvoAdapter.itemCount > 0
+                        ajustarAlturaRecyclerView(rvNotificacoesLidas, fonteAdapter.itemCount)
+                    } else {
+                        item.lida = true
+                        alvoAdapter.addItem(item)
 
-                ajustarAlturaRecyclerView(rvNotificacoesN,fonteAdapter.itemCount )
-                ajustarAlturaRecyclerView(rvNotificacoesLidas,alvoAdapter.itemCount )
-            } })
+                        colecao
+                            .whereEqualTo("titulo", item.titulo)
+                            .whereEqualTo("mensagem", item.descricao)
+                            .get()
+                            .addOnSuccessListener { docs ->
+                                for (doc in docs) {
+                                    doc.reference.update("lida", true)
+                                }
+                            }
+
+                        binding.btnNotificacoesLidas.isEnabled = alvoAdapter.itemCount > 0
+
+                        ajustarAlturaRecyclerView(rvNotificacoesN, fonteAdapter.itemCount)
+                        ajustarAlturaRecyclerView(rvNotificacoesLidas, alvoAdapter.itemCount)
+                    }
+                }
+            }})
 
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        carregarNotificações()
+        ajustarAlturaRecyclerView(rvNotificacoesN, adapterN.itemCount)
+        ajustarAlturaRecyclerView(rvNotificacoesLidas, adapterLidas.itemCount)
     }
 
     private fun setupRemoverSlide(
@@ -180,4 +250,72 @@ class NotificacoesFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun carregarNotificações() {
+        val idUsuarioLogado = autenticao.currentUser?.uid ?: return
+
+
+        bancoDados.collection("agentes")
+            .document(idUsuarioLogado)
+            .collection("notificacoes")
+            .whereEqualTo("lida", false)
+            .get()
+            .addOnSuccessListener { resultado ->
+                val notificacoesNLidas = mutableListOf<DataClassNotificacoes>()
+
+                for (document in resultado.documents) {
+                    val titulo = document.getString("titulo") ?: ""
+                    val mensagem = document.getString("mensagem") ?: ""
+                    val horario = document.getString("horario_atual") ?: "00:00"
+                    val data = document.getString("dia_atual") ?: "01/01/2000"
+                    val lida = document.getBoolean("lida") ?: false
+
+                    val horaSplit = horario.split(":")
+                    val dataSplit = data.split("/")
+                    val hora = LocalTime.of(horaSplit[0].toInt(), horaSplit[1].toInt())
+                    val dataObj = LocalDate.of(dataSplit[2].toInt(), dataSplit[1].toInt(), dataSplit[0].toInt())
+
+                    val notificacao = DataClassNotificacoes(titulo, mensagem, hora, dataObj, lida)
+                    notificacoesNLidas.add(notificacao)
+                }
+                adapterN.setData(notificacoesNLidas)
+                ajustarAlturaRecyclerView(rvNotificacoesN, adapterN.itemCount)
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Erro ao carregar notificações não lidas", Toast.LENGTH_SHORT).show()
+            }
+
+
+        bancoDados.collection("agentes")
+            .document(idUsuarioLogado)
+            .collection("notificacoes")
+            .whereEqualTo("lida", true)
+            .get()
+            .addOnSuccessListener { resultado ->
+                val notificacoesLidas = mutableListOf<DataClassNotificacoes>()
+
+                for (document in resultado.documents) {
+                    val titulo = document.getString("titulo") ?: ""
+                    val mensagem = document.getString("mensagem") ?: ""
+                    val horario = document.getString("horario_atual") ?: "00:00"
+                    val data = document.getString("dia_atual") ?: "01/01/2000"
+                    val lida = document.getBoolean("lida") ?: false
+
+                    val horaSplit = horario.split(":")
+                    val dataSplit = data.split("/")
+                    val hora = LocalTime.of(horaSplit[0].toInt(), horaSplit[1].toInt())
+                    val dataObj = LocalDate.of(dataSplit[2].toInt(), dataSplit[1].toInt(), dataSplit[0].toInt())
+
+                    val notificacao = DataClassNotificacoes(titulo, mensagem, hora, dataObj, lida)
+                    notificacoesLidas.add(notificacao)
+                }
+                adapterLidas.setData(notificacoesLidas)
+                binding.btnNotificacoesLidas.isEnabled = adapterLidas.itemCount > 0
+                ajustarAlturaRecyclerView(rvNotificacoesLidas, adapterLidas.itemCount)
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Erro ao carregar notificações lidas", Toast.LENGTH_SHORT).show()
+            }
+    }
 }
+

@@ -31,6 +31,7 @@ import java.io.File
 import androidx.activity.OnBackPressedCallback
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.otavioaugusto.app_semurb.funcoes.EnviarNotificacaoBd
 import java.security.Timestamp
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -188,6 +189,9 @@ class Inspecao3Fragment : Fragment() {
         }
 
         binding.btnFinalizar.setOnClickListener {
+            val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+            val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+            EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de inspeção", "Inspeção realizada com sucesso", dataAtual, horarioAtual,)
             salvarInspecaoComFotos("12345")
             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(etapaAtual)
             lifecycleScope.launch {
