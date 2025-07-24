@@ -2,14 +2,25 @@ package com.otavioaugusto.app_semurb.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.otavioaugusto.app_semurb.*
 import com.otavioaugusto.app_semurb.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
+
+
+    val autenticacao by lazy {
+        FirebaseAuth.getInstance()
+    }
+    val bancoDados by lazy {
+        FirebaseFirestore.getInstance()
+    }
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -76,6 +87,8 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+
+
         return binding.root
     }
 
@@ -83,4 +96,28 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-}
+
+    override fun onResume() {
+        super.onResume()
+        val idUsuarioLogado = autenticacao.currentUser?.uid
+        if (idUsuarioLogado != null){
+            val referenciaUsuario = bancoDados.collection("agentes")
+                .document(idUsuarioLogado)
+
+            referenciaUsuario.get()
+
+                .addOnSuccessListener { documentSnapshot ->
+                    Log.i("FIREBASETESTE", "Dados Puxados com Sucesso")
+                    val dados = documentSnapshot.data
+                    if (dados != null){
+                        val nome = dados["nome"]
+
+
+                        binding.textViewNomeHome.text = nome.toString()
+                    }
+                }.addOnFailureListener {
+                    Log.i("FIREBASETESTE", "Erro ao puxar dados")
+                }
+    }
+
+}}

@@ -58,7 +58,6 @@ class PerfilFragment : Fragment() {
                         val matricula = dados["matricula"]
                         val ocorrencias = dados["ocorrencias"]
                         val viario = dados["viario"]
-                        Toast.makeText(binding.root.context, "Matricula Puxada com sucesso $matricula", Toast.LENGTH_SHORT).show()
                         binding.textViewMatricula.text = matricula.toString()
                         binding.textViewNome.text = nome.toString()
                         binding.textViewServicos.text = viario.toString()
