@@ -191,15 +191,14 @@ class Inspecao3Fragment : Fragment() {
         binding.btnFinalizar.setOnClickListener {
             val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
             val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
-            EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de inspeção", "Inspeção realizada com sucesso", dataAtual, horarioAtual,)
-            salvarInspecaoComFotos("12345")
+
             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(etapaAtual)
             lifecycleScope.launch {
-                delay(700)
-                requireActivity().finish()
+                EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de inspeção", "Inspeção realizada com sucesso", dataAtual, horarioAtual,)
+                salvarInspecaoComFotos("12345")
             }
-
         }
+
     }
 
     private fun setupToggles() {
@@ -408,10 +407,15 @@ class Inspecao3Fragment : Fragment() {
                                 .document(dataHoje)
                                 .set(dadosInspecao)
                                 .addOnSuccessListener {
-                                    Toast.makeText(requireContext(), "inspeção Realizada com Sucesso", Toast.LENGTH_SHORT).show()
-                                }.addOnFailureListener {
-                                    Toast.makeText(requireContext(), "Erro ao realizar a inspecao", Toast.LENGTH_SHORT).show()
-
+                                    if (isAdded) {
+                                        Toast.makeText(requireContext(), "Inspeção enviada com Sucesso", Toast.LENGTH_SHORT).show()
+                                        requireActivity().finish()
+                                    }
+                                }
+                                .addOnFailureListener {
+                                    if (isAdded) {
+                                        Toast.makeText(requireContext(), "Erro ao enviar a inspeção", Toast.LENGTH_SHORT).show()
+                                    }
                                 }
     }
 
