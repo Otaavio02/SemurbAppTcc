@@ -418,6 +418,12 @@ class Inspecao3Fragment : Fragment() {
         val esquerdaAvarias = avariasEsquerdaHelper.getAvarias()
         val outrasAvarias = avariasOutrasHelper.getAvarias()
 
+        val checkBoxFrente = binding.cbFrente.isChecked
+        val checkBoxTraseira = binding.cbTraseira.isChecked
+        val checkBoxDireita = binding.cbDireita.isChecked
+        val checkBoxEsquerda = binding.cbEsquerda.isChecked
+        val checkBoxOutra = binding.cbOutra.isChecked
+
 
         val dataHoje = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
@@ -426,35 +432,35 @@ class Inspecao3Fragment : Fragment() {
             "dataRegistro" to com.google.firebase.Timestamp.now()
         )
 
-        val frenteResultado = if (frenteAvarias.isNotEmpty()){
+        val frenteResultado = if (!checkBoxFrente) {
             uploadFotosInspecao("frente", frenteAvarias, idVeiculo, dataHoje)
-            } else {
-                listOf(mapOf("info" to "Parte sem avaria"))
+        } else {
+            listOf(mapOf("info" to "Parte sem avaria"))
         }
         dadosInspecao["frente"] = frenteResultado
 
-        val traseiraResultado = if (traseiraAvarias.isNotEmpty()){
-            uploadFotosInspecao("traseira", frenteAvarias, idVeiculo, dataHoje)
+        val traseiraResultado = if (!checkBoxTraseira) {
+            uploadFotosInspecao("traseira", traseiraAvarias, idVeiculo, dataHoje)
         } else {
             listOf(mapOf("info" to "Parte sem avaria"))
         }
         dadosInspecao["traseira"] = traseiraResultado
 
-        val direitaResultado = if (direitaAvarias.isNotEmpty()){
-            uploadFotosInspecao("direita", frenteAvarias, idVeiculo, dataHoje)
+        val direitaResultado = if (!checkBoxDireita) {
+            uploadFotosInspecao("direita", direitaAvarias, idVeiculo, dataHoje)
         } else {
             listOf(mapOf("info" to "Parte sem avaria"))
         }
         dadosInspecao["direita"] = direitaResultado
 
-        val esquerdaResultado = if (esquerdaAvarias.isNotEmpty()){
+        val esquerdaResultado = if (!checkBoxEsquerda) {
             uploadFotosInspecao("esquerda", esquerdaAvarias, idVeiculo, dataHoje)
         } else {
             listOf(mapOf("info" to "Parte sem avaria"))
         }
         dadosInspecao["esquerda"] = esquerdaResultado
 
-        val outrasResultado = if (outrasAvarias.isNotEmpty()){
+        val outrasResultado = if (!checkBoxOutra) {
             uploadFotosInspecao("outras", outrasAvarias, idVeiculo, dataHoje)
         } else {
             listOf(mapOf("info" to "Parte sem avaria"))
