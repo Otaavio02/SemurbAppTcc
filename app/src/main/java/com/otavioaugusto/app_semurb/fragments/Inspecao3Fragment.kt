@@ -32,6 +32,9 @@ import androidx.activity.OnBackPressedCallback
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.otavioaugusto.app_semurb.funcoes.EnviarNotificacaoBd
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.security.Timestamp
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -192,10 +195,11 @@ class Inspecao3Fragment : Fragment() {
             val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
             val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
             EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de inspeção", "Inspeção realizada com sucesso", dataAtual, horarioAtual,)
-            salvarInspecaoComFotos("12345")
-            (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(etapaAtual)
-            lifecycleScope.launch {
-                delay(700)
+            lifecycleScope.launch{
+                withContext(Dispatchers.IO){
+                    salvarInspecaoComFotos("12345")
+                }
+                (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(etapaAtual)
                 requireActivity().finish()
             }
 
@@ -312,112 +316,124 @@ class Inspecao3Fragment : Fragment() {
         dialog.show()
     }
 
-    private fun uploadFotosInspecao(
+    private suspend fun uploadFotosInspecao(
         parte: String,
         lista: List<DataClassAvariaItem>,
         idVeiculo: String,
-        dataHoje: String,
-        onComplete: (List<Map<String, String>>) -> Unit
-    ){
+        dataHoje: String
+    ): List<Map<String, String>> = withContext(Dispatchers.IO) {
         val storage = FirebaseStorage.getInstance().reference
         val avariasComLinks = mutableListOf<Map<String, String>>()
-        val total = lista.size
-        var count = 0
-
-        if (total == 0){
-            onComplete(emptyList())
-            return
-        }
-
 
         for ((index, item) in lista.withIndex()) {
-            if (item.uriFoto == null) {
-                count++
-                if (count == total) {
-                    onComplete(avariasComLinks)
-                }
-                continue
-            }
+            val uriFoto = item.uriFoto ?: continue
 
             val caminho = "inspecoes/$idVeiculo/$dataHoje/$parte/avaria_$index.jpg"
             val fotoRef = storage.child(caminho)
 
-            fotoRef.putFile(item.uriFoto!!)
-                .continueWithTask { task ->
-                    if (!task.isSuccessful) throw task.exception!!
-                    fotoRef.downloadUrl
-                }
-                .addOnSuccessListener { uriDownload ->
-                    avariasComLinks.add(
-                        mapOf(
-                            "descricao" to item.descricao,
-                            "uriFoto" to uriDownload.toString()
-                        )
+            try {
+                val uploadTask = fotoRef.putFile(uriFoto).await()
+                val downloadUrl = fotoRef.downloadUrl.await()
+
+                avariasComLinks.add(
+                    mapOf(
+                        "descricao" to item.descricao,
+                        "uriFoto" to downloadUrl.toString()
                     )
-                    count++
-                    if (count == total) {
-                        onComplete(avariasComLinks)
-                    }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(requireContext(), "Erro ao enviar foto: ${it.message}", Toast.LENGTH_SHORT).show()
-                    count++
-                    if (count == total) {
-                        onComplete(avariasComLinks)
-                    }
-                }
-        }
-    }
-
-    private fun salvarInspecaoComFotos(idVeiculo: String){
-
-        val dataHoje = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-
-        val partesSemAvaria = mutableListOf<String>()
-        if (binding.cbFrente.isChecked) partesSemAvaria.add("frente")
-        if (binding.cbTraseira.isChecked) partesSemAvaria.add("traseira")
-        if (binding.cbDireita.isChecked) partesSemAvaria.add("direita")
-        if (binding.cbEsquerda.isChecked) partesSemAvaria.add("esquerda")
-        if (binding.cbOutra.isChecked) partesSemAvaria.add("outras")
-
-        val frente = avariasFrenteHelper.getAvarias()
-        val traseira = avariasTraseiraHelper.getAvarias()
-        val direita = avariasDireitaHelper.getAvarias()
-        val esquerda = avariasEsquerdaHelper.getAvarias()
-        val outras = avariasOutrasHelper.getAvarias()
-
-        uploadFotosInspecao("frente", frente, idVeiculo, dataHoje) { frenteComLinks ->
-            uploadFotosInspecao("traseira", traseira, idVeiculo, dataHoje) { traseiraComLinks ->
-                uploadFotosInspecao("direita", direita, idVeiculo, dataHoje) { direitaComLinks ->
-                    uploadFotosInspecao("esquerda", esquerda, idVeiculo, dataHoje) { esquerdaComLinks ->
-                        uploadFotosInspecao("outras", outras, idVeiculo, dataHoje) { outrasComLinks ->
-
-                            val dadosInspecao = hashMapOf(
-                                "frente" to frenteComLinks,
-                                "traseira" to traseiraComLinks,
-                                "direita" to direitaComLinks,
-                                "esquerda" to esquerdaComLinks,
-                                "outras" to outrasComLinks,
-                                "partesSemAvaria" to partesSemAvaria,
-                                "dataRegistro" to com.google.firebase.Timestamp.now()
-                            )
-
-                            bancoDados.collection("veiculos")
-                                .document(idVeiculo)
-                                .collection("inspecoes")
-                                .document(dataHoje)
-                                .set(dadosInspecao)
-                                .addOnSuccessListener {
-                                    Toast.makeText(requireContext(), "inspeção Realizada com Sucesso", Toast.LENGTH_SHORT).show()
-                                }.addOnFailureListener {
-                                    Toast.makeText(requireContext(), "Erro ao realizar a inspecao", Toast.LENGTH_SHORT).show()
-
-                                }
-    }
-
-}
+                )
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Erro ao enviar foto: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
+        return@withContext avariasComLinks
     }
+
+    private suspend fun salvarInspecaoComFotos(idVeiculo: String) = withContext(Dispatchers.IO) {
+
+
+        val partesComErro = mutableListOf<String>()
+
+        val frenteAvarias = avariasFrenteHelper.getAvarias()
+        val traseiraAvarias = avariasTraseiraHelper.getAvarias()
+        val direitaAvarias = avariasDireitaHelper.getAvarias()
+        val esquerdaAvarias = avariasEsquerdaHelper.getAvarias()
+        val outrasAvarias = avariasOutrasHelper.getAvarias()
+
+        if (frenteAvarias.isEmpty() && !binding.cbFrente.isChecked) partesComErro.add("Frente")
+        if (traseiraAvarias.isEmpty() && !binding.cbTraseira.isChecked) partesComErro.add("Traseira")
+        if (direitaAvarias.isEmpty() && !binding.cbDireita.isChecked) partesComErro.add("Direita")
+        if (esquerdaAvarias.isEmpty() && !binding.cbEsquerda.isChecked) partesComErro.add("Esquerda")
+        if (outrasAvarias.isEmpty() && !binding.cbOutra.isChecked) partesComErro.add("Outras")
+
+        if (partesComErro.isNotEmpty()) {
+            withContext(Dispatchers.Main) {
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Verifique as informações")
+                    .setMessage("Descreva todas as partes do carro")
+                    .setPositiveButton("Ok", null)
+                    .show()
+            }
+            return@withContext
+        }
+
+        val dataHoje = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+
+        val dadosInspecao = hashMapOf<String, Any>(
+            "dataRegistro" to com.google.firebase.Timestamp.now()
+        )
+
+        dadosInspecao["frente"] = if (frenteAvarias.isNotEmpty()) {
+            uploadFotosInspecao("frente", frenteAvarias, idVeiculo, dataHoje)
+        } else {
+            "Parte sem avaria"
+        }
+
+        dadosInspecao["traseira"] = if (traseiraAvarias.isNotEmpty()) {
+            uploadFotosInspecao("traseira", traseiraAvarias, idVeiculo, dataHoje)
+        } else {
+            "Parte sem avaria"
+        }
+
+        dadosInspecao["direita"] = if (direitaAvarias.isNotEmpty()) {
+            uploadFotosInspecao("direita", direitaAvarias, idVeiculo, dataHoje)
+        } else {
+            "Parte sem avaria"
+        }
+
+        dadosInspecao["esquerda"] = if (esquerdaAvarias.isNotEmpty()) {
+            uploadFotosInspecao("esquerda", esquerdaAvarias, idVeiculo, dataHoje)
+        } else {
+            "Parte sem avaria"
+        }
+
+        dadosInspecao["outras"] = if (outrasAvarias.isNotEmpty()) {
+            uploadFotosInspecao("outras", outrasAvarias, idVeiculo, dataHoje)
+        } else {
+            "Parte sem avaria"
+        }
+
+
+        try {
+            bancoDados.collection("veiculos")
+                .document(idVeiculo)
+                .collection("inspecoes")
+                .document(dataHoje)
+                .set(dadosInspecao)
+                .await()
+
+            withContext(Dispatchers.Main) {
+                Toast.makeText(requireContext(), "Inspeção realizada com sucesso", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(requireContext(), "Erro ao salvar inspeção: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
 }
