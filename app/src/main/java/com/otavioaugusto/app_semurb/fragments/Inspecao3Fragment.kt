@@ -363,7 +363,7 @@ class Inspecao3Fragment : Fragment() {
             .create()
 
         dialog.setOnShowListener {
-            dialog.window?.setBackgroundDrawableResource(R.color.Branco)
+            dialog.window?.setBackgroundDrawableResource(R.color.AzulPetroleo)
         }
 
         dialog.show()
@@ -426,36 +426,40 @@ class Inspecao3Fragment : Fragment() {
             "dataRegistro" to com.google.firebase.Timestamp.now()
         )
 
-        dadosInspecao["frente"] = if (frenteAvarias.isNotEmpty()) {
+        val frenteResultado = if (frenteAvarias.isNotEmpty()){
             uploadFotosInspecao("frente", frenteAvarias, idVeiculo, dataHoje)
-        } else {
-            "Parte sem avaria"
+            } else {
+                listOf(mapOf("info" to "Parte sem avaria"))
         }
+        dadosInspecao["frente"] = frenteResultado
 
-        dadosInspecao["traseira"] = if (traseiraAvarias.isNotEmpty()) {
-            uploadFotosInspecao("traseira", traseiraAvarias, idVeiculo, dataHoje)
+        val traseiraResultado = if (traseiraAvarias.isNotEmpty()){
+            uploadFotosInspecao("traseira", frenteAvarias, idVeiculo, dataHoje)
         } else {
-            "Parte sem avaria"
+            listOf(mapOf("info" to "Parte sem avaria"))
         }
+        dadosInspecao["traseira"] = traseiraResultado
 
-        dadosInspecao["direita"] = if (direitaAvarias.isNotEmpty()) {
-            uploadFotosInspecao("direita", direitaAvarias, idVeiculo, dataHoje)
+        val direitaResultado = if (direitaAvarias.isNotEmpty()){
+            uploadFotosInspecao("direita", frenteAvarias, idVeiculo, dataHoje)
         } else {
-            "Parte sem avaria"
+            listOf(mapOf("info" to "Parte sem avaria"))
         }
+        dadosInspecao["direita"] = direitaResultado
 
-        dadosInspecao["esquerda"] = if (esquerdaAvarias.isNotEmpty()) {
+        val esquerdaResultado = if (esquerdaAvarias.isNotEmpty()){
             uploadFotosInspecao("esquerda", esquerdaAvarias, idVeiculo, dataHoje)
         } else {
-            "Parte sem avaria"
+            listOf(mapOf("info" to "Parte sem avaria"))
         }
+        dadosInspecao["esquerda"] = esquerdaResultado
 
-        dadosInspecao["outras"] = if (outrasAvarias.isNotEmpty()) {
+        val outrasResultado = if (outrasAvarias.isNotEmpty()){
             uploadFotosInspecao("outras", outrasAvarias, idVeiculo, dataHoje)
         } else {
-            "Parte sem avaria"
+            listOf(mapOf("info" to "Parte sem avaria"))
         }
-
+        dadosInspecao["outras"] = outrasResultado
 
         try {
             bancoDados.collection("veiculos")

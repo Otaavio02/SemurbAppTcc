@@ -100,4 +100,6 @@ class Inspecao1Fragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

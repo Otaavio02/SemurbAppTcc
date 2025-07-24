@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
@@ -19,6 +20,15 @@ import com.otavioaugusto.app_semurb.databinding.FragmentInspecao2Binding
 import java.util.Timer
 import kotlin.concurrent.schedule
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class Inspecao2Fragment : Fragment() {
 
@@ -32,6 +42,10 @@ class Inspecao2Fragment : Fragment() {
     private var etapaAtual = 1 // etapa 2
     private var totalEtapas = 3
 
+    val bancoDados by lazy {
+        FirebaseFirestore.getInstance()
+    }
+
     @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +53,9 @@ class Inspecao2Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentInspecao2Binding.inflate(inflater, container, false)
+
+        val idViatura = "12345"
+        binding.textViewInspecaoViatura.text = "Inspeção da viatura $idViatura"
 
 
         binding.btnVoltarInspecao2.setOnClickListener {
@@ -112,17 +129,14 @@ class Inspecao2Fragment : Fragment() {
                         .addToBackStack(null)
                         .commit()
                 } else if (selectedRgId == R.id.rbNaoAvarias){
-                    (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(3)
+                    semAvarias(idViatura)
 
-                    Timer().schedule(700) {
-                        requireActivity().finish()
-                    }
+
                 }
             }
         }
 
-        val idViatura = "12345"
-        binding.textViewInspecaoViatura.text = "Inspeção da viatura $idViatura"
+
 
         return binding.root
     }
@@ -174,6 +188,52 @@ class Inspecao2Fragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun semAvarias(idVeiculo: String){
+
+        val dataHoje = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO){
+
+
+                val dadosInspecao = hashMapOf(
+                    "dataRegistro" to com.google.firebase.Timestamp.now(),
+                    "frente" to listOf(mapOf("info" to "Parte sem avaria")),
+                    "traseira" to listOf(mapOf("info" to "Parte sem avaria")),
+                    "direita" to listOf(mapOf("info" to "Parte sem avaria")),
+                    "esquerda" to listOf(mapOf("info" to "Parte sem avaria")),
+                    "outras" to listOf(mapOf("info" to "Parte sem avaria"))
+                )
+
+                lifecycleScope.launch {
+                    try {
+                        withContext(Dispatchers.IO) {
+                            bancoDados.collection("veiculos")
+                                .document(idVeiculo)
+                                .collection("inspecoes")
+                                .document(dataHoje)
+                                .set(dadosInspecao)
+                                .await()
+                        }
+
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(requireContext(), "Inspeção salva com sucesso", Toast.LENGTH_SHORT).show()
+                            (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(3)
+                            Timer().schedule(1000) {
+                                requireActivity().finish()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(requireContext(), "Erro ao salvar: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+}
+
+            }
     }
 }
 
