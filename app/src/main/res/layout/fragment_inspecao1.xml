@@ -33,7 +33,7 @@
         app:layout_constraintGuide_percent="0.11" />
 
     <TextView
-        android:id="@+id/textView31"
+        android:id="@+id/textViewInspecaoViatura"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewInspecaoViatura" />
 
     <ImageView
         android:id="@+id/imageView20"

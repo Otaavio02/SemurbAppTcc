@@ -141,6 +141,9 @@ class Inspecao3Fragment : Fragment() {
         binding.btnInfoOutros.setOnClickListener {
             mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Teto, Chassi, Motor, Suspensão, Freios, etc." )
         }
+        val idViatura = "12345"
+        binding.textViewInspecaoViatura.text = "Inspeção da viatura $idViatura"
+
         return binding.root
 
 
@@ -200,7 +203,8 @@ class Inspecao3Fragment : Fragment() {
             EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de inspeção", "Inspeção realizada com sucesso", dataAtual, horarioAtual,)
             lifecycleScope.launch{
                 withContext(Dispatchers.IO){
-                    salvarInspecaoComFotos("12345")
+                    val idViatura = "12345"
+                    salvarInspecaoComFotos(idViatura)
                 }
                 (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(etapaAtual)
                 requireActivity().finish()

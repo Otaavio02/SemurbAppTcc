@@ -120,6 +120,10 @@ class Inspecao2Fragment : Fragment() {
                 }
             }
         }
+
+        val idViatura = "12345"
+        binding.textViewInspecaoViatura.text = "Inspeção da viatura $idViatura"
+
         return binding.root
     }
 
