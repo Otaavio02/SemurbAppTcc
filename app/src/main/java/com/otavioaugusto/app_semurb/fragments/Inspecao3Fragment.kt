@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.otavioaugusto.app_semurb.funcoes.EnviarNotificacaoBd
@@ -87,36 +89,45 @@ class Inspecao3Fragment : Fragment() {
         binding.progressBarInspecao3.visibility = View.GONE
         binding.btnFinalizar.visibility = View.VISIBLE
 
-
+        // Checkboxes para marcar caso uma parte esteja sem avária
         binding.cbFrente.setOnCheckedChangeListener { _, isChecked ->
-
             binding.btnInspecaoFrente.isEnabled  = !isChecked
+            binding.btnInspecaoFrente.isVisible  = !isChecked
             binding.frameAvariaFrente.visibility = View.GONE
+            binding.btnInfoFrente.isVisible = !isChecked
             binding.textViewFrente.setBackgroundResource(R.drawable.bg_btninspecaodesativado)
             binding.btnInspecaoFrente.setImageResource(R.drawable.inspecaofechar)
 
         }
         binding.cbTraseira.setOnCheckedChangeListener { _, isChecked ->
             binding.btnInspecaoTraseira.isEnabled = !isChecked
+            binding.btnInspecaoTraseira.isVisible = !isChecked
             binding.frameAvariaTraseira.visibility = View.GONE
+            binding.btnInfoTraseira.isVisible = !isChecked
             binding.textViewTraseira.setBackgroundResource(R.drawable.bg_btninspecaodesativado)
             binding.btnInspecaoTraseira.setImageResource(R.drawable.inspecaofechar)
         }
         binding.cbDireita.setOnCheckedChangeListener { _, isChecked ->
             binding.btnInspecaoDireita.isEnabled  = !isChecked
+            binding.btnInspecaoDireita.isVisible  = !isChecked
             binding.frameAvariaDireita.visibility = View.GONE
+            binding.btnInfoDireita.isVisible = !isChecked
             binding.textViewDireita.setBackgroundResource(R.drawable.bg_btninspecaodesativado)
             binding.btnInspecaoDireita.setImageResource(R.drawable.inspecaofechar)
         }
         binding.cbEsquerda.setOnCheckedChangeListener { _, isChecked ->
             binding.btnInspecaoEsquerda.isEnabled  = !isChecked
+            binding.btnInspecaoEsquerda.isVisible = !isChecked
             binding.frameAvariaEsquerda.visibility = View.GONE
+            binding.btnInfoEsquerda.isVisible = !isChecked
             binding.textViewEsquerda.setBackgroundResource(R.drawable.bg_btninspecaodesativado)
             binding.btnInspecaoEsquerda.setImageResource(R.drawable.inspecaofechar)
         }
         binding.cbOutra.setOnCheckedChangeListener { _, isChecked ->
             binding.btnInspecaoOutras.isEnabled  = !isChecked
+            binding.btnInspecaoOutras.isVisible  = !isChecked
             binding.frameAvariaOutras.visibility = View.GONE
+            binding.btnInfoOutros.isVisible = !isChecked
             binding.textViewOutras.setBackgroundResource(R.drawable.bg_btninspecaodesativado)
             binding.btnInspecaoOutras.setImageResource(R.drawable.inspecaofechar)
         }
@@ -124,7 +135,7 @@ class Inspecao3Fragment : Fragment() {
 
 
 
-
+        // Botões de informação
         binding.btnInfoFrente.setOnClickListener {
             mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Capo, Farol esquerdo/direito, Pisca esquerdo/direito, Para-brisa, Para-choque, Grade frontal, etc." )
         }
@@ -200,16 +211,51 @@ class Inspecao3Fragment : Fragment() {
         binding.btnFinalizar.setOnClickListener {
             val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
             val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
-            EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de inspeção", "Inspeção realizada com sucesso", dataAtual, horarioAtual,)
+
             lifecycleScope.launch{
                 withContext(Dispatchers.IO){
                     val idViatura = "12345"
-                    salvarInspecaoComFotos(idViatura)
-                }
-                (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(etapaAtual)
-                requireActivity().finish()
-            }
+                    val partesComErro = mutableListOf<String>()
 
+                    val frenteAvarias = avariasFrenteHelper.getAvarias()
+                    val frenteVazia = frenteAvarias.all { it.descricao.isBlank() && it.uriFoto == null }
+                    val traseiraAvarias = avariasTraseiraHelper.getAvarias()
+                    val traseiraVazia = traseiraAvarias.all { it.descricao.isBlank() && it.uriFoto == null }
+                    val direitaAvarias = avariasDireitaHelper.getAvarias()
+                    val direitaVazia = direitaAvarias.all { it.descricao.isBlank() && it.uriFoto == null }
+                    val esquerdaAvarias = avariasEsquerdaHelper.getAvarias()
+                    val esquerdaVazia = esquerdaAvarias.all { it.descricao.isBlank() && it.uriFoto == null }
+                    val outrasAvarias = avariasOutrasHelper.getAvarias()
+                    val outrasVazia = outrasAvarias.all { it.descricao.isBlank() && it.uriFoto == null }
+
+
+                    Log.d("DEBUG", "Retornou o que? Frente: ${frenteAvarias}")
+
+                    if (frenteVazia && !binding.cbFrente.isChecked) partesComErro.add("Frente")
+                    if (traseiraVazia && !binding.cbTraseira.isChecked) partesComErro.add("Traseira")
+                    if (direitaVazia && !binding.cbDireita.isChecked) partesComErro.add("Lateral Direita")
+                    if (esquerdaVazia && !binding.cbEsquerda.isChecked) partesComErro.add("Lateral Esquerda")
+                    if (outrasVazia && !binding.cbOutra.isChecked) partesComErro.add("Outra Avária")
+
+                    if (partesComErro.isNotEmpty()) {
+                        withContext(Dispatchers.Main) {
+                            AlertDialog.Builder(requireContext())
+                                .setTitle("Verifique as informações")
+                                .setMessage("As seguintes partes estão incompletas:\n\n• ${partesComErro.joinToString("\n• ")}")
+                                .setPositiveButton("Ok", null)
+                                .show()
+                        }
+                    } else {
+                    EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de inspeção", "Inspeção realizada com sucesso", dataAtual, horarioAtual,)
+                    salvarInspecaoComFotos(idViatura)
+                        withContext(Dispatchers.Main) {
+                            (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(etapaAtual)
+                            delay(500)
+                            requireActivity().finish()
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -366,30 +412,12 @@ class Inspecao3Fragment : Fragment() {
         }
 
 
-        val partesComErro = mutableListOf<String>()
-
         val frenteAvarias = avariasFrenteHelper.getAvarias()
         val traseiraAvarias = avariasTraseiraHelper.getAvarias()
         val direitaAvarias = avariasDireitaHelper.getAvarias()
         val esquerdaAvarias = avariasEsquerdaHelper.getAvarias()
         val outrasAvarias = avariasOutrasHelper.getAvarias()
 
-        if (frenteAvarias.isEmpty() && !binding.cbFrente.isChecked) partesComErro.add("Frente")
-        if (traseiraAvarias.isEmpty() && !binding.cbTraseira.isChecked) partesComErro.add("Traseira")
-        if (direitaAvarias.isEmpty() && !binding.cbDireita.isChecked) partesComErro.add("Direita")
-        if (esquerdaAvarias.isEmpty() && !binding.cbEsquerda.isChecked) partesComErro.add("Esquerda")
-        if (outrasAvarias.isEmpty() && !binding.cbOutra.isChecked) partesComErro.add("Outras")
-
-        if (partesComErro.isNotEmpty()) {
-            withContext(Dispatchers.Main) {
-                AlertDialog.Builder(requireContext())
-                    .setTitle("Verifique as informações")
-                    .setMessage("Descreva todas as partes do carro")
-                    .setPositiveButton("Ok", null)
-                    .show()
-            }
-            return@withContext
-        }
 
         val dataHoje = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
