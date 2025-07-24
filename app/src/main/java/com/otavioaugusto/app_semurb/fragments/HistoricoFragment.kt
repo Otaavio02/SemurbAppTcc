@@ -116,8 +116,8 @@ class HistoricoFragment : Fragment() {
 
                         parentFragmentManager.beginTransaction()
                             .setCustomAnimations(
-                                R.anim.slide_out_left,
-                                R.anim.slide_in_right
+                                R.anim.slide_in_right,
+                                R.anim.slide_out_left
                             )
                             .replace(R.id.fragmentContainerView, fragment)
                             .addToBackStack(null)

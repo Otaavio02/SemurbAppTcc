@@ -373,6 +373,12 @@ class Inspecao3Fragment : Fragment() {
 
         val dataHoje = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
+        val partesSemAvaria = mutableListOf<String>()
+        if (binding.cbFrente.isChecked) partesSemAvaria.add("frente")
+        if (binding.cbTraseira.isChecked) partesSemAvaria.add("traseira")
+        if (binding.cbDireita.isChecked) partesSemAvaria.add("direita")
+        if (binding.cbEsquerda.isChecked) partesSemAvaria.add("esquerda")
+        if (binding.cbOutra.isChecked) partesSemAvaria.add("outras")
 
         val frente = avariasFrenteHelper.getAvarias()
         val traseira = avariasTraseiraHelper.getAvarias()
@@ -380,62 +386,21 @@ class Inspecao3Fragment : Fragment() {
         val esquerda = avariasEsquerdaHelper.getAvarias()
         val outras = avariasOutrasHelper.getAvarias()
 
-
-        if (
-            frente.isEmpty() && !binding.cbFrente.isChecked ||
-            traseira.isEmpty() && !binding.cbTraseira.isChecked ||
-            direita.isEmpty() && !binding.cbDireita.isChecked ||
-            esquerda.isEmpty() && !binding.cbEsquerda.isChecked ||
-            outras.isEmpty() && !binding.cbOutra.isChecked
-        ) {
-            AlertDialog.Builder(context)
-                .setTitle("Campos obrigatórios")
-                .setMessage("Preencha todas as avarias ou marque como 'sem avaria' antes de salvar.")
-                .setPositiveButton("OK", null)
-                .show()
-            return
-        }
-
         uploadFotosInspecao("frente", frente, idVeiculo, dataHoje) { frenteComLinks ->
             uploadFotosInspecao("traseira", traseira, idVeiculo, dataHoje) { traseiraComLinks ->
                 uploadFotosInspecao("direita", direita, idVeiculo, dataHoje) { direitaComLinks ->
                     uploadFotosInspecao("esquerda", esquerda, idVeiculo, dataHoje) { esquerdaComLinks ->
                         uploadFotosInspecao("outras", outras, idVeiculo, dataHoje) { outrasComLinks ->
 
-
-                            val dadosInspecao = hashMapOf<String, Any>(
+                            val dadosInspecao = hashMapOf(
+                                "frente" to frenteComLinks,
+                                "traseira" to traseiraComLinks,
+                                "direita" to direitaComLinks,
+                                "esquerda" to esquerdaComLinks,
+                                "outras" to outrasComLinks,
+                                "partesSemAvaria" to partesSemAvaria,
                                 "dataRegistro" to com.google.firebase.Timestamp.now()
                             )
-
-                            if (binding.cbFrente.isChecked) {
-                                dadosInspecao["frente"] = "sem avaria"
-                            } else {
-                                dadosInspecao["frente"] = frenteComLinks
-                            }
-
-                            if (binding.cbTraseira.isChecked) {
-                                dadosInspecao["traseira"] = "sem avaria"
-                            } else {
-                                dadosInspecao["traseira"] = traseiraComLinks
-                            }
-
-                            if (binding.cbDireita.isChecked) {
-                                dadosInspecao["direita"] = "sem avaria"
-                            } else {
-                                dadosInspecao["direita"] = direitaComLinks
-                            }
-
-                            if (binding.cbEsquerda.isChecked) {
-                                dadosInspecao["esquerda"] = "sem avaria"
-                            } else {
-                                dadosInspecao["esquerda"] = esquerdaComLinks
-                            }
-
-                            if (binding.cbOutra.isChecked) {
-                                dadosInspecao["outras"] = "sem avaria"
-                            } else {
-                                dadosInspecao["outras"] = outrasComLinks
-                            }
 
                             bancoDados.collection("veiculos")
                                 .document(idVeiculo)
@@ -443,14 +408,10 @@ class Inspecao3Fragment : Fragment() {
                                 .document(dataHoje)
                                 .set(dadosInspecao)
                                 .addOnSuccessListener {
-                                    context?.let {
-                                        Toast.makeText(it, "Inspeção realizada com sucesso", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
-                                .addOnFailureListener {
-                                    context?.let {
-                                        Toast.makeText(it, "Erro ao realizar a inspeção", Toast.LENGTH_SHORT).show()
-                                    }
+                                    Toast.makeText(requireContext(), "inspeção Realizada com Sucesso", Toast.LENGTH_SHORT).show()
+                                }.addOnFailureListener {
+                                    Toast.makeText(requireContext(), "Erro ao realizar a inspecao", Toast.LENGTH_SHORT).show()
+
                                 }
     }
 

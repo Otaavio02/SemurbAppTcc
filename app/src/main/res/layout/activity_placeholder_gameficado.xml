@@ -35,14 +35,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/FragmentContainerView2"
-        app:layout_constraintVertical_bias="1.0"></RelativeLayout>
+        app:layout_constraintVertical_bias="1.0"/>
 
 
     <LinearLayout
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@android:color/transparent"
+        android:background="@color/CorDoisGradiente"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
