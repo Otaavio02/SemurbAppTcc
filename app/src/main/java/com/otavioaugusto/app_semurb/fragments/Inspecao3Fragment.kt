@@ -84,6 +84,9 @@ class Inspecao3Fragment : Fragment() {
         setupToggles()
         setupRecyclers()
 
+        binding.progressBarInspecao3.visibility = View.GONE
+        binding.btnFinalizar.visibility = View.VISIBLE
+
 
         binding.cbFrente.setOnCheckedChangeListener { _, isChecked ->
 
@@ -352,6 +355,11 @@ class Inspecao3Fragment : Fragment() {
     }
 
     private suspend fun salvarInspecaoComFotos(idVeiculo: String) = withContext(Dispatchers.IO) {
+
+        withContext(Dispatchers.Main){
+            binding.progressBarInspecao3.visibility = View.VISIBLE
+            binding.btnFinalizar.visibility = View.GONE
+        }
 
 
         val partesComErro = mutableListOf<String>()
