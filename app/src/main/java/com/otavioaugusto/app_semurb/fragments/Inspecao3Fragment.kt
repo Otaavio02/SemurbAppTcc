@@ -2,6 +2,7 @@ package com.otavioaugusto.app_semurb.fragments
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -239,13 +240,24 @@ class Inspecao3Fragment : Fragment() {
 
                     if (partesComErro.isNotEmpty()) {
                         withContext(Dispatchers.Main) {
-                            AlertDialog.Builder(requireContext())
-                                .setTitle("Verifique as informações")
-                                .setMessage("As seguintes partes estão incompletas:\n\n• ${partesComErro.joinToString("\n• ")}")
-                                .setPositiveButton("Ok", null)
-                                .show()
+
+                            val builder = AlertDialog.Builder(requireContext())
+                                .setTitle(SpannableString("Verifique as informações").apply { setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)), 0, length, 0) })
+                                .setMessage(SpannableString("As seguintes partes estão incompletas:\n" + "\n" + "• ${partesComErro.joinToString("\n• ")}").apply { setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)), 0, length, 0) })
+                                .setPositiveButton("Ok") { dialog, _ ->
+                                    dialog.dismiss()
+                                }
+                            val dialog = builder.create()
+                            dialog.setOnShowListener {
+                                dialog.window?.setBackgroundDrawable(
+                                    ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
+                                )
+                            }
+                            dialog.show()
+
                         }
                     } else {
+
                     EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de inspeção", "Inspeção realizada com sucesso", dataAtual, horarioAtual,)
                     salvarInspecaoComFotos(idViatura)
                         withContext(Dispatchers.Main) {
