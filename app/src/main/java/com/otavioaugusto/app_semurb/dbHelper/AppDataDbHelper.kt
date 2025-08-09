@@ -253,7 +253,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         return db.insert("lista_historico", null, cv)
     }
 
-    fun getAllHistorico(): List<DataClassHistorico> {
+   /* fun getAllHistorico(): List<DataClassHistorico> {
         val historicoList = mutableListOf<DataClassHistorico>()
         val db = readableDatabase
 
@@ -285,6 +285,6 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
 
         cursor.close()
         return historicoList
-    }
+    }*/
 
 }

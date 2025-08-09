@@ -62,8 +62,6 @@ class PerfilFragment : Fragment() {
                         binding.textViewNome.text = nome.toString()
                         binding.textViewServicos.text = viario.toString()
                         binding.textViewOcorrencias.text = ocorrencias.toString()
-
-
                     }
                 }.addOnFailureListener {
                     Log.i("FIREBASETESTE", "Erro ao puxar dados")

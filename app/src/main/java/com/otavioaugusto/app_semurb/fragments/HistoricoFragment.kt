@@ -2,6 +2,7 @@ package com.otavioaugusto.app_semurb.fragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +11,15 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.otavioaugusto.app_semurb.PlaceHolderActivity
 
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.HistoricoAdapter
+import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico
 import com.otavioaugusto.app_semurb.dataClasses.DataClassHistoricoListItem
 import com.otavioaugusto.app_semurb.databinding.FragmentHistoricoBinding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
@@ -28,9 +34,19 @@ class HistoricoFragment : Fragment() {
     private var _binding: FragmentHistoricoBinding? = null
     private val binding get() = _binding!!
 
+    private var categoriaSelecionada: String? = null
+    private var dataSelecionada: String? = null
+    private var dataSelecionadaBD: String? = null
+
     private lateinit var adapter: HistoricoAdapter
 
+    val bancoDados by lazy {
+        FirebaseFirestore.getInstance()
+    }
 
+    private val autenticacao by lazy {
+        FirebaseAuth.getInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,16 +61,18 @@ class HistoricoFragment : Fragment() {
         binding.autoCompleteTextView.setAdapter(arrayAdapter)
 
 
-
         val editTextDate = binding.editTextData
 
         val calendar = Calendar.getInstance()
 
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            val selectedDate = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year)
-            editTextDate.setText(selectedDate)
-        }
+            dataSelecionada = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year)
+            dataSelecionadaBD = String.format("%02d-%02d-%d", year, month + 1, dayOfMonth,)
+            editTextDate.setText(dataSelecionada)
+            binding.iconErase.visibility = View.VISIBLE;
 
+            if (categoriaSelecionada == "Tudo") { atualizarHistorico() } else { atualizarHistoricoPorCategoria()}
+        }
         editTextDate.setOnClickListener {
             DatePickerDialog(
                 requireContext(),
@@ -64,6 +82,22 @@ class HistoricoFragment : Fragment() {
                 calendar.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
+
+        binding.autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
+            categoriaSelecionada = adapterView.getItemAtPosition(i).toString()
+
+            if (categoriaSelecionada == "Tudo") { atualizarHistorico() } else { atualizarHistoricoPorCategoria()}
+        }
+
+        binding.iconErase.setOnClickListener {
+            editTextDate.setText("Pesquisar data...")
+            dataSelecionada = null
+            dataSelecionadaBD = null
+            binding.iconErase.visibility = View.GONE
+            if (categoriaSelecionada == "Tudo") { atualizarHistorico() } else { atualizarHistoricoPorCategoria()}
+        }
+
+        Log.d("DEBUG", "DATA E CATEGORIA: ${dataSelecionada}, ${categoriaSelecionada}")
 
         binding.btnVoltarHistorico.setOnClickListener {
             parentFragmentManager.beginTransaction()
@@ -83,50 +117,8 @@ class HistoricoFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        lifecycleScope.launch {
-            val dbHelper = AppDatabaseHelper(requireContext())
-            withContext(Dispatchers.IO){
-                val todosItens = dbHelper.getAllHistorico()
-                val agrupado = todosItens.groupBy { it.data_envio }
 
-                val listaFinal = mutableListOf<DataClassHistoricoListItem>()
-                agrupado.forEach { (data, itens) ->
-                    listaFinal.add(DataClassHistoricoListItem.Header(data))
-                    itens.forEach { item ->
-                        listaFinal.add(DataClassHistoricoListItem.Item(item))
-                    }
-                }
-
-
-                withContext(Dispatchers.Main){
-                    adapter = HistoricoAdapter(listaFinal) { historico ->
-                        val fragment = when (historico.topico) {
-                            "Atendimento de Ocorrências" -> OcorrenciasFragment()
-                            "Serviço Viário" ->  ViarioFragment()
-                            "Inspeção da Viatura" ->  Inspecao3Fragment()
-                            else -> {HomeFragment()}
-                        }
-
-                        val bundle = Bundle().apply {
-                            putString("ID_LISTA", historico.id_lista.toString())
-                            putString("DATA_ENVIO", historico.data_envio)
-                            putString("TOPICO", historico.topico)
-                        }
-                        fragment.arguments = bundle
-
-                        parentFragmentManager.beginTransaction()
-                            .setCustomAnimations(
-                                R.anim.slide_in_right,
-                                R.anim.slide_out_left
-                            )
-                            .replace(R.id.fragmentContainerView, fragment)
-                            .addToBackStack(null)
-                            .commit()
-                    }
-                    binding.rvHistorico.adapter = adapter
-                    binding.rvHistorico.layoutManager = LinearLayoutManager(requireContext())}
-            }
-        }
+        atualizarHistorico()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -150,5 +142,243 @@ class HistoricoFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    /*fun getAllHistorico(): List<DataClassHistorico> {
+        val historicoList = mutableListOf<DataClassHistorico>()
+        val db = readableDatabase
+
+        val cursor = db.rawQuery("""
+        SELECT id_lista, topico, qtd_itens, horario_envio, data_envio
+        FROM lista_historico
+        ORDER BY data_envio DESC, horario_envio DESC
+    """.trimIndent(), null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                val idLista = cursor.getInt(cursor.getColumnIndexOrThrow("id_lista"))
+                val topico = cursor.getString(cursor.getColumnIndexOrThrow("topico"))
+                val qtdItens = cursor.getInt(cursor.getColumnIndexOrThrow("qtd_itens"))
+                val horario = cursor.getString(cursor.getColumnIndexOrThrow("horario_envio"))
+                val data = cursor.getString(cursor.getColumnIndexOrThrow("data_envio"))
+
+                historicoList.add(
+                    DataClassHistorico(
+                        id_lista = idLista,
+                        topico = topico,
+                        qtd_itens = qtdItens,
+                        horario_envio = horario,
+                        data_envio = data
+                    )
+                )
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        return historicoList
+    }*/
+
+    private fun atualizarHistorico() {
+        val idUsuarioLogado = autenticacao.currentUser?.uid ?: return
+        val listaFinal = mutableListOf<Pair<String, Map<String, Any>>>()
+
+        val categorias = listOf("viario", "ocorrencias", "inspecoes")
+        val totalCategorias = categorias.size
+        var respostasRecebidas = 0
+
+        for (categoria in categorias) {
+            if (categoria == "inspecoes") {
+                val colecao = bancoDados.collection("veiculos").document("12345").collection("inspecoes")
+                val query = if (dataSelecionada == null) {
+                    colecao.orderBy("dataRegistro", Query.Direction.DESCENDING)
+                } else {
+                    colecao.whereEqualTo("dataRegistro", dataSelecionada)
+                }
+
+                query.get()
+                    .addOnSuccessListener { docs ->
+                        for (doc in docs) {
+                            listaFinal.add(Pair("inspecoes", doc.data))
+                        }
+                        verificarSeTerminou(++respostasRecebidas, totalCategorias, listaFinal)
+                    }
+                    .addOnFailureListener {
+                        Log.e("FIREBASE", "Erro ao puxar inspeções", it)
+                        verificarSeTerminou(++respostasRecebidas, totalCategorias, listaFinal)
+                    }
+
+            } else {
+                val colecao = bancoDados.collection("agentes").document(idUsuarioLogado).collection(categoria)
+                val query = if (dataSelecionada != null) {
+                    colecao.whereEqualTo("data_envio", dataSelecionada)
+                } else {
+                    colecao.orderBy("timestamp", Query.Direction.DESCENDING)
+                }
+
+                query.get()
+                    .addOnSuccessListener { docs ->
+                        for (doc in docs) {
+                            listaFinal.add(Pair(categoria, doc.data))
+                        }
+                        verificarSeTerminou(++respostasRecebidas, totalCategorias, listaFinal)
+                    }
+                    .addOnFailureListener {
+                        Log.e("FIREBASE", "Erro ao puxar $categoria", it)
+                        verificarSeTerminou(++respostasRecebidas, totalCategorias, listaFinal)
+                    }
+            }
+        }
+    }
+
+    private fun verificarSeTerminou(
+        recebidas: Int,
+        total: Int,
+        listaFinal: List<Pair<String, Map<String, Any>>>
+    ) {
+        if (recebidas == total) {
+            Log.d("FIREBASE", "Todas as categorias carregadas: ${listaFinal.size} itens")
+
+            // Transforma os dados recebidos em objetos DataClassHistorico
+            val dadosBrutos = listaFinal.mapNotNull { (categoria, dados) ->
+                try {
+                    val dataEnvio = dados["data_envio"] as? String
+                        ?: dados["dataRegistro"] as? String
+                        ?: return@mapNotNull null
+
+                    val horarioEnvio = dados["horario_envio"] as? String
+                        ?: dados["dataRegistro"] as? String
+                        ?: "--:--"
+
+                    val qtdItens = (dados["qtd_itens"] as? Long)?.toInt() ?: 1 // ou 0 se preferir
+
+                    val topico = when (categoria) {
+                        "viario" -> "Serviço Viário"
+                        "ocorrencias" -> "Atendimento de Ocorrências"
+                        "inspecoes" -> "Inspeção da Viatura"
+                        else -> "Outro"
+                    }
+
+                    DataClassHistorico(
+                        qtd_itens = qtdItens,
+                        data_envio = dataEnvio,
+                        horario_envio = horarioEnvio,
+                        topico = topico
+                    )
+                } catch (e: Exception) {
+                    Log.e("FIREBASE", "Erro ao converter dados para DataClassHistorico", e)
+                    null
+                }
+            }
+
+            val agrupado = dadosBrutos.groupBy { it.data_envio }
+
+            val listaFinalAdapter = mutableListOf<DataClassHistoricoListItem>()
+            agrupado.forEach { (data, itens) ->
+                listaFinalAdapter.add(DataClassHistoricoListItem.Header(data))
+                itens.forEach { item ->
+                    listaFinalAdapter.add(DataClassHistoricoListItem.Item(item))
+                }
+            }
+
+            // Atualiza a RecyclerView
+            adapter = HistoricoAdapter(listaFinalAdapter) { historico ->
+                val fragment = when (historico.topico) {
+                    "Atendimento de Ocorrências" -> OcorrenciasFragment()
+                    "Serviço Viário" -> ViarioFragment()
+                    "Inspeção da Viatura" -> Inspecao3Fragment()
+                    else -> HomeFragment()
+                }
+
+                val bundle = Bundle().apply {
+                    putString("DATA_ENVIO", historico.data_envio)
+                    putString("TOPICO", historico.topico)
+                }
+                fragment.arguments = bundle
+
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                    )
+                    .replace(R.id.fragmentContainerView, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+
+            binding.rvHistorico.adapter = adapter
+            binding.rvHistorico.layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun atualizarHistoricoPorCategoria() {
+        val idUsuarioLogado = autenticacao.currentUser?.uid
+        val listaFinal = mutableListOf<Pair<String, Map<String, Any>>>()
+
+        val categorias = listOf("viario", "ocorrencias", "inspecoes")
+        val totalCategorias = 1
+        var respostasRecebidas = 0
+
+        val categoria = when (categoriaSelecionada) {
+            "Serviço Viário" -> "viario"
+            "Ocorrências" -> "ocorrencias"
+            "Inspeção" -> "inspecoes"
+            else -> return
+        }
+
+        if (dataSelecionada == null){
+            if (idUsuarioLogado != null){
+                if (categoria == "inspecoes"){
+                    bancoDados.collection("veiculos").document("12345").collection(categoria)
+                        .orderBy("dataRegistro")
+                        .get().addOnSuccessListener { docs ->
+                            for (doc in docs) {
+                                listaFinal.add(Pair(categoria, doc.data))
+                                Log.d("FIREBASE", "[$categoria] ${doc.id} => ${doc.data}")
+                            }
+                            verificarSeTerminou(++respostasRecebidas, totalCategorias, listaFinal)
+                        }.addOnFailureListener {
+                            Log.e("FIREBASE", "Erro ao puxar $categoria", it)
+                        }
+                } else {
+                    bancoDados.collection("agentes").document(idUsuarioLogado).collection(categoria)
+                        .orderBy("timestamp", Query.Direction.DESCENDING)
+                        .get().addOnSuccessListener { docs ->
+                            for (doc in docs) {
+                                listaFinal.add(Pair(categoria, doc.data))
+                                Log.d("FIREBASE", "[$categoria] ${doc.id} => ${doc.data}")
+                            }
+                            verificarSeTerminou(++respostasRecebidas, totalCategorias, listaFinal)
+                        }.addOnFailureListener {
+                            Log.e("FIREBASE", "Erro ao puxar $categoria", it)
+                        }
+                }
+            }
+        } else {
+            if (idUsuarioLogado != null){
+                if (categoria == "inspecoes"){
+                    bancoDados.collection("veiculos").document("12345").collection(categoria).document(dataSelecionadaBD.toString())
+                        .get().addOnSuccessListener { doc ->
+                            listaFinal.add(Pair(categoria, doc.data) as Pair<String, Map<String, Any>>)
+                            Log.d("FIREBASE", "[$categoria] ${doc.id} => ${doc.data}")
+
+                            verificarSeTerminou(++respostasRecebidas, totalCategorias, listaFinal)
+                        }.addOnFailureListener {
+                            Log.e("FIREBASE", "Erro ao puxar $categoria", it)
+                        }
+                } else {
+                    bancoDados.collection("agentes").document(idUsuarioLogado).collection(categoria)
+                        .whereEqualTo("data_envio", dataSelecionada)
+                        .get().addOnSuccessListener { docs ->
+                            for (doc in docs) {
+                                listaFinal.add(Pair(categoria, doc.data))
+                                Log.d("FIREBASE", "[$categoria] ${doc.id} => ${doc.data}")
+                            }
+                            verificarSeTerminou(++respostasRecebidas, totalCategorias, listaFinal)
+                        }.addOnFailureListener {
+                            Log.e("FIREBASE", "Erro ao puxar $categoria", it)
+                        }
+                }
+            }
+        }
     }
 }

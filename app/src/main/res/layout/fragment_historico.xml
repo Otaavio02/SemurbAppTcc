@@ -128,7 +128,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView42">
 
             <ImageView
-                android:id="@+id/imageView30"
+                android:id="@+id/icon_calendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -156,6 +156,17 @@
                 android:padding="3dp"
                 android:textColor="@color/Preto"
                 android:textColorHint="@color/CinzaMedio" />
+
+            <ImageView
+                android:id="@+id/icon_erase"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:foregroundGravity="center"
+                android:backgroundTint="@color/Preto"
+                app:srcCompat="@drawable/ic_close" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

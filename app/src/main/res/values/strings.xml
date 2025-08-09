@@ -151,7 +151,7 @@
     <string name="OQPH">O que foi PH</string>
     <string name="preencherLocalizacao">Clique para preencher com a localização atual</string>
     <string-array name="historico">
-        <item>Tudo</item>
+        <item>Tudo          </item>
         <item>Serviço Viário</item>
         <item>Ocorrências</item>
         <item>Inspeção</item>
