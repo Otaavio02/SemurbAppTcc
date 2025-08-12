@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 emailFalso, campoSenha
             ).addOnSuccessListener { authResult ->
 
-                salvarDados("Otavio", "17", campoMatricula, "25", "34")
+                //salvarDados("Otavio", "17", campoMatricula, "25", "34")
 
 
                 binding.btnEntrar.isEnabled = false
@@ -252,7 +252,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun salvarDados(nome: String, idade: String, matricula: String, ocorrencias: String, viario: String ){
+    /*fun salvarDados(nome: String, idade: String, matricula: String, ocorrencias: String, viario: String ){
 
         val idUsuarioLogado = autenticacao.currentUser?.uid
         if (idUsuarioLogado != null){
@@ -274,10 +274,9 @@ class MainActivity : AppCompatActivity() {
                     Log.i("FIREBASETESTE", "Erro ao salvar dados", )
                     Toast.makeText(this, "Erro ao salvar dados no Firebase", Toast.LENGTH_SHORT).show()
                 }
-    }
+    }}*/
 
 
 
 
-}
     }

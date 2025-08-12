@@ -124,12 +124,16 @@ class ConfigFragment : Fragment() {
         }
 
         val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        binding.btnTrocarTema.setOnCheckedChangeListener(null) // ⚠️ remove o listener temporariamente
         binding.btnTrocarTema.isChecked = isNightMode
 
         binding.btnTrocarTema.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+            val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+
+            if (isChecked && currentNightMode != Configuration.UI_MODE_NIGHT_YES) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
+            } else if (!isChecked && currentNightMode != Configuration.UI_MODE_NIGHT_NO) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }

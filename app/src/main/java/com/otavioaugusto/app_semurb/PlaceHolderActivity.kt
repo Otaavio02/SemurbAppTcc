@@ -61,9 +61,11 @@ class PlaceHolderActivity : AppCompatActivity() {
             currentMenuItemId = menuIdFromKey(currentFragmentKey)
         }
 
-        val fragmentToShow = fragmentFromKey(currentFragmentKey)
-        replaceFragment(fragmentToShow)
-        binding.bottomNavigationView.selectedItemId = currentMenuItemId
+        if (savedInstanceState == null) {
+            val fragmentToShow = fragmentFromKey(currentFragmentKey)
+            replaceFragment(fragmentToShow)
+            binding.bottomNavigationView.selectedItemId = currentMenuItemId
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             if (item.itemId == currentMenuItemId) {

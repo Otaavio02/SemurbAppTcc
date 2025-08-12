@@ -94,7 +94,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline4">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/imagaViewFotoHome"
             android:layout_width="80dp"
             android:layout_height="99dp"
             android:layout_gravity="center|start"

@@ -11,6 +11,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.otavioaugusto.app_semurb.*
 import com.otavioaugusto.app_semurb.databinding.FragmentHomeBinding
+import com.otavioaugusto.app_semurb.funcoes.ArredondarFoto
+import com.squareup.picasso.Picasso
 
 class HomeFragment : Fragment() {
 
@@ -99,25 +101,44 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val idUsuarioLogado = autenticacao.currentUser?.uid
-        if (idUsuarioLogado != null){
-            val referenciaUsuario = bancoDados.collection("agentes")
-                .document(idUsuarioLogado)
 
-            referenciaUsuario.get()
+        val idUsuarioLogado = autenticacao.currentUser?.uid ?: return
 
-                .addOnSuccessListener { documentSnapshot ->
-                    Log.i("FIREBASETESTE", "Dados Puxados com Sucesso")
-                    val dados = documentSnapshot.data
-                    if (dados != null){
-                        val nome = dados["nome"]
+        bancoDados.collection("agentes")
+            .document(idUsuarioLogado)
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (!isAdded || _binding == null) return@addOnSuccessListener
 
+                Log.i("FIREBASETESTE", "Dados Puxados com Sucesso")
+                val dados = documentSnapshot.data
+                if (dados != null) {
+                    val nome = dados["nome"]
+                    val fotoUrl = (dados["foto_agnt"] as? String)?.replace("\"", "")
 
-                        binding.textViewNomeHome.text = nome.toString()
+                    binding.textViewNomeHome.text = nome.toString()
+
+                    if (!fotoUrl.isNullOrEmpty()) {
+                        Picasso.get()
+                            .load(fotoUrl)
+                            .transform(ArredondarFoto())
+                            .fit()
+                            .centerCrop()
+                            .placeholder(R.drawable.home_foto)  // opcional: imagem placeholder enquanto carrega
+                            .into(binding.imagaViewFotoHome)
+                    } else {
+                        Log.w("HomeFragment", "URL da foto está vazia ou nula")
+
+                        binding.imagaViewFotoHome.setImageResource(R.drawable.home_foto)
                     }
-                }.addOnFailureListener {
-                    Log.i("FIREBASETESTE", "Erro ao puxar dados")
                 }
+            }
+            .addOnFailureListener {
+                Log.i("FIREBASETESTE", "Erro ao puxar dados")
+            }
     }
 
-}}
+
+}
+
+
