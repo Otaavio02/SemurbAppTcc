@@ -19,8 +19,11 @@ import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.NotificacoesAdapter
 import com.otavioaugusto.app_semurb.dataClasses.DataClassNotificacoes
 import com.otavioaugusto.app_semurb.databinding.FragmentNotificacoesBinding
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalTime
+import java.util.Date
+import java.util.Locale
 
 class NotificacoesFragment : Fragment() {
 
@@ -158,9 +161,14 @@ class NotificacoesFragment : Fragment() {
 
                 val idUsuario = autenticao.currentUser?.uid
                 if (idUsuario != null) {
+
+
+
                     val colecao = bancoDados.collection("agentes")
                         .document(idUsuario)
                         .collection("notificacoes")
+
+
 
                     if (item.lida) {
                         colecao
@@ -228,6 +236,7 @@ class NotificacoesFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 fonteAdapter.removeItemAt(position)
+
                 ajustarAlturaRecyclerView(rvNotificacoesLidas,fonteAdapter.itemCount )
             } })
         itemTouchHelper.attachToRecyclerView(recyclerView)

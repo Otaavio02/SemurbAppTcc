@@ -2,6 +2,9 @@ package com.otavioaugusto.app_semurb.funcoes
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class EnviarNotificacaoBd {
 
@@ -16,6 +19,9 @@ class EnviarNotificacaoBd {
     fun notificacaoOcorrencia(titulo: String, mensagem: String, dia_atual: String,  horario_atual: String, ){
         val idUsuarioLogado = autenticao.currentUser?.uid
         if (idUsuarioLogado != null){
+
+            val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+            val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
             val notificacao = hashMapOf(
                 "titulo" to titulo,
                 "mensagem" to mensagem,
@@ -26,7 +32,8 @@ class EnviarNotificacaoBd {
             bancoDados.collection("agentes")
                 .document(idUsuarioLogado)
                 .collection("notificacoes")
-                .add(notificacao)
+                .document("$dataAtual-$horarioAtual")
+                .set(notificacao)
 
 
         }
