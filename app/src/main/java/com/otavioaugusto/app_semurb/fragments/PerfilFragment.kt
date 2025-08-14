@@ -41,7 +41,7 @@ class PerfilFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        // Se já tem dados no cache, só atualiza a UI sem refazer a consulta
+        // Caso tenha dados no cache, atualiza UI sem refazer a consulta
         dadosCache?.let {
             atualizarUI(it)
             return

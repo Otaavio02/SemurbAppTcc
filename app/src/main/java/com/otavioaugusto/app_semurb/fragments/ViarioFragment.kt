@@ -144,6 +144,7 @@ class ViarioFragment : Fragment() {
                 dbHelper.associarViarioALista(idLista)
 
                 val viarios = dbHelper.getAllViariosByIdLista(idLista.toString())
+
                 val idAgenteLogado = autenticao.currentUser?.uid
                 if (idAgenteLogado != null) {
                     val referenciaAgente = bancoDados.collection("agentes")
@@ -151,6 +152,9 @@ class ViarioFragment : Fragment() {
 
                     val viarioCollection = referenciaAgente.collection("viario")
 
+                    /*val dbData = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+                    val timestampLista = com.google.firebase.Timestamp.now()
+                    val viariosCollection = referenciaAgente.collection("viario")*/
                     for (viario in viarios){
                         val dados = hashMapOf(
                             "tipo" to viario.tipo,

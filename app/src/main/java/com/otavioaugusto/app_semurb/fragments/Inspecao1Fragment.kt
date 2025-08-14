@@ -2,17 +2,26 @@ package com.otavioaugusto.app_semurb.fragments
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentInspecao1Binding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.util.Timer
 import kotlin.concurrent.schedule
 
@@ -21,7 +30,8 @@ class Inspecao1Fragment : Fragment() {
     private var _binding: FragmentInspecao1Binding? = null
     private val binding get() = _binding!!
 
-    private var etapaAtual = 0 // etapa 1
+    private val autenticacao by lazy { FirebaseAuth.getInstance() }
+    private val bancoDados by lazy { FirebaseFirestore.getInstance() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +39,35 @@ class Inspecao1Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentInspecao1Binding.inflate(inflater, container, false)
+
+        val idAgenteLogado = autenticacao.currentUser?.uid
+
+        lifecycleScope.launch {
+            try {
+                val documento = withContext(Dispatchers.IO) {
+                    bancoDados.collection("agentes")
+                        .document(idAgenteLogado.toString())
+                        .get()
+                        .await()
+                }
+
+                val dados = documento.data
+                if (dados != null) {
+                    val idViatura = dados["viatura"]
+                    withContext(Dispatchers.Main){
+                        binding.textViewInspecaoViatura.text = "Inspeção da viatura $idViatura"
+                        binding.textView35.text = "$idViatura"
+                    }
+
+                } else {
+                    Toast.makeText(requireContext(), "Dados do usuário não encontrados", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e("InspeçãoFragment", "Erro ao carregar dados: ${e.message}", e)
+                Toast.makeText(requireContext(), "Erro ao carregar dados", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
 
         val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
@@ -59,8 +98,6 @@ class Inspecao1Fragment : Fragment() {
                     .commit()
             }
 
-        val idViatura = "12345"
-        binding.textViewInspecaoViatura.text = "Inspeção da viatura $idViatura"
 
         return binding.root
     }

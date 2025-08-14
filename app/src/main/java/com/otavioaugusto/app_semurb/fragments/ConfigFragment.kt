@@ -1,5 +1,6 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -35,16 +36,18 @@ class ConfigFragment : Fragment() {
 
         binding.btnLogout.setOnClickListener {
             autenticacao.signOut()
-            startActivity(
-                Intent(requireContext(), MainActivity::class.java)
-            )
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
         }
 
         binding.textViewLogout.setOnClickListener {
             autenticacao.signOut()
-            startActivity(
-                Intent(requireContext(), MainActivity::class.java)
-            )
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
         }
 
         binding.btnPolitica.setOnClickListener {
@@ -127,23 +130,27 @@ class ConfigFragment : Fragment() {
         binding.btnTrocarTema.setOnCheckedChangeListener(null) // ⚠️ remove o listener temporariamente
         binding.btnTrocarTema.isChecked = isNightMode
 
-        binding.btnTrocarTema.setOnCheckedChangeListener { _, isChecked ->
-            val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-
-
-            if (isChecked && currentNightMode != Configuration.UI_MODE_NIGHT_YES) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else if (!isChecked && currentNightMode != Configuration.UI_MODE_NIGHT_NO) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
-
+        aplicarTemaSalvo()
             (activity as? AppCompatActivity)?.supportActionBar?.hide()
 
         return binding.root
     }
 
+    private fun aplicarTemaSalvo() {
+        val prefs = requireContext().getSharedPreferences("config", MODE_PRIVATE)
+        val nightMode = prefs.getInt("night_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        AppCompatDelegate.setDefaultNightMode(nightMode)
 
+        binding.btnTrocarTema.setOnCheckedChangeListener(null) // Evita loop
+        binding.btnTrocarTema.isChecked = nightMode == AppCompatDelegate.MODE_NIGHT_YES
+        binding.btnTrocarTema.setOnCheckedChangeListener { _, isChecked ->
+            val novoModo = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+
+            prefs.edit().putInt("night_mode", novoModo).apply()
+            AppCompatDelegate.setDefaultNightMode(novoModo)
+        }
+    }
 
 
     override fun onDestroyView() {
