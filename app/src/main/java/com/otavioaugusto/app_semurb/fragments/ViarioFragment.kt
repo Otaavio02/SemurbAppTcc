@@ -12,10 +12,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.ViarioAdapter
+import com.otavioaugusto.app_semurb.dataClasses.DataClassOcorrencia
+import com.otavioaugusto.app_semurb.dataClasses.DataClassViario
 import com.otavioaugusto.app_semurb.databinding.FragmentViarioBinding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import com.otavioaugusto.app_semurb.funcoes.EnviarNotificacaoBd
@@ -100,40 +103,111 @@ class ViarioFragment : Fragment() {
 
     }
 
-    private fun atualizarListaViario(id_lista: String?){  lifecycleScope.launch {
-        val lista = withContext(Dispatchers.IO) {
-            val dbHelper = AppDatabaseHelper(requireContext())
-            if (id_lista == null) {
-                dbHelper.getAllViariosNaoEnviados()
-            } else {
-                dbHelper.getAllViariosByIdLista(id_lista)
+    private fun atualizarListaViario(id_lista: String?) {
+        lifecycleScope.launch {
+            val lista = withContext(Dispatchers.IO) {
+                val idAgenteLogado = autenticao.currentUser?.uid
+                val dbHelper = AppDatabaseHelper(requireContext())
+
+                if (data_envio == null) {
+                    val lista = dbHelper.getAllViariosNaoEnviados()
+
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        adapter.submitList(lista)
+
+                        val heightPorItemDp = 120
+                        val totalHeightDp = heightPorItemDp * lista.size
+                        val escala = resources.displayMetrics.density
+                        val totalHeightPx = (totalHeightDp * escala).toInt()
+                        binding.rvOcorrencias.layoutParams?.height = totalHeightPx
+                        binding.rvOcorrencias.requestLayout()
+                    }
+                } else {
+
+                    val formatoEntrada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    val formatoSaida = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+                    val dataConvertida = try {
+                        val data = formatoEntrada.parse(data_envio)
+                        formatoSaida.format(data!!)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        null
+                    }
+
+                    bancoDados.collection("agentes")
+                        .document(idAgenteLogado.toString()).collection("viario")
+                        .document(dataConvertida.toString()).collection("lista")
+                        .orderBy("horario_envio", Query.Direction.DESCENDING)
+                        .get()
+                        .addOnSuccessListener { viarios ->
+                            val listaConvertida = viarios.mapNotNull { doc ->
+                                val dados = doc.data
+
+                                try {
+                                    val endereco = dados["endereco"] as String
+                                    val tipo = dados["tipo"] as String
+                                    val descricao = dados["descricao"] as String
+                                    val id = doc.id
+
+                                    DataClassViario(
+                                        id = id.toInt(),
+                                        numeroSequencial = id.toInt(),
+                                        tipo = tipo,
+                                        endereco = endereco,
+                                        descricao = descricao
+                                    )
+                                } catch (e: Exception) {
+                                    Log.e("FIREBASE", "Erro ao converter item da lista", e)
+                                    null
+                                }
+                            }
+
+                            // Atualizando adapter na UI thread
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                adapter.submitList(listaConvertida)
+
+                                val heightPorItemDp = 120
+                                val totalHeightDp = heightPorItemDp * listaConvertida.size
+                                val escala = resources.displayMetrics.density
+                                val totalHeightPx = (totalHeightDp * escala).toInt()
+                                binding.rvOcorrencias.layoutParams?.height = totalHeightPx
+                                binding.rvOcorrencias.requestLayout()
+                            }
+                        }
+                        .addOnFailureListener {
+                            Log.e("FIREBASE", "Erro ao buscar ocorrências do histórico", it)
+                        }
+                }
+
+                binding.btnEnviarViario.setOnClickListener {
+                    val listaAtual = adapter.currentList
+                    if (listaAtual.isEmpty()) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Não há nenhuma ocorrência",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        val qtd_itens = listaAtual.size
+                        val horarioAtual =
+                            SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+                        val dataAtual =
+                            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+
+                        enviarViario(qtd_itens, horarioAtual, dataAtual)
+
+                        EnviarNotificacaoBd().notificacaoOcorrencia(
+                            "Notificação de Viário",
+                            "Viário adicionado com sucesso",
+                            dataAtual,
+                            horarioAtual
+                        )
+
+                    }
+                }
             }
         }
-
-        adapter.submitList(lista)
-
-        val heightPorItemDp = 120
-        val totalHeightDp = heightPorItemDp * lista.size
-        val escala = resources.displayMetrics.density
-        val totalHeightPx = (totalHeightDp * escala).toInt()
-        binding.rvOcorrencias.layoutParams?.height = totalHeightPx
-        binding.rvOcorrencias.requestLayout()
-
-
-        binding.btnEnviarViario.setOnClickListener {
-            val listaAtual = adapter.currentList
-            if (listaAtual.isEmpty()) {
-                Toast.makeText(requireContext(), "Não há nenhuma ocorrência", Toast.LENGTH_SHORT).show()
-            } else {
-                val qtd_itens = listaAtual.size
-                val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-                val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
-                EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de Viário", "Viário adicionado com sucesso", dataAtual, horarioAtual)
-
-                enviarViario(qtd_itens, horarioAtual, dataAtual)
-            }
-        }
-    }
     }
 
     private fun enviarViario(qtd_itens: Int, horario_envio: String, data_envio: String){
@@ -150,23 +224,40 @@ class ViarioFragment : Fragment() {
                     val referenciaAgente = bancoDados.collection("agentes")
                         .document(idAgenteLogado)
 
-                    val viarioCollection = referenciaAgente.collection("viario")
-
-                    /*val dbData = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+                    val dbData = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
                     val timestampLista = com.google.firebase.Timestamp.now()
-                    val viariosCollection = referenciaAgente.collection("viario")*/
+                    val viariosCollection = referenciaAgente.collection("viario")
+                    val viarioAtual = viariosCollection.document(dbData)
+                    viarioAtual.get().addOnSuccessListener { docSnapshot ->
+                        val fieldQtd = (docSnapshot.getLong("qtd_itens") ?: 0L).toInt()
+
+                        val dadosLista = hashMapOf(
+                            "topico" to "Serviço Viário",
+                            "qtd_itens" to qtd_itens + fieldQtd,
+                            "horario_envio" to horario_envio,
+                            "data_envio" to data_envio,
+                            "timestamp" to timestampLista
+                        )
+
+                        viariosCollection
+                            .document(dbData).set(dadosLista)
+                    }
+
                     for (viario in viarios){
+
+                        val timestampViario = com.google.firebase.Timestamp.now()
+
                         val dados = hashMapOf(
                             "tipo" to viario.tipo,
                             "endereco" to viario.endereco,
                             "descricao" to viario.descricao,
                             "horario_envio" to horario_envio,
-                            "data_envio" to data_envio
-
+                            "data_envio" to data_envio,
+                            "timestamp_viario" to  timestampViario
                         )
 
-                        viarioCollection
-                            .document(viario.numeroSequencial.toString())
+                        viariosCollection
+                            .document(dbData).collection("lista").document(viario.numeroSequencial.toString())
                             .set(dados)
                             .addOnSuccessListener {
                                 Log.d("FIREBASE", "Ocorrência enviada com sucesso: ${viario.numeroSequencial}")
