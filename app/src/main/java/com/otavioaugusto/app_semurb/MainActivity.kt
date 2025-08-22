@@ -25,6 +25,7 @@ import android.Manifest
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
+import androidx.core.widget.NestedScrollView
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -54,11 +55,21 @@ class MainActivity : AppCompatActivity() {
 
         verificarPermissaoLocalizacao()
 
+        // Leva o usuário para a area de inputs ao clicar em um dos texts views:
+        val nestedScroll = binding.nestedScrollView
+        val focusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                nestedScroll.post {
+                    nestedScroll.smoothScrollTo(0, nestedScroll.bottom)
+                }
+            }
+        }
+        binding.editTextMatricula.onFocusChangeListener = focusChangeListener
+        binding.editTextSenha.onFocusChangeListener = focusChangeListener
+
 
         binding.btnEntrar.setOnClickListener { view ->
-
             checarCampos(view)
-
         }
 
 

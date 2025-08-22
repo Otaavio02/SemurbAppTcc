@@ -26,7 +26,9 @@ import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 import kotlin.collections.mutableListOf
 
 class HistoricoFragment : Fragment() {
@@ -199,7 +201,9 @@ class HistoricoFragment : Fragment() {
                     .addOnSuccessListener { docs ->
                         for (doc in docs) {
                             listaFinal.add(Pair("inspecoes", doc.data))
+
                         }
+                        Log.d("testes", "LISTA FINAL: ${listaFinal}")
                         verificarSeTerminou(++respostasRecebidas, totalCategorias, listaFinal)
                     }
                     .addOnFailureListener {
@@ -249,7 +253,23 @@ class HistoricoFragment : Fragment() {
                         ?: dados["dataRegistro"] as? String
                         ?: "--:--"
 
-                    val qtdItens = (dados["qtd_itens"] as? Long)?.toInt() ?: 1 // ou 0 se preferir
+                    /*val dataEnvio = when (categoria) {
+                        "inspecoes" -> {
+                            val ts = dados["dataRegistro"] as? com.google.firebase.Timestamp
+                            ts?.toDate()?.let { SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(it) }
+                        }
+                        else -> dados["data_envio"] as? String
+                    } ?: return@mapNotNull null
+
+                    val horarioEnvio = when (categoria) {
+                        "inspecoes" -> {
+                            val ts = dados["dataRegistro"] as? com.google.firebase.Timestamp
+                            ts?.toDate()?.let { SimpleDateFormat("HH:mm", Locale.getDefault()).format(it) }
+                        }
+                        else -> dados["horario_envio"] as? String
+                    } ?: "--:--"*/
+
+                    val qtdItens = (dados["qtd_itens"] as? Long)?.toInt() ?: 1
 
                     val topico = when (categoria) {
                         "viario" -> "Serviço Viário"
@@ -314,7 +334,6 @@ class HistoricoFragment : Fragment() {
         val idUsuarioLogado = autenticacao.currentUser?.uid
         val listaFinal = mutableListOf<Pair<String, Map<String, Any>>>()
 
-        val categorias = listOf("viario", "ocorrencias", "inspecoes")
         val totalCategorias = 1
         var respostasRecebidas = 0
 
