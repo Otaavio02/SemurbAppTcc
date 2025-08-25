@@ -34,6 +34,7 @@ class ViarioAdapter : RecyclerView.Adapter<ViarioAdapter.ViewHolder>() {
                 intent.putExtra("FRAGMENT_KEY", "VIARIO_EDITADO")
                 intent.putExtra("VISIBILITY", "GONE")
                 intent.putExtra("ID_VIARIO", item.id.toLong())
+                intent.putExtra("DATA_ENVIO", "25/08/2005")
                 intent.putExtra("TIPO", item.tipo)
                 intent.putExtra("ENDERECO", item.endereco)
                 intent.putExtra("DESCRICAO", item.descricao)

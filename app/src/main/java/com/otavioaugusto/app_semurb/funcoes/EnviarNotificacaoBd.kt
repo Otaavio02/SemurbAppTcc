@@ -20,8 +20,7 @@ class EnviarNotificacaoBd {
         val idUsuarioLogado = autenticao.currentUser?.uid
         if (idUsuarioLogado != null){
 
-            val horarioAtual = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-            val dataAtual = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+
             val notificacao = hashMapOf(
                 "titulo" to titulo,
                 "mensagem" to mensagem,
@@ -32,8 +31,7 @@ class EnviarNotificacaoBd {
             bancoDados.collection("agentes")
                 .document(idUsuarioLogado)
                 .collection("notificacoes")
-                .document("$dataAtual-$horarioAtual")
-                .set(notificacao)
+                .add(notificacao)
 
 
         }

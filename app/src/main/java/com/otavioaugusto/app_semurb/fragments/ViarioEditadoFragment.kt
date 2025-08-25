@@ -2,6 +2,7 @@ package com.otavioaugusto.app_semurb.fragments
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentViarioeditadoBinding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
@@ -37,6 +39,20 @@ class ViarioEditadoFragment : Fragment() {
         val tipo = activity?.intent?.getStringExtra("TIPO")
         val endereco = activity?.intent?.getStringExtra("ENDERECO")
         val descricao = activity?.intent?.getStringExtra("DESCRICAO")
+        val data_envio = activity?.intent?.getStringExtra("DATA_ENVIO")
+
+        Log.d("TESTE", "DATA ENVIO: ${data_envio}")
+
+        if (!data_envio.isNullOrEmpty()) {
+            binding.textViewViarioID.text = "${data_envio}"
+            binding.btnExcluirViario.visibility = View.GONE
+            binding.btnFinalizarViarioEdicao.visibility = View.GONE
+            binding.editTextDescricao.isEnabled = false
+            binding.editTextEndereco.isEnabled = false
+            binding.rbSugestao.isEnabled = false
+            binding.rbSubstituicao.isEnabled = false
+            binding.rbSinaInefi.isEnabled = false
+        }
 
         binding.editTextEndereco.setText(endereco)
         binding.editTextDescricao.setText(descricao)

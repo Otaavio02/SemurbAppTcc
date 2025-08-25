@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +46,21 @@ class OcorrenciasEditadoFragment : Fragment() {
         val contato = activity?.intent?.getStringExtra("CONTATO")
         val numSequencial = activity?.intent?.getStringExtra("NUMERO_SEQUENCIAL")
         var confirmarAlteracao = "sem alteração"
+        val data_envio = activity?.intent?.getStringExtra("DATA_ENVIO")
+
+        Log.d("TESTE", "DATA ENVIO: ${data_envio}")
+
+        if (!data_envio.isNullOrEmpty()) {
+            binding.textViewIdNomeOcorrenciasEditado.text = "${data_envio}"
+            binding.btnExcluirOcorrencia.visibility = View.GONE
+            binding.btnFinalizarOcorrenciasEditado.visibility = View.GONE
+            binding.editTextNome.isEnabled = false
+            binding.editTextEndereco.isEnabled = false
+            binding.editTextContato.isEnabled = false
+            binding.rbSinistro.isEnabled = false
+            binding.rbAtendimento.isEnabled = false
+            binding.rbGrandeVulto.isEnabled = false
+        }
 
         binding.editTextEndereco.setText(endereco)
         binding.editTextNome.setText(nome)

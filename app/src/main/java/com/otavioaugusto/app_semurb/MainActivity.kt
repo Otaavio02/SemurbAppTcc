@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         verificarPermissaoLocalizacao()
 
-        // Leva o usuário para a area de inputs ao clicar em um dos texts views:
+
         val nestedScroll = binding.nestedScrollView
         val focusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
 
                 //salvarDados("Otavio", "17", campoMatricula, "25", "34")
 
-
+                Log.i("Login", "Login foi feito")
                 binding.btnEntrar.isEnabled = false
                 val intent = Intent(this, PlaceHolderActivity::class.java)
                 intent.putExtra("Matricula", campoMatricula)
@@ -129,48 +129,14 @@ class MainActivity : AppCompatActivity() {
 
 
             }.addOnFailureListener {
-                val textInputMatricula = binding.textInputMatricula
-                val textInputSenha = binding.textInputSenha
-                val editTextSenha = binding.editTextSenha
-                val editTextMatricula = binding.editTextMatricula
 
-
-                textInputMatricula.error = "Senha está vazia"
-
-                textInputMatricula.postDelayed({
-                    textInputMatricula.error = null
-                }, 2500)
-
-                textInputSenha.error = "Matricula está vazia"
-
-                textInputSenha.postDelayed({
-                    textInputSenha.error = null
-                }, 2500)
-
-                editTextSenha.clearFocus()
-                editTextMatricula.clearFocus()
-
-                textInputSenha.editText?.setText("")
-                textInputMatricula.editText?.setText("")
-
-
-
+                Log.i("Login", "Login nao foi feito")
                 val snackBarErroLogin = Snackbar.make(view, "Erro de login: Matrícula ou senha incorretos", Snackbar.LENGTH_SHORT)
-
-
-
                 snackBarErroLogin.setTextColor(getColor(R.color.Vermelho))
-                val snackbarText = snackBarErroLogin.view.findViewById<TextView>(
-                    com.google.android.material.R.id.snackbar_text
-                )
-
+                val snackbarText = snackBarErroLogin.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
                 val fontecustomizada = ResourcesCompat.getFont(this, R.font.montserrat_bold)
                 snackbarText.typeface = fontecustomizada
-
-
                 snackbarText.textSize = 16f
-
-
                 snackbarText.gravity = Gravity.CENTER
                 snackbarText.textAlignment = View.TEXT_ALIGNMENT_CENTER
 

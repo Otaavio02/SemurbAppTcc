@@ -60,7 +60,7 @@ class ViarioFragment : Fragment() {
         topico = arguments?.getString("TOPICO")
         Log.d("DEBUG", "ID VIARIO da lista depois de pegar: ${id_lista}")
 
-        if (id_lista != null) {
+        if (data_envio != null) {
             binding.btnEnviarViario.visibility = View.GONE
             binding.btnAdicionarViario.visibility = View.GONE
             binding.ListagemTitle.setText("${topico} - Dia ${data_envio}")

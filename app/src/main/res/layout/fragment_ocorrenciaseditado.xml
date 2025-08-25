@@ -8,6 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="100dp"
         tools:context=".OcorrenciasEditadoActivity">
 
 
@@ -288,7 +289,6 @@
             android:layout_width="170dp"
             android:layout_height="50dp"
             android:layout_marginTop="60dp"
-            android:layout_marginBottom="104dp"
             android:background="@drawable/bg_buttonverde"
             android:backgroundTintMode="add"
             android:elevation="15dp"
@@ -310,7 +310,6 @@
             android:layout_width="170dp"
             android:layout_height="50dp"
             android:layout_marginTop="60dp"
-            android:layout_marginBottom="104dp"
             android:background="@drawable/bg_buttonvermelho"
             android:backgroundTintMode="add"
             android:elevation="15dp"

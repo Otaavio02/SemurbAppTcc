@@ -142,7 +142,7 @@
         app:srcCompat="@drawable/bg_pesquisa" />
 
     <TextView
-        android:id="@+id/textView39"
+        android:id="@+id/textViewMotorista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -151,11 +151,11 @@
         android:textColor="@color/Preto"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-        app:layout_constraintStart_toEndOf="@+id/imageView25"
+        app:layout_constraintStart_toEndOf="@+id/ImageViewFotoInspecao"
         app:layout_constraintTop_toTopOf="@+id/imageView22" />
 
     <ImageView
-        android:id="@+id/imageView25"
+        android:id="@+id/ImageViewFotoInspecao"
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:layout_marginStart="10dp"

@@ -18,6 +18,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentInspecao1Binding
+import com.otavioaugusto.app_semurb.funcoes.ArredondarFoto
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -54,9 +56,27 @@ class Inspecao1Fragment : Fragment() {
                 val dados = documento.data
                 if (dados != null) {
                     val idViatura = dados["viatura"]
+                    val fotoUrl = (dados["foto_agnt"] as? String)?.replace("\"", "")
+                    val nome = dados["nome"]
                     withContext(Dispatchers.Main){
+
                         binding.textViewInspecaoViatura.text = "Inspeção da viatura $idViatura"
                         binding.textView35.text = "$idViatura"
+                        binding.textViewMotorista.text = "Agente $nome"
+
+                        if (!fotoUrl.isNullOrEmpty()) {
+                            Picasso.get()
+                                .load(fotoUrl)
+                                .transform(ArredondarFoto())
+                                .fit()
+                                .centerCrop()
+                                .placeholder(R.drawable.home_foto)
+                                .into(binding.ImageViewFotoInspecao)
+                        } else {
+                            Log.w("HomeFragment", "URL da foto está vazia ou nula")
+
+                            binding.ImageViewFotoInspecao.setImageResource(R.drawable.home_foto)
+                        }
                     }
 
                 } else {
