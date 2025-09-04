@@ -40,6 +40,7 @@ class ViarioEditadoFragment : Fragment() {
         val endereco = activity?.intent?.getStringExtra("ENDERECO")
         val descricao = activity?.intent?.getStringExtra("DESCRICAO")
         val data_envio = activity?.intent?.getStringExtra("DATA_ENVIO")
+        val numSequencial = activity?.intent?.getStringExtra("NUMERO_SEQUENCIAL")
 
         Log.d("TESTE", "DATA ENVIO: ${data_envio}")
 
@@ -56,6 +57,7 @@ class ViarioEditadoFragment : Fragment() {
 
         binding.editTextEndereco.setText(endereco)
         binding.editTextDescricao.setText(descricao)
+        binding.textViewViarioID.text = "Sinalização $numSequencial"
 
         when (tipo) {
             "Sinalização Ineficiente" -> binding.rbSinaInefi.isChecked = true

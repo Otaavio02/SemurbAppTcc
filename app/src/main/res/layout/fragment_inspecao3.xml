@@ -24,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView46">
+            app:layout_constraintTop_toBottomOf="@+id/textViewDescricao">
 
             <TextView
                 android:id="@+id/textViewFrente"
@@ -226,7 +226,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline77" />
 
         <TextView
-            android:id="@+id/textView46"
+            android:id="@+id/textViewDescricao"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

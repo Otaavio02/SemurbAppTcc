@@ -48,6 +48,7 @@ class Inspecao3Fragment : Fragment() {
 
     private var imagemTempUri: Uri? = null
     private var ultimaPosicaoFoto: Int? = null
+    private var data_envio: String? = null
     private lateinit var lista: MutableList<DataClassAvariaItem>
     val bancoDados by lazy {
         FirebaseFirestore.getInstance()
@@ -86,6 +87,23 @@ class Inspecao3Fragment : Fragment() {
         setupListeners()
         setupToggles()
         setupRecyclers()
+
+        // Convertendo formato de data
+        val data_envio_exibicao = arguments?.getString("DATA_ENVIO")
+        val entrada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val saida = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = entrada.parse(data_envio_exibicao)
+        data_envio = saida.format(date!!)
+
+        if (!data_envio_exibicao.isNullOrEmpty()) {
+            binding.textViewDescricao.setText("${data_envio_exibicao}")
+            binding.cbFrente.visibility = View.GONE
+            binding.cbOutra.visibility = View.GONE
+            binding.cbDireita.visibility = View.GONE
+            binding.cbEsquerda.visibility = View.GONE
+            binding.cbTraseira.visibility = View.GONE
+            binding.btnFinalizar.visibility = View.GONE
+        }
 
         binding.progressBarInspecao3.visibility = View.GONE
         binding.btnFinalizar.visibility = View.VISIBLE
@@ -169,22 +187,31 @@ class Inspecao3Fragment : Fragment() {
             (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual, "continuar")
         }
 
+        if (!data_envio.isNullOrEmpty()) {
+            CarregarAvariasHistorico()
+        }
+
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (etapaAtual > 0) {
-                    (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(
-                        etapaAtual - 1,
-                        "voltar"
-                    )
+                if(data_envio.isNullOrEmpty()){
+                    if (etapaAtual > 0) {
+                        (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(
+                            etapaAtual - 1,
+                            "voltar"
+                        )
+                    }
+
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
+                        .replace(R.id.FragmentContainerView2, Inspecao2Fragment())
+                        .commit()
+                } else {
+                    requireActivity().finish()
                 }
 
-                parentFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.slide_in_left,
-                        R.anim.slide_out_right
-                    )
-                    .replace(R.id.FragmentContainerView2, Inspecao2Fragment())
-                    .commit()
             }
         })
 
@@ -202,11 +229,24 @@ class Inspecao3Fragment : Fragment() {
 
     private fun setupListeners() {
         binding.btnVoltarInspecao2.setOnClickListener {
-            (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual - 1, "voltar")
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                .replace(R.id.FragmentContainerView2, Inspecao2Fragment())
-                .commit()
+            if(data_envio.isNullOrEmpty()){
+                if (etapaAtual > 0) {
+                    (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(
+                        etapaAtual - 1,
+                        "voltar"
+                    )
+                }
+
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                    .replace(R.id.FragmentContainerView2, Inspecao2Fragment())
+                    .commit()
+            } else {
+                requireActivity().finish()
+            }
         }
 
         binding.btnFinalizar.setOnClickListener {
@@ -229,8 +269,6 @@ class Inspecao3Fragment : Fragment() {
                     val outrasAvarias = avariasOutrasHelper.getAvarias()
                     val outrasVazia = outrasAvarias.all { it.descricao.isBlank() && it.uriFoto == null }
 
-
-                    Log.d("DEBUG", "Retornou o que? Frente: ${frenteAvarias}")
 
                     if (frenteVazia && !binding.cbFrente.isChecked) partesComErro.add("Frente")
                     if (traseiraVazia && !binding.cbTraseira.isChecked) partesComErro.add("Traseira")
@@ -379,6 +417,72 @@ class Inspecao3Fragment : Fragment() {
         }
 
         dialog.show()
+    }
+
+    private fun CarregarAvariasHistorico() {
+        val idViatura = "12345" // ou o id real que você usa
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                bancoDados.collection("veiculos")
+                    .document(idViatura)
+                    .collection("inspecoes")
+                    .document(data_envio!!)  // <- data no formato yyyy-MM-dd
+                    .get()
+                    .addOnSuccessListener { doc ->
+                        if (doc.exists()) {
+                            val frente = (doc["frente"] as? List<Map<String, Any>>)?.map {
+                                DataClassAvariaItem(
+                                    descricao = it["descricao"] as? String ?: "",
+                                    uriFoto = (it["uriFoto"] as? String)?.let { url -> Uri.parse(url) }
+                                )
+                            } ?: emptyList()
+
+                            val traseira = (doc["traseira"] as? List<Map<String, Any>>)?.map {
+                                DataClassAvariaItem(
+                                    descricao = it["descricao"] as? String ?: "",
+                                    uriFoto = (it["uriFoto"] as? String)?.let { url -> Uri.parse(url) }
+                                )
+                            } ?: emptyList()
+
+                            val direita = (doc["direita"] as? List<Map<String, Any>>)?.map {
+                                DataClassAvariaItem(
+                                    descricao = it["descricao"] as? String ?: "",
+                                    uriFoto = (it["uriFoto"] as? String)?.let { url -> Uri.parse(url) }
+                                )
+                            } ?: emptyList()
+
+                            val esquerda = (doc["esquerda"] as? List<Map<String, Any>>)?.map {
+                                DataClassAvariaItem(
+                                    descricao = it["descricao"] as? String ?: "",
+                                    uriFoto = (it["uriFoto"] as? String)?.let { url -> Uri.parse(url) }
+                                )
+                            } ?: emptyList()
+
+                            val outras = (doc["outras"] as? List<Map<String, Any>>)?.map {
+                                DataClassAvariaItem(
+                                    descricao = it["descricao"] as? String ?: "",
+                                    uriFoto = (it["uriFoto"] as? String)?.let { url -> Uri.parse(url) }
+                                )
+                            } ?: emptyList()
+
+                                // Passa as listas pros helpers
+                                avariasFrenteHelper.setAvarias(frente.toMutableList())
+                                avariasTraseiraHelper.setAvarias(traseira.toMutableList())
+                                avariasDireitaHelper.setAvarias(direita.toMutableList())
+                                avariasEsquerdaHelper.setAvarias(esquerda.toMutableList())
+                                avariasOutrasHelper.setAvarias(outras.toMutableList())
+
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "Erro ao carregar inspeção",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            }
+        }
     }
 
     private suspend fun uploadFotosInspecao(

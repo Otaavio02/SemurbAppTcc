@@ -29,8 +29,13 @@ class AvariasRecyclerHelper(
         if (index in avariasList.indices) {
             avariasList.removeAt(index)
             adapter.notifyItemRemoved(index)
-
         }
+    }
+
+    fun setAvarias(novaLista: MutableList<DataClassAvariaItem>) {
+        avariasList.clear()
+        avariasList.addAll(novaLista)
+        adapter.notifyDataSetChanged()
     }
 
     fun getAdapter(): AvariasAdapter = adapter

@@ -36,7 +36,7 @@ class HistoricoFragment : Fragment() {
     private var _binding: FragmentHistoricoBinding? = null
     private val binding get() = _binding!!
 
-    private var categoriaSelecionada: String? = null
+    private var categoriaSelecionada = "Tudo"
     private var dataSelecionada: String? = null
     private var dataSelecionadaBD: String? = null
 
@@ -245,15 +245,15 @@ class HistoricoFragment : Fragment() {
             // Transforma os dados recebidos em objetos DataClassHistorico
             val dadosBrutos = listaFinal.mapNotNull { (categoria, dados) ->
                 try {
-                    val dataEnvio = dados["data_envio"] as? String
+                    /*val dataEnvio = dados["data_envio"] as? String
                         ?: dados["dataRegistro"] as? String
                         ?: return@mapNotNull null
 
                     val horarioEnvio = dados["horario_envio"] as? String
                         ?: dados["dataRegistro"] as? String
-                        ?: "--:--"
+                        ?: "--:--"*/
 
-                    /*val dataEnvio = when (categoria) {
+                    val dataEnvio = when (categoria) {
                         "inspecoes" -> {
                             val ts = dados["dataRegistro"] as? com.google.firebase.Timestamp
                             ts?.toDate()?.let { SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(it) }
@@ -267,7 +267,7 @@ class HistoricoFragment : Fragment() {
                             ts?.toDate()?.let { SimpleDateFormat("HH:mm", Locale.getDefault()).format(it) }
                         }
                         else -> dados["horario_envio"] as? String
-                    } ?: "--:--"*/
+                    } ?: "--:--"
 
                     val qtdItens = (dados["qtd_itens"] as? Long)?.toInt() ?: 1
 

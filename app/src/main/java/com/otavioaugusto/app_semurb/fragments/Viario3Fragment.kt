@@ -20,6 +20,9 @@ import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import java.util.Timer
 import kotlin.concurrent.schedule
 import androidx.activity.OnBackPressedCallback
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class Viario3Fragment : Fragment() {
 

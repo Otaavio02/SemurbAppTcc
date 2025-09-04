@@ -6,4 +6,5 @@ data class DataClassViario(
     val tipo: String,
     val endereco: String,
     val descricao: String,
+    val data_envio: String
 )

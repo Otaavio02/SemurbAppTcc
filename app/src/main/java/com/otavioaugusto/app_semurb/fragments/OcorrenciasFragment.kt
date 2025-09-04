@@ -180,7 +180,8 @@ class OcorrenciasFragment : Fragment() {
                                     tipo = tipo,
                                     endereco = endereco,
                                     nome = nome,
-                                    numcontato = numcontato
+                                    numcontato = numcontato,
+                                    data_envio = data_envio
                                 )
                             } catch (e: Exception) {
                                 Log.e("FIREBASE", "Erro ao converter item da lista", e)
@@ -231,7 +232,7 @@ class OcorrenciasFragment : Fragment() {
             withContext(Dispatchers.IO){
                val dbHelper = AppDatabaseHelper(requireContext())
                 val idLista = dbHelper.insertListaHistorico("Atendimento de Ocorrências", qtd_itens, horario_envio, data_envio)
-                dbHelper.associarOcorrenciasALista(idLista)
+                dbHelper.associarOcorrenciasALista(idLista, data_envio)
 
                 val ocorrencias = dbHelper.getAllOcorrenciasByIdLista(idLista.toString())
 

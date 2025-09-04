@@ -99,11 +99,11 @@ class ViarioFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        atualizarListaViario(id_lista)
+        atualizarListaViario(data_envio)
 
     }
 
-    private fun atualizarListaViario(id_lista: String?) {
+    private fun atualizarListaViario(data_envio: String?) {
         lifecycleScope.launch {
             val lista = withContext(Dispatchers.IO) {
                 val idAgenteLogado = autenticao.currentUser?.uid
@@ -155,7 +155,8 @@ class ViarioFragment : Fragment() {
                                         numeroSequencial = id.toInt(),
                                         tipo = tipo,
                                         endereco = endereco,
-                                        descricao = descricao
+                                        descricao = descricao,
+                                        data_envio = data_envio
                                     )
                                 } catch (e: Exception) {
                                     Log.e("FIREBASE", "Erro ao converter item da lista", e)
@@ -215,7 +216,7 @@ class ViarioFragment : Fragment() {
             withContext(Dispatchers.IO){
                 val dbHelper = AppDatabaseHelper(requireContext())
                 val idLista = dbHelper.insertListaHistorico("Serviço Viário", qtd_itens, horario_envio, data_envio)
-                dbHelper.associarViarioALista(idLista)
+                dbHelper.associarViarioALista(idLista, data_envio)
 
                 val viarios = dbHelper.getAllViariosByIdLista(idLista.toString())
 

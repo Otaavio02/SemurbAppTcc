@@ -25,6 +25,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                 endereco TEXT,
                 nome TEXT,
                 numcontato TEXT,
+                data_envio TEXT,
                 topico TEXT,
                 id_lista INTEGER,
                 FOREIGN KEY (id_lista) REFERENCES lista_historico(id_lista)
@@ -38,6 +39,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                 tipo TEXT,
                 endereco TEXT,
                 descricao TEXT,
+                data_envio TEXT,
                 topico TEXT,
                 id_lista INTEGER,
                 FOREIGN KEY (id_lista) REFERENCES lista_historico(id_lista)
@@ -80,6 +82,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             put("numero_sequencial", proximoNumero)
             put("endereco", endereco)
             put("nome", nome)
+            putNull("data_envio")
             put("numcontato", numcontato)
             put("topico", "Atendimento de Ocorrências")
             putNull("id_lista")
@@ -92,10 +95,11 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         db.delete("ocorrencias", "id = ?", arrayOf(id.toString()))
     }
 
-    fun associarOcorrenciasALista(idLista: Long) {
+    fun associarOcorrenciasALista(idLista: Long, data_envio: String) {
         val db = writableDatabase
         val values = ContentValues().apply {
             put("id_lista", idLista)
+            put("data_envio", data_envio)
         }
         db.update("ocorrencias", values, "id_lista IS NULL AND topico = ?", arrayOf("Atendimento de Ocorrências"))
     }
@@ -113,7 +117,8 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getStringOrNull("endereco") ?: "",
                         nome = it.getStringOrNull("nome") ?: "",
-                        numcontato = it.getStringOrNull("numcontato") ?: ""
+                        numcontato = it.getStringOrNull("numcontato") ?: "",
+                        data_envio = it.getStringOrNull("data_envio") ?: ""
                     )
                 )
             }
@@ -134,7 +139,8 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getStringOrNull("endereco") ?: "",
                         nome = it.getStringOrNull("nome") ?: "",
-                        numcontato = it.getStringOrNull("numcontato") ?: ""
+                        numcontato = it.getStringOrNull("numcontato") ?: "",
+                        data_envio = it.getStringOrNull("data_envio") ?: ""
                     )
                 )
             }
@@ -172,6 +178,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             put("endereco", endereco)
             put("descricao", descricao)
             put("topico", "Serviço Viário")
+            putNull("data_envio")
             putNull("id_lista")
         }
         db.insert("viario", null, cv)
@@ -189,7 +196,8 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                         numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getString(it.getColumnIndexOrThrow("endereco")) ?: "",
-                        descricao = it.getString(it.getColumnIndexOrThrow("descricao")) ?: ""
+                        descricao = it.getString(it.getColumnIndexOrThrow("descricao")) ?: "",
+                        data_envio = it.getStringOrNull("data_envio") ?: ""
                     )
                 )
             }
@@ -209,7 +217,8 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                         numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getString(it.getColumnIndexOrThrow("endereco")) ?: "",
-                        descricao = it.getString(it.getColumnIndexOrThrow("descricao")) ?: ""
+                        descricao = it.getString(it.getColumnIndexOrThrow("descricao")) ?: "",
+                        data_envio = it.getStringOrNull("data_envio") ?: ""
                     )
                 )
             }
@@ -233,10 +242,11 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         db.delete("viario", "id = ?", arrayOf(id.toString()))
     }
 
-    fun associarViarioALista(idLista: Long) {
+    fun associarViarioALista(idLista: Long, data_envio: String) {
         val db = writableDatabase
         val values = ContentValues().apply {
             put("id_lista", idLista)
+            put("data_envio", data_envio)
         }
         db.update("viario", values, "id_lista IS NULL AND topico = ?", arrayOf("Serviço Viário"))
     }

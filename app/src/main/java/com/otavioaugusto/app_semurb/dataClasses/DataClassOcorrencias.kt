@@ -8,6 +8,6 @@ data class DataClassOcorrencia(
     val tipo: String,
     val endereco: String,
     val nome: String,
-    val numcontato: String
-
+    val numcontato: String,
+    val data_envio: String
 ): Serializable

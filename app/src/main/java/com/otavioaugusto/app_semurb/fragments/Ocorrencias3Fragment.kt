@@ -18,6 +18,7 @@ import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias3Binding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 import kotlin.concurrent.schedule
