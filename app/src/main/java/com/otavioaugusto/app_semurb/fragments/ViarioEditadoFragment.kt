@@ -48,11 +48,11 @@ class ViarioEditadoFragment : Fragment() {
             binding.textViewViarioID.text = "${data_envio}"
             binding.btnExcluirViario.visibility = View.GONE
             binding.btnFinalizarViarioEdicao.visibility = View.GONE
-            binding.editTextDescricao.isEnabled = false
-            binding.editTextEndereco.isEnabled = false
-            binding.rbSugestao.isEnabled = false
-            binding.rbSubstituicao.isEnabled = false
-            binding.rbSinaInefi.isEnabled = false
+            binding.editTextDescricao.isFocusable = false
+            binding.editTextEndereco.isFocusable = false
+            binding.rbSugestao.isClickable = false
+            binding.rbSubstituicao.isClickable = false
+            binding.rbSinaInefi.isClickable = false
         }
 
         binding.editTextEndereco.setText(endereco)

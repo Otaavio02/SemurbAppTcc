@@ -54,12 +54,12 @@ class OcorrenciasEditadoFragment : Fragment() {
             binding.textViewIdNomeOcorrenciasEditado.text = "${data_envio}"
             binding.btnExcluirOcorrencia.visibility = View.GONE
             binding.btnFinalizarOcorrenciasEditado.visibility = View.GONE
-            binding.editTextNome.isEnabled = false
-            binding.editTextEndereco.isEnabled = false
-            binding.editTextContato.isEnabled = false
-            binding.rbSinistro.isEnabled = false
-            binding.rbAtendimento.isEnabled = false
-            binding.rbGrandeVulto.isEnabled = false
+            binding.editTextNome.isFocusable = false
+            binding.editTextEndereco.isFocusable = false
+            binding.editTextContato.isFocusable = false
+            binding.rbSinistro.isClickable = false
+            binding.rbAtendimento.isClickable = false
+            binding.rbGrandeVulto.isClickable = false
         }
 
         binding.editTextEndereco.setText(endereco)

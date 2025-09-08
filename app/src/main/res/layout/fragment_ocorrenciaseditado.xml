@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
                     android:paddingStart="5dp"
-                    android:paddingEnd="20dp" />
+                    android:paddingEnd="20dp"/>
 
                 <RadioButton
                     android:id="@+id/rbSinistro"
@@ -156,7 +156,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginTop="25dp"
                     android:paddingStart="5dp"
-                    android:paddingEnd="20dp" />
+                    android:paddingEnd="20dp"/>
 
                 <RadioButton
                     android:id="@+id/rbGrandeVulto"
@@ -164,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="23dp"
                     android:paddingStart="5dp"
-                    android:paddingEnd="20dp" />
+                    android:paddingEnd="20dp"/>
 
             </RadioGroup>
 
