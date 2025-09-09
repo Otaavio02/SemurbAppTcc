@@ -1,7 +1,10 @@
 package com.otavioaugusto.app_semurb.fragments
 
 import android.app.AlertDialog
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
@@ -11,13 +14,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.storage.FirebaseStorage
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias3Binding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -44,6 +58,12 @@ class Ocorrencias3Fragment : Fragment() {
         nome = arguments?.getString("nome")
         numContato = arguments?.getString("numContato")
 
+        binding.ImageButtonCameraOcorrencia.setOnClickListener {
+            val arquivoFoto = File(requireContext().cacheDir, "ocorrencia_${System.currentTimeMillis()}.jpg")
+            fotoUri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", arquivoFoto)
+            cameraLauncher.launch(fotoUri)
+        }
+
 
         binding.btnProximoOcorrencias3.setOnClickListener {
             nome = binding.EditTextNomeContato.text.toString()
@@ -64,14 +84,12 @@ class Ocorrencias3Fragment : Fragment() {
             }
             binding.btnProximoOcorrencias3.isEnabled = false
 
-            val dbHelper = AppDatabaseHelper(requireContext())
-            dbHelper.insertOcorrencia(tipo, endereco, nome, numContato)
-
-            (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
-
-            Timer().schedule(700) {
-                requireActivity().finish()
+            if (fotoUri != null) {
+                salvarFotoOcorrencia(fotoUri!!, nome!!, numContato!!)
+            } else {
+                salvarOcorrenciaNoBanco(null, nome!!, numContato!!)
             }
+
         }
 
         binding.btnVoltarOcorrencias3.setOnClickListener {
@@ -177,6 +195,38 @@ class Ocorrencias3Fragment : Fragment() {
             }
     }
 
+
+    private var fotoUri: Uri? = null
+    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { sucesso ->
+
+        binding.ImageButtonCameraOcorrencia.setImageURI(fotoUri)
+
+    }
+
+
+
+    private fun salvarFotoOcorrencia(uri: Uri, nome: String, numContato: String) {
+        lifecycleScope.launch{
+            try {
+                val storage = FirebaseStorage.getInstance().reference
+                val caminho = "ocorrencias/${System.currentTimeMillis()}_${nome}.jpg"
+                val fotoRef = storage.child(caminho)
+
+                val arquivoComprimido = comprimirImagem(uri)
+
+                fotoRef.putFile(Uri.fromFile(arquivoComprimido)).await()
+                val downloadUrl = fotoRef.downloadUrl.await()
+
+                salvarOcorrenciaNoBanco(downloadUrl.toString(), nome, numContato)
+
+
+            } catch (e: Exception){
+                Toast.makeText(requireContext(), "Erro ao enviar foto: ${e.message}", Toast.LENGTH_SHORT).show()
+                salvarOcorrenciaNoBanco(null, nome, numContato)
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -196,6 +246,37 @@ class Ocorrencias3Fragment : Fragment() {
                                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         )
             }
+        }
+    }
+
+    private suspend fun comprimirImagem(uri: Uri): File = withContext(Dispatchers.IO) {
+        val context = requireContext()
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val originalBitMap = BitmapFactory.decodeStream(inputStream)
+
+        val larguraMax = 1080
+        val escala = larguraMax.toFloat() / originalBitMap.width.toFloat()
+        val novaAltura = (originalBitMap.height * escala).toInt()
+        val bitmapReduzido = Bitmap.createScaledBitmap(originalBitMap, larguraMax, novaAltura, true)
+
+        val arquivoTemp = File(context.cacheDir, "compressed_${System.currentTimeMillis()}.jpg")
+        val outputStream = FileOutputStream(arquivoTemp)
+
+        bitmapReduzido.compress(Bitmap.CompressFormat.JPEG, 70, outputStream)
+        outputStream.flush()
+        outputStream.close()
+
+        arquivoTemp
+    }
+
+    private fun salvarOcorrenciaNoBanco(urlFoto: String?, nome: String, numContato: String) {
+        val dbHelper = AppDatabaseHelper(requireContext())
+        dbHelper.insertOcorrencia(tipo, endereco, nome, numContato, urlFoto)
+
+        (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
+
+        Timer().schedule(700) {
+            requireActivity().finish()
         }
     }
 }

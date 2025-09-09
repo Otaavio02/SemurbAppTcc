@@ -275,7 +275,8 @@ class OcorrenciasFragment : Fragment() {
                             "numcontato" to ocorrencia.numcontato,
                             "horario_envio" to horario_envio,
                             "data_envio" to data_envio,
-                            "timestamp_ocorrencia" to  timestampOcorrencia
+                            "timestamp_ocorrencia" to  timestampOcorrencia,
+                            "fotoUrl" to ocorrencia.fotoUrl
                         )
 
                         ocorrenciasCollection

@@ -28,6 +28,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                 data_envio TEXT,
                 topico TEXT,
                 id_lista INTEGER,
+                foto_url TEXT,
                 FOREIGN KEY (id_lista) REFERENCES lista_historico(id_lista)
             )
         """.trimIndent())
@@ -66,7 +67,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
     }
 
 
-    fun insertOcorrencia(tipo: String?, endereco: String?, nome: String?, numcontato: String?) {
+    fun insertOcorrencia(tipo: String?, endereco: String?, nome: String?, numcontato: String?, fotoUrl: String?) {
         val db = writableDatabase
         val cursor = db.rawQuery("SELECT MAX(numero_sequencial) FROM ocorrencias", null)
         var proximoNumero = 1
@@ -86,6 +87,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             put("numcontato", numcontato)
             put("topico", "Atendimento de Ocorrências")
             putNull("id_lista")
+            put("foto_url", fotoUrl)
         }
         db.insert("ocorrencias", null, cv)
     }
@@ -148,7 +150,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         return lista
     }
 
-    fun updateOcorrenciaCompleta(id: Long, tipo: String, endereco: String, nome: String, numcontato: String) {
+    fun updateOcorrenciaCompleta(id: Long, tipo: String, endereco: String, nome: String, numcontato: String, ) {
         val db = writableDatabase
         val cv = ContentValues().apply {
             put("tipo", tipo)
@@ -161,7 +163,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
 
 
 
-    fun insertViarioCompleto(tipo: String?, endereco: String?, descricao: String?) {
+    fun insertViarioCompleto(tipo: String?, endereco: String?, descricao: String?, fotoUrl: String?) {
         val db = writableDatabase
         val cursor = db.rawQuery("SELECT MAX(numero_sequencial) FROM viario", null)
         var proximoNumero = 1
@@ -180,6 +182,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             put("topico", "Serviço Viário")
             putNull("data_envio")
             putNull("id_lista")
+            put("foto_url", fotoUrl)
         }
         db.insert("viario", null, cv)
     }

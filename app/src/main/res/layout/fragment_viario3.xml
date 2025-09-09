@@ -158,6 +158,19 @@
         app:layout_constraintTop_toTopOf="@+id/textView25"
         app:srcCompat="@drawable/simbolo_descricao" />
 
+    <ImageButton
+        android:id="@+id/ImageButtonCameraViario"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:srcCompat="@drawable/ic_camera2" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

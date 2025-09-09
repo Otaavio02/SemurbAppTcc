@@ -1,7 +1,10 @@
 package com.otavioaugusto.app_semurb.fragments
 
 import android.app.AlertDialog
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
@@ -11,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
@@ -20,6 +24,16 @@ import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
 import java.util.Timer
 import kotlin.concurrent.schedule
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -47,6 +61,12 @@ class Viario3Fragment : Fragment() {
 
         if (descricao != null) {
             binding.EditTextDescricaoViario.setText(descricao)
+        }
+
+        binding.ImageButtonCameraViario.setOnClickListener {
+            val arquivoFoto = File(requireContext().cacheDir, "ocorrencia_${System.currentTimeMillis()}.jpg")
+            fotoUri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", arquivoFoto)
+            cameraLauncher.launch(fotoUri)
         }
 
         binding.btnVoltarViario3.setOnClickListener {
@@ -110,13 +130,10 @@ class Viario3Fragment : Fragment() {
 
             binding.btnProximoViario3.isEnabled = false
 
-            val dbHelper = AppDatabaseHelper(requireContext())
-            dbHelper.insertViarioCompleto(tipo, endereco, descricao)
-
-            (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
-
-            Timer().schedule(700) {
-                requireActivity().finish()
+            if (fotoUri != null) {
+                salvarFotoOcorrencia(fotoUri!!, endereco!!, descricao!!)
+            } else {
+                salvarOcorrenciaNoBanco(null, endereco!!, descricao!!)
             }
         }
 
@@ -157,6 +174,35 @@ class Viario3Fragment : Fragment() {
         })
     }
 
+    private var fotoUri: Uri? = null
+    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { sucesso ->
+
+        binding.ImageButtonCameraViario.setImageURI(fotoUri)
+
+    }
+
+    private fun salvarFotoOcorrencia(uri: Uri, endereco: String, descricao: String) {
+        lifecycleScope.launch{
+            try {
+                val storage = FirebaseStorage.getInstance().reference
+                val caminho = "avarias/${System.currentTimeMillis()}_${endereco}.jpg"
+                val fotoRef = storage.child(caminho)
+
+                val arquivoComprimido = comprimirImagem(uri)
+
+                fotoRef.putFile(Uri.fromFile(arquivoComprimido)).await()
+                val downloadUrl = fotoRef.downloadUrl.await()
+
+                salvarOcorrenciaNoBanco(downloadUrl.toString(), endereco, descricao)
+
+
+            } catch (e: Exception){
+                Toast.makeText(requireContext(), "Erro ao enviar foto: ${e.message}", Toast.LENGTH_SHORT).show()
+                salvarOcorrenciaNoBanco(null, endereco, descricao)
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -180,5 +226,37 @@ class Viario3Fragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    private suspend fun comprimirImagem(uri: Uri): File = withContext(Dispatchers.IO) {
+        val context = requireContext()
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val originalBitMap = BitmapFactory.decodeStream(inputStream)
+
+        val larguraMax = 1080
+        val escala = larguraMax.toFloat() / originalBitMap.width.toFloat()
+        val novaAltura = (originalBitMap.height * escala).toInt()
+        val bitmapReduzido = Bitmap.createScaledBitmap(originalBitMap, larguraMax, novaAltura, true)
+
+        val arquivoTemp = File(context.cacheDir, "compressed_${System.currentTimeMillis()}.jpg")
+        val outputStream = FileOutputStream(arquivoTemp)
+
+        bitmapReduzido.compress(Bitmap.CompressFormat.JPEG, 70, outputStream)
+        outputStream.flush()
+        outputStream.close()
+
+        arquivoTemp
+    }
+
+    private fun salvarOcorrenciaNoBanco(urlFoto: String?, endereco: String,  descricao: String) {
+        val dbHelper = AppDatabaseHelper(requireContext())
+        dbHelper.insertViarioCompleto(tipo, endereco, descricao, urlFoto)
+
+        (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
+
+        Timer().schedule(700) {
+            requireActivity().finish()
+        }
     }
 }

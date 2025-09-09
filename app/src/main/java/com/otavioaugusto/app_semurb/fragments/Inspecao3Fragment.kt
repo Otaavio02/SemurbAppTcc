@@ -2,6 +2,8 @@ package com.otavioaugusto.app_semurb.fragments
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
@@ -38,6 +40,7 @@ import com.otavioaugusto.app_semurb.funcoes.EnviarNotificacaoBd
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.io.FileOutputStream
 import java.security.Timestamp
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -90,13 +93,14 @@ class Inspecao3Fragment : Fragment() {
 
         // Convertendo formato de data
         val data_envio_exibicao = arguments?.getString("DATA_ENVIO")
-        val entrada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val saida = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val date = entrada.parse(data_envio_exibicao)
-        data_envio = saida.format(date!!)
 
-        if (!data_envio_exibicao.isNullOrEmpty()) {
-            binding.textViewDescricao.setText("${data_envio_exibicao}")
+        if (!data_envio_exibicao.isNullOrBlank()) {
+            val entrada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val saida = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val date = entrada.parse(data_envio_exibicao)
+            data_envio = saida.format(date!!)
+
+            binding.textViewDescricao.text = data_envio_exibicao
             binding.cbFrente.visibility = View.GONE
             binding.cbOutra.visibility = View.GONE
             binding.cbDireita.visibility = View.GONE
@@ -501,7 +505,10 @@ class Inspecao3Fragment : Fragment() {
             val fotoRef = storage.child(caminho)
 
             try {
-                val uploadTask = fotoRef.putFile(uriFoto).await()
+
+                val arquivoComprimido = comprimirImagem(uriFoto)
+
+                val uploadTask = fotoRef.putFile(Uri.fromFile(arquivoComprimido)).await()
                 val downloadUrl = fotoRef.downloadUrl.await()
 
                 avariasComLinks.add(
@@ -599,6 +606,27 @@ class Inspecao3Fragment : Fragment() {
                 Toast.makeText(requireContext(), "Erro ao salvar inspeção: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+
+    private suspend fun comprimirImagem(uri: Uri): File = withContext(Dispatchers.IO) {
+        val context = requireContext()
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val originalBitMap = BitmapFactory.decodeStream(inputStream)
+
+        val larguraMax = 1080
+        val escala = larguraMax.toFloat() / originalBitMap.width.toFloat()
+        val novaAltura = (originalBitMap.height * escala).toInt()
+        val bitmapReduzido = Bitmap.createScaledBitmap(originalBitMap, larguraMax, novaAltura, true)
+
+        val arquivoTemp = File(context.cacheDir, "compressed_${System.currentTimeMillis()}.jpg")
+        val outputStream = FileOutputStream(arquivoTemp)
+
+        bitmapReduzido.compress(Bitmap.CompressFormat.JPEG, 70, outputStream)
+        outputStream.flush()
+        outputStream.close()
+
+        arquivoTemp
     }
 
 
