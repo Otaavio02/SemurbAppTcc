@@ -57,6 +57,8 @@ class Inspecao3Fragment : Fragment() {
         FirebaseFirestore.getInstance()
     }
 
+    private var viaturaID: String = "Carregando..."
+
 
     private lateinit var adapter: AvariasAdapter
     private lateinit var avariasFrenteHelper: AvariasRecyclerHelper
@@ -175,8 +177,8 @@ class Inspecao3Fragment : Fragment() {
         binding.btnInfoOutros.setOnClickListener {
             mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Teto, Chassi, Motor, Suspensão, Freios, etc." )
         }
-        val idViatura = "12345"
-        binding.textViewInspecaoViatura.text = "Inspeção da viatura $idViatura"
+        viaturaID = arguments?.getString("viaturaID").toString()
+        binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
 
         return binding.root
 
@@ -210,7 +212,11 @@ class Inspecao3Fragment : Fragment() {
                             R.anim.slide_in_left,
                             R.anim.slide_out_right
                         )
-                        .replace(R.id.FragmentContainerView2, Inspecao2Fragment())
+                        .replace(R.id.FragmentContainerView2, Inspecao2Fragment().apply {
+                            arguments = Bundle().apply {
+                                putString("viaturaID", viaturaID)
+                            }
+                        })
                         .commit()
                 } else {
                     requireActivity().finish()

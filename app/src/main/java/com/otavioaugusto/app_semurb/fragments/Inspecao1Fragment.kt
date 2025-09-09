@@ -34,6 +34,8 @@ class Inspecao1Fragment : Fragment() {
 
     private val autenticacao by lazy { FirebaseAuth.getInstance() }
     private val bancoDados by lazy { FirebaseFirestore.getInstance() }
+    
+    private var viaturaID: String = "Carregando..."
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,13 +57,13 @@ class Inspecao1Fragment : Fragment() {
 
                 val dados = documento.data
                 if (dados != null) {
-                    val idViatura = dados["viatura"]
+                    viaturaID = dados["viatura"] as String
                     val fotoUrl = (dados["foto_agnt"] as? String)?.replace("\"", "")
                     val nome = dados["nome"]
                     withContext(Dispatchers.Main){
 
-                        binding.textViewInspecaoViatura.text = "Inspeção da viatura $idViatura"
-                        binding.textView35.text = "$idViatura"
+                        binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
+                        binding.textView35.text = "$viaturaID"
                         binding.textViewMotorista.text = "Agente $nome"
 
                         if (!fotoUrl.isNullOrEmpty()) {
@@ -113,7 +115,11 @@ class Inspecao1Fragment : Fragment() {
                         R.anim.slide_in_right,
                         R.anim.slide_out_left,
                     )
-                    .replace(R.id.FragmentContainerView2, Inspecao2Fragment())
+                    .replace(R.id.FragmentContainerView2, Inspecao2Fragment().apply {
+                        arguments = Bundle().apply {
+                            putString("viaturaID", viaturaID)
+                        }
+                    })
                     .addToBackStack(null)
                     .commit()
             }

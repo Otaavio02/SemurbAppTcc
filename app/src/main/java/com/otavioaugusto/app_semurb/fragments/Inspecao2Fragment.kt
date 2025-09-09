@@ -41,6 +41,9 @@ class Inspecao2Fragment : Fragment() {
 
     private var etapaAtual = 1 // etapa 2
     private var totalEtapas = 3
+    
+    private var viaturaID: String = "Carregando..."
+    
 
     val bancoDados by lazy {
         FirebaseFirestore.getInstance()
@@ -54,8 +57,8 @@ class Inspecao2Fragment : Fragment() {
     ): View {
         _binding = FragmentInspecao2Binding.inflate(inflater, container, false)
 
-        val idViatura = "12345"
-        binding.textViewInspecaoViatura.text = "Inspeção da viatura $idViatura"
+        viaturaID = arguments?.getString("viaturaID").toString()
+        binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
 
 
         binding.btnVoltarInspecao2.setOnClickListener {
@@ -125,12 +128,15 @@ class Inspecao2Fragment : Fragment() {
                             R.anim.slide_in_right,
                             R.anim.slide_out_left
                         )
-                        .replace(R.id.FragmentContainerView2, Inspecao3Fragment())
+                        .replace(R.id.FragmentContainerView2, Inspecao3Fragment().apply {
+                            arguments = Bundle().apply {
+                                putString("viaturaID", viaturaID)
+                            }
+                        })
                         .addToBackStack(null)
                         .commit()
                 } else if (selectedRgId == R.id.rbNaoAvarias){
-                    semAvarias(idViatura)
-
+                    semAvarias(viaturaID)
 
                 }
             }
