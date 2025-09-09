@@ -42,6 +42,7 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                 descricao TEXT,
                 data_envio TEXT,
                 topico TEXT,
+                foto_url TEXT,
                 id_lista INTEGER,
                 FOREIGN KEY (id_lista) REFERENCES lista_historico(id_lista)
             )
