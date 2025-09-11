@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!-- Tema padrão -->
     <style name="Base.Theme.AppSemurb" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary Brand Color -->
-
         <item name="colorPrimary">@color/FundoElementos</item>
         <item name="colorPrimaryContainer">@color/FundoElementos</item>
         <item name="colorPrimaryVariant">@color/FundoElementos</item>
@@ -22,10 +23,48 @@
         <item name="android:navigationBarColor">@color/Preto</item>
 
 
-        <!-- Sombra mais forte nos botões -->
         <item name="android:spotShadowAlpha">0.5</item>
     </style>
 
 
+    <style name="Theme.AppSemurb.Dark" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/AzulPetroleo</item>
+        <item name="colorPrimaryContainer">@color/AzulMarinhoProfundo</item>
+        <item name="colorPrimaryVariant">@color/AzulNegro</item>
+        <item name="colorSecondary">@color/AzulAcinzentadoClaro</item>
+        <item name="colorSecondaryVariant">@color/AzulCeu</item>
+        <item name="colorSecondaryContainer">@color/AzulCelesteClaro</item>
+
+        <item name="colorFundo">@color/Fundo</item>
+        <item name="colorFundoElementos">@color/FundoElementos</item>
+        <item name="colorFundoCaixas">@color/FundoCaixas</item>
+        <item name="colorTextoBranco">@color/CorTextoBranco</item>
+        <item name="colorVermelho">@color/VermelhoTomate</item>
+        <item name="colorVerde">@color/VerdeFluorescente</item>
+        <item name="CorTextoPadrao">@color/CorTextoPadrao</item>
+        <item name="colorTextoGrandeGameficado">@color/AzulCeu</item>
+        <item name="android:statusBarColor">@color/AzulNegro</item>
+        <item name="android:navigationBarColor">@color/AzulNegro</item>
+    </style>
+
+    <style name="Theme.AppSemurb.HighContrast" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/hc_colorPrimary</item>
+        <item name="colorPrimaryContainer">@color/hc_colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/hc_colorPrimary</item>
+        <item name="colorSecondary">@color/hc_colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/hc_colorSecondary</item>
+        <item name="colorSecondaryContainer">@color/hc_colorSecondary</item>
+
+        <item name="colorFundo">@color/hc_Fundo</item>
+        <item name="colorFundoElementos">@color/hc_FundoElementos</item>
+        <item name="colorFundoCaixas">@color/hc_FundoCaixas</item>
+        <item name="colorTextoBranco">@color/hc_CorTextoBranco</item>
+        <item name="colorVermelho">@color/hc_CorVermelho</item>
+        <item name="colorVerde">@color/hc_CorVerde</item>
+        <item name="CorTextoPadrao">@color/hc_CorTextoPadrao</item>
+        <item name="colorTextoGrandeGameficado">@color/hc_CorAzulDestaque</item>
+        <item name="android:statusBarColor">@color/hc_colorPrimary</item>
+        <item name="android:navigationBarColor">@color/hc_colorPrimary</item>
+    </style>
 
 </resources>

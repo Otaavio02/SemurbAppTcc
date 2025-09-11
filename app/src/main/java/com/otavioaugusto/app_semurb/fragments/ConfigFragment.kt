@@ -2,7 +2,6 @@ package com.otavioaugusto.app_semurb.fragments
 
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,10 +19,7 @@ class ConfigFragment : Fragment() {
 
     private var _binding: FragmentConfigBinding? = null
     private val binding get() = _binding!!
-
-    val autenticacao by lazy {
-        FirebaseAuth.getInstance()
-    }
+    private val autenticacao by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,130 +27,90 @@ class ConfigFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentConfigBinding.inflate(inflater, container, false)
+        (activity as? AppCompatActivity)?.supportActionBar?.hide()
 
-
-
-        binding.btnLogout.setOnClickListener {
-            autenticacao.signOut()
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            requireActivity().finish()
-        }
-
-        binding.textViewLogout.setOnClickListener {
-            autenticacao.signOut()
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            requireActivity().finish()
-        }
-
-        binding.btnPolitica.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left,
-                )
-                .replace(R.id.fragmentContainerView, PoliticaFragment())
-                .addToBackStack(null)
-                .commit()
-
-            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
-        }
-        binding.textPolitica.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left,
-                )
-                .replace(R.id.fragmentContainerView, PoliticaFragment())
-                .addToBackStack(null)
-                .commit()
-
-            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
-        }
-
-
-        binding.btnSobre.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left,
-                )
-                .replace(R.id.fragmentContainerView, SobreFragment())
-                .addToBackStack(null)
-                .commit()
-
-            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
-        }
-        binding.textSobre.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left,
-                )
-                .replace(R.id.fragmentContainerView, SobreFragment())
-                .addToBackStack(null)
-                .commit()
-
-            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
-        }
-
-        binding.btnTermosCondicoes.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left,
-                )
-                .replace(R.id.fragmentContainerView, TermosCondicoesFragment())
-                .addToBackStack(null)
-                .commit()
-
-            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
-        }
-        binding.textTermosCondicoes.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left,
-                )
-                .replace(R.id.fragmentContainerView, TermosCondicoesFragment())
-                .addToBackStack(null)
-                .commit()
-
-            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
-        }
-
-        val isNightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-        binding.btnTrocarTema.setOnCheckedChangeListener(null) // ⚠️ remove o listener temporariamente
-        binding.btnTrocarTema.isChecked = isNightMode
-
-        aplicarTemaSalvo()
-            (activity as? AppCompatActivity)?.supportActionBar?.hide()
+        configurarSwitches()
+        configurarClicks()
 
         return binding.root
     }
 
-    private fun aplicarTemaSalvo() {
+    private fun configurarSwitches() {
         val prefs = requireContext().getSharedPreferences("config", MODE_PRIVATE)
+        val isHighContrast = prefs.getBoolean("high_contrast", false)
         val nightMode = prefs.getInt("night_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        AppCompatDelegate.setDefaultNightMode(nightMode)
 
-        binding.btnTrocarTema.setOnCheckedChangeListener(null) // Evita loop
-        binding.btnTrocarTema.isChecked = nightMode == AppCompatDelegate.MODE_NIGHT_YES
-        binding.btnTrocarTema.setOnCheckedChangeListener { _, isChecked ->
-            val novoModo = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
-            else AppCompatDelegate.MODE_NIGHT_NO
+        // Alto contraste
+        binding.switchAltoContraste.apply {
+            setOnCheckedChangeListener(null)
+            isChecked = isHighContrast
+            setOnCheckedChangeListener { _, isChecked ->
+                prefs.edit().putBoolean("high_contrast", isChecked).apply()
+                // força recriar a Activity host para reaplicar tema
+                requireActivity().recreate()
+            }
+        }
 
-            prefs.edit().putInt("night_mode", novoModo).apply()
-            AppCompatDelegate.setDefaultNightMode(novoModo)
+        // Modo escuro
+        binding.btnTrocarTema.apply {
+            setOnCheckedChangeListener(null)
+            isChecked = (nightMode == AppCompatDelegate.MODE_NIGHT_YES)
+            setOnCheckedChangeListener { _, isChecked ->
+                prefs.edit()
+                    .putInt("night_mode",
+                        if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
+                        else AppCompatDelegate.MODE_NIGHT_NO
+                    )
+                    .apply()
+
+                // aplica modo dia/noite imediatamente (sem recriar a tela)
+                AppCompatDelegate.setDefaultNightMode(
+                    if (prefs.getBoolean("high_contrast", false))
+                        AppCompatDelegate.MODE_NIGHT_NO
+                    else if (isChecked)
+                        AppCompatDelegate.MODE_NIGHT_YES
+                    else
+                        AppCompatDelegate.MODE_NIGHT_NO
+                )
+            }
         }
     }
 
+    private fun configurarClicks() {
+        val prefs = requireContext().getSharedPreferences("config", MODE_PRIVATE)
+
+        // Logout
+        val logoutClick: (View) -> Unit = {
+            autenticacao.signOut()
+            startActivity(Intent(requireContext(), MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            })
+            requireActivity().finish()
+        }
+        binding.btnLogout.setOnClickListener(logoutClick)
+        binding.textViewLogout.setOnClickListener(logoutClick)
+
+        // Navegação para outras fragments
+        fun navegar(fragment: Fragment) {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                .replace(R.id.fragmentContainerView, fragment)
+                .addToBackStack(null)
+                .commit()
+
+            (activity as? PlaceHolderActivity)?.limparBottomNavBar()
+        }
+
+        binding.btnPolitica.setOnClickListener { navegar(PoliticaFragment()) }
+        binding.textPolitica.setOnClickListener { navegar(PoliticaFragment()) }
+        binding.btnSobre.setOnClickListener { navegar(SobreFragment()) }
+        binding.textSobre.setOnClickListener { navegar(SobreFragment()) }
+        binding.btnTermosCondicoes.setOnClickListener { navegar(TermosCondicoesFragment()) }
+        binding.textTermosCondicoes.setOnClickListener { navegar(TermosCondicoesFragment()) }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }}
-
+    }
+}

@@ -12,19 +12,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorFundoElementos"
-        app:itemPaddingBottom="8dp"
+        app:itemActiveIndicatorStyle="@null"
         app:itemIconSize="45dp"
         app:itemIconTint="@color/bottom_nav_color_selector"
+        app:itemPaddingBottom="8dp"
         app:itemTextAppearanceActive="@style/BottomNavTextAppearance"
         app:itemTextAppearanceInactive="@style/BottomNavTextAppearanceInactive"
         app:itemTextColor="@color/bottom_nav_color_selector"
-        app:itemActiveIndicatorStyle="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navbar" />
-
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"

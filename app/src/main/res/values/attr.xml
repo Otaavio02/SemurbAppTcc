@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Cores de fundo -->
     <attr name="colorFundo" format="color" />
     <attr name="colorFundoElementos" format="color" />
     <attr name="colorFundoCaixas" format="color" />
+    <attr name="colorFundoNotificacoes" format="color" />
+
+    <!-- Cores de texto -->
     <attr name="colorTextoBranco" format="color" />
+    <attr name="CorTextoPadrao" format="color" />
+    <attr name="colorTextoGrandeGameficado" format="color" />
+    <attr name="colorTextoscinza" format="color" />
+
+    <!-- Cores de feedback / destaques -->
     <attr name="colorVermelho" format="color" />
     <attr name="colorVerde" format="color" />
-    <attr name="colorTextoGrandeGameficado" format="color" />
-    <attr name="CorTextoPadrao" format="color" />
+    <attr name="colorAmareloDestaque" format="color" />
+    <attr name="CorAzulDestaque" format="color" />
+
+    <!-- Botões -->
     <attr name="CorBgButton2" format="color" />
     <attr name="BaseLineAddColor" format="color" />
+    <attr name="CorCheckBox" format="color" />
+
+    <!-- Bordas e ícones -->
+    <attr name="CorBordas" format="color" />
+    <attr name="CorIcones" format="color" />
+
+    <!-- Gradientes (mesmo que cores planas no alto contraste) -->
+    <attr name="CorUmGradiente" format="color" />
+    <attr name="CorDoisGradiente" format="color" />
 </resources>

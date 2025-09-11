@@ -1,18 +1,15 @@
 package com.otavioaugusto.app_semurb
 
-import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.otavioaugusto.app_semurb.databinding.ActivityPlaceholderGameficadoBinding
 import com.otavioaugusto.app_semurb.fragments.*
-import java.util.Timer
-import kotlin.concurrent.schedule
 
 class PlaceHolderGameficadoActivity : AppCompatActivity() {
 
@@ -22,39 +19,50 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_FRAGMENT_KEY = "FRAGMENT_KEY"
-        const val VISIBILITY = "VISIBILITY"
-
-        const val VERIFICAR_TURNO = "VERIFICAR_TURNO"
-        const val INICIAR_INSPECAO = "INICIAR_INSPECAO"
+        const val VISIBILITY        = "VISIBILITY"
+        const val VERIFICAR_TURNO   = "VERIFICAR_TURNO"
+        const val INICIAR_INSPECAO  = "INICIAR_INSPECAO"
+        const val INICIAR_VIARIO    = "INICIAR_VIARIO"
+        const val VIARIO_EDITADO    = "VIARIO_EDITADO"
         const val INICIAR_OCORRENCIAS = "INICIAR_OCORRENCIAS"
-        const val INICIAR_VIARIO = "INICIAR_VIARIO"
-        const val VIARIO_EDITADO = "VIARIO_EDITADO"
         const val OCORRENCIAS_EDITADO = "OCORRENCIAS_EDITADO"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val prefs      = getSharedPreferences("config", MODE_PRIVATE)
+        val isHC       = prefs.getBoolean("high_contrast", false)
+        val nightMode  = prefs.getInt("night_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
+        if (isHC) {
+            setTheme(R.style.Theme_AppSemurb_HighContrast)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            setTheme(R.style.Base_Theme_AppSemurb)
+            AppCompatDelegate.setDefaultNightMode(nightMode)
+        }
+
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        val fragmentKey = intent.getStringExtra(EXTRA_FRAGMENT_KEY)
 
+        val fragmentKey = intent.getStringExtra(EXTRA_FRAGMENT_KEY)
         val fragmentToShow: Fragment = when (fragmentKey) {
-            VERIFICAR_TURNO -> VerificarTurnoFragment()
-            INICIAR_INSPECAO -> Inspecao1Fragment()
-            INICIAR_VIARIO -> Viario1Fragment()
-            VIARIO_EDITADO -> ViarioEditadoFragment()
+            VERIFICAR_TURNO   -> VerificarTurnoFragment()
+            INICIAR_INSPECAO  -> Inspecao1Fragment()
+            INICIAR_VIARIO    -> Viario1Fragment()
+            VIARIO_EDITADO    -> ViarioEditadoFragment()
             INICIAR_OCORRENCIAS -> Ocorrencias1Fragment()
             OCORRENCIAS_EDITADO -> OcorrenciasEditadoFragment()
-            else -> HomeFragment()
+            else              -> HomeFragment()
         }
 
-        val progressBarVisibility = intent.getStringExtra(VISIBILITY)
-        if (progressBarVisibility == "GONE") {
-            val barraProgresso = binding.progressBar
-            barraProgresso.visibility = View.GONE
-            val gradientTransition = binding.gradientTransition
-            gradientTransition.visibility = View.GONE
+      
+        if (intent.getStringExtra(VISIBILITY) == "GONE") {
+            binding.progressBar.visibility      = View.GONE
+            binding.gradientTransition.visibility = View.GONE
         }
 
         supportFragmentManager.beginTransaction()
@@ -62,90 +70,65 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
             .commit()
     }
 
-
     fun moverCarrinhoParaEtapa(index: Int, pularEtapa: String) {
-        val carrinho = binding.carrinho
-        val etapas = listOf(
-            binding.progressBarCircle1,
+        val carrinho      = binding.carrinho
+        val etapas        = listOf(binding.progressBarCircle1,
             binding.progressBarCircle2,
-            binding.progressBarCircle3,
-        )
-        val etapasLinha = listOf(
-            binding.progressBarLine1,
-            binding.progressBarLine2,
-        )
+            binding.progressBarCircle3)
+        val etapasLinha   = listOf(binding.progressBarLine1,
+            binding.progressBarLine2)
 
         etapas.forEachIndexed { i, etapa ->
-            val corFinal = if (i < index) {
-                R.color.VerdeLimao
-            } else {
-                R.color.CorBolas
-            }
-
-            val duration = 500;
-            animarCorElemento(etapa, corFinal, duration)
+            val corFinal = if (i < index) R.color.VerdeLimao else R.color.CorBolas
+            animarCorElemento(etapa, corFinal, 500)
         }
 
-        etapasLinha.forEachIndexed { i, etapa ->
-            val corFinal = if (i < index) {
-                R.color.VerdeLimao
-            } else {
-                R.color.CorBolas
-            }
-            val duration = 500;
-
-            animarCorElemento(etapa, corFinal, duration);
-
+        etapasLinha.forEachIndexed { i, linha ->
+            val corFinal = if (i < index) R.color.VerdeLimao else R.color.CorBolas
+            animarCorElemento(linha, corFinal, 500)
         }
 
-        val destino = etapas[index]
-        destino.post {
-
+        etapas[index].post {
             val destinoX = if (pularEtapa == "finalizar") {
-                750f // Valor caso for pular etapa
+                750f
             } else {
-                destino.x + destino.width / 2 - carrinho.width / 2 // Valor para usar o a posição X da proxima etapa
+                etapas[index].x + etapas[index].width / 2 - carrinho.width / 2
             }
-
-            carrinho.animate()
-                .x(destinoX)
-                .setDuration(400)
-                .start()
+            carrinho.animate().x(destinoX).setDuration(400).start()
         }
-
     }
 
-    fun animarCorElemento(view: ImageView, corFinalRes: Int, durationTime: Int) {
-        val drawable = view.background?.mutate() as? android.graphics.drawable.GradientDrawable ?: return;
-        val corFinal = getColor(corFinalRes);
-        val corAtual = (drawable.color?.defaultColor ?: corFinal);
+    private fun animarCorElemento(view: View, corFinalRes: Int, durationMs: Int) {
+        val drawable = (view.background?.mutate()as? android.graphics.drawable.GradientDrawable) ?: return
+        val corAtual = drawable.color?.defaultColor
+            ?: getColor(corFinalRes)
+        val corFinal = getColor(corFinalRes)
 
-        if (corAtual == corFinal) return;
+        if (corAtual == corFinal) return
 
-        val animator = ValueAnimator.ofObject(ArgbEvaluator(), corAtual, corFinal).apply {
-            duration = durationTime.toLong();
-            addUpdateListener { animation ->
-                val cor = animation.animatedValue as Int;
-                drawable.setColor(cor);
+        ValueAnimator.ofObject(
+            android.animation.ArgbEvaluator(),
+            corAtual,
+            corFinal
+        ).apply {
+            duration = durationMs.toLong()
+            addUpdateListener { anim ->
+                drawable.setColor(anim.animatedValue as Int)
             }
+            start()
         }
-        animator.start()
     }
 
     fun concluirEtapaFinal(index: Int) {
-        if (index == 3){
-            moverCarrinhoParaEtapa(2, "finalizar")
-        }
+        if (index == 3) moverCarrinhoParaEtapa(2, "finalizar")
 
         val deslocamento = 850f
-        val carrinho = binding.carrinho
-        carrinho.animate()
+        binding.carrinho.animate()
             .translationX(deslocamento)
             .setDuration(500)
             .start()
 
-        val etapa = findViewById<ImageView>(R.id.progress_bar_circle3);
-        animarCorElemento(etapa, R.color.VerdeLimao, 500);
+        val etapa = findViewById<View>(R.id.progress_bar_circle3)
+        animarCorElemento(etapa, R.color.VerdeLimao, 500)
     }
-
 }

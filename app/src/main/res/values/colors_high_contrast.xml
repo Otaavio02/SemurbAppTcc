@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Fundo e elementos principais -->
+    <color name="hc_Fundo">#000000</color>
+    <color name="hc_FundoElementos">#000000</color>
+    <color name="hc_FundoCaixas">#000000</color>
+    <color name="hc_FundoNotificacoes">#000000</color>
+
+    <!-- Texto -->
+    <color name="hc_CorTextoPadrao">#FFFFFF</color>
+    <color name="hc_CorTextoBranco">#FFFFFF</color>
+    <color name="hc_CorTextoscinza">#FFFFFF</color>
+
+    <!-- Destaques / feedback -->
+    <color name="hc_CorVermelho">#FF0000</color>
+    <color name="hc_CorVerde">#00FF00</color>
+    <color name="hc_CorAmareloDestaque">#FFD700</color> <!-- Amarelo forte para foco -->
+
+    <!-- Bordas e ícones -->
+    <color name="hc_CorBordas">#FFFFFF</color>
+    <color name="hc_CorIcones">#FFFFFF</color>
+
+    <!-- Botões -->
+    <color name="hc_CorBtnPadrao">#000000</color>
+    <color name="hc_CorBtnTexto">#FFFFFF</color>
+
+    <!-- Gradientes (substituídos por contrastes planos) -->
+    <color name="hc_CorUmGradiente">#000000</color>
+    <color name="hc_CorDoisGradiente">#000000</color>
+
+    <!-- Cores auxiliares -->
+    <color name="hc_CorAzulDestaque">#4AA5F8</color> <!-- Azul claro para links / ênfase -->
+    <color name="hc_CorCinzaClaro">#B6B6B6</color>
+
+    <!-- Compatibilidade com Material -->
+    <color name="hc_colorPrimary">#000000</color>
+    <color name="hc_colorOnPrimary">#FFFFFF</color>
+    <color name="hc_colorSecondary">#FFD700</color>
+    <color name="hc_colorOnSecondary">#000000</color>
+
+</resources>
