@@ -8,9 +8,9 @@
     <color name="hc_FundoNotificacoes">#000000</color>
 
     <!-- Texto -->
-    <color name="hc_CorTextoPadrao">#FFFFFF</color>
-    <color name="hc_CorTextoBranco">#FFFFFF</color>
-    <color name="hc_CorTextoscinza">#FFFFFF</color>
+    <color name="hc_CorTextoPadrao">#FFD700</color>
+    <color name="hc_CorTextoBranco">#FFD700</color>
+    <color name="hc_CorTextoscinza">#FFD700</color>
 
     <!-- Destaques / feedback -->
     <color name="hc_CorVermelho">#FF0000</color>
@@ -18,12 +18,12 @@
     <color name="hc_CorAmareloDestaque">#FFD700</color> <!-- Amarelo forte para foco -->
 
     <!-- Bordas e ícones -->
-    <color name="hc_CorBordas">#FFFFFF</color>
-    <color name="hc_CorIcones">#FFFFFF</color>
+    <color name="hc_CorBordas">#FFD700</color>
+    <color name="hc_CorIcones">#FFD700</color>
 
     <!-- Botões -->
     <color name="hc_CorBtnPadrao">#000000</color>
-    <color name="hc_CorBtnTexto">#FFFFFF</color>
+    <color name="hc_CorBtnTexto">#FFD700</color>
 
     <!-- Gradientes (substituídos por contrastes planos) -->
     <color name="hc_CorUmGradiente">#000000</color>
@@ -34,9 +34,9 @@
     <color name="hc_CorCinzaClaro">#B6B6B6</color>
 
     <!-- Compatibilidade com Material -->
-    <color name="hc_colorPrimary">#000000</color>
-    <color name="hc_colorOnPrimary">#FFFFFF</color>
+    <color name="hc_colorPrimary">#FFD700</color>
+    <color name="hc_colorOnPrimary">#FFD700</color>
     <color name="hc_colorSecondary">#FFD700</color>
-    <color name="hc_colorOnSecondary">#000000</color>
+    <color name="hc_colorOnSecondary">#FFD700</color>
 
 </resources>
