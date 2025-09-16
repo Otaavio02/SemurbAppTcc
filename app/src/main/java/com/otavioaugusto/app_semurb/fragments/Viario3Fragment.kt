@@ -129,6 +129,8 @@ class Viario3Fragment : Fragment() {
             }
 
             binding.btnProximoViario3.isEnabled = false
+            binding.btnProximoViario3.visibility = View.GONE
+            binding.progressBarViario.visibility = View.VISIBLE
 
             if (fotoUri != null) {
                 salvarFotoOcorrencia(fotoUri!!, endereco!!, descricao!!)
@@ -234,7 +236,7 @@ class Viario3Fragment : Fragment() {
         val inputStream = context.contentResolver.openInputStream(uri)
         val originalBitMap = BitmapFactory.decodeStream(inputStream)
 
-        val larguraMax = 1080
+        val larguraMax = 2080
         val escala = larguraMax.toFloat() / originalBitMap.width.toFloat()
         val novaAltura = (originalBitMap.height * escala).toInt()
         val bitmapReduzido = Bitmap.createScaledBitmap(originalBitMap, larguraMax, novaAltura, true)
@@ -242,7 +244,7 @@ class Viario3Fragment : Fragment() {
         val arquivoTemp = File(context.cacheDir, "compressed_${System.currentTimeMillis()}.jpg")
         val outputStream = FileOutputStream(arquivoTemp)
 
-        bitmapReduzido.compress(Bitmap.CompressFormat.JPEG, 70, outputStream)
+        bitmapReduzido.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
         outputStream.flush()
         outputStream.close()
 
@@ -251,12 +253,22 @@ class Viario3Fragment : Fragment() {
 
     private fun salvarOcorrenciaNoBanco(urlFoto: String?, endereco: String,  descricao: String) {
         val dbHelper = AppDatabaseHelper(requireContext())
-        dbHelper.insertViarioCompleto(tipo, endereco, descricao, urlFoto)
+        try {
+            dbHelper.insertViarioCompleto(tipo, endereco, descricao, urlFoto)
 
-        (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
+            (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
 
-        Timer().schedule(700) {
-            requireActivity().finish()
+            Timer().schedule(700) {
+                requireActivity().finish()
+            }
+
+        }catch (e: Exception){
+            "Erro ao salvar os dados"
+        }finally {
+
+            binding.progressBarViario.visibility = View.GONE
+            binding.btnProximoViario3.isEnabled = true
         }
+
     }
 }

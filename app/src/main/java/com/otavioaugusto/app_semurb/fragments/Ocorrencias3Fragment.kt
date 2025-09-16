@@ -84,6 +84,7 @@ class Ocorrencias3Fragment : Fragment() {
                 return@setOnClickListener
             }
             binding.btnProximoOcorrencias3.isEnabled = false
+            binding.btnProximoOcorrencias3.visibility = View.GONE
             binding.progressBarOcorrencias.visibility = View.VISIBLE
 
             if (fotoUri != null) {
@@ -282,7 +283,7 @@ class Ocorrencias3Fragment : Fragment() {
                 requireActivity().finish()
             }
         }catch(e: Exception ){
-            "Erro ao obter endereço"
+            "Erro ao salvar os dados"
 
         }finally {
             binding.progressBarOcorrencias.visibility = View.GONE
