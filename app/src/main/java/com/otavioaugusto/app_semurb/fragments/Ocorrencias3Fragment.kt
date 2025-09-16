@@ -36,6 +36,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 import kotlin.concurrent.schedule
+import kotlin.math.log
 
 class Ocorrencias3Fragment : Fragment() {
 
@@ -83,6 +84,7 @@ class Ocorrencias3Fragment : Fragment() {
                 return@setOnClickListener
             }
             binding.btnProximoOcorrencias3.isEnabled = false
+            binding.progressBarOcorrencias.visibility = View.VISIBLE
 
             if (fotoUri != null) {
                 salvarFotoOcorrencia(fotoUri!!, nome!!, numContato!!)
@@ -271,12 +273,20 @@ class Ocorrencias3Fragment : Fragment() {
 
     private fun salvarOcorrenciaNoBanco(urlFoto: String?, nome: String, numContato: String) {
         val dbHelper = AppDatabaseHelper(requireContext())
-        dbHelper.insertOcorrencia(tipo, endereco, nome, numContato, urlFoto)
+        try {
+            dbHelper.insertOcorrencia(tipo, endereco, nome, numContato, urlFoto)
 
-        (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
+            (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(2)
 
-        Timer().schedule(700) {
-            requireActivity().finish()
+            Timer().schedule(700) {
+                requireActivity().finish()
+            }
+        }catch(e: Exception ){
+            "Erro ao obter endereço"
+
+        }finally {
+            binding.progressBarOcorrencias.visibility = View.GONE
+            binding.btnProximoOcorrencias3.isEnabled = true
         }
     }
 }

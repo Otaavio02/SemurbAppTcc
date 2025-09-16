@@ -107,7 +107,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline45"
-        app:srcCompat="@drawable/inspecaonegocio" />
+        app:srcCompat="@drawable/bg_pesquisa" />
 
     <TextView
         android:id="@+id/textView22"
@@ -133,7 +133,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView24"
-        app:srcCompat="@drawable/inspecaonegocio" />
+        app:srcCompat="@drawable/bg_pesquisa" />
 
     <ImageView
         android:id="@+id/imageView24"
@@ -144,7 +144,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView22"
-        app:srcCompat="@drawable/inspecaonegocio" />
+        app:srcCompat="@drawable/bg_pesquisa" />
 
     <TextView
         android:id="@+id/textView23"
