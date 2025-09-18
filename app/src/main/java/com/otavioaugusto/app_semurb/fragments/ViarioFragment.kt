@@ -258,10 +258,11 @@ class ViarioFragment : Fragment() {
                         )
 
                         viariosCollection
-                            .document(dbData).collection("lista").document(viario.numeroSequencial.toString())
+                            .document(dbData).collection("lista-$horario_envio").document(viario.numeroSequencial.toString())
                             .set(dados)
                             .addOnSuccessListener {
                                 Log.d("FIREBASE", "Ocorrência enviada com sucesso: ${viario.numeroSequencial}")
+                                dbHelper.resetTable("viario")
                             }
                             .addOnFailureListener { e ->
                                 Log.e("FIREBASE", "Erro ao enviar ocorrência: ${e.message}")

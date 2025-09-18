@@ -1,5 +1,6 @@
 package com.otavioaugusto.app_semurb.fragments
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -280,10 +281,11 @@ class OcorrenciasFragment : Fragment() {
                         )
 
                         ocorrenciasCollection
-                            .document(dbData).collection("lista").document(ocorrencia.numeroSequencial.toString())
+                            .document(dbData).collection("lista-$horario_envio").document(ocorrencia.numeroSequencial.toString())
                             .set(dados)
                             .addOnSuccessListener {
-                            Log.d("FIREBASE", "Ocorrência enviada com sucesso: ${ocorrencia.numeroSequencial}")
+                                Log.d("FIREBASE", "Ocorrência enviada com sucesso: ${ocorrencia.numeroSequencial}")
+                                dbHelper.resetTable("ocorrencias")
                         }
                             .addOnFailureListener { e ->
                                 Log.e("FIREBASE", "Erro ao enviar ocorrência: ${e.message}")

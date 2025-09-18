@@ -267,6 +267,13 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         return db.insert("lista_historico", null, cv)
     }
 
+    // Função para resetar o número sequencial após enviar lista
+    fun resetTable(tabela: String) {
+        val db = this.writableDatabase
+        if (tabela == "ocorrencias") { db.execSQL("DELETE FROM ocorrencias")}
+        if (tabela == "viario") { db.execSQL("DELETE FROM viario")}
+    }
+
    /* fun getAllHistorico(): List<DataClassHistorico> {
         val historicoList = mutableListOf<DataClassHistorico>()
         val db = readableDatabase
