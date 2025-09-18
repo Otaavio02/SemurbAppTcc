@@ -222,7 +222,7 @@ class OcorrenciasFragment : Fragment() {
 
                 enviarOcorrencias(qtd_itens, horarioAtual, dataAtual)
 
-                EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de ocorrência", "Ocorrências enviadas com sucesso", dataAtual, horarioAtual, )
+                EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de Ocorrência", "Ocorrências enviadas com sucesso.", dataAtual, horarioAtual, )
             }
         }
     }

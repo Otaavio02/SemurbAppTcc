@@ -200,7 +200,7 @@ class ViarioFragment : Fragment() {
 
                         EnviarNotificacaoBd().notificacaoOcorrencia(
                             "Notificação de Viário",
-                            "Viário adicionado com sucesso",
+                            "Viário adicionado com sucesso.",
                             dataAtual,
                             horarioAtual
                         )

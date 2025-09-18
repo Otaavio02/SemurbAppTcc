@@ -158,7 +158,7 @@
             app:layout_constraintStart_toEndOf="@+id/notificacaoLidasSubtitulo"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
             app:layout_constraintVertical_bias="0.6"
-            app:srcCompat="@drawable/notifacao_lixeira" />
+            app:srcCompat="@drawable/ic_trashbin" />
 
         <FrameLayout
             android:id="@+id/frameLayout2"

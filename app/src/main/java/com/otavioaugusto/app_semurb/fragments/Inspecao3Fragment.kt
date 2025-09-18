@@ -306,7 +306,7 @@ class Inspecao3Fragment : Fragment() {
                         }
                     } else {
 
-                    EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de inspeção", "Inspeção realizada com sucesso", dataAtual, horarioAtual,)
+                    EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de Inspeção", "Relatório de Inspeção realizada e enviada com sucesso.", dataAtual, horarioAtual,)
                     salvarInspecaoComFotos(idViatura)
                         withContext(Dispatchers.Main) {
                             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(etapaAtual)
