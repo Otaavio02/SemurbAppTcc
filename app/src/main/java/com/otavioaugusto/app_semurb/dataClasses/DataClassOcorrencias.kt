@@ -3,8 +3,8 @@ package com.otavioaugusto.app_semurb.dataClasses
 import java.io.Serializable
 
 data class DataClassOcorrencia(
-    val id: Int = 0,
-    val numeroSequencial: Int,
+    val id: Any?,
+    val numero_sequencial: Any?,
     val tipo: String,
     val endereco: String,
     val nome: String,

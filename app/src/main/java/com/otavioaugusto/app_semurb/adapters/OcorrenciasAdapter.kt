@@ -24,7 +24,7 @@ class OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>()
 
     inner class ViewHolder(val binding: ItemOcorrenciaviarioBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DataClassOcorrencia) {
-            binding.textTitulo.text = "Ocorrência ${item.numeroSequencial}"
+            binding.textTitulo.text = "Ocorrência ${item.numero_sequencial}"
             binding.textTipo.text = item.tipo
             binding.textEndereco.text = item.endereco
             if (item.data_envio.isNotEmpty()){ binding.btnEditarOcoVia.setImageResource(R.drawable.inspecaofechar)} // ADICIONAR VERSÃO DO ICONE PARA MODO CLARO TODO
@@ -35,13 +35,14 @@ class OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>()
 
                 intent.putExtra("FRAGMENT_KEY", "OCORRENCIAS_EDITADO")
                 intent.putExtra("VISIBILITY", "GONE")
-                intent.putExtra("ID_OCORRENCIA", item.id.toLong())
+                intent.putExtra("ID_OCORRENCIA", item.id.toString())
                 intent.putExtra("DATA_ENVIO", item.data_envio)
                 intent.putExtra("TIPO", item.tipo)
                 intent.putExtra("ENDERECO", item.endereco)
                 intent.putExtra("NOME", item.nome)
                 intent.putExtra("CONTATO", item.numcontato)
-                intent.putExtra("NUMERO_SEQUENCIAL", item.numeroSequencial.toString())
+                intent.putExtra("FOTOURL", item.fotoUrl)
+                intent.putExtra("NUMERO_SEQUENCIAL", item.numero_sequencial.toString())
 
                 context.startActivity(intent)
             }

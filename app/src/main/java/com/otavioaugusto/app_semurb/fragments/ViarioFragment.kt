@@ -81,15 +81,27 @@ class ViarioFragment : Fragment() {
 
 
             binding.btnVoltarViario.setOnClickListener {
-                parentFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.slide_in_left,
-                        R.anim.slide_out_right
-                    )
-                    .replace(R.id.fragmentContainerView, HomeFragment())
-                    .commit()
+                if (data_envio == null) {
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
+                        .replace(R.id.fragmentContainerView, HomeFragment())
+                        .commit()
 
-                (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
+                    (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
+                } else {
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
+                        .replace(R.id.fragmentContainerView, HistoricoFragment())
+                        .commit()
+
+                    (activity as? PlaceHolderActivity)?.limparBottomNavBar()
+                }
             }
 
         return binding.root
@@ -105,7 +117,7 @@ class ViarioFragment : Fragment() {
 
     private fun atualizarListaViario(data_envio: String?) {
         lifecycleScope.launch {
-            val lista = withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO) {
                 val idAgenteLogado = autenticao.currentUser?.uid
                 val dbHelper = AppDatabaseHelper(requireContext())
 
@@ -148,15 +160,17 @@ class ViarioFragment : Fragment() {
                                     val endereco = dados["endereco"] as String
                                     val tipo = dados["tipo"] as String
                                     val descricao = dados["descricao"] as String
-                                    val id = doc.id
+                                    val fotoUrl = dados["fotoUrl"] as String?
+                                    val numeroSequencial = dados["numero_sequencial"]
 
                                     DataClassViario(
-                                        id = id.toInt(),
-                                        numeroSequencial = id.toInt(),
+                                        id = numeroSequencial,
+                                        numeroSequencial = numeroSequencial,
                                         tipo = tipo,
                                         endereco = endereco,
                                         descricao = descricao,
-                                        data_envio = data_envio
+                                        data_envio = data_envio,
+                                        fotoUrl = fotoUrl
                                     )
                                 } catch (e: Exception) {
                                     Log.e("FIREBASE", "Erro ao converter item da lista", e)
@@ -249,16 +263,18 @@ class ViarioFragment : Fragment() {
                         val timestampViario = com.google.firebase.Timestamp.now()
 
                         val dados = hashMapOf(
+                            "numero_sequencial" to viario.numeroSequencial,
                             "tipo" to viario.tipo,
                             "endereco" to viario.endereco,
                             "descricao" to viario.descricao,
+                            "fotoUrl" to viario.fotoUrl,
                             "horario_envio" to horario_envio,
                             "data_envio" to data_envio,
                             "timestamp_viario" to  timestampViario
                         )
 
                         viariosCollection
-                            .document(dbData).collection("lista-$horario_envio").document(viario.numeroSequencial.toString())
+                            .document(dbData).collection("lista").document("${horario_envio}h - " + viario.numeroSequencial.toString())
                             .set(dados)
                             .addOnSuccessListener {
                                 Log.d("FIREBASE", "Ocorrência enviada com sucesso: ${viario.numeroSequencial}")
@@ -291,15 +307,27 @@ class ViarioFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                parentFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.slide_in_left,
-                        R.anim.slide_out_right
-                    )
-                    .replace(R.id.fragmentContainerView, HomeFragment())
-                    .commit()
+                if (data_envio == null) {
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
+                        .replace(R.id.fragmentContainerView, HomeFragment())
+                        .commit()
 
-                (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
+                    (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
+                } else {
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
+                        .replace(R.id.fragmentContainerView, HistoricoFragment())
+                        .commit()
+
+                    (activity as? PlaceHolderActivity)?.limparBottomNavBar()
+                }
             }
         })
     }

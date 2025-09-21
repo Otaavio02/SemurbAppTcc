@@ -34,14 +34,14 @@ class ViarioAdapter : RecyclerView.Adapter<ViarioAdapter.ViewHolder>() {
                 val context = binding.root.context
                 val intent = Intent(context, PlaceHolderGameficadoActivity::class.java)
 
-                Log.d("TESTE", "O DATA ENVIOD DESSA PORRA é: ${item.data_envio}")
                 intent.putExtra("FRAGMENT_KEY", "VIARIO_EDITADO")
                 intent.putExtra("VISIBILITY", "GONE")
-                intent.putExtra("ID_VIARIO", item.id.toLong())
+                intent.putExtra("ID_VIARIO", item.numeroSequencial.toString())
                 intent.putExtra("DATA_ENVIO",  item.data_envio)
                 intent.putExtra("TIPO", item.tipo)
                 intent.putExtra("ENDERECO", item.endereco)
                 intent.putExtra("DESCRICAO", item.descricao)
+                intent.putExtra("FOTOURL", item.fotoUrl)
                 intent.putExtra("NUMERO_SEQUENCIAL", item.numeroSequencial.toString())
 
                 context.startActivity(intent)

@@ -1,6 +1,5 @@
 package com.otavioaugusto.app_semurb.fragments
 import android.content.Intent
-import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,13 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query.Direction
-import com.google.firebase.firestore.dataObjects
 import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.OcorrenciasAdapter
-import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico1Ocorrencias
 import com.otavioaugusto.app_semurb.dataClasses.DataClassOcorrencia
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrenciasBinding
 import com.otavioaugusto.app_semurb.dbHelper.AppDatabaseHelper
@@ -82,15 +78,27 @@ class OcorrenciasFragment : Fragment() {
         }
 
         binding.btnVoltarOcorrencias.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in_left,
-                    R.anim.slide_out_right
-                )
-                .replace(R.id.fragmentContainerView, HomeFragment())
-                .commit()
+            if (data_envio == null) {
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                    .replace(R.id.fragmentContainerView, HomeFragment())
+                    .commit()
 
-            (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
+                (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
+            } else {
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                    .replace(R.id.fragmentContainerView, HistoricoFragment())
+                    .commit()
+
+                (activity as? PlaceHolderActivity)?.limparBottomNavBar()
+            }
         }
 
         return binding.root
@@ -108,15 +116,27 @@ class OcorrenciasFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                parentFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.slide_in_left,
-                        R.anim.slide_out_right
-                    )
-                    .replace(R.id.fragmentContainerView, HomeFragment())
-                    .commit()
+                if (data_envio == null) {
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
+                        .replace(R.id.fragmentContainerView, HomeFragment())
+                        .commit()
 
-                (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
+                    (activity as? PlaceHolderActivity)?.selecionarBottomNavBar(R.id.home)
+                } else {
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
+                        .replace(R.id.fragmentContainerView, HistoricoFragment())
+                        .commit()
+
+                    (activity as? PlaceHolderActivity)?.limparBottomNavBar()
+                }
             }
         })
     }
@@ -168,21 +188,25 @@ class OcorrenciasFragment : Fragment() {
                         val listaConvertida = ocorrencias.mapNotNull { doc ->
                             val dados = doc.data
 
+                            Log.d("TESTESTSE", "ERRO?? ${doc.id}")
+
                             try {
                                 val endereco = dados["endereco"] as String
                                 val numcontato = dados["numcontato"] as String
                                 val tipo = dados["tipo"] as String
                                 val nome = dados["nome"] as String
-                                val id = doc.id
+                                val fotoUrl = dados["fotoUrl"] as String?
+                                val numero_sequencial = dados["numero_sequencial"]
 
                                 DataClassOcorrencia(
-                                    id = id.toInt(),
-                                    numeroSequencial = id.toInt(),
+                                    id = numero_sequencial,
+                                    numero_sequencial = numero_sequencial,
                                     tipo = tipo,
                                     endereco = endereco,
                                     nome = nome,
                                     numcontato = numcontato,
-                                    data_envio = data_envio
+                                    data_envio = data_envio,
+                                    fotoUrl = fotoUrl,
                                 )
                             } catch (e: Exception) {
                                 Log.e("FIREBASE", "Erro ao converter item da lista", e)
@@ -237,14 +261,10 @@ class OcorrenciasFragment : Fragment() {
 
                 val ocorrencias = dbHelper.getAllOcorrenciasByIdLista(idLista.toString())
 
-                Log.d("debug", "TESTE TESTE: ${ocorrencias}")
-
                 val idAgenteLogado = autenticao.currentUser?.uid
                 if (idAgenteLogado != null) {
                   val referenciaAgente = bancoDados.collection("agentes")
                       .document(idAgenteLogado)
-
-
 
                     val dbData = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
                     val timestampLista = com.google.firebase.Timestamp.now()
@@ -270,6 +290,7 @@ class OcorrenciasFragment : Fragment() {
                         val timestampOcorrencia = com.google.firebase.Timestamp.now()
 
                         val dados = hashMapOf(
+                            "numero_sequencial" to ocorrencia.numero_sequencial,
                             "tipo" to ocorrencia.tipo,
                             "endereco" to ocorrencia.endereco,
                             "nome" to ocorrencia.nome,
@@ -281,10 +302,10 @@ class OcorrenciasFragment : Fragment() {
                         )
 
                         ocorrenciasCollection
-                            .document(dbData).collection("lista-$horario_envio").document(ocorrencia.numeroSequencial.toString())
+                            .document(dbData).collection("lista").document("${horario_envio}h - " + ocorrencia.numero_sequencial.toString())
                             .set(dados)
                             .addOnSuccessListener {
-                                Log.d("FIREBASE", "Ocorrência enviada com sucesso: ${ocorrencia.numeroSequencial}")
+                                Log.d("FIREBASE", "Ocorrência enviada com sucesso: ${ocorrencia.numero_sequencial}")
                                 dbHelper.resetTable("ocorrencias")
                         }
                             .addOnFailureListener { e ->

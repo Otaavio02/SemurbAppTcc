@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.otavioaugusto.app_semurb.dataClasses.DataClassHistorico
 import com.otavioaugusto.app_semurb.dataClasses.DataClassOcorrencia
 import com.otavioaugusto.app_semurb.dataClasses.DataClassViario
 import com.otavioaugusto.app_semurb.utils.getStringOrNull
@@ -115,8 +114,8 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             while (it.moveToNext()) {
                 lista.add(
                     DataClassOcorrencia(
-                        id = it.getInt(it.getColumnIndexOrThrow("id")),
-                        numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
+                        id = it.getString(it.getColumnIndexOrThrow("id")),
+                        numero_sequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getStringOrNull("endereco") ?: "",
                         nome = it.getStringOrNull("nome") ?: "",
@@ -137,13 +136,14 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             while (it.moveToNext()) {
                 lista.add(
                     DataClassOcorrencia(
-                        id = it.getInt(it.getColumnIndexOrThrow("id")),
-                        numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
-                        tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
-                        endereco = it.getStringOrNull("endereco") ?: "",
-                        nome = it.getStringOrNull("nome") ?: "",
-                        numcontato = it.getStringOrNull("numcontato") ?: "",
-                        data_envio = it.getStringOrNull("data_envio") ?: ""
+                        id = it.getString(it.getColumnIndexOrThrow("id")),
+                        numero_sequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
+                        data_envio = it.getString(it.getColumnIndexOrThrow("data_envio")),
+                        nome = it.getString(it.getColumnIndexOrThrow("nome")),
+                        tipo = it.getString(it.getColumnIndexOrThrow("tipo")),
+                        endereco = it.getString(it.getColumnIndexOrThrow("endereco")),
+                        numcontato = it.getString(it.getColumnIndexOrThrow("numcontato")),
+
                     )
                 )
             }
