@@ -197,9 +197,10 @@ class OcorrenciasFragment : Fragment() {
                                 val nome = dados["nome"] as String
                                 val fotoUrl = dados["fotoUrl"] as String?
                                 val numero_sequencial = dados["numero_sequencial"]
+                                val id_item = numero_sequencial.toString()
 
                                 DataClassOcorrencia(
-                                    id = numero_sequencial,
+                                    id = id_item.toLong(),
                                     numero_sequencial = numero_sequencial,
                                     tipo = tipo,
                                     endereco = endereco,

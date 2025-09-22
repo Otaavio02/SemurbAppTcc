@@ -59,6 +59,9 @@ class Ocorrencias3Fragment : Fragment() {
         nome = arguments?.getString("nome")
         numContato = arguments?.getString("numContato")
 
+        binding.EditTextNumContato.setText(numContato)
+        binding.EditTextNomeContato.setText(nome)
+
         binding.ImageButtonCameraOcorrencia.setOnClickListener {
             val arquivoFoto = File(requireContext().cacheDir, "ocorrencia_${System.currentTimeMillis()}.jpg")
             fotoUri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", arquivoFoto)
@@ -201,9 +204,16 @@ class Ocorrencias3Fragment : Fragment() {
 
     private var fotoUri: Uri? = null
     private val cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { sucesso ->
+        if (sucesso && fotoUri != null) {
+            lifecycleScope.launch {
+                val arquivoComprimido = comprimirImagem(fotoUri!!)
+                val uriComprimida = Uri.fromFile(arquivoComprimido)
+                binding.ImageButtonCameraOcorrencia.setImageURI(uriComprimida)
 
-        binding.ImageButtonCameraOcorrencia.setImageURI(fotoUri)
-
+                // Atualiza a variável global para não usar a foto original depois
+                fotoUri = uriComprimida
+            }
+        }
     }
 
 
@@ -255,13 +265,21 @@ class Ocorrencias3Fragment : Fragment() {
     private suspend fun comprimirImagem(uri: Uri): File = withContext(Dispatchers.IO) {
         val context = requireContext()
         val inputStream = context.contentResolver.openInputStream(uri)
-        val originalBitMap = BitmapFactory.decodeStream(inputStream)
+        val originalBitmap = BitmapFactory.decodeStream(inputStream)
 
+        // Crop quadrado (1x1) na imagem
+        val tamanho = minOf(originalBitmap.width, originalBitmap.height)
+        val xOffset = (originalBitmap.width - tamanho) / 2
+        val yOffset = (originalBitmap.height - tamanho) / 2
+        val bitmapQuadrado = Bitmap.createBitmap(originalBitmap, xOffset, yOffset, tamanho, tamanho)
+
+        // Redimensiona para largura máxima
         val larguraMax = 1080
-        val escala = larguraMax.toFloat() / originalBitMap.width.toFloat()
-        val novaAltura = (originalBitMap.height * escala).toInt()
-        val bitmapReduzido = Bitmap.createScaledBitmap(originalBitMap, larguraMax, novaAltura, true)
+        val escala = larguraMax.toFloat() / bitmapQuadrado.width.toFloat()
+        val novaAltura = (bitmapQuadrado.height * escala).toInt()
+        val bitmapReduzido = Bitmap.createScaledBitmap(bitmapQuadrado, larguraMax, novaAltura, true)
 
+        // Salva imagem comprimida
         val arquivoTemp = File(context.cacheDir, "compressed_${System.currentTimeMillis()}.jpg")
         val outputStream = FileOutputStream(arquivoTemp)
 
@@ -284,7 +302,6 @@ class Ocorrencias3Fragment : Fragment() {
             }
         }catch(e: Exception ){
             "Erro ao salvar os dados"
-
         }finally {
             binding.progressBarOcorrencias.visibility = View.GONE
             binding.btnProximoOcorrencias3.isEnabled = true

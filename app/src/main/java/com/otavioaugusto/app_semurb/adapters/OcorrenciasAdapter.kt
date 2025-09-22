@@ -27,7 +27,7 @@ class OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>()
             binding.textTitulo.text = "Ocorrência ${item.numero_sequencial}"
             binding.textTipo.text = item.tipo
             binding.textEndereco.text = item.endereco
-            if (item.data_envio.isNotEmpty()){ binding.btnEditarOcoVia.setImageResource(R.drawable.inspecaofechar)} // ADICIONAR VERSÃO DO ICONE PARA MODO CLARO TODO
+            if (item.data_envio.isNotEmpty()){ binding.btnEditarOcoVia.setImageResource(R.drawable.ic_arrow_tab_open)} // ADICIONAR VERSÃO DO ICONE PARA MODO CLARO TODO
 
             binding.btnEditarOcoVia.setOnClickListener {
                 val context = binding.root.context
@@ -35,13 +35,13 @@ class OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>()
 
                 intent.putExtra("FRAGMENT_KEY", "OCORRENCIAS_EDITADO")
                 intent.putExtra("VISIBILITY", "GONE")
-                intent.putExtra("ID_OCORRENCIA", item.id.toString())
+                intent.putExtra("ID_OCORRENCIA", item.id)
                 intent.putExtra("DATA_ENVIO", item.data_envio)
                 intent.putExtra("TIPO", item.tipo)
                 intent.putExtra("ENDERECO", item.endereco)
                 intent.putExtra("NOME", item.nome)
                 intent.putExtra("CONTATO", item.numcontato)
-                intent.putExtra("FOTOURL", item.fotoUrl)
+                intent.putExtra("FOTO_URL", item.fotoUrl)
                 intent.putExtra("NUMERO_SEQUENCIAL", item.numero_sequencial.toString())
 
                 context.startActivity(intent)

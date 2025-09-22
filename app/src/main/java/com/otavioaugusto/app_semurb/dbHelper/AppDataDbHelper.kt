@@ -114,13 +114,14 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             while (it.moveToNext()) {
                 lista.add(
                     DataClassOcorrencia(
-                        id = it.getString(it.getColumnIndexOrThrow("id")),
+                        id = it.getLong(it.getColumnIndexOrThrow("id")),
                         numero_sequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getStringOrNull("endereco") ?: "",
                         nome = it.getStringOrNull("nome") ?: "",
                         numcontato = it.getStringOrNull("numcontato") ?: "",
-                        data_envio = it.getStringOrNull("data_envio") ?: ""
+                        data_envio = it.getStringOrNull("data_envio") ?: "",
+                        fotoUrl = it.getStringOrNull("foto_url") ?: ""
                     )
                 )
             }
@@ -136,14 +137,14 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             while (it.moveToNext()) {
                 lista.add(
                     DataClassOcorrencia(
-                        id = it.getString(it.getColumnIndexOrThrow("id")),
+                        id = it.getLong(it.getColumnIndexOrThrow("id")),
                         numero_sequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
                         data_envio = it.getString(it.getColumnIndexOrThrow("data_envio")),
                         nome = it.getString(it.getColumnIndexOrThrow("nome")),
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")),
                         endereco = it.getString(it.getColumnIndexOrThrow("endereco")),
                         numcontato = it.getString(it.getColumnIndexOrThrow("numcontato")),
-
+                        fotoUrl = it.getStringOrNull("foto_url") ?: ""
                     )
                 )
             }
@@ -151,13 +152,14 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
         return lista
     }
 
-    fun updateOcorrenciaCompleta(id: Long, tipo: String, endereco: String, nome: String, numcontato: String, ) {
+    fun updateOcorrenciaCompleta(id: Long, tipo: String, endereco: String, nome: String, numcontato: String, fotoUrl: String?) {
         val db = writableDatabase
         val cv = ContentValues().apply {
             put("tipo", tipo)
             put("endereco", endereco)
             put("nome", nome)
             put("numcontato", numcontato)
+            put("foto_url", fotoUrl)
         }
         db.update("ocorrencias", cv, "id = ?", arrayOf(id.toString()))
     }
@@ -201,7 +203,8 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getString(it.getColumnIndexOrThrow("endereco")) ?: "",
                         descricao = it.getString(it.getColumnIndexOrThrow("descricao")) ?: "",
-                        data_envio = it.getStringOrNull("data_envio") ?: ""
+                        data_envio = it.getStringOrNull("data_envio") ?: "",
+                        fotoUrl = it.getStringOrNull("foto_url") ?: ""
                     )
                 )
             }
@@ -222,7 +225,8 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getString(it.getColumnIndexOrThrow("endereco")) ?: "",
                         descricao = it.getString(it.getColumnIndexOrThrow("descricao")) ?: "",
-                        data_envio = it.getStringOrNull("data_envio") ?: ""
+                        data_envio = it.getStringOrNull("data_envio") ?: "",
+                        fotoUrl = it.getStringOrNull("foto_url") ?: ""
                     )
                 )
             }
