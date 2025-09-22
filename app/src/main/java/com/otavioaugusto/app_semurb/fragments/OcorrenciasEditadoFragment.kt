@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -89,7 +90,7 @@ class OcorrenciasEditadoFragment : Fragment() {
             binding.rbSinistro.isClickable = false
             binding.rbAtendimento.isClickable = false
             binding.rbGrandeVulto.isClickable = false
-            binding.imageViewFoto.isEnabled = false // TODO FAZER EXPANDIR A IMAGEM QUE NEM EM INSPEÇÃO DA VIATURA
+            //binding.imageViewFoto.isEnabled = false // TODO FAZER EXPANDIR A IMAGEM QUE NEM EM INSPEÇÃO DA VIATURA
             if (!old_foto_url.isNullOrEmpty()) {
                 Picasso.get()
                     .load(old_foto_url)
@@ -109,7 +110,7 @@ class OcorrenciasEditadoFragment : Fragment() {
                     })
                 binding.textViewFoto.visibility = View.GONE
             } else {
-                binding.textViewFoto.setText("Nenhuma imagem foi registrada.")
+                binding.textViewFoto.setText("Nenhuma imagem foi registrada. Clique para adicionar.")
             }
         }
         Log.d("TESTE", "OLD FOTO URL É: ${old_foto_url}")
@@ -161,9 +162,24 @@ class OcorrenciasEditadoFragment : Fragment() {
         })
 
         binding.imageViewFoto.setOnClickListener() {
-            val arquivoFoto = File(requireContext().cacheDir, "ocorrencia_${System.currentTimeMillis()}.jpg")
-            fotoUri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", arquivoFoto)
-            cameraLauncher.launch(fotoUri)
+            if (!data_envio.isNullOrEmpty()) {
+                val dialogView = ImageView(context).apply {
+                    Picasso.get()
+                        .load(old_foto_url)  // Carrega a URL diretamente do Firebase
+                        .into(this)  // Carrega a imagem no ImageView
+                    adjustViewBounds = true
+                    scaleType = ImageView.ScaleType.FIT_CENTER
+                }
+
+                AlertDialog.Builder(context)
+                    .setView(dialogView)
+                    .setPositiveButton("Fechar", null)
+                    .show()
+            } else {
+                val arquivoFoto = File(requireContext().cacheDir, "ocorrencia_${System.currentTimeMillis()}.jpg")
+                fotoUri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", arquivoFoto)
+                cameraLauncher.launch(fotoUri)
+            }
         }
 
 
