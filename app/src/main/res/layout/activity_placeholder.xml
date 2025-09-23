@@ -47,7 +47,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/barueri_logo" />
+        app:srcCompat="?attr/barueriLogo" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline97"

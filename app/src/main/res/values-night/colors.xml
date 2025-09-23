@@ -31,6 +31,8 @@
     <color name="BordaItemOcoAva">#6ABDF8</color>
     <color name="NomeTextoItemOcoAva">#6ABDF8</color>
     <color name="CorCheckBox">#6ABDF8</color>
+    <color name="CorTextosRadio">#000000</color>
+    <color name="CorNavBar">#6ABDF8</color>
 
 
 
@@ -68,6 +70,8 @@
     <color name="AzulBebe">#6ABDF8</color>
     <color name="Branco">#FFFFFFFF</color>
     <color name="Preto">#FF000000</color>
+    <color name="CorTextosNormais">#FFFFFF</color>
+    <color name="CorTextosGameficado">#6ABDF8</color>
 
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryVariant">#3700B3</color>

@@ -176,7 +176,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/notificacoes"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/CorTextosNormais"
                 android:textSize="35sp" />
 
         </FrameLayout>

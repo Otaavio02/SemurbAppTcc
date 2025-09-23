@@ -28,7 +28,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/config"
-                android:textColor="@color/CorTextoBranco"
+                android:textColor="?attr/CorTextosNormais"
                 android:textSize="35sp" />
         </FrameLayout>
 

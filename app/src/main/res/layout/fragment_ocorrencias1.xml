@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline40"
-        app:srcCompat="@drawable/voltar" />
+        app:srcCompat="?attr/voltar"  />
 
     <TextView
         android:id="@+id/textView17"
@@ -116,7 +116,7 @@
         android:paddingStart="20dp"
         android:paddingEnd="5dp"
         android:text="@string/atendimento"
-        android:textColor="#000000"
+        android:textColor="?attr/CorTextosRadio"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView22"
         app:layout_constraintStart_toStartOf="@+id/imageView22"
@@ -153,7 +153,7 @@
         android:paddingStart="20dp"
         android:paddingEnd="5dp"
         android:text="@string/sinistrotra"
-        android:textColor="#000000"
+        android:textColor="?attr/CorTextosRadio"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView24"
         app:layout_constraintStart_toStartOf="@+id/imageView24"
@@ -167,7 +167,7 @@
         android:paddingStart="20dp"
         android:paddingEnd="5dp"
         android:text="@string/Grande_Vulto"
-        android:textColor="#000000"
+        android:textColor="?attr/CorTextosRadio"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView23"
         app:layout_constraintStart_toStartOf="@+id/imageView23"

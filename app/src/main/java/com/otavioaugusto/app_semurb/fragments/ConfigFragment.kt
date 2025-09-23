@@ -56,14 +56,17 @@ class ConfigFragment : Fragment() {
             setOnCheckedChangeListener(null)
             isChecked = (nightMode == AppCompatDelegate.MODE_NIGHT_YES)
             setOnCheckedChangeListener { _, isChecked ->
+
+                // Salva no SharedPreferences
                 prefs.edit()
-                    .putInt("night_mode",
+                    .putInt(
+                        "night_mode",
                         if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
                         else AppCompatDelegate.MODE_NIGHT_NO
                     )
                     .apply()
 
-                // aplica modo dia/noite imediatamente (sem recriar a tela)
+                // Aplica o modo noturno / dia
                 AppCompatDelegate.setDefaultNightMode(
                     if (prefs.getBoolean("high_contrast", false))
                         AppCompatDelegate.MODE_NIGHT_NO
@@ -72,6 +75,9 @@ class ConfigFragment : Fragment() {
                     else
                         AppCompatDelegate.MODE_NIGHT_NO
                 )
+
+                // Força recriar a Activity para atualizar drawables e cores
+                requireActivity().recreate()
             }
         }
     }

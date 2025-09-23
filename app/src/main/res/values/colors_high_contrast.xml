@@ -3,7 +3,7 @@
 
     <!-- Fundo e elementos principais -->
     <color name="hc_Fundo">#000000</color>
-    <color name="hc_FundoElementos">#000000</color>
+    <color name="hc_FundoElementos">#373C3C</color>
     <color name="hc_FundoCaixas">#000000</color>
     <color name="hc_FundoNotificacoes">#000000</color>
 
@@ -38,5 +38,11 @@
     <color name="hc_colorOnPrimary">#FFD700</color>
     <color name="hc_colorSecondary">#FFD700</color>
     <color name="hc_colorOnSecondary">#FFD700</color>
+    <color name="hc_corBordaNotificacoesN">#FFD700</color>
+    <color name="hc_CorTextosNormais">#FFD700</color>
+    <color name="hc_CorTextosGameficado">#FFD700</color>
+    <color name="hc_CorTextosRadio">#FFD700</color>
+    <color name="hc_CorNavBar">#FFD700</color>
+    <color name="hc_CorBolas">#FFD700</color>
 
 </resources>

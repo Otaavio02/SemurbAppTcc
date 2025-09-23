@@ -128,7 +128,7 @@
             android:layout_marginStart="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/voltar" />
+            app:srcCompat="?attr/voltar"  />
     </FrameLayout>
 
 

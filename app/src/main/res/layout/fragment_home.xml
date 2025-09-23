@@ -13,7 +13,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/viario_home"
         android:scaleType="fitCenter"
-        android:src="@drawable/home_viario"
+        android:src="?attr/logoViario"
         app:layout_constraintEnd_toStartOf="@+id/btn_inspecao_home"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_ocorrencia_home"
         app:layout_constraintTop_toBottomOf="@+id/btn_inspecao_home"
-        app:srcCompat="@drawable/home_historico" />
+        app:srcCompat="?attr/logoHistorico" />
 
     <ImageButton
         android:id="@+id/btn_inspecao_home"
@@ -45,7 +45,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_viario_home"
         app:layout_constraintTop_toTopOf="@+id/guideline6"
-        app:srcCompat="@drawable/home_inspecao" />
+        app:srcCompat="?attr/logoInspecao" />
 
     <ImageButton
         android:id="@+id/btn_ocorrencia_home"
@@ -59,7 +59,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_viario_home"
-        app:srcCompat="@drawable/home_ocorrencias" />
+        app:srcCompat="?attr/logoOcorrencias" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -117,7 +117,7 @@
             android:shadowDx="3"
             android:shadowRadius="1"
             android:text="@string/verificar_turno"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -130,7 +130,7 @@
             android:layout_marginBottom="30dp"
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/bem_vindo"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="18.84sp" />
 
         <TextView
@@ -142,7 +142,7 @@
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/nome"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="16sp" />
 
     </FrameLayout>

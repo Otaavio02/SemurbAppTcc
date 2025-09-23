@@ -42,6 +42,8 @@ class Inspecao1Fragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
         _binding = FragmentInspecao1Binding.inflate(inflater, container, false)
 
         val idAgenteLogado = autenticacao.currentUser?.uid

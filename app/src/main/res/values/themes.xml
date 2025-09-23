@@ -17,10 +17,26 @@
         <item name="colorTextoBranco">@color/CorTextoBranco</item>
         <item name="colorVermelho">@color/CorVermelho</item>
         <item name="colorVerde">@color/CorVerde</item>
+        <item name="CorUmGradiente">@color/CorUmGradiente</item>
+        <item name="CorDoisGradiente">@color/CorDoisGradiente</item>
         <item name="CorTextoPadrao">@color/CorTextoPadrao</item>
         <item name="colorTextoGrandeGameficado">@color/TextoGrandeGameficado</item>
         <item name="android:statusBarColor">@color/Preto</item>
         <item name="android:navigationBarColor">@color/Preto</item>
+        <item name="colorFundoNotificacoes">@color/FundoNotificacoes</item>
+        <item name="CorBordaNotificacoesN">@color/CorBordaNotificacoesN</item>
+        <item name="CorTextosNormais">@color/CorTextosNormais</item>
+        <item name="CorTextosGameficado">@color/CorTextosGameficado</item>
+        <item name="CorTextosRadio">@color/CorTextosRadio</item>
+        <item name="CorNavBar">@color/CorNavBar</item>
+        <item name="logoViario">@drawable/home_viario</item>
+        <item name="logoOcorrencias">@drawable/home_ocorrencias</item>
+        <item name="logoInspecao">@drawable/home_inspecao</item>
+        <item name="logoHistorico">@drawable/home_historico</item>
+        <item name="barueriLogo">@drawable/barueri_logo</item>
+        <item name="corBolas">@color/CorBolas</item>
+        <item name="voltar">@drawable/voltar</item>
+
 
 
         <item name="android:spotShadowAlpha">0.5</item>
@@ -40,11 +56,27 @@
         <item name="colorFundoCaixas">@color/FundoCaixas</item>
         <item name="colorTextoBranco">@color/CorTextoBranco</item>
         <item name="colorVermelho">@color/VermelhoTomate</item>
+        <item name="CorUmGradiente">@color/CorUmGradiente</item>
+        <item name="CorDoisGradiente">@color/CorDoisGradiente</item>
         <item name="colorVerde">@color/VerdeFluorescente</item>
         <item name="CorTextoPadrao">@color/CorTextoPadrao</item>
         <item name="colorTextoGrandeGameficado">@color/AzulCeu</item>
         <item name="android:statusBarColor">@color/AzulNegro</item>
         <item name="android:navigationBarColor">@color/AzulNegro</item>
+        <item name="colorFundoNotificacoes">@color/FundoNotificacoes</item>
+        <item name="CorBordaNotificacoesN">@color/CorBordaNotificacoesN</item>
+        <item name="CorTextosNormais">@color/CorTextosNormais</item>
+        <item name="CorTextosGameficado">@color/CorTextosGameficado</item>
+        <item name="CorTextosRadio">@color/CorTextosRadio</item>
+        <item name="CorNavBar">@color/CorNavBar</item>
+        <item name="logoViario">@drawable/home_viario</item>
+        <item name="logoOcorrencias">@drawable/home_ocorrencias</item>
+        <item name="logoInspecao">@drawable/home_inspecao</item>
+        <item name="logoHistorico">@drawable/home_historico</item>
+        <item name="barueriLogo">@drawable/barueri_logo</item>
+        <item name="corBolas">@color/CorBolas</item>
+        <item name="voltar">@drawable/voltar</item>
+
     </style>
 
     <style name="Theme.AppSemurb.HighContrast" parent="Theme.Material3.DayNight.NoActionBar">
@@ -54,6 +86,10 @@
         <item name="colorSecondary">@color/hc_colorSecondary</item>
         <item name="colorSecondaryVariant">@color/hc_colorSecondary</item>
         <item name="colorSecondaryContainer">@color/hc_colorSecondary</item>
+        <item name="colorFundoNotificacoes">@color/hc_FundoNotificacoes</item>
+        <item name="CorUmGradiente">@color/hc_CorDoisGradiente</item>
+        <item name="CorDoisGradiente">@color/hc_CorUmGradiente</item>
+        <item name="CorBordaNotificacoesN">@color/hc_corBordaNotificacoesN</item>
 
         <item name="colorFundo">@color/hc_Fundo</item>
         <item name="colorFundoElementos">@color/hc_FundoElementos</item>
@@ -65,6 +101,18 @@
         <item name="colorTextoGrandeGameficado">@color/hc_CorAzulDestaque</item>
         <item name="android:statusBarColor">@color/hc_colorPrimary</item>
         <item name="android:navigationBarColor">@color/hc_colorPrimary</item>
+        <item name="CorTextosNormais">@color/hc_CorTextosNormais</item>
+        <item name="CorTextosGameficado">@color/hc_CorTextosGameficado</item>
+        <item name="CorTextosRadio">@color/hc_CorTextosRadio</item>
+        <item name="CorNavBar">@color/hc_CorNavBar</item>
+        <item name="logoViario">@drawable/home_viario_hc</item>
+        <item name="logoOcorrencias">@drawable/home_ocorrencias_hc</item>
+        <item name="logoInspecao">@drawable/home_inspecao_hc</item>
+        <item name="logoHistorico">@drawable/home_historico_hc</item>
+        <item name="barueriLogo">@drawable/barueri_logo_hc</item>
+        <item name="corBolas">@color/hc_CorBolas</item>
+        <item name="voltar">@drawable/voltar_hc</item>
+
     </style>
 
 </resources>

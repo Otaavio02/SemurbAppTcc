@@ -15,7 +15,7 @@
         android:padding="16dp"
         android:text="@string/preencha_detalhamento"
         android:textAlignment="center"
-        android:textColor="@color/Branco"
+        android:textColor="?attr/CorTextosNormais"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline42"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline40"
-        app:srcCompat="@drawable/voltar" />
+        app:srcCompat="?attr/voltar"  />
 
     <TextView
         android:id="@+id/textView17"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
         android:text="@string/servico_viario"
-        android:textColor="@color/AzulEscuroProfundo"
+        android:textColor="?attr/CorTextosGameficado"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -114,7 +114,7 @@
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:text="@string/descricao_viario"
-        android:textColor="@color/Branco"
+        android:textColor="?attr/CorTextosNormais"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintStart_toStartOf="@+id/scrollView2" />

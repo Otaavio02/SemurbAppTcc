@@ -22,7 +22,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline52"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline49"
-            app:srcCompat="@drawable/voltar" />
+            app:srcCompat="?attr/voltar"  />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline49"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/xxxx_xxxx"
-            android:textColor="?attr/CorTextoPadrao"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -79,7 +79,7 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="5dp"
                 android:text="@string/atendimento"
-                android:textColor="#000000"
+                android:textColor="?attr/CorTextosRadio"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="@id/imageView22"
                 app:layout_constraintStart_toStartOf="@id/imageView22"
@@ -103,7 +103,7 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="5dp"
                 android:text="@string/sinistrotra"
-                android:textColor="#000000"
+                android:textColor="?attr/CorTextosRadio"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="@id/imageView24"
                 app:layout_constraintStart_toStartOf="@id/imageView24"
@@ -127,7 +127,7 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="5dp"
                 android:text="@string/Grande_Vulto"
-                android:textColor="#000000"
+                android:textColor="?attr/CorTextosRadio"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="@id/imageView23"
                 app:layout_constraintStart_toStartOf="@id/imageView23"
@@ -183,7 +183,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/tipo_de_ocorrencia"
-            android:textColor="?attr/CorTextoPadrao"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent"
@@ -198,7 +198,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/detalhamento"
-            android:textColor="?attr/CorTextoPadrao"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -241,7 +241,7 @@
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:text="@string/contato"
-            android:textColor="@color/Branco"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/editTextContato"
             app:layout_constraintStart_toStartOf="@+id/editTextContato" />
@@ -281,7 +281,7 @@
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:text="@string/endereco2"
-            android:textColor="@color/Branco"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/editTextEndereco"
             app:layout_constraintStart_toStartOf="@+id/editTextEndereco" />
@@ -386,7 +386,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/nome_contato"
-            android:textColor="@color/Branco"
+            android:textColor="?attr/CorTextosNormais"
             app:layout_constraintBottom_toTopOf="@+id/editTextNome"
             app:layout_constraintStart_toStartOf="@+id/editTextNome" />
 

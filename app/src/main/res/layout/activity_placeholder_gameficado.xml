@@ -42,7 +42,7 @@
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/CorDoisGradiente"
+        android:background="?attr/CorDoisGradiente"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
@@ -109,7 +109,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/Teste"
+        android:background="?attr/colorFundo"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +126,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/barueri_logo" />
+            app:srcCompat="?attr/barueriLogo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
