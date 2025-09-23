@@ -25,7 +25,7 @@
             android:fontFamily="@font/montserrat_semibold"
             android:text="Dia XX/XX/2025"
             android:textSize="15sp"
-            android:textColor="@color/CorTextoscinza"
+            android:textColor="?attr/cinzaBranco"
             app:layout_constraintStart_toStartOf="parent" />
 
         <RelativeLayout
@@ -33,7 +33,7 @@
             android:layout_height="5dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/CorTextoscinza"
+            android:background="?attr/cinzaBranco"
             app:layout_constraintBottom_toBottomOf="@+id/textDiaHeader"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textDiaHeader"

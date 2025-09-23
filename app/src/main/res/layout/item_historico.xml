@@ -68,7 +68,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="7 Ocorrências"
-            android:textColor="@color/CorTextoPadrao"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

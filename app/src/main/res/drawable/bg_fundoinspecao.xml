@@ -2,6 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
     <solid android:color="@color/CorFundoInspecao"/>
     <corners android:bottomLeftRadius="25dp" android:bottomRightRadius="25dp" ></corners>
-    <stroke android:color="@color/CorBordasInspecao" android:width="4dp"/>
+    <stroke android:color="?attr/CorBordaNotificacoesN" android:width="4dp"/>
 
 </shape>

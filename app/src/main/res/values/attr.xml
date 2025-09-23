@@ -16,6 +16,21 @@
     <attr name="barueriLogo" format="reference" />
     <attr name="corBolas" format="reference" />
     <attr name="voltar" format="reference" />
+    <attr name="cinzaBranco" format="reference" />
+    <attr name="corTextoConfig" format="reference" />
+    <attr name="perfilIcon" format="reference" />
+    <attr name="telefoneIcon" format="reference" />
+    <attr name="localizacaoIcon" format="reference" />
+    <attr name="simbolodescricao" format="reference" />
+    <attr name="claro" format="reference" />
+    <attr name="contraste" format="reference" />
+    <attr name="sobre" format="reference" />
+    <attr name="termos" format="reference" />
+    <attr name="politica" format="reference" />
+    <attr name="logout" format="reference" />
+    <attr name="carro" format="reference" />
+    <attr name="semAvaria" format="reference" />
+
 
 
     <!-- Cores de texto -->

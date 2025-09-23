@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2"
         app:layout_constraintEnd_toStartOf="@+id/textInputLayout2"
         app:layout_constraintTop_toTopOf="@+id/textInputLayout2"
-        app:srcCompat="@drawable/viario_endereco" />
+        app:srcCompat="?attr/localizacaoIcon" /> />
 
     <TextView
         android:id="@+id/textView9"

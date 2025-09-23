@@ -17,7 +17,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/ver_mais"
-            android:textColor="@color/CorTextoscinza"
+            android:textColor="?attr/cinzaBranco"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -28,7 +28,7 @@
             android:id="@+id/frameLayout3"
             android:layout_width="0dp"
             android:layout_height="80dp"
-            android:background="@color/FundoElementos"
+            android:background="?attr/colorFundoElementos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -40,7 +40,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/historicos"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/CorTextosNormais"
                 android:textSize="34sp" />
 
             <ImageButton
@@ -52,7 +52,7 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/botaovoltarconfig"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/voltar" />
+                app:srcCompat="?attr/voltar" />
         </FrameLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/fim_historico"
-            android:textColor="@color/CorTextoscinza"
+            android:textColor="?attr/cinzaBranco"
             android:textSize="13sp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="50dp"

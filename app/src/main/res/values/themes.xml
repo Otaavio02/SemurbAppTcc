@@ -36,6 +36,19 @@
         <item name="barueriLogo">@drawable/barueri_logo</item>
         <item name="corBolas">@color/CorBolas</item>
         <item name="voltar">@drawable/voltar</item>
+        <item name="cinzaBranco">@color/cinzaBranco</item>
+        <item name="corTextoConfig">@color/corTextoConfig</item>
+        <item name="telefoneIcon">@drawable/viario_telefone</item>
+        <item name="perfilIcon">@drawable/perfil_icon</item>
+        <item name="localizacaoIcon">@drawable/viario_endereco</item>
+        <item name="simbolodescricao">@drawable/simbolo_descricao</item>
+        <item name="claro">@drawable/configuracoes_modo</item>
+        <item name="sobre">@drawable/configuracoes_sobre</item>
+        <item name="termos">@drawable/configuracoes_termos</item>
+        <item name="politica">@drawable/configuracoes_politica</item>
+        <item name="logout">@drawable/configuracoes_logout</item>
+        <item name="contraste">@drawable/configuracoes_contraste</item>
+        <item name="semAvaria">@color/CorCheckBox</item>
 
 
 
@@ -76,6 +89,21 @@
         <item name="barueriLogo">@drawable/barueri_logo</item>
         <item name="corBolas">@color/CorBolas</item>
         <item name="voltar">@drawable/voltar</item>
+        <item name="cinzaBranco">@color/cinzaBranco</item>
+        <item name="corTextoConfig">@color/corTextoConfig</item>
+        <item name="telefoneIcon">@drawable/viario_telefone</item>
+        <item name="perfilIcon">@drawable/perfil_icon</item>
+        <item name="localizacaoIcon">@drawable/viario_endereco</item>
+        <item name="simbolodescricao">@drawable/simbolo_descricao</item>
+        <item name="carro">@drawable/inspecaocarro</item>
+        <item name="claro">@drawable/configuracoes_modo</item>
+        <item name="sobre">@drawable/configuracoes_sobre</item>
+        <item name="termos">@drawable/configuracoes_termos</item>
+        <item name="politica">@drawable/configuracoes_politica</item>
+        <item name="logout">@drawable/configuracoes_logout</item>
+        <item name="contraste">@drawable/configuracoes_contraste</item>
+        <item name="semAvaria">@color/CorCheckBox</item>
+
 
     </style>
 
@@ -112,6 +140,21 @@
         <item name="barueriLogo">@drawable/barueri_logo_hc</item>
         <item name="corBolas">@color/hc_CorBolas</item>
         <item name="voltar">@drawable/voltar_hc</item>
+        <item name="cinzaBranco">@color/hc_cinzaBranco</item>
+        <item name="corTextoConfig">@color/hc_corTextoConfig</item>
+        <item name="telefoneIcon">@drawable/viario_telefone_hc</item>
+        <item name="perfilIcon">@drawable/perfil_icon_hc</item>
+        <item name="localizacaoIcon">@drawable/viario_endereco_hc</item>
+        <item name="simbolodescricao">@drawable/simbolo_descricao_hc</item>
+        <item name="carro">@drawable/inspecaocarro_hc</item>
+        <item name="claro">@drawable/claro_hc</item>
+        <item name="sobre">@drawable/sobre_hc</item>
+        <item name="termos">@drawable/termos_hc</item>
+        <item name="politica">@drawable/politica_hc</item>
+        <item name="logout">@drawable/logout_hc</item>
+        <item name="contraste">@drawable/contraste_hc</item>
+        <item name="semAvaria">@color/hc_CorCheckBox</item>
+
 
     </style>
 

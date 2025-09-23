@@ -21,7 +21,7 @@
             android:padding="16dp"
             android:text="@string/preencha_detalhamento"
             android:textAlignment="center"
-            android:textColor="@color/Branco"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/ocorrencia"
-            android:textColor="@color/AzulEscuroProfundo"
+            android:textColor="?attr/CorTextosGameficado"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/nome_contato"
-            android:textColor="@color/Branco"
+            android:textColor="?attr/CorTextosNormais"
             app:layout_constraintBottom_toTopOf="@+id/EditTextNomeContato"
             app:layout_constraintStart_toStartOf="@+id/EditTextNomeContato" />
 
@@ -139,13 +139,13 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/EditTextNomeContato"
             app:layout_constraintEnd_toStartOf="@+id/EditTextNomeContato"
             app:layout_constraintTop_toTopOf="@+id/EditTextNomeContato"
-            app:srcCompat="@drawable/perfil_simbolo" />
+            app:srcCompat="?attr/perfilIcon" />
 
         <EditText
             android:id="@+id/EditTextNumContato"
@@ -174,20 +174,21 @@
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:text="@string/contact"
-            android:textColor="@color/Branco"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/EditTextNumContato"
             app:layout_constraintStart_toStartOf="@+id/EditTextNumContato" />
 
         <ImageView
             android:id="@+id/imageView18"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/EditTextNumContato"
             app:layout_constraintEnd_toStartOf="@+id/EditTextNumContato"
             app:layout_constraintTop_toTopOf="@+id/EditTextNumContato"
-            app:srcCompat="@drawable/viario_telefone" />
+            app:layout_constraintVertical_bias="0.454"
+            app:srcCompat="?attr/telefoneIcon" />
 
         <ImageButton
             android:id="@+id/ImageButtonCameraOcorrencia"

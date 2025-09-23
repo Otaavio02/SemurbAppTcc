@@ -231,7 +231,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/editTextContato"
             app:layout_constraintEnd_toStartOf="@+id/editTextContato"
             app:layout_constraintTop_toTopOf="@+id/editTextContato"
-            app:srcCompat="@drawable/viario_telefone" />
+            app:srcCompat="?attr/telefoneIcon" />
 
         <TextView
             android:id="@+id/textView21"
@@ -271,7 +271,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/editTextEndereco"
             app:layout_constraintEnd_toStartOf="@+id/editTextEndereco"
             app:layout_constraintTop_toTopOf="@+id/editTextEndereco"
-            app:srcCompat="@drawable/viario_endereco" />
+            app:srcCompat="?attr/localizacaoIcon" />
 
         <TextView
             android:id="@+id/textView2"
@@ -378,7 +378,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/editTextNome"
             app:layout_constraintEnd_toStartOf="@+id/editTextNome"
             app:layout_constraintTop_toTopOf="@+id/editTextNome"
-            app:srcCompat="@drawable/perfil_simbolo" />
+            app:srcCompat="?attr/perfilIcon" />
 
         <TextView
             android:id="@+id/textView3"

@@ -50,7 +50,7 @@
                 android:shadowRadius="1"
                 android:text="@string/novaoc"
                 android:textAllCaps="false"
-                android:textColor="@color/BaseLineAddColor"
+                android:textColor="?attr/CorTextosNormais"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
                 android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center"
                 android:text="@string/listagemoc"
-                android:textColor="@color/AzulEscuroProfundo"
+                android:textColor="?attr/CorTextosGameficado"
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +96,7 @@
             android:isScrollContainer="false"
             android:text="@string/enviar"
             android:textAllCaps="false"
-            android:textColor="@color/BaseLineAddColor"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -105,7 +105,7 @@
         android:id="@+id/frameLayout5"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:background="@color/FundoElementos"
+        android:background="?attr/colorFundoElementos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -117,7 +117,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/ocorrencias"
-            android:textColor="#FFFFFF"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="34sp" />
 
         <ImageButton

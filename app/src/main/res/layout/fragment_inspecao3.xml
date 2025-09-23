@@ -98,7 +98,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/partesemavaria"
-            android:textColor="@color/CorCheckBox"
+            android:textColor="?attr/semAvaria"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -112,7 +112,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/partesemavaria"
-            android:textColor="@color/CorCheckBox"
+            android:textColor="?attr/semAvaria"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -126,7 +126,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/partesemavaria"
-            android:textColor="@color/CorCheckBox"
+            android:textColor="?attr/semAvaria"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
@@ -140,7 +140,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/partesemavaria"
-            android:textColor="@color/CorCheckBox"
+            android:textColor="?attr/semAvaria"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
@@ -154,7 +154,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/partesemavaria"
-            android:textColor="@color/CorCheckBox"
+            android:textColor="?attr/semAvaria"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
@@ -218,12 +218,13 @@
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:text="@string/xxxx_inspecao"
-            android:textColor="@color/Branco"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline77" />
+
 
         <TextView
             android:id="@+id/textViewDescricao"
@@ -233,13 +234,12 @@
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:text="@string/registre_qual"
-            android:textColor="@color/Branco"
+            android:textColor="?attr/CorTextosNormais"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewInspecaoViatura" />
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_avarias_traseira"
