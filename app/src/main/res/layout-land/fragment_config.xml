@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/configuracoesactivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="200dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/frameLayout4"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:background="?attr/colorFundoElementos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/config"
+                android:textColor="?attr/CorTextosNormais"
+                android:textSize="35sp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textPolitica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/pol_tica_e_privacidade"
+            android:textColor="?attr/CorTextoPadrao"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnPolitica"
+            app:layout_constraintStart_toEndOf="@+id/btnPolitica"
+            app:layout_constraintTop_toTopOf="@+id/btnPolitica" />
+
+        <TextView
+            android:id="@+id/textViewLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/logout"
+            android:textColor="?attr/CorTextoPadrao"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_logout"
+            app:layout_constraintStart_toEndOf="@+id/btn_logout"
+            app:layout_constraintTop_toTopOf="@+id/btn_logout"
+            app:layout_constraintVertical_bias="0.514" />
+
+        <TextView
+            android:id="@+id/textTermosCondicoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/termos_e_condi_es"
+            android:textColor="?attr/CorTextoPadrao"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnTermosCondicoes"
+            app:layout_constraintStart_toEndOf="@+id/btnTermosCondicoes"
+            app:layout_constraintTop_toTopOf="@+id/btnTermosCondicoes" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="25dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/modo2"
+            android:textColor="?attr/CorTextoPadrao"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="52dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/configura_es_gerais"
+            android:textColor="?attr/CorTextoPadrao"
+            android:textSize="27sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout4" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/modo"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:srcCompat="?attr/claro" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/contraste"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5"
+            app:srcCompat="?attr/contraste" />
+
+        <ImageButton
+            android:id="@+id/btnPolitica"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/politica"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnTermosCondicoes"
+            app:srcCompat="?attr/politica" />
+
+        <ImageView
+            android:id="@+id/btnTermosCondicoes"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/termos"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnSobre"
+            app:srcCompat="?attr/termos" />
+
+        <ImageButton
+            android:id="@+id/btnSobre"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/sobre"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView10"
+            app:srcCompat="?attr/sobre" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/btnTrocarTema"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="210dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            app:trackTint="@color/CinzaMedio" />
+
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchAltoContraste"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="210dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+            app:layout_constraintStart_toEndOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="@+id/imageView10"
+            app:trackTint="@color/CinzaMedio" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="18dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/Claro"
+            android:textColor="?attr/cinzaBranco"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/alto_contraste"
+            android:textColor="?attr/CorTextoPadrao"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+            app:layout_constraintStart_toEndOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="@+id/imageView10" />
+
+
+        <TextView
+            android:id="@+id/textSobre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/sobre"
+            android:textColor="?attr/CorTextoPadrao"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSobre"
+            app:layout_constraintStart_toEndOf="@+id/btnSobre"
+            app:layout_constraintTop_toTopOf="@+id/btnSobre" />
+
+        <ImageButton
+            android:id="@+id/btn_logout"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/logoutconfig"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnPolitica"
+            app:srcCompat="?attr/logout" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

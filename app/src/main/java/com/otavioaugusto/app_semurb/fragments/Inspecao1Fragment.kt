@@ -48,7 +48,7 @@ class Inspecao1Fragment : Fragment() {
 
         val idAgenteLogado = autenticacao.currentUser?.uid
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val documento = withContext(Dispatchers.IO) {
                     bancoDados.collection("agentes")
@@ -62,10 +62,10 @@ class Inspecao1Fragment : Fragment() {
                     viaturaID = dados["viatura"] as String
                     val fotoUrl = (dados["foto_agnt"] as? String)?.replace("\"", "")
                     val nome = dados["nome"]
-                    withContext(Dispatchers.Main){
 
+                    if (_binding != null) {
                         binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
-                        binding.textView35.text = "$viaturaID"
+                        binding.textView35.text = viaturaID
                         binding.textViewMotorista.text = "Agente $nome"
 
                         if (!fotoUrl.isNullOrEmpty()) {
@@ -77,18 +77,19 @@ class Inspecao1Fragment : Fragment() {
                                 .placeholder(R.drawable.home_foto)
                                 .into(binding.ImageViewFotoInspecao)
                         } else {
-                            Log.w("HomeFragment", "URL da foto está vazia ou nula")
-
                             binding.ImageViewFotoInspecao.setImageResource(R.drawable.home_foto)
                         }
                     }
-
                 } else {
-                    Toast.makeText(requireContext(), "Dados do usuário não encontrados", Toast.LENGTH_SHORT).show()
+                    context?.let {
+                        Toast.makeText(it, "Dados do usuário não encontrados", Toast.LENGTH_SHORT).show()
+                    }
                 }
             } catch (e: Exception) {
                 Log.e("InspeçãoFragment", "Erro ao carregar dados: ${e.message}", e)
-                Toast.makeText(requireContext(), "Erro ao carregar dados", Toast.LENGTH_SHORT).show()
+                context?.let {
+                    Toast.makeText(it, "Erro ao carregar dados", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

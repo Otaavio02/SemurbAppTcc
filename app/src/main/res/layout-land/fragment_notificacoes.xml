@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="100dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline62"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.91358024" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline63"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.0" />
+
+
+        <ImageButton
+            android:id="@+id/btnNotificacoesNaoLidas"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toStartOf="@+id/textView27"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+            app:srcCompat="@drawable/notificacaoaberto" />
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/naolidas"
+            android:textColor="?attr/cinzaBranco"
+            app:layout_constraintBottom_toBottomOf="@+id/btnNotificacoesNaoLidas"
+            app:layout_constraintStart_toEndOf="@+id/btnNotificacoesNaoLidas"
+            app:layout_constraintTop_toTopOf="@+id/btnNotificacoesNaoLidas"
+            app:layout_constraintVertical_bias="0.666" />
+
+        <RelativeLayout
+            android:id="@+id/linhaDivisoraNLidas"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/cinzaBranco"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/textView27"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintTop_toTopOf="@+id/textView27">
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/notificacaoNaoLidasSubtitulo"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:text="@string/deslize_lado"
+            android:textColor="?attr/cinzaBranco"
+            app:layout_constraintLeft_toLeftOf="@+id/btnNotificacoesNaoLidas"
+            app:layout_constraintRight_toRightOf="@+id/linhaDivisoraNLidas"
+            app:layout_constraintTop_toBottomOf="@+id/linhaDivisoraNLidas" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotificacoesNLidas"
+            android:layout_width="380dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notificacaoNaoLidasSubtitulo"
+            tools:listitem="@layout/item_notificacaonaolida" />
+
+        <ImageButton
+            android:id="@+id/btnNotificacoesLidas"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="34dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toStartOf="@+id/textView22"
+            app:layout_constraintHorizontal_bias="0.26"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvNotificacoesNLidas"
+            app:srcCompat="@drawable/notificacaoaberto" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/lidas"
+            android:textColor="?attr/cinzaBranco"
+            app:layout_constraintBottom_toBottomOf="@+id/btnNotificacoesLidas"
+            app:layout_constraintStart_toEndOf="@+id/btnNotificacoesLidas"
+            app:layout_constraintTop_toTopOf="@+id/btnNotificacoesLidas" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/cinzaBranco"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/textView22"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView22"
+            app:layout_constraintTop_toTopOf="@+id/textView22">
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/notificacaoLidasSubtitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:text="@string/deslize_excluir"
+            android:textColor="?attr/cinzaBranco"
+            app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/btnNotificacoesLidas"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+        <ImageButton
+            android:id="@+id/btnLixeira"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="5dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/notificacaoLidasSubtitulo"
+            app:layout_constraintStart_toEndOf="@+id/notificacaoLidasSubtitulo"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+            app:layout_constraintVertical_bias="0.6"
+            app:srcCompat="@drawable/ic_trashbin" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:background="?attr/colorFundoElementos"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textoTeste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/notificacoes"
+                android:textColor="?attr/CorTextosNormais"
+                android:textSize="35sp" />
+
+        </FrameLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8013468" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="1.24" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotificacoesLidas"
+            android:layout_width="380dp"
+            android:layout_height="0dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notificacaoLidasSubtitulo"
+            tools:listitem="@layout/item_notifacacaolida" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

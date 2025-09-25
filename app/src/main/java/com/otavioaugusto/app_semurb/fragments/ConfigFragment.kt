@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -40,47 +41,66 @@ class ConfigFragment : Fragment() {
         val isHighContrast = prefs.getBoolean("high_contrast", false)
         val nightMode = prefs.getInt("night_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
-        // Alto contraste
+
+
+
+
+        val themeListener = { _: CompoundButton, isChecked: Boolean ->
+            if (isChecked) {
+
+                binding.switchAltoContraste.setOnCheckedChangeListener(null)
+                binding.switchAltoContraste.isChecked = false
+                binding.switchAltoContraste.setOnCheckedChangeListener { _, checked ->
+
+                }
+            }
+
+            prefs.edit()
+                .putInt(
+                    "night_mode",
+                    if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
+                    else AppCompatDelegate.MODE_NIGHT_NO
+                )
+                .apply()
+
+            AppCompatDelegate.setDefaultNightMode(
+                if (prefs.getBoolean("high_contrast", false))
+                    AppCompatDelegate.MODE_NIGHT_NO
+                else if (isChecked)
+                    AppCompatDelegate.MODE_NIGHT_YES
+                else
+                    AppCompatDelegate.MODE_NIGHT_NO
+            )
+
+            requireActivity().recreate()
+        }
+
+        binding.btnTrocarTema.apply {
+            setOnCheckedChangeListener(null)
+            isChecked = (nightMode == AppCompatDelegate.MODE_NIGHT_YES)
+            setOnCheckedChangeListener(themeListener)
+        }
+
         binding.switchAltoContraste.apply {
             setOnCheckedChangeListener(null)
             isChecked = isHighContrast
             setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+
+                    binding.btnTrocarTema.setOnCheckedChangeListener(null)
+                    binding.btnTrocarTema.isChecked = false
+                    binding.btnTrocarTema.setOnCheckedChangeListener(themeListener)
+                }
+
                 prefs.edit().putBoolean("high_contrast", isChecked).apply()
-                // força recriar a Activity host para reaplicar tema
-                requireActivity().recreate()
-            }
-        }
 
-        // Modo escuro
-        binding.btnTrocarTema.apply {
-            setOnCheckedChangeListener(null)
-            isChecked = (nightMode == AppCompatDelegate.MODE_NIGHT_YES)
-            setOnCheckedChangeListener { _, isChecked ->
 
-                // Salva no SharedPreferences
-                prefs.edit()
-                    .putInt(
-                        "night_mode",
-                        if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
-                        else AppCompatDelegate.MODE_NIGHT_NO
-                    )
-                    .apply()
-
-                // Aplica o modo noturno / dia
-                AppCompatDelegate.setDefaultNightMode(
-                    if (prefs.getBoolean("high_contrast", false))
-                        AppCompatDelegate.MODE_NIGHT_NO
-                    else if (isChecked)
-                        AppCompatDelegate.MODE_NIGHT_YES
-                    else
-                        AppCompatDelegate.MODE_NIGHT_NO
-                )
-
-                // Força recriar a Activity para atualizar drawables e cores
                 requireActivity().recreate()
             }
         }
     }
+
+
 
     private fun configurarClicks() {
         val prefs = requireContext().getSharedPreferences("config", MODE_PRIVATE)

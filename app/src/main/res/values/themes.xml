@@ -43,6 +43,7 @@
         <item name="localizacaoIcon">@drawable/viario_endereco</item>
         <item name="simbolodescricao">@drawable/simbolo_descricao</item>
         <item name="claro">@drawable/configuracoes_modo</item>
+        <item name="carro">@drawable/inspecaocarro</item>
         <item name="sobre">@drawable/configuracoes_sobre</item>
         <item name="termos">@drawable/configuracoes_termos</item>
         <item name="politica">@drawable/configuracoes_politica</item>

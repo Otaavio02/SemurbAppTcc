@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flow_verticalAlign="top"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout6">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="200dp">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOcorrencias"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ListagemTitle"
+                tools:listitem="@layout/item_ocorrenciaviario" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_adicionarViario"
+                android:layout_width="353.64dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_button2"
+                android:backgroundTintMode="add"
+                android:drawableStart="@drawable/baseline_add_24"
+                android:elegantTextHeight="false"
+                android:elevation="15dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center|start"
+                android:isScrollContainer="false"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:shadowColor="@color/Preto"
+                android:shadowDx="3"
+                android:shadowRadius="1"
+                android:text="@string/novasi"
+                android:textAllCaps="false"
+                android:textColor="?attr/CorTextosNormais"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvOcorrencias" />
+
+            <TextView
+                android:id="@+id/ListagemTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/listagem_viario"
+                android:textColor="?attr/CorTextosGameficado"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_enviarViario"
+        android:layout_width="123.69dp"
+        android:layout_height="41.1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_button2"
+        android:backgroundTintMode="add"
+        android:elegantTextHeight="false"
+        android:elevation="15dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:gravity="center"
+        android:isScrollContainer="false"
+        android:text="@string/enviar"
+        android:textAllCaps="false"
+        android:textColor="?attr/CorTextosNormais"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.17" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout6"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="?attr/colorFundoElementos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnVoltarViario"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center|start"
+            android:layout_marginStart="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            app:srcCompat="?attr/voltar"  />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/servico_viario"
+            android:textColor="?attr/CorTextosNormais"
+            android:textSize="34sp" />
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

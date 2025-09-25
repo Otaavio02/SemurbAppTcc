@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/btn_viario_home"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/viario_home"
+        android:scaleType="fitCenter"
+        android:src="?attr/logoViario"
+        app:layout_constraintEnd_toStartOf="@+id/btn_inspecao_home"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+
+    <ImageButton
+        android:id="@+id/btn_historico_home"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/ocorrencia"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_ocorrencia_home"
+        app:layout_constraintTop_toBottomOf="@+id/btn_inspecao_home"
+        app:srcCompat="?attr/logoHistorico" />
+
+    <ImageButton
+        android:id="@+id/btn_inspecao_home"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/botao_inspecao_home"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_viario_home"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:srcCompat="?attr/logoInspecao" />
+
+    <ImageButton
+        android:id="@+id/btn_ocorrencia_home"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/historico"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/btn_historico_home"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_viario_home"
+        app:srcCompat="?attr/logoOcorrencias" />
+
+        <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.28" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.0" />
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/colorFundoElementos"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4">
+
+        <ImageView
+            android:id="@+id/imagaViewFotoHome"
+            android:layout_width="80dp"
+            android:layout_height="99dp"
+            android:layout_gravity="center|start"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="25dp"
+            android:contentDescription="@string/foto_home"
+            android:src="@drawable/home_foto" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_iniciarTurno"
+            android:layout_width="250dp"
+            android:layout_height="52dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/bg_button"
+            android:backgroundTintMode="add"
+            android:elevation="15dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:shadowColor="@color/Preto"
+            android:shadowDx="3"
+            android:shadowRadius="1"
+            android:text="@string/verificar_turno"
+            android:textColor="?attr/CorTextosNormais"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:layout_marginLeft="100dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/bem_vindo"
+            android:textColor="?attr/CorTextosNormais"
+            android:textSize="18.84sp" />
+
+        <TextView
+            android:id="@+id/textViewNomeHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:layout_marginLeft="100dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/nome"
+            android:textColor="?attr/CorTextosNormais"
+            android:textSize="16sp" />
+
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -22,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.otavioaugusto.app_semurb.databinding.ActivityMainBinding
 import android.Manifest
+import android.content.pm.ActivityInfo
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
@@ -53,9 +54,11 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
+
+
         verificarPermissaoLocalizacao()
 
-
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         val nestedScroll = binding.nestedScrollView
         val focusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
