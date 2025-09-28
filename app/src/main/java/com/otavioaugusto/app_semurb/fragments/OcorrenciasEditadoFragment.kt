@@ -52,8 +52,9 @@ class OcorrenciasEditadoFragment : Fragment() {
     private var numSequencial: String? = null
     private var confirmarAlteracao: Boolean = true
     private var data_envio: String? = null
-    private var foto_url: String? = null
     private var downloadUrl: String? = null
+
+    private var fotoUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -123,7 +124,6 @@ class OcorrenciasEditadoFragment : Fragment() {
                 .load(old_foto_url)
                 .fit()
                 .centerInside()
-                .rotate(90F)
                 .placeholder(R.drawable.bg_caixa)
                 .into(binding.imageViewFoto, object : com.squareup.picasso.Callback {
                     override fun onSuccess() {
@@ -258,7 +258,7 @@ class OcorrenciasEditadoFragment : Fragment() {
         return m.matches()
     }
 
-    private var fotoUri: Uri? = null
+
     private val cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { sucesso ->
         if (sucesso && fotoUri != null) {
             lifecycleScope.launch {

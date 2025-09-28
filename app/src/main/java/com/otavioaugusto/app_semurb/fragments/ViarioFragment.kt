@@ -161,16 +161,17 @@ class ViarioFragment : Fragment() {
                                     val tipo = dados["tipo"] as String
                                     val descricao = dados["descricao"] as String
                                     val fotoUrl = dados["fotoUrl"] as String?
-                                    val numeroSequencial = dados["numero_sequencial"]
+                                    val numero_sequencial = dados["numero_sequencial"]
+                                    val id_item = numero_sequencial.toString()
 
                                     DataClassViario(
-                                        id = numeroSequencial,
-                                        numeroSequencial = numeroSequencial,
+                                        id = id_item.toLong(),
+                                        numeroSequencial = numero_sequencial,
                                         tipo = tipo,
                                         endereco = endereco,
                                         descricao = descricao,
                                         data_envio = data_envio,
-                                        fotoUrl = fotoUrl
+                                        foto_url = fotoUrl
                                     )
                                 } catch (e: Exception) {
                                     Log.e("FIREBASE", "Erro ao converter item da lista", e)
@@ -267,7 +268,7 @@ class ViarioFragment : Fragment() {
                             "tipo" to viario.tipo,
                             "endereco" to viario.endereco,
                             "descricao" to viario.descricao,
-                            "fotoUrl" to viario.fotoUrl,
+                            "fotoUrl" to viario.foto_url,
                             "horario_envio" to horario_envio,
                             "data_envio" to data_envio,
                             "timestamp_viario" to  timestampViario
