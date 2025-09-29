@@ -83,9 +83,9 @@ class PerfilFragment : Fragment() {
         val fotoUrl = (dados["foto_agnt"] as? String)?.replace("\"", "")
 
         binding.textViewNome.text = nome.toString()
-        binding.textViewMatricula.text = matricula.toString()
-        binding.textViewServicos.text = viario.toString()
-        binding.textViewOcorrencias.text = ocorrencias.toString()
+        binding.textViewMatricula.text = "Matricula: ${matricula.toString()}"
+        binding.textViewViarioScore?.text = "Serviço Viário: ${viario.toString()}"
+        binding.textViewOcorrenciaScore?.text = "Ocorrências: ${ocorrencias.toString()}"
 
         if (!fotoUrl.isNullOrEmpty()) {
             Picasso.get()

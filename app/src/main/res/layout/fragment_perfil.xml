@@ -5,184 +5,171 @@
     android:id="@+id/perfilactivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="200dp">
 
-    <ImageView
-        android:id="@+id/imageViewFoto"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:contentDescription="@string/foto"
-        android:src="@drawable/perfil_foto"
-        app:layout_constraintBottom_toTopOf="@+id/guideline26"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header" />
-
-
-    <TextView
-        android:id="@+id/textViewNome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="@string/perfil_nome"
-        android:textColor="?attr/CorTextoPadrao"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline26" />
-
-    <TextView
-        android:id="@+id/estat_gerais"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="@string/estat_gerais"
-        android:textColor="?attr/CorTextoPadrao"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="120dp"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="@string/matri"
-        android:textColor="?attr/CorTextoPadrao"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNome" />
-
-    <TextView
-        android:id="@+id/textViewMatricula"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="@string/id_numero"
-        android:textColor="?attr/CorTextoPadrao"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView15"
-        app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toTopOf="@+id/textView15" />
+            <ImageView
+                android:id="@+id/imageViewFoto"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:contentDescription="@string/foto"
+                android:src="@drawable/perfil_foto"
+                app:layout_constraintBottom_toTopOf="@+id/guideline26"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/header" />
 
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.56" />
+            <TextView
+                android:id="@+id/textViewNome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/perfil_nome"
+                android:textColor="?attr/CorTextoPadrao"
+                android:layout_marginTop="16dp"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewFoto" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline28"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9023569" />
+            <TextView
+                android:id="@+id/estat_gerais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/estat_gerais"
+                android:textColor="?attr/CorTextoPadrao"
+                android:textSize="28sp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEquipe" />
+
+            <TextView
+                android:id="@+id/textViewViarioScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/inspe_es"
+                android:textColor="?attr/CorTextoPadrao"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/estat_gerais" />
+
+            <TextView
+                android:id="@+id/textViewOcorrenciaScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/inspe_es"
+                android:textColor="?attr/CorTextoPadrao"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewViarioScore" />
+
+            <TextView
+                android:id="@+id/textViewMatricula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/matri"
+                android:textColor="?attr/CorTextoPadrao"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNome" />
+            <TextView
+                android:id="@+id/textViewPatente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/patente"
+                android:textColor="?attr/CorTextoPadrao"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMatricula" />
+            <TextView
+                android:id="@+id/textViewEquipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/Equipe"
+                android:textColor="?attr/CorTextoPadrao"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPatente" />
 
 
-    <FrameLayout
-        android:id="@+id/header"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:background="?attr/colorFundoElementos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/montserrat_semibold"
-            android:text="@string/perfil"
-            android:textColor="?attr/CorTextosNormais"
-            android:textSize="35sp" />
-    </FrameLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.56" />
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/estat_gerais">
+            <FrameLayout
+                android:id="@+id/header"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:background="?attr/colorFundoElementos"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.111">
 
-        <TextView
-            android:id="@+id/servicos_nome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semibold"
-            android:text="@string/servi_os"
-            android:textColor="?attr/CorTextoPadrao"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textViewServicos"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/perfil"
+                    android:textColor="?attr/CorTextosNormais"
+                    android:textSize="35sp" />
+            </FrameLayout>
 
-        <TextView
-            android:id="@+id/textViewServicos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/placeholder_estatisticas"
-            android:textColor="?attr/CorTextoPadrao"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/servicos_nome"
-            app:layout_constraintStart_toEndOf="@+id/servicos_nome"
-            app:layout_constraintTop_toTopOf="@+id/servicos_nome" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/estat_gerais"/>
 
-        <TextView
-            android:id="@+id/ocorrencias_nome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semibold"
-            android:text="@string/ocorrencias"
-            android:textColor="?attr/CorTextoPadrao"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textViewOcorrencias"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
-        <TextView
-            android:id="@+id/textViewOcorrencias"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/placeholder_estatisticas"
-            android:textColor="?attr/CorTextoPadrao"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ocorrencias_nome"
-            app:layout_constraintStart_toEndOf="@+id/ocorrencias_nome"
-            app:layout_constraintTop_toTopOf="@+id/ocorrencias_nome" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
