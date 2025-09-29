@@ -171,24 +171,29 @@ class NotificacoesFragment : Fragment() {
 
 
                     if (item.lida) {
-                        colecao
-                            .whereEqualTo("titulo", item.titulo)
-                            .whereEqualTo("mensagem", item.descricao)
+                        bancoDados.collection("agentes")
+                            .document(idUsuario)
+                            .collection("notificacoes")
+                            .whereEqualTo("lida", true)
                             .get()
                             .addOnSuccessListener { docs ->
                                 for (doc in docs) {
                                     doc.reference.delete()
                                 }
-                                Toast.makeText(requireContext(), "Notificação removida", Toast.LENGTH_SHORT).show()
+
+
+                                adapterLidas.clearAll()
+                                ajustarAlturaRecyclerView(rvNotificacoesLidas, 0)
+                                Toast.makeText(requireContext(), "Notificações removidas com sucesso", Toast.LENGTH_SHORT).show()
                             }
                             .addOnFailureListener {
-                                Toast.makeText(requireContext(), "Erro ao remover notificação", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), "Erro ao apagar notificações", Toast.LENGTH_SHORT).show()
                             }
 
 
                         ajustarAlturaRecyclerView(rvNotificacoesLidas, fonteAdapter.itemCount)
                     } else {
-                        item.lida = true
+                        item.lida = false
                         alvoAdapter.addItem(item)
 
                         colecao
@@ -235,10 +240,31 @@ class NotificacoesFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
+                val item = fonteAdapter.getItemAt(position)
                 fonteAdapter.removeItemAt(position)
 
+                val idUsuario = autenticao.currentUser?.uid
+                if (idUsuario != null) {
+                    bancoDados.collection("agentes")
+                        .document(idUsuario)
+                        .collection("notificacoes")
+                        .whereEqualTo("titulo", item.titulo)
+                        .whereEqualTo("mensagem", item.descricao)
+                        .whereEqualTo("lida", true)
+                        .get()
+                        .addOnSuccessListener { docs ->
+                            for (doc in docs) {
+                                doc.reference.delete()
+                            }
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(requireContext(), "Erro ao remover do banco", Toast.LENGTH_SHORT).show()
+                        }
+                }
+
                 ajustarAlturaRecyclerView(rvNotificacoesLidas,fonteAdapter.itemCount )
-            } })
+            }
+        })
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
