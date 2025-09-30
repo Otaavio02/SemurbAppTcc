@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
 import androidx.lifecycle.lifecycleScope
@@ -62,10 +63,6 @@ class ViarioEditadoFragment : Fragment() {
             requireActivity().finish()
         }
 
-        binding.btnFinalizarViarioEdicao.setOnClickListener {
-            requireActivity().finish()
-        }
-
         idViario = activity?.intent?.getLongExtra("ID_VIARIO", -1L) ?: -1L
         tipo = activity?.intent?.getStringExtra("TIPO")
         endereco = activity?.intent?.getStringExtra("ENDERECO")
@@ -91,7 +88,6 @@ class ViarioEditadoFragment : Fragment() {
                     .load(old_foto_url)
                     .fit()
                     .centerInside()
-                    .rotate(90F)
                     .placeholder(R.drawable.bg_caixa)
                     .into(binding.imageViewFoto, object : com.squareup.picasso.Callback {
                         override fun onSuccess() {
@@ -163,26 +159,24 @@ class ViarioEditadoFragment : Fragment() {
             lifecycleScope.launch {
                 Log.d("TESTE", "OLD FOTO URL É: ${old_foto_url}")
                 Log.d("TESTE", "DOWNLOAD URL É: ${downloadUrl}")
-                val novaUrl = salvarFotoOcorrencia(fotoUri!!, endereco!!)
+                val novaUrl = if (fotoUri != null) salvarFotoOcorrencia(fotoUri!!, endereco!!) else null
                 Log.d("TESTE", "NOVA URL É: ${novaUrl}")
-                if (old_foto_url != novaUrl) {
-                    if (novaUrl != null) {
-                        val storage = FirebaseStorage.getInstance()
-                        // Cria uma referência para o arquivo utilizando a URL
-                        val storageRef: StorageReference = storage.getReferenceFromUrl(old_foto_url.toString())
+                if (!old_foto_url.isNullOrEmpty() && novaUrl != null && old_foto_url != novaUrl) {
+                    val storage = FirebaseStorage.getInstance()
+                    // Cria uma referência para o arquivo utilizando a URL
+                    val storageRef: StorageReference = storage.getReferenceFromUrl(old_foto_url.toString())
 
-                        // Deleta o arquivo
-                        storageRef.delete()
-                            .addOnSuccessListener {
-                                // Sucesso ao deletar o arquivo
-                                Log.d("FIREBASE","Imagem deletada com sucesso.")
-                            }
-                            .addOnFailureListener { exception ->
-                                // Falha ao deletar o arquivo
-                                Log.d("FIREBASE","Falha ao deletar a imagem: ${exception.message}")
-                            }
-                        FinalizarEdicao(idViario, novaUrl.toString())
-                    }
+                    // Deleta o arquivo
+                    storageRef.delete()
+                        .addOnSuccessListener {
+                            // Sucesso ao deletar o arquivo
+                            Log.d("FIREBASE","Imagem deletada com sucesso.")
+                        }
+                        .addOnFailureListener { exception ->
+                            // Falha ao deletar o arquivo
+                            Log.d("FIREBASE","Falha ao deletar a imagem: ${exception.message}")
+                        }
+                    FinalizarEdicao(idViario, novaUrl.toString())
                 } else {
                     FinalizarEdicao(idViario, downloadUrl)
                 }
@@ -193,6 +187,23 @@ class ViarioEditadoFragment : Fragment() {
             if (idViario != -1L) {
                 val dbHelper = AppDatabaseHelper(requireContext())
                 dbHelper.deleteViario(idViario)
+
+                if (!old_foto_url.isNullOrEmpty()) {
+                    val storage = FirebaseStorage.getInstance()
+                    // Cria uma referência para o arquivo utilizando a URL
+                    val storageRef: StorageReference = storage.getReferenceFromUrl(old_foto_url.toString())
+
+                    // Deleta o arquivo
+                    storageRef.delete()
+                        .addOnSuccessListener {
+                            // Sucesso ao deletar o arquivo
+                            Log.d("FIREBASE","Imagem deletada com sucesso.")
+                        }
+                        .addOnFailureListener { exception ->
+                            // Falha ao deletar o arquivo
+                            Log.d("FIREBASE","Falha ao deletar a imagem: ${exception.message}")
+                        }
+                }
 
                 Toast.makeText(requireContext(), "Sinalização excluída com sucesso!", Toast.LENGTH_SHORT).show()
                 requireActivity().finish()
@@ -230,6 +241,7 @@ class ViarioEditadoFragment : Fragment() {
                 val arquivoComprimido = comprimirImagem(fotoUri!!)
                 val uriComprimida = Uri.fromFile(arquivoComprimido)
                 binding.imageViewFoto.setImageURI(uriComprimida)
+                binding.textViewFoto.visibility = View.GONE
 
                 // Atualiza a variável global para não usar a foto original depois
                 fotoUri = uriComprimida
@@ -273,7 +285,7 @@ class ViarioEditadoFragment : Fragment() {
 
             val arquivoComprimido = comprimirImagem(uri)
 
-            fotoRef.putFile(Uri.fromFile(arquivoComprimido)).await()
+            fotoRef.putFile(arquivoComprimido.toUri()).await()
             downloadUrl = fotoRef.downloadUrl.await().toString()
             fotoRef.downloadUrl.await().toString()
         } catch (e: Exception) {
@@ -284,9 +296,9 @@ class ViarioEditadoFragment : Fragment() {
 
     private fun FinalizarEdicao(idViario: Long, fotoUrl: String?) {
             val tipoSelecionado = when (binding.rgViarioEditado.checkedRadioButtonId) {
-                R.id.rbSinistro -> "Sinistro de Trânsito"
-                R.id.rbGrandeVulto -> "Sinistro de Grande Vulto"
-                R.id.rbAtendimento -> "Atendimento ao Cidadão"
+                R.id.rbSinaInefi -> "Sinalização Ineficiente"
+                R.id.rbSubstituicao -> "Substituição"
+                R.id.rbSugestao -> "Sugestão"
                 else -> ""
             }
 
