@@ -59,7 +59,6 @@ class Inspecao3Fragment : Fragment() {
 
     private var viaturaID: String = "Carregando..."
 
-
     private lateinit var adapter: AvariasAdapter
     private lateinit var avariasFrenteHelper: AvariasRecyclerHelper
     private lateinit var avariasTraseiraHelper: AvariasRecyclerHelper
@@ -93,9 +92,11 @@ class Inspecao3Fragment : Fragment() {
         setupToggles()
         setupRecyclers()
 
+        viaturaID = arguments?.getString("viaturaID").toString()
+        binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
+
         // Convertendo formato de data
         val data_envio_exibicao = arguments?.getString("DATA_ENVIO")
-
         if (!data_envio_exibicao.isNullOrBlank()) {
             val entrada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             val saida = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -177,14 +178,8 @@ class Inspecao3Fragment : Fragment() {
         binding.btnInfoOutros.setOnClickListener {
             mostrarAlertDialogAvaria(requireContext(),"Inclui partes como: ", "Teto, Chassi, Motor, Suspensão, Freios, etc." )
         }
-        viaturaID = arguments?.getString("viaturaID").toString()
-        binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
 
         return binding.root
-
-
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -265,7 +260,7 @@ class Inspecao3Fragment : Fragment() {
 
             lifecycleScope.launch{
                 withContext(Dispatchers.IO){
-                    val idViatura = "12345"
+                    val viaturaID = "12345"
                     val partesComErro = mutableListOf<String>()
 
                     val frenteAvarias = avariasFrenteHelper.getAvarias()
@@ -307,7 +302,7 @@ class Inspecao3Fragment : Fragment() {
                     } else {
 
                     EnviarNotificacaoBd().notificacaoOcorrencia("Notificação de Inspeção", "Relatório de Inspeção realizada e enviada com sucesso.", dataAtual, horarioAtual,)
-                    salvarInspecaoComFotos(idViatura)
+                    salvarInspecaoComFotos(viaturaID)
                         withContext(Dispatchers.Main) {
                             (activity as? PlaceHolderGameficadoActivity)?.concluirEtapaFinal(etapaAtual)
                             delay(500)
@@ -430,11 +425,10 @@ class Inspecao3Fragment : Fragment() {
     }
 
     private fun CarregarAvariasHistorico() {
-        val idViatura = "12345" // ou o id real que você usa
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 bancoDados.collection("veiculos")
-                    .document(idViatura)
+                    .document(viaturaID)
                     .collection("inspecoes")
                     .document(data_envio!!)  // <- data no formato yyyy-MM-dd
                     .get()
@@ -558,7 +552,8 @@ class Inspecao3Fragment : Fragment() {
 
 
         val dadosInspecao = hashMapOf<String, Any>(
-            "dataRegistro" to com.google.firebase.Timestamp.now()
+            "dataRegistro" to com.google.firebase.Timestamp.now(),
+            //"viaturaID" to viaturaID
         )
 
         val frenteResultado = if (!checkBoxFrente) {

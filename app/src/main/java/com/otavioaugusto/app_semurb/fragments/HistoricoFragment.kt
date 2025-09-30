@@ -56,17 +56,13 @@ class HistoricoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHistoricoBinding.inflate(inflater, container, false)
-        
 
         val historicoEspecifico = resources.getStringArray(R.array.historico)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, historicoEspecifico)
         binding.autoCompleteTextView.setAdapter(arrayAdapter)
 
-
         val editTextDate = binding.editTextData
-
         val calendar = Calendar.getInstance()
-
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             dataSelecionada = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year)
             dataSelecionadaBD = String.format("%02d-%02d-%d", year, month + 1, dayOfMonth,)
@@ -146,40 +142,6 @@ class HistoricoFragment : Fragment() {
         _binding = null
     }
 
-    /*fun getAllHistorico(): List<DataClassHistorico> {
-        val historicoList = mutableListOf<DataClassHistorico>()
-        val db = readableDatabase
-
-        val cursor = db.rawQuery("""
-        SELECT id_lista, topico, qtd_itens, horario_envio, data_envio
-        FROM lista_historico
-        ORDER BY data_envio DESC, horario_envio DESC
-    """.trimIndent(), null)
-
-        if (cursor.moveToFirst()) {
-            do {
-                val idLista = cursor.getInt(cursor.getColumnIndexOrThrow("id_lista"))
-                val topico = cursor.getString(cursor.getColumnIndexOrThrow("topico"))
-                val qtdItens = cursor.getInt(cursor.getColumnIndexOrThrow("qtd_itens"))
-                val horario = cursor.getString(cursor.getColumnIndexOrThrow("horario_envio"))
-                val data = cursor.getString(cursor.getColumnIndexOrThrow("data_envio"))
-
-                historicoList.add(
-                    DataClassHistorico(
-                        id_lista = idLista,
-                        topico = topico,
-                        qtd_itens = qtdItens,
-                        horario_envio = horario,
-                        data_envio = data
-                    )
-                )
-            } while (cursor.moveToNext())
-        }
-
-        cursor.close()
-        return historicoList
-    }*/
-
     private fun atualizarHistorico() {
         val idUsuarioLogado = autenticacao.currentUser?.uid ?: return
         val listaFinal = mutableListOf<Pair<String, Map<String, Any>>>()
@@ -245,13 +207,6 @@ class HistoricoFragment : Fragment() {
             // Transforma os dados recebidos em objetos DataClassHistorico
             val dadosBrutos = listaFinal.mapNotNull { (categoria, dados) ->
                 try {
-                    /*val dataEnvio = dados["data_envio"] as? String
-                        ?: dados["dataRegistro"] as? String
-                        ?: return@mapNotNull null
-
-                    val horarioEnvio = dados["horario_envio"] as? String
-                        ?: dados["dataRegistro"] as? String
-                        ?: "--:--"*/
 
                     val dataEnvio = when (categoria) {
                         "inspecoes" -> {
@@ -310,6 +265,7 @@ class HistoricoFragment : Fragment() {
                 }
 
                 val bundle = Bundle().apply {
+                    putString("DATA_ENVIO", historico.data_envio)
                     putString("DATA_ENVIO", historico.data_envio)
                     putString("TOPICO", historico.topico)
                 }
