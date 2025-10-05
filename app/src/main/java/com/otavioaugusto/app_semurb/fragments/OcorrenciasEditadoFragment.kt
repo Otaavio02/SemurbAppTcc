@@ -52,8 +52,10 @@ class OcorrenciasEditadoFragment : Fragment() {
     private var numSequencial: String? = null
     private var confirmarAlteracao: Boolean = true
     private var data_envio: String? = null
-    private var foto_url: String? = null
     private var downloadUrl: String? = null
+    private var novaUrl: String? = null
+
+    private var fotoUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -96,7 +98,6 @@ class OcorrenciasEditadoFragment : Fragment() {
                     .load(old_foto_url)
                     .fit()
                     .centerInside()
-                    .rotate(90F)
                     .placeholder(R.drawable.bg_caixa)
                     .into(binding.imageViewFoto, object : com.squareup.picasso.Callback {
                         override fun onSuccess() {
@@ -123,7 +124,6 @@ class OcorrenciasEditadoFragment : Fragment() {
                 .load(old_foto_url)
                 .fit()
                 .centerInside()
-                .rotate(90F)
                 .placeholder(R.drawable.bg_caixa)
                 .into(binding.imageViewFoto, object : com.squareup.picasso.Callback {
                     override fun onSuccess() {
@@ -187,26 +187,24 @@ class OcorrenciasEditadoFragment : Fragment() {
             lifecycleScope.launch {
                 Log.d("TESTE", "OLD FOTO URL É: ${old_foto_url}")
                 Log.d("TESTE", "DOWNLOAD URL É: ${downloadUrl}")
-                val novaUrl = salvarFotoOcorrencia(fotoUri!!, nome!!)
+                novaUrl = if (fotoUri != null) salvarFotoOcorrencia(fotoUri!!, nome!!) else null
                 Log.d("TESTE", "NOVA URL É: ${novaUrl}")
-                if (old_foto_url != novaUrl) {
-                    if (novaUrl != null) {
-                        val storage = FirebaseStorage.getInstance()
-                        // Cria uma referência para o arquivo utilizando a URL
-                        val storageRef: StorageReference = storage.getReferenceFromUrl(old_foto_url.toString())
+                if (!old_foto_url.isNullOrEmpty() && novaUrl != null && old_foto_url != novaUrl) {
+                    val storage = FirebaseStorage.getInstance()
+                    // Cria uma referência para o arquivo utilizando a URL
+                    val storageRef: StorageReference = storage.getReferenceFromUrl(old_foto_url.toString())
 
-                        // Deleta o arquivo
-                        storageRef.delete()
-                            .addOnSuccessListener {
-                                // Sucesso ao deletar o arquivo
-                                Log.d("FIREBASE","Imagem deletada com sucesso.")
-                            }
-                            .addOnFailureListener { exception ->
-                                // Falha ao deletar o arquivo
-                                Log.d("FIREBASE","Falha ao deletar a imagem: ${exception.message}")
-                            }
-                        FinalizarEdicao(confirmarAlteracao, idOcorrencia, novaUrl.toString())
-                    }
+                    // Deleta o arquivo
+                    storageRef.delete()
+                        .addOnSuccessListener {
+                            // Sucesso ao deletar o arquivo
+                            Log.d("FIREBASE","Imagem deletada com sucesso.")
+                        }
+                        .addOnFailureListener { exception ->
+                            // Falha ao deletar o arquivo
+                            Log.d("FIREBASE","Falha ao deletar a imagem: ${exception.message}")
+                        }
+                    FinalizarEdicao(confirmarAlteracao, idOcorrencia, novaUrl.toString())
                 } else {
                     FinalizarEdicao(confirmarAlteracao, idOcorrencia, downloadUrl)
                 }
@@ -217,6 +215,22 @@ class OcorrenciasEditadoFragment : Fragment() {
             if (idOcorrencia != -1L) {
                 val dbHelper = AppDatabaseHelper(requireContext())
                 dbHelper.deleteOcorrencia(idOcorrencia)
+                if (!old_foto_url.isNullOrEmpty()) {
+                    val storage = FirebaseStorage.getInstance()
+                    // Cria uma referência para o arquivo utilizando a URL
+                    val storageRef: StorageReference = storage.getReferenceFromUrl(old_foto_url.toString())
+
+                    // Deleta o arquivo
+                    storageRef.delete()
+                        .addOnSuccessListener {
+                            // Sucesso ao deletar o arquivo
+                            Log.d("FIREBASE","Imagem deletada com sucesso.")
+                        }
+                        .addOnFailureListener { exception ->
+                            // Falha ao deletar o arquivo
+                            Log.d("FIREBASE","Falha ao deletar a imagem: ${exception.message}")
+                        }
+                }
 
                 Toast.makeText(requireContext(), "Ocorrência excluída com sucesso!", Toast.LENGTH_SHORT).show()
                 requireActivity().finish()
@@ -258,13 +272,14 @@ class OcorrenciasEditadoFragment : Fragment() {
         return m.matches()
     }
 
-    private var fotoUri: Uri? = null
+
     private val cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { sucesso ->
         if (sucesso && fotoUri != null) {
             lifecycleScope.launch {
                 val arquivoComprimido = comprimirImagem(fotoUri!!)
                 val uriComprimida = Uri.fromFile(arquivoComprimido)
                 binding.imageViewFoto.setImageURI(uriComprimida)
+                binding.textViewFoto.visibility = View.GONE
 
                 // Atualiza a variável global para não usar a foto original depois
                 fotoUri = uriComprimida

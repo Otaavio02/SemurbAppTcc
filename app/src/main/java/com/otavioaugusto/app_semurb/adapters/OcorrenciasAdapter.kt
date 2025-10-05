@@ -27,7 +27,7 @@ class OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>()
             binding.textTitulo.text = "Ocorrência ${item.numero_sequencial}"
             binding.textTipo.text = item.tipo
             binding.textEndereco.text = item.endereco
-            if (item.data_envio.isNotEmpty()){ binding.btnEditarOcoVia.setImageResource(R.drawable.ic_arrow_tab_open)} // ADICIONAR VERSÃO DO ICONE PARA MODO CLARO TODO
+            if (item.data_envio.isNotEmpty()){ binding.btnEditarOcoVia.setImageResource(R.drawable.ic_arrow_tab_open)}
 
             binding.btnEditarOcoVia.setOnClickListener {
                 val context = binding.root.context

@@ -55,9 +55,11 @@
     <string name="id_numero">XXXXXX</string>
     <string name="id">Id:</string>
     <string name="matri">Matrícula:</string>
+    <string name="patente">Patente:</string>
+    <string name="Equipe">Equipe:</string>
     <string name="perfil_nome">XXXX XXXX XXXX</string>
     <string name="estat_gerais">Estatísticas Gerais</string>
-    <string name="inspe_es">Inspeções:</string>
+    <string name="inspe_es">Inspeções: XX</string>
     <string name="ocorrencias">Ocorrências</string>
     <string name="placeholder_estatisticas">XX</string>
     <string name="servi_os">Serviços:</string>

@@ -198,13 +198,13 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             while (it.moveToNext()) {
                 lista.add(
                     DataClassViario(
-                        id = it.getInt(it.getColumnIndexOrThrow("id")),
+                        id = it.getLong(it.getColumnIndexOrThrow("id")),
                         numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getString(it.getColumnIndexOrThrow("endereco")) ?: "",
                         descricao = it.getString(it.getColumnIndexOrThrow("descricao")) ?: "",
                         data_envio = it.getStringOrNull("data_envio") ?: "",
-                        fotoUrl = it.getStringOrNull("foto_url") ?: ""
+                        foto_url = it.getStringOrNull("foto_url") ?: ""
                     )
                 )
             }
@@ -220,13 +220,13 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
             while (it.moveToNext()) {
                 lista.add(
                     DataClassViario(
-                        id = it.getInt(it.getColumnIndexOrThrow("id")),
+                        id = it.getLong(it.getColumnIndexOrThrow("id")),
                         numeroSequencial = it.getInt(it.getColumnIndexOrThrow("numero_sequencial")),
                         tipo = it.getString(it.getColumnIndexOrThrow("tipo")) ?: "",
                         endereco = it.getString(it.getColumnIndexOrThrow("endereco")) ?: "",
                         descricao = it.getString(it.getColumnIndexOrThrow("descricao")) ?: "",
                         data_envio = it.getStringOrNull("data_envio") ?: "",
-                        fotoUrl = it.getStringOrNull("foto_url") ?: ""
+                        foto_url = it.getStringOrNull("foto_url") ?: ""
                     )
                 )
             }
@@ -235,12 +235,13 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_N
     }
 
 
-    fun updateViarioCompleto(id: Long, tipo: String, endereco: String, descricao: String) {
+    fun updateViarioCompleto(id: Long, tipo: String, endereco: String, descricao: String, fotoUrl: String?) {
         val db = writableDatabase
         val cv = ContentValues().apply {
             put("tipo", tipo)
             put("endereco", endereco)
             put("descricao", descricao)
+            put("foto_url", fotoUrl)
         }
         db.update("viario", cv, "id = ?", arrayOf(id.toString()))
     }

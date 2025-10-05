@@ -43,12 +43,12 @@
 
             <ImageView
                 android:id="@+id/imageView22"
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
                 android:layout_height="56dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/inspecaonegocio" />
+                app:srcCompat="@drawable/bg_radiooption" />
 
             <TextView
                 android:id="@+id/textView22"
@@ -66,13 +66,13 @@
 
             <ImageView
                 android:id="@+id/imageView24"
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView22"
-                app:srcCompat="@drawable/inspecaonegocio" />
+                app:srcCompat="@drawable/bg_radiooption" />
 
             <TextView
                 android:id="@+id/textView23"
@@ -90,13 +90,13 @@
 
             <ImageView
                 android:id="@+id/imageView23"
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView24"
-                app:srcCompat="@drawable/inspecaonegocio" />
+                app:srcCompat="@drawable/bg_radiooption" />
 
             <TextView
                 android:id="@+id/textView24"
