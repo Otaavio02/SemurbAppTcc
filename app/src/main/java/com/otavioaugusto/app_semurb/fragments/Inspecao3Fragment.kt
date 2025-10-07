@@ -264,15 +264,19 @@ class Inspecao3Fragment : Fragment() {
                     val partesComErro = mutableListOf<String>()
 
                     val frenteAvarias = avariasFrenteHelper.getAvarias()
-                    val frenteVazia = frenteAvarias.all { it.descricao.isBlank() && it.uriFoto == null }
+                    val frenteVazia = frenteAvarias.all { it.descricao.isBlank() }
+
                     val traseiraAvarias = avariasTraseiraHelper.getAvarias()
-                    val traseiraVazia = traseiraAvarias.all { it.descricao.isBlank() && it.uriFoto == null }
+                    val traseiraVazia = traseiraAvarias.all { it.descricao.isBlank() }
+
                     val direitaAvarias = avariasDireitaHelper.getAvarias()
-                    val direitaVazia = direitaAvarias.all { it.descricao.isBlank() && it.uriFoto == null }
+                    val direitaVazia = direitaAvarias.all { it.descricao.isBlank() }
+
                     val esquerdaAvarias = avariasEsquerdaHelper.getAvarias()
-                    val esquerdaVazia = esquerdaAvarias.all { it.descricao.isBlank() && it.uriFoto == null }
+                    val esquerdaVazia = esquerdaAvarias.all { it.descricao.isBlank() }
+
                     val outrasAvarias = avariasOutrasHelper.getAvarias()
-                    val outrasVazia = outrasAvarias.all { it.descricao.isBlank() && it.uriFoto == null }
+                    val outrasVazia = outrasAvarias.all { it.descricao.isBlank() }
 
 
                     if (frenteVazia && !binding.cbFrente.isChecked) partesComErro.add("Frente")

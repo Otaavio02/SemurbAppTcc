@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.otavioaugusto.app_semurb.R
@@ -33,12 +34,12 @@ class AvariasAdapter(
     override fun onBindViewHolder(holder: AvariaViewHolder, position: Int) {
         val avaria = avarias[position]
 
+
         holder.descricaoEditText.setText(avaria.descricao)
 
-        holder.descricaoEditText.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                avaria.descricao = holder.descricaoEditText.text.toString()
-            }
+
+        holder.descricaoEditText.addTextChangedListener { text ->
+            avaria.descricao = text.toString()
         }
 
         if (position == avarias.size - 1) {
@@ -89,8 +90,6 @@ class AvariasAdapter(
 
             holder.imageFoto.setOnClickListener(null)
         }
-
-
     }
     fun getLista(): List<DataClassAvariaItem> = avarias
 
