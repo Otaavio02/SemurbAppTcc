@@ -67,6 +67,7 @@ class PerfilFragment : Fragment() {
                     atualizarUI(dados)
                 } else {
                     Toast.makeText(requireContext(), "Dados do usuário não encontrados", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "$idUsuarioLogado", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Log.e("PerfilFragment", "Erro ao carregar dados: ${e.message}", e)
@@ -80,12 +81,16 @@ class PerfilFragment : Fragment() {
         val matricula = dados["matricula"]
         val viario = dados["viario"]
         val ocorrencias = dados["ocorrencias"]
+        val patente = dados["patente"]
+        val equipe = dados["equipe"]
         val fotoUrl = (dados["foto_agnt"] as? String)?.replace("\"", "")
 
         binding.textViewNome.text = nome.toString()
         binding.textViewMatricula.text = "Matricula: ${matricula.toString()}"
         binding.textViewViarioScore?.text = "Serviço Viário: ${viario.toString()}"
         binding.textViewOcorrenciaScore?.text = "Ocorrências: ${ocorrencias.toString()}"
+        binding.textViewPatente?.text = "Patente: ${patente.toString()}"
+        binding.textViewEquipe?.text = "Equipe: ${equipe.toString()}"
 
         if (!fotoUrl.isNullOrEmpty()) {
             Picasso.get()
