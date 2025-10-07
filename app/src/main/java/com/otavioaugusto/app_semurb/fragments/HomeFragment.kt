@@ -6,13 +6,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.otavioaugusto.app_semurb.*
 import com.otavioaugusto.app_semurb.databinding.FragmentHomeBinding
 import com.otavioaugusto.app_semurb.funcoes.ArredondarFoto
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class HomeFragment : Fragment() {
 
@@ -33,6 +39,38 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        var idUsuarioLogado = autenticacao.currentUser?.uid
+
+        lifecycleScope.launch {
+            try {
+                if (idUsuarioLogado!=null){
+                val documento = withContext(Dispatchers.IO) {
+                    bancoDados.collection("agentes")
+                        .document(idUsuarioLogado)
+                        .get()
+                        .await()
+                        }
+                val dados = documento.data}
+
+                fun atualizarFuncoes(dados: Map<String, Any>) {
+                    val funcao = dados["funcao"]
+
+                    if (funcao == "motorista"){
+
+                    }
+
+
+                }
+
+            } catch (e: Exception) {
+                Log.e("HomeFragment", "Erro ao carregar funcao: ${e.message}", e)
+                Toast.makeText(requireContext(), "Erro ao carregar dados", Toast.LENGTH_SHORT).show()
+            }}
+
+
+
+
 
         binding.btnViarioHome.setOnClickListener {
             parentFragmentManager.beginTransaction()
