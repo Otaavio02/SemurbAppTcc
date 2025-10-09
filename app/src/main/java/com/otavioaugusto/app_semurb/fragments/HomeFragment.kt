@@ -1,12 +1,16 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
@@ -40,33 +44,24 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        var idUsuarioLogado = autenticacao.currentUser?.uid
-
+        val idUsuarioLogado = autenticacao.currentUser?.uid
         lifecycleScope.launch {
-            try {
                 if (idUsuarioLogado!=null){
-                val documento = withContext(Dispatchers.IO) {
-                    bancoDados.collection("agentes")
-                        .document(idUsuarioLogado)
-                        .get()
-                        .await()
-                        }
-                val dados = documento.data}
-
-                fun atualizarFuncoes(dados: Map<String, Any>) {
-                    val funcao = dados["funcao"]
-
-                    if (funcao == "motorista"){
-
+                    val documento = withContext(Dispatchers.IO) {
+                        bancoDados.collection("agentes")
+                            .document(idUsuarioLogado)
+                            .get()
+                            .await()
                     }
+                    val dados = documento.data
+                    withContext(Dispatchers.Main){
+                        desativarFuncoes(dados)
+                    }
+                   }
+            }
 
 
-                }
 
-            } catch (e: Exception) {
-                Log.e("HomeFragment", "Erro ao carregar funcao: ${e.message}", e)
-                Toast.makeText(requireContext(), "Erro ao carregar dados", Toast.LENGTH_SHORT).show()
-            }}
 
 
 
@@ -175,8 +170,87 @@ class HomeFragment : Fragment() {
                 Log.i("FIREBASETESTE", "Erro ao puxar dados")
             }
     }
+    fun desativarFuncoes(dados: Map<String?, Any?>?){
 
 
+        val funcao = dados?.get("funcao")
+
+        if (funcao == "motorista"){
+            binding.btnOcorrenciaHome.setImageResource(R.drawable.btnocorrencia50)
+            binding.btnOcorrenciaHome.setOnClickListener {
+                val titulo = SpannableString("Você não tem acesso a essa função").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
+
+                val mensagem = SpannableString("Peça ao auxiliar realizá-la").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
+
+                val builder = AlertDialog.Builder(requireContext())
+                    .setTitle(titulo)
+                    .setMessage(mensagem)
+                    .setPositiveButton("Ok") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+
+                val dialog = builder.create()
+                dialog.setOnShowListener {
+                    dialog.window?.setBackgroundDrawable(
+                        ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
+                    )
+                }
+                dialog.show()
+            }
+
+            binding.btnViarioHome.setImageResource(R.drawable.btnviario50)
+            binding.btnViarioHome.setOnClickListener {
+                val titulo = SpannableString("Você não tem acesso a essa função").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
+
+                val mensagem = SpannableString("Peça ao auxiliar realizá-la").apply {
+                    setSpan(
+                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                        0, length, 0
+                    )
+                }
+
+                val builder = AlertDialog.Builder(requireContext())
+                    .setTitle(titulo)
+                    .setMessage(mensagem)
+                    .setPositiveButton("Ok") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+
+                val dialog = builder.create()
+                dialog.setOnShowListener {
+                    dialog.window?.setBackgroundDrawable(
+                        ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
+                    )
+                }
+                dialog.show()
+            }
+        }
+        if (funcao == "auxiliar"){
+            binding.btnInspecaoHome.isEnabled = false
+        }
+        if (funcao == "adm"){
+            binding.btnViarioHome.isEnabled = true
+            binding.btnOcorrenciaHome.isEnabled = true
+            binding.btnInspecaoHome.isEnabled = true
+        }
+    }
 }
+
+
 
 

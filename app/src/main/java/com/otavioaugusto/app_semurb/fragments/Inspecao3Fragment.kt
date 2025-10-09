@@ -1,5 +1,6 @@
 package com.otavioaugusto.app_semurb.fragments
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Bitmap
@@ -428,6 +429,7 @@ class Inspecao3Fragment : Fragment() {
         dialog.show()
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun CarregarAvariasHistorico() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
