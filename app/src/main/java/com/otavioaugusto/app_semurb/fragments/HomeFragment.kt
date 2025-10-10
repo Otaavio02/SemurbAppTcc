@@ -25,6 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
@@ -144,9 +145,12 @@ class HomeFragment : Fragment() {
                 val dados = documentSnapshot.data
                 if (dados != null) {
                     val nome = dados["nome"]
+                    val funcao: String = dados["funcao"] as String
+                    val funcaoCapitalizada = funcao.titlecase()
                     val fotoUrl = (dados["foto_agnt"] as? String)?.replace("\"", "")
 
                     binding.textViewNomeHome.text = nome.toString()
+                    binding.textViewFuncao?.text = funcaoCapitalizada
 
                     if (!fotoUrl.isNullOrEmpty()) {
                         Picasso.get()
@@ -215,7 +219,16 @@ class HomeFragment : Fragment() {
             dialog.show()
         }
     }
+
+    fun String.titlecase(): String =
+        this.replaceFirstChar { // it: Char
+            if (it.isLowerCase())
+                it.titlecase(Locale.getDefault())
+            else
+                it.toString()
+        }
 }
+
 
 
 

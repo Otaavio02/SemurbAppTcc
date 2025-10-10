@@ -99,7 +99,7 @@
             android:layout_height="99dp"
             android:layout_gravity="center|start"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="20dp"
             android:contentDescription="@string/foto_home"
             android:src="@drawable/home_foto" />
 
@@ -109,9 +109,30 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|start"
             android:layout_marginLeft="100dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="40dp"
             android:fontFamily="@font/montserrat_semibold"
             android:text="@string/bem_vindo"
+            android:textColor="?attr/CorTextosNormais"
+            android:textSize="18.84sp" />
+
+        <TextView
+            android:id="@+id/textViewFuncaoAviso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Hoje sua função é:"
+            android:textColor="?attr/CorTextosNormais"
+            android:textSize="18.84sp" />
+        <TextView
+            android:id="@+id/textViewFuncao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="140dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Função"
             android:textColor="?attr/CorTextosNormais"
             android:textSize="18.84sp" />
 
@@ -121,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|start"
             android:layout_marginLeft="100dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/montserrat"
             android:text="@string/nome"
             android:textColor="?attr/CorTextosNormais"

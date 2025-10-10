@@ -316,7 +316,7 @@ class HistoricoFragment : Fragment() {
                         }
                 } else {
                     bancoDados.collection("agentes").document(idUsuarioLogado).collection(categoria)
-                        .orderBy("timestamp", Query.Direction.DESCENDING)
+                        .orderBy("data_envio", Query.Direction.DESCENDING)
                         .get().addOnSuccessListener { docs ->
                             for (doc in docs) {
                                 listaFinal.add(Pair(categoria, doc.data))
