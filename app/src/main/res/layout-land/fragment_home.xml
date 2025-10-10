@@ -101,24 +101,6 @@
             android:contentDescription="@string/foto_home"
             android:src="@drawable/home_foto" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_iniciarTurno"
-            android:layout_width="250dp"
-            android:layout_height="52dp"
-            android:layout_gravity="bottom|center"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/bg_button"
-            android:backgroundTintMode="add"
-            android:elevation="15dp"
-            android:fontFamily="@font/montserrat_medium"
-            android:shadowColor="@color/Preto"
-            android:shadowDx="3"
-            android:shadowRadius="1"
-            android:text="@string/verificar_turno"
-            android:textColor="?attr/CorTextosNormais"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"

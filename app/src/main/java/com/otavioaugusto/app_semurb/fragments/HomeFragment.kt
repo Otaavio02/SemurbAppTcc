@@ -10,6 +10,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -115,12 +117,7 @@ class HomeFragment : Fragment() {
             (activity as? PlaceHolderActivity)?.limparBottomNavBar()
         }
 
-        binding.btnIniciarTurno.setOnClickListener {
-            val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
-            intent.putExtra("FRAGMENT_KEY", "VERIFICAR_TURNO")
-            intent.putExtra("VISIBILITY", "GONE")
-            startActivity(intent)
-        }
+
 
 
 
@@ -170,83 +167,52 @@ class HomeFragment : Fragment() {
                 Log.i("FIREBASETESTE", "Erro ao puxar dados")
             }
     }
-    fun desativarFuncoes(dados: Map<String?, Any?>?){
+    fun desativarFuncoes(dados: Map<String?, Any?>?) {
+        val funcao = dados?.get("funcao").toString().trim().lowercase()
 
 
-        val funcao = dados?.get("funcao")
-
-        if (funcao == "motorista"){
-            binding.btnOcorrenciaHome.setImageResource(R.drawable.btnocorrencia50)
-            binding.btnOcorrenciaHome.setOnClickListener {
-                val titulo = SpannableString("Você não tem acesso a essa função").apply {
-                    setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
-                        0, length, 0
-                    )
-                }
-
-                val mensagem = SpannableString("Peça ao auxiliar realizá-la").apply {
-                    setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
-                        0, length, 0
-                    )
-                }
-
-                val builder = AlertDialog.Builder(requireContext())
-                    .setTitle(titulo)
-                    .setMessage(mensagem)
-                    .setPositiveButton("Ok") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-
-                val dialog = builder.create()
-                dialog.setOnShowListener {
-                    dialog.window?.setBackgroundDrawable(
-                        ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
-                    )
-                }
-                dialog.show()
+        when (funcao) {
+            "motorista" -> {
+                bloquearBotao(binding.btnOcorrenciaHome, "Peça ao encarregado para realizá-la")
+                bloquearBotao(binding.btnViarioHome, "Peça ao encarregado para realizá-la")
             }
-
-            binding.btnViarioHome.setImageResource(R.drawable.btnviario50)
-            binding.btnViarioHome.setOnClickListener {
-                val titulo = SpannableString("Você não tem acesso a essa função").apply {
-                    setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
-                        0, length, 0
-                    )
-                }
-
-                val mensagem = SpannableString("Peça ao auxiliar realizá-la").apply {
-                    setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
-                        0, length, 0
-                    )
-                }
-
-                val builder = AlertDialog.Builder(requireContext())
-                    .setTitle(titulo)
-                    .setMessage(mensagem)
-                    .setPositiveButton("Ok") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-
-                val dialog = builder.create()
-                dialog.setOnShowListener {
-                    dialog.window?.setBackgroundDrawable(
-                        ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
-                    )
-                }
-                dialog.show()
+            "auxiliar" -> {
+                bloquearBotao(binding.btnOcorrenciaHome, "Peça ao encarregado para realizá-la")
+                bloquearBotao(binding.btnInspecaoHome, "Peça ao motorista para realizá-la")
+                bloquearBotao(binding.btnViarioHome, "Peça ao encarregado para realizá-la")
+            }
+            "encarregado" -> {
+                bloquearBotao(binding.btnInspecaoHome, "Peça ao motorista para realizá-la")
+            }
+            "adm" -> {
+                binding.btnViarioHome.isEnabled = true
+                binding.btnOcorrenciaHome.isEnabled = true
+                binding.btnInspecaoHome.isEnabled = true
             }
         }
-        if (funcao == "auxiliar"){
-            binding.btnInspecaoHome.isEnabled = false
-        }
-        if (funcao == "adm"){
-            binding.btnViarioHome.isEnabled = true
-            binding.btnOcorrenciaHome.isEnabled = true
-            binding.btnInspecaoHome.isEnabled = true
+    }
+
+    private fun bloquearBotao(botao: View, mensagem: String) {
+        botao.alpha = 0.5f
+        botao.setOnClickListener {
+            val titulo = SpannableString("Você não tem acesso a essa função").apply {
+                setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)), 0, length, 0)
+            }
+
+            val msg = SpannableString(mensagem).apply {
+                setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)), 0, length, 0)
+            }
+
+            val dialog = AlertDialog.Builder(requireContext())
+                .setTitle(titulo)
+                .setMessage(msg)
+                .setPositiveButton("Ok") { dialog, _ -> dialog.dismiss() }
+                .create()
+
+            dialog.setOnShowListener {
+                dialog.window?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco)))
+            }
+            dialog.show()
         }
     }
 }
