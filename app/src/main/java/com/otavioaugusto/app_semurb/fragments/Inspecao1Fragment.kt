@@ -36,6 +36,7 @@ class Inspecao1Fragment : Fragment() {
     private val bancoDados by lazy { FirebaseFirestore.getInstance() }
     
     private var viaturaID: String = "Carregando..."
+    lateinit private var usuarioID: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +48,7 @@ class Inspecao1Fragment : Fragment() {
         _binding = FragmentInspecao1Binding.inflate(inflater, container, false)
 
         val idAgenteLogado = autenticacao.currentUser?.uid
+        usuarioID = idAgenteLogado.toString()
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
@@ -61,12 +63,13 @@ class Inspecao1Fragment : Fragment() {
                 if (dados != null) {
                     viaturaID = dados["viatura"] as String
                     val fotoUrl = (dados["foto_agnt"] as? String)?.replace("\"", "")
-                    val nome = dados["nome"]
+                    val nome = dados["nome"] as String
+                    Log.d("TESTE", "nome do agente é: ${nome}")
 
                     if (_binding != null) {
                         binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
                         binding.textView35.text = viaturaID
-                        binding.textViewMotorista.text = "Agente $nome"
+                        binding.textViewMotorista.text = "$nome"
 
                         if (!fotoUrl.isNullOrEmpty()) {
                             Picasso.get()
@@ -121,6 +124,7 @@ class Inspecao1Fragment : Fragment() {
                     .replace(R.id.FragmentContainerView2, Inspecao2Fragment().apply {
                         arguments = Bundle().apply {
                             putString("viaturaID", viaturaID)
+                            putString("usuarioID", usuarioID)
                         }
                     })
                     .addToBackStack(null)

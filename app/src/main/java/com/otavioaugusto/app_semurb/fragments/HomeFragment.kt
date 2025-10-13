@@ -37,6 +37,8 @@ class HomeFragment : Fragment() {
         FirebaseFirestore.getInstance()
     }
 
+    lateinit var idUsuario: String
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -48,6 +50,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val idUsuarioLogado = autenticacao.currentUser?.uid
+        idUsuario = autenticacao.currentUser?.uid.toString()
         lifecycleScope.launch {
                 if (idUsuarioLogado!=null){
                     val documento = withContext(Dispatchers.IO) {
@@ -62,13 +65,6 @@ class HomeFragment : Fragment() {
                     }
                    }
             }
-
-
-
-
-
-
-
 
         binding.btnViarioHome.setOnClickListener {
             parentFragmentManager.beginTransaction()
@@ -87,6 +83,7 @@ class HomeFragment : Fragment() {
 
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "INICIAR_INSPECAO")
+            //intent.putExtra("idUsuario", idUsuario)
             startActivity(intent)
 
 

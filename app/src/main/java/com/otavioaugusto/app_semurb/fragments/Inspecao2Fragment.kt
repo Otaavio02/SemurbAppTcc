@@ -43,6 +43,7 @@ class Inspecao2Fragment : Fragment() {
     private var totalEtapas = 3
     
     private var viaturaID: String = "Carregando..."
+    lateinit private var usuarioID: String
     
 
     val bancoDados by lazy {
@@ -58,6 +59,7 @@ class Inspecao2Fragment : Fragment() {
         _binding = FragmentInspecao2Binding.inflate(inflater, container, false)
 
         viaturaID = arguments?.getString("viaturaID").toString()
+        usuarioID = arguments?.getString("usuarioID").toString()
         binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
 
 
@@ -71,7 +73,12 @@ class Inspecao2Fragment : Fragment() {
                     R.anim.slide_in_left,
                     R.anim.slide_out_right
                 )
-                .replace(R.id.FragmentContainerView2, Inspecao1Fragment())
+                .replace(R.id.FragmentContainerView2, Inspecao1Fragment().apply {
+                    arguments = Bundle().apply {
+                        putString("viaturaID", viaturaID)
+                        putString("usuarioID", usuarioID)
+                    }
+                })
                 .commit()
         }
 
@@ -131,6 +138,7 @@ class Inspecao2Fragment : Fragment() {
                         .replace(R.id.FragmentContainerView2, Inspecao3Fragment().apply {
                             arguments = Bundle().apply {
                                 putString("viaturaID", viaturaID)
+                                putString("usuarioID", usuarioID)
                             }
                         })
                         .addToBackStack(null)
@@ -165,7 +173,12 @@ class Inspecao2Fragment : Fragment() {
                         R.anim.slide_in_left,
                         R.anim.slide_out_right
                     )
-                    .replace(R.id.FragmentContainerView2, Inspecao1Fragment())
+                    .replace(R.id.FragmentContainerView2, Inspecao1Fragment().apply {
+                        arguments = Bundle().apply {
+                            putString("viaturaID", viaturaID)
+                            putString("usuarioID", usuarioID)
+                        }
+                    })
                     .commit()
             }
         })
@@ -206,6 +219,8 @@ class Inspecao2Fragment : Fragment() {
 
                 val dadosInspecao = hashMapOf(
                     "dataRegistro" to com.google.firebase.Timestamp.now(),
+                    "viaturaID" to viaturaID,
+                    "motoristaID" to usuarioID,
                     "frente" to listOf(mapOf("info" to "Parte sem avaria")),
                     "traseira" to listOf(mapOf("info" to "Parte sem avaria")),
                     "direita" to listOf(mapOf("info" to "Parte sem avaria")),
@@ -216,10 +231,8 @@ class Inspecao2Fragment : Fragment() {
                 lifecycleScope.launch {
                     try {
                         withContext(Dispatchers.IO) {
-                            bancoDados.collection("veiculos")
-                                .document(idVeiculo)
-                                .collection("inspecoes")
-                                .document(dataHoje)
+                            bancoDados.collection("inspecoes")
+                                .document("(${dataHoje})${idVeiculo}")
                                 .set(dadosInspecao)
                                 .await()
                         }

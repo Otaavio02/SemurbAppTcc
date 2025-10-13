@@ -50,6 +50,8 @@ class HistoricoFragment : Fragment() {
         FirebaseAuth.getInstance()
     }
 
+    lateinit private var usuarioID: String
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -144,6 +146,7 @@ class HistoricoFragment : Fragment() {
 
     private fun atualizarHistorico() {
         val idUsuarioLogado = autenticacao.currentUser?.uid ?: return
+        usuarioID = idUsuarioLogado
         val listaFinal = mutableListOf<Pair<String, Map<String, Any>>>()
 
         val categorias = listOf("viario", "ocorrencias", "inspecoes")
@@ -152,7 +155,7 @@ class HistoricoFragment : Fragment() {
 
         for (categoria in categorias) {
             if (categoria == "inspecoes") {
-                val colecao = bancoDados.collection("veiculos").document("12345").collection("inspecoes")
+                val colecao = bancoDados.collection("inspecoes").whereEqualTo("motoristaID", usuarioID)
                 val query = if (dataSelecionada == null) {
                     colecao.orderBy("dataRegistro", Query.Direction.DESCENDING)
                 } else {
@@ -266,7 +269,7 @@ class HistoricoFragment : Fragment() {
 
                 val bundle = Bundle().apply {
                     putString("DATA_ENVIO", historico.data_envio)
-                    putString("DATA_ENVIO", historico.data_envio)
+                    putString("viaturaID", historico.data_envio)
                     putString("TOPICO", historico.topico)
                 }
                 fragment.arguments = bundle
@@ -303,7 +306,7 @@ class HistoricoFragment : Fragment() {
         if (dataSelecionada == null){
             if (idUsuarioLogado != null){
                 if (categoria == "inspecoes"){
-                    bancoDados.collection("veiculos").document("12345").collection(categoria)
+                    bancoDados.collection("inspecoes").whereEqualTo("motoristaID", usuarioID)
                         .orderBy("dataRegistro")
                         .get().addOnSuccessListener { docs ->
                             for (doc in docs) {

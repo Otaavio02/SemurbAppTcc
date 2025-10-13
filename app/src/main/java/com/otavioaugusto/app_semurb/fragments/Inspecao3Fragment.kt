@@ -59,6 +59,7 @@ class Inspecao3Fragment : Fragment() {
     }
 
     private var viaturaID: String = "Carregando..."
+    lateinit private var usuarioID: String
 
     private lateinit var adapter: AvariasAdapter
     private lateinit var avariasFrenteHelper: AvariasRecyclerHelper
@@ -94,7 +95,9 @@ class Inspecao3Fragment : Fragment() {
         setupRecyclers()
 
         viaturaID = arguments?.getString("viaturaID").toString()
+        usuarioID = arguments?.getString("usuarioID").toString()
         binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
+        Log.d("TEste", "id do usuario: ${usuarioID}")
 
         // Convertendo formato de data
         val data_envio_exibicao = arguments?.getString("DATA_ENVIO")
@@ -211,6 +214,7 @@ class Inspecao3Fragment : Fragment() {
                         .replace(R.id.FragmentContainerView2, Inspecao2Fragment().apply {
                             arguments = Bundle().apply {
                                 putString("viaturaID", viaturaID)
+                                putString("usuarioID", usuarioID)
                             }
                         })
                         .commit()
@@ -248,7 +252,12 @@ class Inspecao3Fragment : Fragment() {
                         R.anim.slide_in_left,
                         R.anim.slide_out_right
                     )
-                    .replace(R.id.FragmentContainerView2, Inspecao2Fragment())
+                    .replace(R.id.FragmentContainerView2, Inspecao2Fragment().apply {
+                        arguments = Bundle().apply {
+                            putString("viaturaID", viaturaID)
+                            putString("usuarioID", usuarioID)
+                        }
+                    })
                     .commit()
             } else {
                 requireActivity().finish()
@@ -261,7 +270,6 @@ class Inspecao3Fragment : Fragment() {
 
             lifecycleScope.launch{
                 withContext(Dispatchers.IO){
-                    val viaturaID = "12345"
                     val partesComErro = mutableListOf<String>()
 
                     val frenteAvarias = avariasFrenteHelper.getAvarias()
@@ -559,7 +567,8 @@ class Inspecao3Fragment : Fragment() {
 
         val dadosInspecao = hashMapOf<String, Any>(
             "dataRegistro" to com.google.firebase.Timestamp.now(),
-            //"viaturaID" to viaturaID
+            "viaturaID" to viaturaID,
+            "motoristaID" to usuarioID,
         )
 
         val frenteResultado = if (!checkBoxFrente) {
@@ -598,10 +607,8 @@ class Inspecao3Fragment : Fragment() {
         dadosInspecao["outras"] = outrasResultado
 
         try {
-            bancoDados.collection("veiculos")
-                .document(idVeiculo)
-                .collection("inspecoes")
-                .document(dataHoje)
+            bancoDados.collection("inspecoes")
+                .document("(${dataHoje})${idVeiculo}")
                 .set(dadosInspecao)
                 .await()
 
@@ -611,6 +618,7 @@ class Inspecao3Fragment : Fragment() {
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 Toast.makeText(requireContext(), "Erro ao salvar inspeção: ${e.message}", Toast.LENGTH_SHORT).show()
+                Log.d("ERRO", "ERRO: ${e.message}")
             }
         }
     }
