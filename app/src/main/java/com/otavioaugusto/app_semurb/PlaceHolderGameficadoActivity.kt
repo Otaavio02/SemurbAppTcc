@@ -22,6 +22,8 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
         const val VISIBILITY        = "VISIBILITY"
         const val VERIFICAR_TURNO   = "VERIFICAR_TURNO"
         const val INICIAR_INSPECAO  = "INICIAR_INSPECAO"
+
+        const val HISTORICO_INSPECAO  = "HISTORICO_INSPECAO"
         const val INICIAR_VIARIO    = "INICIAR_VIARIO"
         const val VIARIO_EDITADO    = "VIARIO_EDITADO"
         const val INICIAR_OCORRENCIAS = "INICIAR_OCORRENCIAS"
@@ -52,6 +54,7 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
         val fragmentToShow: Fragment = when (fragmentKey) {
             VERIFICAR_TURNO   -> VerificarTurnoFragment()
             INICIAR_INSPECAO  -> Inspecao1Fragment()
+            HISTORICO_INSPECAO  -> Inspecao3Fragment()
             INICIAR_VIARIO    -> Viario1Fragment()
             VIARIO_EDITADO    -> ViarioEditadoFragment()
             INICIAR_OCORRENCIAS -> Ocorrencias1Fragment()

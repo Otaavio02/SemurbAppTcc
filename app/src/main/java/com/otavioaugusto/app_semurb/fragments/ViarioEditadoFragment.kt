@@ -70,11 +70,12 @@ class ViarioEditadoFragment : Fragment() {
         data_envio = activity?.intent?.getStringExtra("DATA_ENVIO")
         numSequencial = activity?.intent?.getStringExtra("NUMERO_SEQUENCIAL")
         var old_foto_url = activity?.intent?.getStringExtra("FOTO_URL")
+        var historicoChecker = activity?.intent?.getBooleanExtra("HISTORICO", false)
         downloadUrl = old_foto_url
 
         Log.d("TESTE", "DATA ENVIO: ${data_envio}")
 
-        if (!data_envio.isNullOrEmpty()) {
+        if (historicoChecker == true) {
             binding.textViewViarioID.text = "${data_envio}"
             binding.btnExcluirViario.visibility = View.GONE
             binding.btnFinalizarViarioEdicao.visibility = View.GONE
@@ -101,7 +102,8 @@ class ViarioEditadoFragment : Fragment() {
                     })
                 binding.textViewFoto.visibility = View.GONE
             } else {
-                binding.textViewFoto.setText("Nenhuma imagem foi registrada. Clique para adicionar.")
+                binding.imageViewFoto.isEnabled = false
+                binding.textViewFoto.setText("Nenhuma imagem foi registrada.")
             }
         }
 
@@ -149,9 +151,14 @@ class ViarioEditadoFragment : Fragment() {
                     .setPositiveButton("Fechar", null)
                     .show()
             } else {
-                val arquivoFoto = File(requireContext().cacheDir, "viario_${System.currentTimeMillis()}.jpg")
-                fotoUri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", arquivoFoto)
-                cameraLauncher.launch(fotoUri)
+                    val arquivoFoto =
+                        File(requireContext().cacheDir, "viario_${System.currentTimeMillis()}.jpg")
+                    fotoUri = FileProvider.getUriForFile(
+                        requireContext(),
+                        "${requireContext().packageName}.provider",
+                        arquivoFoto
+                    )
+                    cameraLauncher.launch(fotoUri)
             }
         }
 

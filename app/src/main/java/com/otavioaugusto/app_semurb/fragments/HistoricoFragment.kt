@@ -227,6 +227,11 @@ class HistoricoFragment : Fragment() {
                         else -> dados["horario_envio"] as? String
                     } ?: "--:--"
 
+                    val viaturaID = when (categoria) {
+                        "inspecoes" -> { dados["viaturaID"] as? String }
+                        else -> dados["viatura_usada"] as? String
+                    }
+
                     val qtdItens = (dados["qtd_itens"] as? Long)?.toInt() ?: 1
 
                     val topico = when (categoria) {
@@ -240,7 +245,8 @@ class HistoricoFragment : Fragment() {
                         qtd_itens = qtdItens,
                         data_envio = dataEnvio,
                         horario_envio = horarioEnvio,
-                        topico = topico
+                        topico = topico,
+                        viatura_usada = viaturaID
                     )
                 } catch (e: Exception) {
                     Log.e("FIREBASE", "Erro ao converter dados para DataClassHistorico", e)
@@ -269,7 +275,8 @@ class HistoricoFragment : Fragment() {
 
                 val bundle = Bundle().apply {
                     putString("DATA_ENVIO", historico.data_envio)
-                    putString("viaturaID", historico.data_envio)
+                    putString("viaturaID", historico.viatura_usada)
+                    putString("usuarioID", usuarioID)
                     putString("TOPICO", historico.topico)
                 }
                 fragment.arguments = bundle
@@ -334,13 +341,18 @@ class HistoricoFragment : Fragment() {
         } else {
             if (idUsuarioLogado != null){
                 if (categoria == "inspecoes"){
-                    bancoDados.collection("veiculos").document("12345").collection(categoria).document(dataSelecionadaBD.toString())
-                        .get().addOnSuccessListener { doc ->
-                            listaFinal.add(Pair(categoria, doc.data) as Pair<String, Map<String, Any>>)
-                            Log.d("FIREBASE", "[$categoria] ${doc.id} => ${doc.data}")
-
+                    bancoDados.collection("inspecoes")
+                        .whereEqualTo("motoristaID", usuarioID)
+                        .whereEqualTo("data_envio", dataSelecionada)
+                        .get()
+                        .addOnSuccessListener { querySnapshot ->
+                            for (doc in querySnapshot.documents) {
+                                listaFinal.add(Pair(categoria, doc.data ?: emptyMap()))
+                                Log.d("FIREBASE", "[$categoria] ${doc.id} => ${doc.data}")
+                            }
                             verificarSeTerminou(++respostasRecebidas, totalCategorias, listaFinal)
-                        }.addOnFailureListener {
+                        }
+                        .addOnFailureListener {
                             Log.e("FIREBASE", "Erro ao puxar $categoria", it)
                         }
                 } else {

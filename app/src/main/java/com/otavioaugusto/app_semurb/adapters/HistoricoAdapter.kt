@@ -30,7 +30,7 @@ class HistoricoAdapter(
             val subtitulo = when (historico.topico) {
                 "Atendimento de Ocorrências" -> "${historico.qtd_itens} ocorrência(s) enviada(s)"
                 "Serviço Viário" -> "${historico.qtd_itens} sinalização(ões) enviada(s)"
-                "Inspeção da Viatura" -> "${historico.qtd_itens} avaria(s)"
+                "Inspeção da Viatura" -> "${historico.qtd_itens} avaria(s) na Viatura ${historico.viatura_usada}"
                 else -> "${historico.qtd_itens} item(ns)"
             }
 

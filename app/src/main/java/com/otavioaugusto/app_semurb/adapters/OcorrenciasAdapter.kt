@@ -43,6 +43,11 @@ class OcorrenciasAdapter : RecyclerView.Adapter<OcorrenciasAdapter.ViewHolder>()
                 intent.putExtra("CONTATO", item.numcontato)
                 intent.putExtra("FOTO_URL", item.fotoUrl)
                 intent.putExtra("NUMERO_SEQUENCIAL", item.numero_sequencial.toString())
+                if (item.data_envio.isNotEmpty()){
+                    intent.putExtra("HISTORICO", true)
+                } else {
+                    intent.putExtra("HISTORICO", false)
+                }
 
                 context.startActivity(intent)
             }

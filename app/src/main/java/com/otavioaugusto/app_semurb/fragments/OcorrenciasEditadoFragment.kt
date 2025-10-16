@@ -77,12 +77,13 @@ class OcorrenciasEditadoFragment : Fragment() {
         numSequencial = activity?.intent?.getStringExtra("NUMERO_SEQUENCIAL")
         data_envio = activity?.intent?.getStringExtra("DATA_ENVIO")
         var old_foto_url = activity?.intent?.getStringExtra("FOTO_URL")
+        var historicoChecker = activity?.intent?.getBooleanExtra("HISTORICO", false)
         downloadUrl = old_foto_url
 
         Log.d("TESTESTSE", "ID OCORRENCIA É: ${idOcorrencia}")
 
 
-        if (!data_envio.isNullOrEmpty()) {
+        if (historicoChecker == true) {
             binding.textViewIdNomeOcorrenciasEditado.text = "${data_envio}"
             binding.btnExcluirOcorrencia.visibility = View.GONE
             binding.btnFinalizarOcorrenciasEditado.visibility = View.GONE
@@ -92,7 +93,6 @@ class OcorrenciasEditadoFragment : Fragment() {
             binding.rbSinistro.isClickable = false
             binding.rbAtendimento.isClickable = false
             binding.rbGrandeVulto.isClickable = false
-            //binding.imageViewFoto.isEnabled = false // TODO FAZER EXPANDIR A IMAGEM QUE NEM EM INSPEÇÃO DA VIATURA
             if (!old_foto_url.isNullOrEmpty()) {
                 Picasso.get()
                     .load(old_foto_url)
@@ -111,7 +111,8 @@ class OcorrenciasEditadoFragment : Fragment() {
                     })
                 binding.textViewFoto.visibility = View.GONE
             } else {
-                binding.textViewFoto.setText("Nenhuma imagem foi registrada. Clique para adicionar.")
+                binding.imageViewFoto.isEnabled = false
+                binding.textViewFoto.setText("Nenhuma imagem foi registrada.")
             }
         }
         Log.d("TESTE", "OLD FOTO URL É: ${old_foto_url}")

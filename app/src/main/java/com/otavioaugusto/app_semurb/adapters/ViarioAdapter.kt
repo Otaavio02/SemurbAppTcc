@@ -28,7 +28,9 @@ class ViarioAdapter : RecyclerView.Adapter<ViarioAdapter.ViewHolder>() {
             binding.textTitulo.text = "Sinalização ${item.numeroSequencial}"
             binding.textTipo.text = item.tipo
             binding.textEndereco.text = item.endereco
-            if (item.data_envio.isNotEmpty()){ binding.btnEditarOcoVia.setImageResource(R.drawable.ic_arrow_tab_open)}
+            if (item.data_envio.isNotEmpty()){
+                binding.btnEditarOcoVia.setImageResource(R.drawable.ic_arrow_tab_open)
+            }
 
             binding.btnEditarOcoVia.setOnClickListener {
                 val context = binding.root.context
@@ -43,6 +45,12 @@ class ViarioAdapter : RecyclerView.Adapter<ViarioAdapter.ViewHolder>() {
                 intent.putExtra("DESCRICAO", item.descricao)
                 intent.putExtra("FOTO_URL", item.foto_url)
                 intent.putExtra("NUMERO_SEQUENCIAL", item.numeroSequencial.toString())
+                if (item.data_envio.isNotEmpty()){
+                    intent.putExtra("HISTORICO", true)
+                } else {
+                    intent.putExtra("HISTORICO", false)
+                }
+
 
                 context.startActivity(intent)
             }

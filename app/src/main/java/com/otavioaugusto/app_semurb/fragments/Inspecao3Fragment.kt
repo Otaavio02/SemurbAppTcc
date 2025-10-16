@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Path
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
@@ -36,7 +37,9 @@ import java.io.File
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
+import com.otavioaugusto.app_semurb.PlaceHolderActivity
 import com.otavioaugusto.app_semurb.funcoes.EnviarNotificacaoBd
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -53,6 +56,7 @@ class Inspecao3Fragment : Fragment() {
     private var imagemTempUri: Uri? = null
     private var ultimaPosicaoFoto: Int? = null
     private var data_envio: String? = null
+    private var data_envio_exibicao: String? = null
     private lateinit var lista: MutableList<DataClassAvariaItem>
     val bancoDados by lazy {
         FirebaseFirestore.getInstance()
@@ -98,9 +102,10 @@ class Inspecao3Fragment : Fragment() {
         usuarioID = arguments?.getString("usuarioID").toString()
         binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
         Log.d("TEste", "id do usuario: ${usuarioID}")
+        Log.d("TEste", "id da viatura: ${viaturaID}")
 
         // Convertendo formato de data
-        val data_envio_exibicao = arguments?.getString("DATA_ENVIO")
+        data_envio_exibicao = arguments?.getString("DATA_ENVIO")
         if (!data_envio_exibicao.isNullOrBlank()) {
             val entrada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             val saida = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -114,10 +119,15 @@ class Inspecao3Fragment : Fragment() {
             binding.cbEsquerda.visibility = View.GONE
             binding.cbTraseira.visibility = View.GONE
             binding.btnFinalizar.visibility = View.GONE
+            binding.btnInfoFrente.visibility = View.GONE
+            binding.btnInfoOutros.visibility = View.GONE
+            binding.btnInfoDireita.visibility = View.GONE
+            binding.btnInfoEsquerda.visibility = View.GONE
+            binding.btnInfoTraseira.visibility = View.GONE
+            binding.btnFinalizar.visibility = View.GONE
         }
 
         binding.progressBarInspecao3.visibility = View.GONE
-        binding.btnFinalizar.visibility = View.VISIBLE
 
         // Checkboxes para marcar caso uma parte esteja sem avária
         binding.cbFrente.setOnCheckedChangeListener { _, isChecked ->
@@ -219,7 +229,15 @@ class Inspecao3Fragment : Fragment() {
                         })
                         .commit()
                 } else {
-                    requireActivity().finish()
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
+                        .replace(R.id.fragmentContainerView, HistoricoFragment())
+                        .commit()
+
+                    (activity as? PlaceHolderActivity)?.limparBottomNavBar()
                 }
 
             }
@@ -260,7 +278,15 @@ class Inspecao3Fragment : Fragment() {
                     })
                     .commit()
             } else {
-                requireActivity().finish()
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.slide_in_left,
+                        R.anim.slide_out_right
+                    )
+                    .replace(R.id.fragmentContainerView, HistoricoFragment())
+                    .commit()
+
+                (activity as? PlaceHolderActivity)?.limparBottomNavBar()
             }
         }
 
@@ -441,13 +467,16 @@ class Inspecao3Fragment : Fragment() {
     private fun CarregarAvariasHistorico() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                bancoDados.collection("veiculos")
-                    .document(viaturaID)
-                    .collection("inspecoes")
-                    .document(data_envio!!)  // <- data no formato yyyy-MM-dd
+                bancoDados.collection("inspecoes")
+                    .whereEqualTo("viaturaID", viaturaID)
+                    .whereEqualTo("motoristaID", usuarioID)
+                    .whereEqualTo("data_envio", data_envio_exibicao)
                     .get()
-                    .addOnSuccessListener { doc ->
-                        if (doc.exists()) {
+                    .addOnSuccessListener { querySnapshot ->
+                        if (!querySnapshot.isEmpty) {
+                            val doc = querySnapshot.documents.first()
+                            Log.d("testeconsole", "PUXOU HISTORICO?: ${doc}")
+
                             val frente = (doc["frente"] as? List<Map<String, Any>>)?.map {
                                 DataClassAvariaItem(
                                     descricao = it["descricao"] as? String ?: "",
@@ -483,13 +512,12 @@ class Inspecao3Fragment : Fragment() {
                                 )
                             } ?: emptyList()
 
-                                // Passa as listas pros helpers
-                                avariasFrenteHelper.setAvarias(frente.toMutableList())
-                                avariasTraseiraHelper.setAvarias(traseira.toMutableList())
-                                avariasDireitaHelper.setAvarias(direita.toMutableList())
-                                avariasEsquerdaHelper.setAvarias(esquerda.toMutableList())
-                                avariasOutrasHelper.setAvarias(outras.toMutableList())
-
+                            // Atualiza os helpers
+                            avariasFrenteHelper.setAvarias(frente.toMutableList())
+                            avariasTraseiraHelper.setAvarias(traseira.toMutableList())
+                            avariasDireitaHelper.setAvarias(direita.toMutableList())
+                            avariasEsquerdaHelper.setAvarias(esquerda.toMutableList())
+                            avariasOutrasHelper.setAvarias(outras.toMutableList())
                         }
                     }
                     .addOnFailureListener {
@@ -567,6 +595,7 @@ class Inspecao3Fragment : Fragment() {
 
         val dadosInspecao = hashMapOf<String, Any>(
             "dataRegistro" to com.google.firebase.Timestamp.now(),
+            "data_envio" to data_envio_exibicao.toString(),
             "viaturaID" to viaturaID,
             "motoristaID" to usuarioID,
         )
