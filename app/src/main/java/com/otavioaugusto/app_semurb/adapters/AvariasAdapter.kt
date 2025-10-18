@@ -14,7 +14,8 @@ import com.otavioaugusto.app_semurb.dataClasses.DataClassAvariaItem
 
 class AvariasAdapter(
     private val avarias: MutableList<DataClassAvariaItem>,
-    private val onFotoClick: (position: Int) -> Unit
+    private val onFotoClick: (position: Int) -> Unit,
+    private val modoHistorico: Boolean = false
 ) : RecyclerView.Adapter<AvariasAdapter.AvariaViewHolder>() {
 
     inner class AvariaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,23 +39,28 @@ class AvariasAdapter(
         holder.descricaoEditText.setText(avaria.descricao)
 
 
-        holder.descricaoEditText.addTextChangedListener { text ->
-            avaria.descricao = text.toString()
-        }
-
-        if (position == avarias.size - 1) {
-            holder.btnAdicionar.setImageResource(R.drawable.ic_add)
-            holder.btnAdicionar.setOnClickListener {
-                avarias.add(DataClassAvariaItem())
-                notifyItemInserted(avarias.size - 1)
-                notifyItemChanged(avarias.size - 2)
-            }
+        // Se for modo histórico, desativa tudo
+        if (modoHistorico == true) {
+            holder.descricaoEditText.isEnabled = false
+            holder.btnAdicionar.visibility = View.GONE
+            holder.btnFoto.isEnabled = false
         } else {
-            holder.btnAdicionar.setImageResource(R.drawable.ic_remove)
-            holder.btnAdicionar.setOnClickListener {
-                avarias.removeAt(position)
-                notifyItemRemoved(position)
-                notifyItemRangeChanged(position, avarias.size)
+            holder.descricaoEditText.isEnabled = true
+            // comportamento normal de adicionar/remover
+            if (position == avarias.size - 1) {
+                holder.btnAdicionar.setImageResource(R.drawable.ic_add)
+                holder.btnAdicionar.setOnClickListener {
+                    avarias.add(DataClassAvariaItem())
+                    notifyItemInserted(avarias.size - 1)
+                    notifyItemChanged(avarias.size - 2)
+                }
+            } else {
+                holder.btnAdicionar.setImageResource(R.drawable.ic_remove)
+                holder.btnAdicionar.setOnClickListener {
+                    avarias.removeAt(position)
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(position, avarias.size)
+                }
             }
         }
 
@@ -79,16 +85,21 @@ class AvariasAdapter(
             }
 
         } else {
-            holder.imageFoto.visibility = View.INVISIBLE
-            holder.imageFoto.setImageResource(R.drawable.ic_camera)
-            holder.btnFoto.isEnabled = true
-            holder.btnFoto.visibility = View.VISIBLE
+            if (modoHistorico == true){
+                holder.btnFoto.visibility = View.GONE
+                holder.imageFoto.visibility = View.GONE
+            } else {
+                holder.imageFoto.visibility = View.INVISIBLE
+                holder.imageFoto.setImageResource(R.drawable.ic_camera)
+                holder.btnFoto.isEnabled = true
+                holder.btnFoto.visibility = View.VISIBLE
 
-            holder.btnFoto.setOnClickListener {
-                onFotoClick(position)
+                holder.btnFoto.setOnClickListener {
+                    onFotoClick(position)
+                }
+
+                holder.imageFoto.setOnClickListener(null)
             }
-
-            holder.imageFoto.setOnClickListener(null)
         }
     }
     fun getLista(): List<DataClassAvariaItem> = avarias

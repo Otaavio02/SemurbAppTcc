@@ -94,9 +94,16 @@ class Inspecao3Fragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentInspecao3Binding.inflate(inflater, container, false)
+
+        data_envio_exibicao = arguments?.getString("DATA_ENVIO")
+
+        Log.d("TEste", "DATA ENVIO EXIBICAO: ${data_envio_exibicao}")
+
         setupListeners()
         setupToggles()
-        setupRecyclers()
+        if (data_envio_exibicao.isNullOrEmpty()) {
+            setupRecyclers()
+        } else { setupRecyclers(modoHistorico = true) }
 
         viaturaID = arguments?.getString("viaturaID").toString()
         usuarioID = arguments?.getString("usuarioID").toString()
@@ -105,7 +112,7 @@ class Inspecao3Fragment : Fragment() {
         Log.d("TEste", "id da viatura: ${viaturaID}")
 
         // Convertendo formato de data
-        data_envio_exibicao = arguments?.getString("DATA_ENVIO")
+
         if (!data_envio_exibicao.isNullOrBlank()) {
             val entrada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             val saida = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -364,7 +371,7 @@ class Inspecao3Fragment : Fragment() {
 
     private var ladoAtual: String? = null
 
-    private fun setupRecyclers() {
+    private fun setupRecyclers(modoHistorico: Boolean = false) {
         val context = requireContext()
 
         val callBackFotoFrente = { posicao: Int ->
@@ -399,11 +406,11 @@ class Inspecao3Fragment : Fragment() {
         }
 
 
-        avariasFrenteHelper = AvariasRecyclerHelper(context, binding.rvFrente, callBackFotoFrente)
-        avariasTraseiraHelper = AvariasRecyclerHelper(context, binding.rvTraseira, callBackFotoTraseira)
-        avariasDireitaHelper = AvariasRecyclerHelper(context, binding.rvDireita, callBackFotoDireita)
-        avariasEsquerdaHelper = AvariasRecyclerHelper(context, binding.rvEsquerda, callBackFotoEsquerda)
-        avariasOutrasHelper = AvariasRecyclerHelper(context, binding.rvOutras, callBackFotoOutro)
+        avariasFrenteHelper = AvariasRecyclerHelper(context, binding.rvFrente, callBackFotoFrente, modoHistorico)
+        avariasTraseiraHelper = AvariasRecyclerHelper(context, binding.rvTraseira, callBackFotoTraseira, modoHistorico)
+        avariasDireitaHelper = AvariasRecyclerHelper(context, binding.rvDireita, callBackFotoDireita, modoHistorico)
+        avariasEsquerdaHelper = AvariasRecyclerHelper(context, binding.rvEsquerda, callBackFotoEsquerda, modoHistorico)
+        avariasOutrasHelper = AvariasRecyclerHelper(context, binding.rvOutras, callBackFotoOutro, modoHistorico)
     }
 
     private fun hideSystemUI() {

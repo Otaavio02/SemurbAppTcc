@@ -9,10 +9,11 @@ import com.otavioaugusto.app_semurb.dataClasses.DataClassAvariaItem
 class AvariasRecyclerHelper(
     private val context: Context,
     private val recyclerView: RecyclerView,
-    onFotoClick: (position: Int) -> Unit
+    onFotoClick: (position: Int) -> Unit,
+    private val modoHistorico: Boolean = false
 ) {
     private val avariasList = mutableListOf(DataClassAvariaItem())
-    private val adapter = AvariasAdapter(avariasList, onFotoClick)
+    private val adapter = AvariasAdapter(avariasList, onFotoClick, modoHistorico)
 
     init {
         recyclerView.layoutManager = LinearLayoutManager(context)

@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toStartOf="@id/frameFoto"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:paddingStart="8dp"
+        android:paddingStart="20dp"
         android:paddingEnd="8dp" />
 
     <FrameLayout
