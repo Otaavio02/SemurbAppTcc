@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:windowSoftInputMode="adjustPan|stateHidden"
     android:layout_height="match_parent">
 
     <TextView
@@ -111,7 +112,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline43"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20">
@@ -143,8 +143,10 @@
                 android:completionThreshold="0"
                 android:drawableStart="@drawable/icon_lupa"
                 android:dropDownHeight="wrap_content"
-                android:dropDownVerticalOffset="10dp"
                 android:inputType="text"
+                android:dropDownAnchor="@id/inputLayoutTipo"
+                android:dropDownVerticalOffset="0dp"
+                android:dropDownWidth="match_parent"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:textColor="@color/Preto" />

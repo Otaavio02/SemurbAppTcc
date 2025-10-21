@@ -48,7 +48,6 @@ class Ocorrencias1Fragment : Fragment() {
         val tiposList = mutableListOf<String>()
         val autoComplete = binding.autoCompleteTipoOcorrencia
 
-
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line,
@@ -56,61 +55,52 @@ class Ocorrencias1Fragment : Fragment() {
         )
         autoComplete?.setAdapter(adapter)
 
-        autoComplete?.setOnClickListener {
-            if (tiposList.isNotEmpty()) {
-                autoComplete?.showDropDown()
-            }
-        }
-
-        // Permite abrir a lista sem precisar digitar
+        // Permite abrir a lista sem digitar
         autoComplete?.threshold = 0
 
-        // Busca os tipos de ocorrência no Firestore
-        db.collection("tipos_ocorrencia")
-            .get()
-            .addOnSuccessListener { documents ->
-                tiposList.clear()
-                for (doc in documents) {
-                    val tipo = doc.getString("tipo")
-                    if (!tipo.isNullOrEmpty()) {
-                        tiposList.add(tipo)
-                    }
-                }
-                adapter.notifyDataSetChanged()
+        // Forçar abrir dropdown ao clicar
+        autoComplete?.setOnTouchListener { _, _ ->
+            if (tiposList.isNotEmpty()) {
+                autoComplete.showDropDown()
             }
+            false
+        }
 
+        // Busca tipos de ocorrência no Firestore
+        db.collection("tipos_ocorrencia").get().addOnSuccessListener { documents ->
+            tiposList.clear()
+            for (doc in documents) {
+                doc.getString("tipo")?.let { tiposList.add(it) }
+            }
+            adapter.notifyDataSetChanged()
+        }
 
+        // Abrir dropdown ao digitar
         autoComplete?.addTextChangedListener {
             if (autoComplete.text.isNotEmpty()) {
                 autoComplete.showDropDown()
             }
         }
 
-        // Captura o item selecionado
+        // Captura item selecionado
         autoComplete?.setOnItemClickListener { _, _, position, _ ->
             tipo = tiposList[position]
 
             val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
             val bolinhaInicial =
                 requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
+
             bolinhaInicial.post {
                 val destinoX = bolinhaInicial.x + bolinhaInicial.width / 2 - carrinho.width / 2
-
-                carrinho.animate()
-                    .x(destinoX)
-                    .setDuration(700)
-                    .start()
+                carrinho.animate().x(destinoX).setDuration(700).start()
             }
 
-            if (tipo != null) {
-                when (tipo) {
-                    "Sinistro de Trânsito" -> binding.rgOcorrencias?.check(R.id.rbSinistro)
-                    "Sinistro de Grande Vulto" -> binding.rgOcorrencias?.check(R.id.rbGrandeVulto)
-                    "Atendimento ao Cidadão" -> binding.rgOcorrencias?.check(R.id.rbAtendimento)
-                }
+            when (tipo) {
+                "Sinistro de Trânsito" -> binding.rgOcorrencias?.check(R.id.rbSinistro)
+                "Sinistro de Grande Vulto" -> binding.rgOcorrencias?.check(R.id.rbGrandeVulto)
+                "Atendimento ao Cidadão" -> binding.rgOcorrencias?.check(R.id.rbAtendimento)
             }
         }
-
 
         binding.btnVoltarOcorrencias1.setOnClickListener {
             requireActivity().finish()
@@ -119,12 +109,10 @@ class Ocorrencias1Fragment : Fragment() {
         binding.btnProximoOcorrencias1.setOnClickListener {
             tipo = binding.autoCompleteTipoOcorrencia?.text.toString().trim()
 
-
             if (tipo.isNullOrEmpty()) {
                 mostrarAlerta("Campo incompleto", "Para avançar, selecione um tipo de ocorrência")
                 return@setOnClickListener
             }
-
 
             if (!tiposList.contains(tipo)) {
                 mostrarAlerta(
@@ -133,7 +121,6 @@ class Ocorrencias1Fragment : Fragment() {
                 )
                 return@setOnClickListener
             }
-
 
             val fragmentEndereco = Ocorrencias2Fragment().apply {
                 arguments = Bundle().apply {
@@ -146,8 +133,7 @@ class Ocorrencias1Fragment : Fragment() {
 
             if (etapaAtual < totalEtapas - 1) {
                 (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(
-                    etapaAtual + 1,
-                    "continuar"
+                    etapaAtual + 1, "continuar"
                 )
             }
 
@@ -164,17 +150,14 @@ class Ocorrencias1Fragment : Fragment() {
     private fun mostrarAlerta(tituloTxt: String, mensagemTxt: String) {
         val titulo = SpannableString(tituloTxt).apply {
             setSpan(
-                ForegroundColorSpan(
-                    ContextCompat.getColor(requireContext(), R.color.CinzaMedio)
-                ), 0, length, 0
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                0, length, 0
             )
         }
-
         val mensagem = SpannableString(mensagemTxt).apply {
             setSpan(
-                ForegroundColorSpan(
-                    ContextCompat.getColor(requireContext(), R.color.CinzaMedio)
-                ), 0, length, 0
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                0, length, 0
             )
         }
 
@@ -210,7 +193,6 @@ class Ocorrencias1Fragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         activity?.window?.let { window ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {
