@@ -254,7 +254,13 @@ class HistoricoFragment : Fragment() {
                 }
             }
 
-            val agrupado = dadosBrutos.groupBy { it.data_envio }
+            val dadosOrdenados = dadosBrutos.sortedWith(compareByDescending<DataClassHistorico> {
+                SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(it.data_envio)
+            }.thenByDescending {
+                SimpleDateFormat("HH:mm", Locale.getDefault()).parse(it.horario_envio)
+            })
+
+            val agrupado = dadosOrdenados.groupBy { it.data_envio }
 
             val listaFinalAdapter = mutableListOf<DataClassHistoricoListItem>()
             agrupado.forEach { (data, itens) ->
