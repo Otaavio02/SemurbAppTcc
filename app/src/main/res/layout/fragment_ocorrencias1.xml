@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:windowSoftInputMode="adjustPan|stateHidden"
     android:layout_height="match_parent">
 
     <TextView
@@ -97,81 +98,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9699097" />
 
-    <ImageView
-        android:id="@+id/imageView22"
-        android:layout_width="337.32dp"
-        android:layout_height="56.39dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline45"
-        app:srcCompat="@drawable/bg_radiooption"/>
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_semibold"
-        android:paddingStart="20dp"
-        android:paddingEnd="5dp"
-        android:text="@string/atendimento"
-        android:textColor="?attr/CorTextosRadio"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView22"
-        app:layout_constraintStart_toStartOf="@+id/imageView22"
-        app:layout_constraintTop_toTopOf="@+id/imageView22" />
-
-
-    <ImageView
-        android:id="@+id/imageView23"
-        android:layout_width="337.32dp"
-        android:layout_height="56.39dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView24"
-        app:srcCompat="@drawable/bg_radiooption" />
-
-    <ImageView
-        android:id="@+id/imageView24"
-        android:layout_width="337.32dp"
-        android:layout_height="56.39dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView22"
-        app:srcCompat="@drawable/bg_radiooption" />
-
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_semibold"
-        android:paddingStart="20dp"
-        android:paddingEnd="5dp"
-        android:text="@string/sinistrotra"
-        android:textColor="?attr/CorTextosRadio"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView24"
-        app:layout_constraintStart_toStartOf="@+id/imageView24"
-        app:layout_constraintTop_toTopOf="@+id/imageView24" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_semibold"
-        android:paddingStart="20dp"
-        android:paddingEnd="5dp"
-        android:text="@string/Grande_Vulto"
-        android:textColor="?attr/CorTextosRadio"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView23"
-        app:layout_constraintStart_toStartOf="@+id/imageView23"
-        app:layout_constraintTop_toTopOf="@+id/imageView23" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline45"
@@ -180,45 +106,52 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.35" />
 
-    <RadioGroup
-        android:id="@+id/rgOcorrencias"
-        android:layout_width="wrap_content"
-        android:layout_height="210dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView23"
-        app:layout_constraintEnd_toEndOf="@+id/imageView24"
-        app:layout_constraintTop_toTopOf="@+id/imageView22">
-
-        <RadioButton
-            android:id="@+id/rbAtendimento"
-            android:layout_width="48dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="5dp"
-            android:paddingEnd="20dp" />
-
-        <RadioButton
-            android:id="@+id/rbSinistro"
-            android:layout_width="44dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="33dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="20dp" />
-
-        <RadioButton
-            android:id="@+id/rbGrandeVulto"
-            android:layout_width="44dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="31dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="20dp" />
-
-    </RadioGroup>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline48"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layoutTipoOcorrencia"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.640853" />
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20">
+
+        <TextView
+            android:id="@+id/txtTituloTipoOcorrencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Tipo de Ocorrência"
+            android:textColor="?attr/CorTextosNormais"
+            android:textSize="18sp" />
+
+        <!-- Campo de busca com dropdown -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutTipo"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_pesquisa"
+            android:hint="Buscar tipo de ocorrência">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTipoOcorrencia"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/Transparente"
+                android:completionThreshold="0"
+                android:drawableStart="@drawable/icon_lupa"
+                android:dropDownHeight="wrap_content"
+                android:inputType="text"
+                android:dropDownAnchor="@id/inputLayoutTipo"
+                android:dropDownVerticalOffset="0dp"
+                android:dropDownWidth="match_parent"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="@color/Preto" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
