@@ -68,9 +68,11 @@ class AvariasAdapter(
         }
 
         if (avaria.uriFoto != null) {
+            holder.imageFoto.visibility = View.VISIBLE
             if (modoHistorico == true) {
+                Log.d("PICASSOOOO", "TA ACHANDO? ${avaria.uriFoto}")
                 Picasso.get()
-                    .load(avaria.uriFoto)
+                    .load(avaria.uriFoto.toString())
                     .fit()
                     .centerInside()
                     .placeholder(R.drawable.ic_picture)
@@ -84,6 +86,22 @@ class AvariasAdapter(
                             Log.e("Picasso", "Erro no carregamento da imagem", e)
                         }
                     })
+
+                holder.imageFoto.setOnClickListener {
+                    val context = holder.itemView.context
+                    val dialogView = ImageView(context).apply {
+                        Picasso.get()
+                            .load(avaria.uriFoto.toString())  // Carrega a URL diretamente do Firebase
+                            .into(this)  // Carrega a imagem no ImageView
+                        adjustViewBounds = true
+                        scaleType = ImageView.ScaleType.FIT_CENTER
+                    }
+
+                    AlertDialog.Builder(context)
+                        .setView(dialogView)
+                        .setPositiveButton("Fechar", null)
+                        .show()
+                }
 
             } else {
                 holder.imageFoto.visibility = View.VISIBLE
