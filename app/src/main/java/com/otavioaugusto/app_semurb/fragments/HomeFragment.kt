@@ -83,7 +83,6 @@ class HomeFragment : Fragment() {
 
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "INICIAR_INSPECAO")
-            //intent.putExtra("idUsuario", idUsuario)
             startActivity(intent)
 
 
