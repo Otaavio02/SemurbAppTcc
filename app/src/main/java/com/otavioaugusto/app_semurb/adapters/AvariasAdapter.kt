@@ -1,16 +1,19 @@
 package com.otavioaugusto.app_semurb.adapters
 
 import android.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.dataClasses.DataClassAvariaItem
+import com.squareup.picasso.Picasso
 
 class AvariasAdapter(
     private val avarias: MutableList<DataClassAvariaItem>,
@@ -65,23 +68,42 @@ class AvariasAdapter(
         }
 
         if (avaria.uriFoto != null) {
-            holder.imageFoto.visibility = View.VISIBLE
-            holder.imageFoto.setImageURI(avaria.uriFoto)
-            holder.btnFoto.isEnabled = false
-            holder.btnFoto.visibility = View.GONE
+            if (modoHistorico == true) {
+                Picasso.get()
+                    .load(avaria.uriFoto)
+                    .fit()
+                    .centerInside()
+                    .placeholder(R.drawable.ic_picture)
+                    .into(holder.imageFoto, object : com.squareup.picasso.Callback {
+                        override fun onSuccess() {
+                            Log.i("Picasso", "Imagem carregada com sucesso")
+                        }
 
-            holder.imageFoto.setOnClickListener {
-                val context = holder.itemView.context
-                val dialogView = ImageView(context).apply {
-                    setImageURI(avaria.uriFoto)
-                    adjustViewBounds = true
-                    scaleType = ImageView.ScaleType.FIT_CENTER
+                        override fun onError(e: Exception?) {
+                            //Toast.makeText(hol, "Erro ao carregar imagem", Toast.LENGTH_SHORT).show()
+                            Log.e("Picasso", "Erro no carregamento da imagem", e)
+                        }
+                    })
+
+            } else {
+                holder.imageFoto.visibility = View.VISIBLE
+                holder.imageFoto.setImageURI(avaria.uriFoto)
+                holder.btnFoto.isEnabled = false
+                holder.btnFoto.visibility = View.GONE
+
+                holder.imageFoto.setOnClickListener {
+                    val context = holder.itemView.context
+                    val dialogView = ImageView(context).apply {
+                        setImageURI(avaria.uriFoto)
+                        adjustViewBounds = true
+                        scaleType = ImageView.ScaleType.FIT_CENTER
+                    }
+
+                    AlertDialog.Builder(context)
+                        .setView(dialogView)
+                        .setPositiveButton("Fechar", null)
+                        .show()
                 }
-
-                AlertDialog.Builder(context)
-                    .setView(dialogView)
-                    .setPositiveButton("Fechar", null)
-                    .show()
             }
 
         } else {
