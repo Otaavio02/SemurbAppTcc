@@ -34,7 +34,6 @@ class Ocorrencias1Fragment : Fragment() {
     private var endereco: String? = null
     private var nome: String? = null
     private var numContato: String? = null
-    private lateinit var tiposList: MutableList<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,6 +46,7 @@ class Ocorrencias1Fragment : Fragment() {
         numContato = arguments?.getString("numContato")
 
         val db = FirebaseFirestore.getInstance()
+        val tiposList = mutableListOf<String>()
         val autoComplete = binding.autoCompleteTipoOcorrencia
 
         val adapter = ArrayAdapter(

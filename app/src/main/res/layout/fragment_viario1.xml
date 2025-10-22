@@ -55,51 +55,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline41" />
 
-    <!-- 🔽 NOVO BLOCO: Campo AutoComplete para tipos viários -->
     <LinearLayout
-        android:id="@+id/layoutTipoViario"
+        android:id="@+id/layoutTipoOcorrencia"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20">
 
         <TextView
-            android:id="@+id/txtTituloTipoViario"
+            android:id="@+id/txtTituloTipoOcorrencia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/montserrat_semibold"
-            android:text="Tipo Viário"
+            android:text="Tipo de Ocorrência"
             android:textColor="?attr/CorTextosNormais"
             android:textSize="18sp" />
 
+        <!-- Campo de busca com dropdown -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutTipoViario"
+            android:id="@+id/inputLayoutTipo"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/bg_pesquisa"
-            android:hint="Buscar tipo viário">
+            android:hint="Buscar tipo de ocorrência"
+            android:paddingStart="15dp">
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteTipoViario"
+                android:id="@+id/autoCompleteTipoOcorrencia"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/Transparente"
                 android:completionThreshold="0"
                 android:drawableStart="@drawable/icon_lupa"
-                android:dropDownHeight="wrap_content"
-                android:inputType="text"
-                android:dropDownAnchor="@id/inputLayoutTipoViario"
-                android:dropDownVerticalOffset="0dp"
+                android:drawablePadding="10dp"
+                android:dropDownAnchor="@id/inputLayoutTipo"
                 android:dropDownWidth="match_parent"
-                android:paddingStart="12dp"
+                android:dropDownHeight="wrap_content"
+                android:dropDownVerticalOffset="0dp"
+                android:inputType="text"
+                android:paddingStart="5dp"
                 android:paddingEnd="12dp"
                 android:textColor="@color/Preto" />
         </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
 

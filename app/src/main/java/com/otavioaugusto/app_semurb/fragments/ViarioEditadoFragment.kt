@@ -15,15 +15,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.otavioaugusto.app_semurb.R
@@ -49,8 +52,8 @@ class ViarioEditadoFragment : Fragment() {
     private var numSequencial: String? = null
     private var data_envio: String? = null
     private var downloadUrl: String? = null
-
     private var fotoUri: Uri? = null
+    private lateinit var tipoListGlobal: MutableList<String>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,9 +84,11 @@ class ViarioEditadoFragment : Fragment() {
             binding.btnFinalizarViarioEdicao.visibility = View.GONE
             binding.editTextDescricao.isFocusable = false
             binding.editTextEndereco.isFocusable = false
-            binding.rbSugestao.isClickable = false
-            binding.rbSubstituicao.isClickable = false
-            binding.rbSinaInefi.isClickable = false
+            binding.autoCompleteTipoOcorrencia?.isFocusable = false
+            binding.autoCompleteTipoOcorrencia?.setCompoundDrawables(null,null,null,null)
+            binding.autoCompleteTipoOcorrencia?.setText(tipo)
+            binding.inputLayoutTipo?.hint = ""
+
             if (!old_foto_url.isNullOrEmpty()) {
                 Picasso.get()
                     .load(old_foto_url)
@@ -104,6 +109,52 @@ class ViarioEditadoFragment : Fragment() {
             } else {
                 binding.imageViewFoto.isEnabled = false
                 binding.textViewFoto.setText("Nenhuma imagem foi registrada.")
+            }
+        } else {
+            val db = FirebaseFirestore.getInstance()
+            val tiposList = mutableListOf<String>()
+            val autoComplete = binding.autoCompleteTipoOcorrencia
+
+            binding.autoCompleteTipoOcorrencia?.setText(tipo)
+
+            val adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                tiposList
+            )
+            autoComplete?.setAdapter(adapter)
+
+            // Permite abrir a lista sem digitar
+            autoComplete?.threshold = 0
+
+            // Forçar abrir dropdown ao clicar
+            autoComplete?.setOnTouchListener { _, _ ->
+                if (tiposList.isNotEmpty()) {
+                    autoComplete.showDropDown()
+                }
+                false
+            }
+
+            // Busca tipos de ocorrência no Firestore
+            db.collection("tipos_servico").get().addOnSuccessListener { documents ->
+                tiposList.clear()
+                for (doc in documents) {
+                    doc.getString("tipo")?.let { tiposList.add(it) }
+                }
+                adapter.notifyDataSetChanged()
+            }
+            tipoListGlobal = tiposList
+
+            // Abrir dropdown ao digitar
+            autoComplete?.addTextChangedListener {
+                if (autoComplete.text.isNotEmpty()) {
+                    autoComplete.showDropDown()
+                }
+            }
+
+            // Captura item selecionado
+            autoComplete?.setOnItemClickListener { _, _, position, _ ->
+                tipo = tiposList[position]
             }
         }
 
@@ -129,11 +180,6 @@ class ViarioEditadoFragment : Fragment() {
             binding.textViewFoto.visibility = View.GONE
         } else {
             binding.textViewFoto.setText("Nenhuma imagem foi registrada.")
-        }
-        when (tipo) {
-            "Sinalização Ineficiente" -> binding.rbSinaInefi.isChecked = true
-            "Substituição" -> binding.rbSubstituicao.isChecked = true
-            "Sugestão" -> binding.rbSugestao.isChecked = true
         }
 
         binding.imageViewFoto.setOnClickListener {
@@ -302,11 +348,19 @@ class ViarioEditadoFragment : Fragment() {
     }
 
     private fun FinalizarEdicao(idViario: Long, fotoUrl: String?) {
-            val tipoSelecionado = when (binding.rgViarioEditado.checkedRadioButtonId) {
-                R.id.rbSinaInefi -> "Sinalização Ineficiente"
-                R.id.rbSubstituicao -> "Substituição"
-                R.id.rbSugestao -> "Sugestão"
-                else -> ""
+            tipo = binding.autoCompleteTipoOcorrencia?.text.toString().trim()
+
+            if (tipo.isNullOrEmpty()) {
+                mostrarAlerta("Campo incompleto", "Para avançar, selecione um tipo de ocorrência")
+                return
+            }
+
+            if (!tipoListGlobal.contains(tipo)) {
+                mostrarAlerta(
+                    "Tipo inválido",
+                    "O tipo de ocorrência informado não existe. Selecione um tipo válido da lista."
+                )
+                return
             }
 
             val novoEndereco = binding.editTextEndereco.text.toString()
@@ -317,7 +371,7 @@ class ViarioEditadoFragment : Fragment() {
                 val dbHelper = AppDatabaseHelper(requireContext())
                 dbHelper.updateViarioCompleto(
                     id = idViario,
-                    tipo = tipoSelecionado,
+                    tipo = tipo.toString(),
                     endereco = novoEndereco,
                     descricao = novaDescricao,
                     fotoUrl = fotoUrl
@@ -339,5 +393,33 @@ class ViarioEditadoFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun mostrarAlerta(tituloTxt: String, mensagemTxt: String) {
+        val titulo = SpannableString(tituloTxt).apply {
+            setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                0, length, 0
+            )
+        }
+        val mensagem = SpannableString(mensagemTxt).apply {
+            setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                0, length, 0
+            )
+        }
+
+        val builder = AlertDialog.Builder(requireContext())
+            .setTitle(titulo)
+            .setMessage(mensagem)
+            .setPositiveButton("Ok") { dialog, _ -> dialog.dismiss() }
+
+        val dialog = builder.create()
+        dialog.setOnShowListener {
+            dialog.window?.setBackgroundDrawable(
+                ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
+            )
+        }
+        dialog.show()
     }
 }

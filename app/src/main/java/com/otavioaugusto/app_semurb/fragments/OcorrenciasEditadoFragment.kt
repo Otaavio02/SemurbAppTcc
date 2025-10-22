@@ -58,7 +58,7 @@ class OcorrenciasEditadoFragment : Fragment() {
     private var downloadUrl: String? = null
     private var novaUrl: String? = null
     private var fotoUri: Uri? = null
-    private lateinit var tiposList: MutableList<String>
+    private lateinit var tipoListGlobal: MutableList<String>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,7 +83,7 @@ class OcorrenciasEditadoFragment : Fragment() {
         var historicoChecker = activity?.intent?.getBooleanExtra("HISTORICO", false)
         downloadUrl = old_foto_url
 
-        Log.d("TESTESTSE", "ID OCORRENCIA É: ${idOcorrencia}")
+        Log.d("TESTESTSE", "ID OCORRENCIA É: ${tipo}")
 
 
         if (historicoChecker == true) {
@@ -93,10 +93,11 @@ class OcorrenciasEditadoFragment : Fragment() {
             binding.editTextNome.isFocusable = false
             binding.editTextEndereco.isFocusable = false
             binding.editTextContato.isFocusable = false
-            binding.autoCompleteTipoOcorrencia?.isFocusable = false
-            binding.autoCompleteTipoOcorrencia?.setCompoundDrawables(null,null,null,null)
-            binding.autoCompleteTipoOcorrencia?.setText(tipo)
-            binding.inputLayoutTipo?.hint = ""
+            binding.autoCompleteTipoOcorrencia.isFocusable = false
+            binding.autoCompleteTipoOcorrencia.setCompoundDrawables(null,null,null,null)
+            binding.autoCompleteTipoOcorrencia.setText(tipo)
+            binding.inputLayoutTipo.hint = ""
+
             if (!old_foto_url.isNullOrEmpty()) {
                 Picasso.get()
                     .load(old_foto_url)
@@ -120,7 +121,10 @@ class OcorrenciasEditadoFragment : Fragment() {
             }
         } else {
             val db = FirebaseFirestore.getInstance()
+            val tiposList = mutableListOf<String>()
             val autoComplete = binding.autoCompleteTipoOcorrencia
+
+            binding.autoCompleteTipoOcorrencia.setText(tipo)
 
             val adapter = ArrayAdapter(
                 requireContext(),
@@ -148,6 +152,7 @@ class OcorrenciasEditadoFragment : Fragment() {
                 }
                 adapter.notifyDataSetChanged()
             }
+            tipoListGlobal = tiposList
 
             // Abrir dropdown ao digitar
             autoComplete?.addTextChangedListener {
@@ -159,16 +164,6 @@ class OcorrenciasEditadoFragment : Fragment() {
             // Captura item selecionado
             autoComplete?.setOnItemClickListener { _, _, position, _ ->
                 tipo = tiposList[position]
-
-                val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
-                val bolinhaInicial =
-                    requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
-
-                bolinhaInicial.post {
-                    val destinoX = bolinhaInicial.x + bolinhaInicial.width / 2 - carrinho.width / 2
-                    carrinho.animate().x(destinoX).setDuration(700).start()
-                }
-
             }
         }
         Log.d("TESTE", "OLD FOTO URL É: ${old_foto_url}")
@@ -386,14 +381,14 @@ class OcorrenciasEditadoFragment : Fragment() {
 
     private fun FinalizarEdicao(confirmarAlteracao: Boolean?, idOcorrencia: Long, fotoUrl: String?) {
         if (confirmarAlteracao == true){
-            tipo = binding.autoCompleteTipoOcorrencia?.text.toString().trim()
+            tipo = binding.autoCompleteTipoOcorrencia.text.toString().trim()
 
             if (tipo.isNullOrEmpty()) {
                 mostrarAlerta("Campo incompleto", "Para avançar, selecione um tipo de ocorrência")
                 return
             }
 
-            if (!tiposList.contains(tipo)) {
+            if (!tipoListGlobal.contains(tipo)) {
                 mostrarAlerta(
                     "Tipo inválido",
                     "O tipo de ocorrência informado não existe. Selecione um tipo válido da lista."

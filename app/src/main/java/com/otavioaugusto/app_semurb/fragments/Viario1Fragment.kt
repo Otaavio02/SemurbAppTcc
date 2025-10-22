@@ -46,7 +46,7 @@ class Viario1Fragment : Fragment() {
 
         val db = FirebaseFirestore.getInstance()
         val tiposList = mutableListOf<String>()
-        val autoComplete = binding.autoCompleteTipoViario
+        val autoComplete = binding.autoCompleteTipoOcorrencia
 
         val adapter = ArrayAdapter(
             requireContext(),
@@ -99,7 +99,7 @@ class Viario1Fragment : Fragment() {
         }
 
         binding.btnProximoViario1.setOnClickListener {
-            tipo = binding.autoCompleteTipoViario?.text.toString().trim()
+            tipo = binding.autoCompleteTipoOcorrencia?.text.toString().trim()
 
             if (tipo.isNullOrEmpty()) {
                 mostrarAlerta("Campo incompleto", "Para avançar, selecione um tipo viário")

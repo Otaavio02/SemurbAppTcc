@@ -57,10 +57,11 @@
             android:layout_height="95dp"
             android:background="@drawable/bg_editados"
             android:padding="16dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline53">
+            app:layout_constraintTop_toBottomOf="@+id/textView29">
 
 
             <!-- Campo de busca com dropdown -->
@@ -100,12 +101,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline53"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2278339" />
 
         <TextView
             android:id="@+id/textView29"
