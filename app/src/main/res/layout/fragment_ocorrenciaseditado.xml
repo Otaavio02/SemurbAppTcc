@@ -54,7 +54,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="370dp"
-            android:layout_height="90dp"
+            android:layout_height="95dp"
             android:background="@drawable/bg_editados"
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,29 +62,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline53">
 
-            <ImageView
-                android:id="@+id/imageView22"
-                android:layout_width="340dp"
-                android:layout_height="56dp"
+
+            <!-- Campo de busca com dropdown -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutTipo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_radiooption"
+                android:hint="Buscar tipo de ocorrência"
+                android:paddingStart="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/bg_radiooption" />
+                app:layout_constraintVertical_bias="0.333">
 
-            <TextView
-                android:id="@+id/tipoOcorrencia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_semibold"
-                android:paddingStart="20dp"
-                android:paddingEnd="5dp"
-                android:text="@string/atendimento"
-                android:textColor="?attr/CorTextosRadio"
-                android:textSize="17sp"
-                app:layout_constraintBottom_toBottomOf="@id/imageView22"
-                app:layout_constraintStart_toStartOf="@id/imageView22"
-                app:layout_constraintTop_toTopOf="@id/imageView22" />
-
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTipoOcorrencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/Transparente"
+                    android:completionThreshold="0"
+                    android:drawableStart="@drawable/icon_lupa"
+                    android:drawablePadding="10dp"
+                    android:dropDownAnchor="@id/inputLayoutTipo"
+                    android:dropDownWidth="match_parent"
+                    android:dropDownHeight="wrap_content"
+                    android:dropDownVerticalOffset="0dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:inputType="text"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="12dp"
+                    android:textColor="@color/Preto" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

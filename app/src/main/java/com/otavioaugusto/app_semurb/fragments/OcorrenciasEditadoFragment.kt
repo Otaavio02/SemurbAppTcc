@@ -17,14 +17,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import android.widget.ImageView
 import androidx.core.net.toUri
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.otavioaugusto.app_semurb.R
@@ -54,8 +57,8 @@ class OcorrenciasEditadoFragment : Fragment() {
     private var data_envio: String? = null
     private var downloadUrl: String? = null
     private var novaUrl: String? = null
-
     private var fotoUri: Uri? = null
+    private lateinit var tiposList: MutableList<String>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -90,6 +93,10 @@ class OcorrenciasEditadoFragment : Fragment() {
             binding.editTextNome.isFocusable = false
             binding.editTextEndereco.isFocusable = false
             binding.editTextContato.isFocusable = false
+            binding.autoCompleteTipoOcorrencia?.isFocusable = false
+            binding.autoCompleteTipoOcorrencia?.setCompoundDrawables(null,null,null,null)
+            binding.autoCompleteTipoOcorrencia?.setText(tipo)
+            binding.inputLayoutTipo?.hint = ""
             if (!old_foto_url.isNullOrEmpty()) {
                 Picasso.get()
                     .load(old_foto_url)
@@ -110,6 +117,58 @@ class OcorrenciasEditadoFragment : Fragment() {
             } else {
                 binding.imageViewFoto.isEnabled = false
                 binding.textViewFoto.setText("Nenhuma imagem foi registrada.")
+            }
+        } else {
+            val db = FirebaseFirestore.getInstance()
+            val autoComplete = binding.autoCompleteTipoOcorrencia
+
+            val adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                tiposList
+            )
+            autoComplete?.setAdapter(adapter)
+
+            // Permite abrir a lista sem digitar
+            autoComplete?.threshold = 0
+
+            // Forçar abrir dropdown ao clicar
+            autoComplete?.setOnTouchListener { _, _ ->
+                if (tiposList.isNotEmpty()) {
+                    autoComplete.showDropDown()
+                }
+                false
+            }
+
+            // Busca tipos de ocorrência no Firestore
+            db.collection("tipos_ocorrencia").get().addOnSuccessListener { documents ->
+                tiposList.clear()
+                for (doc in documents) {
+                    doc.getString("tipo")?.let { tiposList.add(it) }
+                }
+                adapter.notifyDataSetChanged()
+            }
+
+            // Abrir dropdown ao digitar
+            autoComplete?.addTextChangedListener {
+                if (autoComplete.text.isNotEmpty()) {
+                    autoComplete.showDropDown()
+                }
+            }
+
+            // Captura item selecionado
+            autoComplete?.setOnItemClickListener { _, _, position, _ ->
+                tipo = tiposList[position]
+
+                val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
+                val bolinhaInicial =
+                    requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
+
+                bolinhaInicial.post {
+                    val destinoX = bolinhaInicial.x + bolinhaInicial.width / 2 - carrinho.width / 2
+                    carrinho.animate().x(destinoX).setDuration(700).start()
+                }
+
             }
         }
         Log.d("TESTE", "OLD FOTO URL É: ${old_foto_url}")
@@ -138,7 +197,6 @@ class OcorrenciasEditadoFragment : Fragment() {
             binding.textViewFoto.setText("Nenhuma imagem foi registrada.")
         }
         binding.textViewIdNomeOcorrenciasEditado.text = "Ocorrência $numSequencial"
-        binding.tipoOcorrencia?.text = "${tipo}"
 
         binding.editTextContato.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -328,7 +386,20 @@ class OcorrenciasEditadoFragment : Fragment() {
 
     private fun FinalizarEdicao(confirmarAlteracao: Boolean?, idOcorrencia: Long, fotoUrl: String?) {
         if (confirmarAlteracao == true){
-            val tipoSelecionado = "amogus" //TODO ARRUMAR PARA PODER MUDAR
+            tipo = binding.autoCompleteTipoOcorrencia?.text.toString().trim()
+
+            if (tipo.isNullOrEmpty()) {
+                mostrarAlerta("Campo incompleto", "Para avançar, selecione um tipo de ocorrência")
+                return
+            }
+
+            if (!tiposList.contains(tipo)) {
+                mostrarAlerta(
+                    "Tipo inválido",
+                    "O tipo de ocorrência informado não existe. Selecione um tipo válido da lista."
+                )
+                return
+            }
 
             val novoEndereco = binding.editTextEndereco.text.toString()
             val novoNome = binding.editTextNome.text.toString()
@@ -339,7 +410,7 @@ class OcorrenciasEditadoFragment : Fragment() {
                 val dbHelper = AppDatabaseHelper(requireContext())
                 dbHelper.updateOcorrenciaCompleta(
                     id = idOcorrencia,
-                    tipo = tipoSelecionado,
+                    tipo = tipo.toString(),
                     endereco = novoEndereco,
                     nome = novoNome,
                     numcontato = novoContato,
@@ -389,6 +460,32 @@ class OcorrenciasEditadoFragment : Fragment() {
         }
     }
 
+    private fun mostrarAlerta(tituloTxt: String, mensagemTxt: String) {
+        val titulo = SpannableString(tituloTxt).apply {
+            setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                0, length, 0
+            )
+        }
+        val mensagem = SpannableString(mensagemTxt).apply {
+            setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                0, length, 0
+            )
+        }
 
+        val builder = AlertDialog.Builder(requireContext())
+            .setTitle(titulo)
+            .setMessage(mensagem)
+            .setPositiveButton("Ok") { dialog, _ -> dialog.dismiss() }
+
+        val dialog = builder.create()
+        dialog.setOnShowListener {
+            dialog.window?.setBackgroundDrawable(
+                ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
+            )
+        }
+        dialog.show()
+    }
 
 }

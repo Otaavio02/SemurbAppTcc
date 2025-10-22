@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentOcorrencias1Binding
+import kotlin.collections.mutableListOf
 
 class Ocorrencias1Fragment : Fragment() {
 
@@ -33,6 +34,7 @@ class Ocorrencias1Fragment : Fragment() {
     private var endereco: String? = null
     private var nome: String? = null
     private var numContato: String? = null
+    private lateinit var tiposList: MutableList<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -45,7 +47,6 @@ class Ocorrencias1Fragment : Fragment() {
         numContato = arguments?.getString("numContato")
 
         val db = FirebaseFirestore.getInstance()
-        val tiposList = mutableListOf<String>()
         val autoComplete = binding.autoCompleteTipoOcorrencia
 
         val adapter = ArrayAdapter(
@@ -53,10 +54,10 @@ class Ocorrencias1Fragment : Fragment() {
             android.R.layout.simple_dropdown_item_1line,
             tiposList
         )
-        autoComplete?.setAdapter(adapter)
+        autoComplete.setAdapter(adapter)
 
         // Permite abrir a lista sem digitar
-        autoComplete?.threshold = 0
+        autoComplete.threshold = 0
 
         // Forçar abrir dropdown ao clicar
         autoComplete?.setOnTouchListener { _, _ ->
@@ -76,14 +77,14 @@ class Ocorrencias1Fragment : Fragment() {
         }
 
         // Abrir dropdown ao digitar
-        autoComplete?.addTextChangedListener {
+        autoComplete.addTextChangedListener {
             if (autoComplete.text.isNotEmpty()) {
                 autoComplete.showDropDown()
             }
         }
 
         // Captura item selecionado
-        autoComplete?.setOnItemClickListener { _, _, position, _ ->
+        autoComplete.setOnItemClickListener { _, _, position, _ ->
             tipo = tiposList[position]
 
             val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
@@ -95,11 +96,6 @@ class Ocorrencias1Fragment : Fragment() {
                 carrinho.animate().x(destinoX).setDuration(700).start()
             }
 
-            when (tipo) {
-                "Sinistro de Trânsito" -> binding.rgOcorrencias?.check(R.id.rbSinistro)
-                "Sinistro de Grande Vulto" -> binding.rgOcorrencias?.check(R.id.rbGrandeVulto)
-                "Atendimento ao Cidadão" -> binding.rgOcorrencias?.check(R.id.rbAtendimento)
-            }
         }
 
         binding.btnVoltarOcorrencias1.setOnClickListener {
@@ -107,7 +103,7 @@ class Ocorrencias1Fragment : Fragment() {
         }
 
         binding.btnProximoOcorrencias1.setOnClickListener {
-            tipo = binding.autoCompleteTipoOcorrencia?.text.toString().trim()
+            tipo = binding.autoCompleteTipoOcorrencia.text.toString().trim()
 
             if (tipo.isNullOrEmpty()) {
                 mostrarAlerta("Campo incompleto", "Para avançar, selecione um tipo de ocorrência")

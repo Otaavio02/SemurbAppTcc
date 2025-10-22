@@ -112,6 +112,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20">
@@ -133,7 +134,8 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/bg_pesquisa"
-            android:hint="Buscar tipo de ocorrência">
+            android:hint="Buscar tipo de ocorrência"
+            android:paddingStart="15dp">
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteTipoOcorrencia"
@@ -142,12 +144,13 @@
                 android:background="@color/Transparente"
                 android:completionThreshold="0"
                 android:drawableStart="@drawable/icon_lupa"
-                android:dropDownHeight="wrap_content"
-                android:inputType="text"
+                android:drawablePadding="10dp"
                 android:dropDownAnchor="@id/inputLayoutTipo"
-                android:dropDownVerticalOffset="0dp"
                 android:dropDownWidth="match_parent"
-                android:paddingStart="12dp"
+                android:dropDownHeight="wrap_content"
+                android:dropDownVerticalOffset="0dp"
+                android:inputType="text"
+                android:paddingStart="5dp"
                 android:paddingEnd="12dp"
                 android:textColor="@color/Preto" />
         </com.google.android.material.textfield.TextInputLayout>
