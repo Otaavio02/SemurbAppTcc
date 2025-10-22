@@ -11,10 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.ArrayAdapter
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import com.google.firebase.firestore.FirebaseFirestore
 import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.databinding.FragmentViario1Binding
@@ -24,7 +27,7 @@ class Viario1Fragment : Fragment() {
     private var _binding: FragmentViario1Binding? = null
     private val binding get() = _binding!!
 
-    private var etapaAtual = 0 // etapa 2
+    private var etapaAtual = 0
     private var totalEtapas = 3
     private var tipo: String? = null
     private var endereco: String? = null
@@ -41,23 +44,53 @@ class Viario1Fragment : Fragment() {
         endereco = arguments?.getString("endereco")
         descricao = arguments?.getString("descricao")
 
+        val db = FirebaseFirestore.getInstance()
+        val tiposList = mutableListOf<String>()
+        val autoComplete = binding.autoCompleteTipoViario
 
-        val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
-        val bolinhaInicial = requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
-        bolinhaInicial.post {
-            val destinoX = bolinhaInicial.x + bolinhaInicial.width / 2 - carrinho.width / 2
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            tiposList
+        )
+        autoComplete?.setAdapter(adapter)
+        autoComplete?.threshold = 0 // permite abrir sem digitar
 
-            carrinho.animate()
-                .x(destinoX)
-                .setDuration(700)
-                .start()
+        // Abre o dropdown ao clicar no campo
+        autoComplete?.setOnTouchListener { _, _ ->
+            if (tiposList.isNotEmpty()) {
+                autoComplete.showDropDown()
+            }
+            false
         }
 
-        if (tipo != null) {
-            when (tipo) {
-                "Sinalização Ineficiente" ->  binding.rgViario.check(R.id.rbSinaInefi)
-                "Substituição" ->  binding.rgViario.check(R.id.rbSubstituicao)
-                "Sugestão" ->  binding.rgViario.check(R.id.rbSugestao)
+        // 🔥 Busca tipos viários do Firestore
+        db.collection("tipos_servico").get().addOnSuccessListener { documents ->
+            tiposList.clear()
+            for (doc in documents) {
+                doc.getString("tipo")?.let { tiposList.add(it) }
+            }
+            adapter.notifyDataSetChanged()
+        }
+
+        // Mostra lista conforme digitação
+        autoComplete?.addTextChangedListener {
+            if (autoComplete.text.isNotEmpty()) {
+                autoComplete.showDropDown()
+            }
+        }
+
+        // Captura o item selecionado
+        autoComplete?.setOnItemClickListener { _, _, position, _ ->
+            tipo = tiposList[position]
+
+            val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
+            val bolinhaInicial =
+                requireActivity().findViewById<ImageView>(R.id.progress_bar_circle1)
+
+            bolinhaInicial.post {
+                val destinoX = bolinhaInicial.x + bolinhaInicial.width / 2 - carrinho.width / 2
+                carrinho.animate().x(destinoX).setDuration(700).start()
             }
         }
 
@@ -66,44 +99,18 @@ class Viario1Fragment : Fragment() {
         }
 
         binding.btnProximoViario1.setOnClickListener {
-            tipo = when (binding.rgViario.checkedRadioButtonId) {
-                R.id.rbSinaInefi -> "Sinalização Ineficiente"
-                R.id.rbSubstituicao -> "Substituição"
-                R.id.rbSugestao -> "Sugestão"
-                // Provavelmente vai ter mais
-                else -> ""
+            tipo = binding.autoCompleteTipoViario?.text.toString().trim()
+
+            if (tipo.isNullOrEmpty()) {
+                mostrarAlerta("Campo incompleto", "Para avançar, selecione um tipo viário")
+                return@setOnClickListener
             }
 
-            if (tipo == "") {
-                val titulo = SpannableString("Campo incompleto").apply {
-                    setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
-                        0, length, 0
-                    )
-                }
-
-                val mensagem = SpannableString("Para Avançar, escolha uma opção.").apply {
-                    setSpan(
-                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
-                        0, length, 0
-                    )
-                }
-
-                val builder = AlertDialog.Builder(requireContext())
-                    .setTitle(titulo)
-                    .setMessage(mensagem)
-                    .setPositiveButton("Ok") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-
-                val dialog = builder.create()
-                dialog.setOnShowListener {
-                    dialog.window?.setBackgroundDrawable(
-                        ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
-                    )
-                }
-                dialog.show()
-
+            if (!tiposList.contains(tipo)) {
+                mostrarAlerta(
+                    "Tipo inválido",
+                    "O tipo informado não existe. Selecione um tipo válido da lista."
+                )
                 return@setOnClickListener
             }
 
@@ -116,7 +123,9 @@ class Viario1Fragment : Fragment() {
             }
 
             if (etapaAtual < totalEtapas - 1) {
-                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual + 1, "continuar")
+                (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(
+                    etapaAtual + 1, "continuar"
+                )
             }
 
             parentFragmentManager.beginTransaction()
@@ -129,24 +138,54 @@ class Viario1Fragment : Fragment() {
         return binding.root
     }
 
+    private fun mostrarAlerta(tituloTxt: String, mensagemTxt: String) {
+        val titulo = SpannableString(tituloTxt).apply {
+            setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                0, length, 0
+            )
+        }
+        val mensagem = SpannableString(mensagemTxt).apply {
+            setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.CinzaMedio)),
+                0, length, 0
+            )
+        }
+
+        val builder = AlertDialog.Builder(requireContext())
+            .setTitle(titulo)
+            .setMessage(mensagem)
+            .setPositiveButton("Ok") { dialog, _ -> dialog.dismiss() }
+
+        val dialog = builder.create()
+        dialog.setOnShowListener {
+            dialog.window?.setBackgroundDrawable(
+                ColorDrawable(ContextCompat.getColor(requireContext(), R.color.Branco))
+            )
+        }
+        dialog.show()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().finish()
-            }
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().finish()
+                }
+            })
     }
 
     override fun onResume() {
         super.onResume()
-
         activity?.window?.let { window ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.let {
                     it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                    it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    it.systemBarsBehavior =
+                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 }
             } else {
                 @Suppress("DEPRECATION")
