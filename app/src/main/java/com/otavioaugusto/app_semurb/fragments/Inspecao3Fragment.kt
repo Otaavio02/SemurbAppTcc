@@ -519,6 +519,12 @@ class Inspecao3Fragment : Fragment() {
                                 )
                             } ?: emptyList()
 
+                            Log.d("TESTE", "FRENTE: ${frente}")
+                            Log.d("TESTE", "TRASEIRA: ${traseira}")
+                            Log.d("TESTE", "DIREITA: ${direita}")
+                            Log.d("TESTE", "ESQUERDA: ${esquerda}")
+                            Log.d("TESTE", "OUTRAS: ${outras}")
+
                             // Atualiza os helpers
                             avariasFrenteHelper.setAvarias(frente.toMutableList())
                             avariasTraseiraHelper.setAvarias(traseira.toMutableList())

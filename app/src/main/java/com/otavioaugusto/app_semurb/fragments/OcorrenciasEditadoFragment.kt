@@ -90,9 +90,6 @@ class OcorrenciasEditadoFragment : Fragment() {
             binding.editTextNome.isFocusable = false
             binding.editTextEndereco.isFocusable = false
             binding.editTextContato.isFocusable = false
-            binding.rbSinistro.isClickable = false
-            binding.rbAtendimento.isClickable = false
-            binding.rbGrandeVulto.isClickable = false
             if (!old_foto_url.isNullOrEmpty()) {
                 Picasso.get()
                     .load(old_foto_url)
@@ -141,11 +138,7 @@ class OcorrenciasEditadoFragment : Fragment() {
             binding.textViewFoto.setText("Nenhuma imagem foi registrada.")
         }
         binding.textViewIdNomeOcorrenciasEditado.text = "Ocorrência $numSequencial"
-        when (tipo) {
-            "Sinistro de Trânsito" -> binding.rbSinistro.isChecked = true
-            "Sinistro de Grande Vulto" -> binding.rbGrandeVulto.isChecked = true
-            "Atendimento ao Cidadão" -> binding.rbAtendimento.isChecked = true
-        }
+        binding.tipoOcorrencia?.text = "${tipo}"
 
         binding.editTextContato.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -335,12 +328,7 @@ class OcorrenciasEditadoFragment : Fragment() {
 
     private fun FinalizarEdicao(confirmarAlteracao: Boolean?, idOcorrencia: Long, fotoUrl: String?) {
         if (confirmarAlteracao == true){
-            val tipoSelecionado = when (binding.rgOcorrenciasEditado.checkedRadioButtonId) {
-                R.id.rbSinistro -> "Sinistro de Trânsito"
-                R.id.rbGrandeVulto -> "Sinistro de Grande Vulto"
-                R.id.rbAtendimento -> "Atendimento ao Cidadão"
-                else -> ""
-            }
+            val tipoSelecionado = "amogus" //TODO ARRUMAR PARA PODER MUDAR
 
             val novoEndereco = binding.editTextEndereco.text.toString()
             val novoNome = binding.editTextNome.text.toString()

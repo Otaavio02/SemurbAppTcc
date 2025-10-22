@@ -1,13 +1,16 @@
 package com.otavioaugusto.app_semurb.adapters
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.view.marginStart
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
@@ -25,6 +28,7 @@ class AvariasAdapter(
         val descricaoEditText: TextInputEditText = itemView.findViewById(R.id.editTextDescricao)
         val btnAdicionar: ImageButton = itemView.findViewById(R.id.btnAdicionar)
         val btnFoto: ImageButton = itemView.findViewById(R.id.btnFoto)
+        val frameFoto: FrameLayout = itemView.findViewById(R.id.frameFoto)
 
         val imageFoto: ImageView = itemView.findViewById(R.id.imageFoto)
     }
@@ -35,16 +39,26 @@ class AvariasAdapter(
         return AvariaViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: AvariaViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AvariaViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val avaria = avarias[position]
+        var margin = "10"
 
 
-        holder.descricaoEditText.setText(avaria.descricao)
+
+
+        if (avaria.descricao != "") {
+            holder.descricaoEditText.setText(avaria.descricao)
+        } else {
+            holder.descricaoEditText.setText("Nenhuma avaria registrada.")
+        }
 
 
         // Se for modo histórico, desativa tudo
         if (modoHistorico == true) {
             holder.descricaoEditText.isEnabled = false
+            /*val param = holder.descricaoEditText.layoutParams as ViewGroup.MarginLayoutParams
+            param.setMargins(25, 0, 25, 0)
+            holder.descricaoEditText.layoutParams = param */
             holder.btnAdicionar.visibility = View.GONE
             holder.btnFoto.isEnabled = false
         } else {
@@ -68,6 +82,7 @@ class AvariasAdapter(
         }
 
         if (avaria.uriFoto != null) {
+            holder.btnFoto.visibility = View.GONE
             holder.imageFoto.visibility = View.VISIBLE
             if (modoHistorico == true) {
                 Log.d("PICASSOOOO", "TA ACHANDO? ${avaria.uriFoto}")
@@ -88,6 +103,7 @@ class AvariasAdapter(
                     })
 
                 holder.imageFoto.setOnClickListener {
+                    Log.d("TESTE", "frameFoto: ${holder.frameFoto}")
                     val context = holder.itemView.context
                     val dialogView = ImageView(context).apply {
                         Picasso.get()
@@ -123,9 +139,9 @@ class AvariasAdapter(
                         .show()
                 }
             }
-
         } else {
             if (modoHistorico == true){
+                holder.frameFoto.visibility = View.GONE
                 holder.btnFoto.visibility = View.GONE
                 holder.imageFoto.visibility = View.GONE
             } else {
