@@ -64,12 +64,12 @@ class Inspecao1Fragment : Fragment() {
                     viaturaID = dados["viatura"] as String
                     val fotoUrl = (dados["foto_agnt"] as? String)?.replace("\"", "")
                     val nome = dados["nome"] as String
-                    Log.d("TESTE", "nome do agente é: ${nome}")
+                    binding.textViewMotorista.text = nome
 
                     if (_binding != null) {
                         binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
+                        Log.d("TESTE", "nome do agente é: ${nome}")
                         binding.textView35.text = viaturaID
-                        binding.textViewMotorista.text = "$nome"
 
                         if (!fotoUrl.isNullOrEmpty()) {
                             Picasso.get()
