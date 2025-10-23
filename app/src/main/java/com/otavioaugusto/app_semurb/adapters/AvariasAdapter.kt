@@ -41,15 +41,13 @@ class AvariasAdapter(
 
     override fun onBindViewHolder(holder: AvariaViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val avaria = avarias[position]
-        var margin = "10"
-
-
-
 
         if (avaria.descricao != "") {
             holder.descricaoEditText.setText(avaria.descricao)
         } else {
-            holder.descricaoEditText.setText("Nenhuma avaria registrada.")
+            if (modoHistorico == true) {
+                holder.descricaoEditText.setText("Nenhuma avaria registrada.")
+            }
         }
 
 
