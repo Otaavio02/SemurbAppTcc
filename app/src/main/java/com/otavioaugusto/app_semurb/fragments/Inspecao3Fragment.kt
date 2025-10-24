@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Path
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
@@ -105,6 +104,8 @@ class Inspecao3Fragment : Fragment() {
             setupRecyclers()
         } else { setupRecyclers(modoHistorico = true) }
 
+        //super.onCreate(savedInstanceState)
+        //val catId: String = intent.getStringExtra("DATA_ENVIO")
         viaturaID = arguments?.getString("viaturaID").toString()
         usuarioID = arguments?.getString("usuarioID").toString()
         binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
@@ -472,6 +473,8 @@ class Inspecao3Fragment : Fragment() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun CarregarAvariasHistorico() {
+
+        Log.d("teste", "DATA ENVIO EXIBICAO: $data_envio_exibicao")
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 bancoDados.collection("inspecoes")
@@ -604,11 +607,12 @@ class Inspecao3Fragment : Fragment() {
 
 
         val dataHoje = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val dataHojeExibicao = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
 
         val dadosInspecao = hashMapOf<String, Any>(
             "dataRegistro" to com.google.firebase.Timestamp.now(),
-            "data_envio" to data_envio_exibicao.toString(),
+            "data_envio" to dataHojeExibicao,
             "viaturaID" to viaturaID,
             "motoristaID" to usuarioID,
         )

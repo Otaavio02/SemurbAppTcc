@@ -212,6 +212,7 @@ class Inspecao2Fragment : Fragment() {
     private fun semAvarias(idVeiculo: String){
 
         val dataHoje = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val dataHojeExibicao = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO){
@@ -219,6 +220,7 @@ class Inspecao2Fragment : Fragment() {
 
                 val dadosInspecao = hashMapOf(
                     "dataRegistro" to com.google.firebase.Timestamp.now(),
+                    "data_envio" to dataHojeExibicao,
                     "viaturaID" to viaturaID,
                     "motoristaID" to usuarioID,
                     "frente" to listOf(mapOf("info" to "Parte sem avaria")),

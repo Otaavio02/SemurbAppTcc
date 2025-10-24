@@ -45,23 +45,27 @@ class AvariasAdapter(
         if (avaria.descricao != "") {
             holder.descricaoEditText.setText(avaria.descricao)
         } else {
-            if (modoHistorico == true) {
+            if (modoHistorico) {
                 holder.descricaoEditText.setText("Nenhuma avaria registrada.")
+            }
+        }
+
+        // Atualiza o objeto sempre que o usuário digitar
+        if (!modoHistorico) {
+            holder.descricaoEditText.addTextChangedListener { text ->
+                avaria.descricao = text?.toString() ?: ""
             }
         }
 
 
         // Se for modo histórico, desativa tudo
-        if (modoHistorico == true) {
+        if (modoHistorico) {
             holder.descricaoEditText.isEnabled = false
-            /*val param = holder.descricaoEditText.layoutParams as ViewGroup.MarginLayoutParams
-            param.setMargins(25, 0, 25, 0)
-            holder.descricaoEditText.layoutParams = param */
             holder.btnAdicionar.visibility = View.GONE
             holder.btnFoto.isEnabled = false
         } else {
             holder.descricaoEditText.isEnabled = true
-            // comportamento normal de adicionar/remover
+            // Comportamento normal de adicionar/remover
             if (position == avarias.size - 1) {
                 holder.btnAdicionar.setImageResource(R.drawable.ic_add)
                 holder.btnAdicionar.setOnClickListener {

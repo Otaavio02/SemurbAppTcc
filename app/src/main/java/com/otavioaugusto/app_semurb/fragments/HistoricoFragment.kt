@@ -1,6 +1,7 @@
 package com.otavioaugusto.app_semurb.fragments
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.otavioaugusto.app_semurb.PlaceHolderActivity
+import com.otavioaugusto.app_semurb.PlaceHolderGameficadoActivity
 
 import com.otavioaugusto.app_semurb.R
 import com.otavioaugusto.app_semurb.adapters.HistoricoAdapter
@@ -287,14 +289,21 @@ class HistoricoFragment : Fragment() {
                 }
                 fragment.arguments = bundle
 
-                parentFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.slide_in_right,
-                        R.anim.slide_out_left
-                    )
-                    .replace(R.id.fragmentContainerView, fragment)
-                    .addToBackStack(null)
-                    .commit()
+                val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
+                intent.putExtra("FRAGMENT_KEY", "HISTORICO_INSPECAO")
+
+                if (historico.topico == "Inspeção da Viatura"){
+                    startActivity(intent)
+                } else {
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left
+                        )
+                        .replace(R.id.fragmentContainerView, fragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
             }
 
             binding.rvHistorico.adapter = adapter

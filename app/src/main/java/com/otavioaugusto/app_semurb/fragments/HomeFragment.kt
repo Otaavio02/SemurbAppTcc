@@ -80,12 +80,9 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnInspecaoHome.setOnClickListener {
-
             val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
             intent.putExtra("FRAGMENT_KEY", "INICIAR_INSPECAO")
             startActivity(intent)
-
-
         }
 
         binding.btnHistoricoHome.setOnClickListener {

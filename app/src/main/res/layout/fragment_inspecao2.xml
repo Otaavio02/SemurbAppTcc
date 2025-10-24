@@ -101,7 +101,7 @@
             app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/inspecaonegocio" />
+            app:srcCompat="@drawable/bg_radiooption" />
 
         <ImageView
             android:id="@+id/imageView234"
@@ -112,7 +112,7 @@
             app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView24"
-            app:srcCompat="@drawable/inspecaonegocio" />
+            app:srcCompat="@drawable/bg_radiooption" />
 
         <TextView
             android:id="@+id/textView23"

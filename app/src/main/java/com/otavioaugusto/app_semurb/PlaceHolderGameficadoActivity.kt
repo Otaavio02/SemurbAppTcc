@@ -22,7 +22,6 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
         const val VISIBILITY        = "VISIBILITY"
         const val VERIFICAR_TURNO   = "VERIFICAR_TURNO"
         const val INICIAR_INSPECAO  = "INICIAR_INSPECAO"
-
         const val HISTORICO_INSPECAO  = "HISTORICO_INSPECAO"
         const val INICIAR_VIARIO    = "INICIAR_VIARIO"
         const val VIARIO_EDITADO    = "VIARIO_EDITADO"
