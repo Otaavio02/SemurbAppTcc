@@ -65,6 +65,7 @@ class PlaceHolderGameficadoActivity : AppCompatActivity() {
         if (intent.getStringExtra(VISIBILITY) == "GONE") {
             binding.progressBar.visibility      = View.GONE
             binding.gradientTransition.visibility = View.GONE
+            binding.carrinho.visibility = View.GONE
         }
 
         supportFragmentManager.beginTransaction()

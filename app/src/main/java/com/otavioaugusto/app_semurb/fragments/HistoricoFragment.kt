@@ -297,6 +297,7 @@ class HistoricoFragment : Fragment() {
                 intent.putExtra("viaturaID", historico.viatura_usada)
                 intent.putExtra("usuarioID", usuarioID)
                 intent.putExtra("TOPICO", historico.topico)
+                intent.putExtra("VISIBILITY", "GONE")
 
                 if (historico.topico == "Inspeção da Viatura"){
                     startActivity(intent)

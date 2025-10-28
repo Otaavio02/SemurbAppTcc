@@ -65,6 +65,7 @@ class Inspecao3Fragment : Fragment() {
 
     private var viaturaID: String = "Carregando..."
     lateinit private var usuarioID: String
+    private var HistoricoDataChecker: String? = null
 
     private lateinit var adapter: AvariasAdapter
     private lateinit var avariasFrenteHelper: AvariasRecyclerHelper
@@ -96,45 +97,40 @@ class Inspecao3Fragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentInspecao3Binding.inflate(inflater, container, false)
 
-        data_envio_exibicao = arguments?.getString("DATA_ENVIO")
 
-        Log.d("TEste", "DATA ENVIO EXIBICAO: ${data_envio_exibicao}")
 
         setupListeners()
         setupToggles()
-        if (data_envio_exibicao.isNullOrEmpty()) {
-            setupRecyclers()
-        } else { setupRecyclers(modoHistorico = true) }
 
 
-        // Retrieve the data using the same keys
-        val HistoricoDataChecker = requireActivity().intent.getStringExtra("TOPICO")
-        if (!HistoricoDataChecker.isNullOrEmpty()) {
+        HistoricoDataChecker = requireActivity().intent.getStringExtra("TOPICO")
+        Log.d("TEste", "HISTORICO DATA CHECKER É: ${HistoricoDataChecker}")
+        if (HistoricoDataChecker != null) {
             viaturaID = requireActivity().intent.getStringExtra("viaturaID").toString()
             usuarioID = requireActivity().intent.getStringExtra("usuarioID").toString()
             data_envio_exibicao = requireActivity().intent.getStringExtra("DATA_ENVIO").toString()
             Log.d("TEste", "DATA ENVIO EXIBICAO DO ACTIVITY: ${data_envio_exibicao}")
             Log.d("TEste", "VIATURA ID DO ACTIVITY: ${viaturaID}")
             Log.d("TEste", "USUARIO ID DO ACTIVITY: ${usuarioID}")
+            setupRecyclers(modoHistorico = true)
+        } else {
+            viaturaID = arguments?.getString("viaturaID").toString()
+            usuarioID = arguments?.getString("usuarioID").toString()
+            data_envio_exibicao = arguments?.getString("DATA_ENVIO")
+            setupRecyclers(modoHistorico = false)
         }
 
 
 
 
-        viaturaID = arguments?.getString("viaturaID").toString()
-        usuarioID = arguments?.getString("usuarioID").toString()
+
         binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
         Log.d("TEste", "id do usuario: ${usuarioID}")
         Log.d("TEste", "id da viatura: ${viaturaID}")
 
         // Convertendo formato de data
 
-        if (!data_envio_exibicao.isNullOrBlank()) {
-            val entrada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            val saida = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val date = entrada.parse(data_envio_exibicao)
-            data_envio = saida.format(date!!)
-
+        if (!HistoricoDataChecker.isNullOrEmpty()) {
             binding.textViewDescricao.text = data_envio_exibicao
             binding.cbFrente.visibility = View.GONE
             binding.cbOutra.visibility = View.GONE
@@ -149,8 +145,6 @@ class Inspecao3Fragment : Fragment() {
             binding.btnInfoTraseira.visibility = View.GONE
             binding.btnFinalizar.visibility = View.GONE
         }
-
-        binding.progressBarInspecao3.visibility = View.GONE
 
         // Checkboxes para marcar caso uma parte esteja sem avária
         binding.cbFrente.setOnCheckedChangeListener { _, isChecked ->
@@ -225,13 +219,13 @@ class Inspecao3Fragment : Fragment() {
             (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(etapaAtual, "continuar")
         }
 
-        if (!data_envio.isNullOrEmpty()) {
+        if (HistoricoDataChecker != null) {
             CarregarAvariasHistorico()
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if(data_envio.isNullOrEmpty()){
+                if(HistoricoDataChecker == null){
                     if (etapaAtual > 0) {
                         (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(
                             etapaAtual - 1,
@@ -252,15 +246,7 @@ class Inspecao3Fragment : Fragment() {
                         })
                         .commit()
                 } else {
-                    parentFragmentManager.beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.slide_in_left,
-                            R.anim.slide_out_right
-                        )
-                        .replace(R.id.fragmentContainerView, HistoricoFragment())
-                        .commit()
-
-                    (activity as? PlaceHolderActivity)?.limparBottomNavBar()
+                    requireActivity().finish()
                 }
 
             }
@@ -280,7 +266,7 @@ class Inspecao3Fragment : Fragment() {
 
     private fun setupListeners() {
         binding.btnVoltarInspecao2.setOnClickListener {
-            if(data_envio.isNullOrEmpty()){
+            if(HistoricoDataChecker == null){
                 if (etapaAtual > 0) {
                     (activity as? PlaceHolderGameficadoActivity)?.moverCarrinhoParaEtapa(
                         etapaAtual - 1,
@@ -301,15 +287,7 @@ class Inspecao3Fragment : Fragment() {
                     })
                     .commit()
             } else {
-                parentFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.slide_in_left,
-                        R.anim.slide_out_right
-                    )
-                    .replace(R.id.fragmentContainerView, HistoricoFragment())
-                    .commit()
-
-                (activity as? PlaceHolderActivity)?.limparBottomNavBar()
+                requireActivity().finish()
             }
         }
 
@@ -489,7 +467,6 @@ class Inspecao3Fragment : Fragment() {
     @SuppressLint("SuspiciousIndentation")
     private fun CarregarAvariasHistorico() {
 
-        Log.d("teste", "DATA ENVIO EXIBICAO: $data_envio_exibicao")
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 bancoDados.collection("inspecoes")
