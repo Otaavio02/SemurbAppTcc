@@ -289,8 +289,14 @@ class HistoricoFragment : Fragment() {
                 }
                 fragment.arguments = bundle
 
+                Log.d("TEST", "VIAUTRA ID Q ERA PRA TA APARECENDO: ${historico.viatura_usada}")
+
                 val intent = Intent(requireContext(), PlaceHolderGameficadoActivity::class.java)
                 intent.putExtra("FRAGMENT_KEY", "HISTORICO_INSPECAO")
+                intent.putExtra("DATA_ENVIO", historico.data_envio)
+                intent.putExtra("viaturaID", historico.viatura_usada)
+                intent.putExtra("usuarioID", usuarioID)
+                intent.putExtra("TOPICO", historico.topico)
 
                 if (historico.topico == "Inspeção da Viatura"){
                     startActivity(intent)

@@ -3,6 +3,8 @@ package com.otavioaugusto.app_semurb.fragments
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
@@ -104,8 +106,21 @@ class Inspecao3Fragment : Fragment() {
             setupRecyclers()
         } else { setupRecyclers(modoHistorico = true) }
 
-        //super.onCreate(savedInstanceState)
-        //val catId: String = intent.getStringExtra("DATA_ENVIO")
+
+        // Retrieve the data using the same keys
+        val HistoricoDataChecker = requireActivity().intent.getStringExtra("TOPICO")
+        if (!HistoricoDataChecker.isNullOrEmpty()) {
+            viaturaID = requireActivity().intent.getStringExtra("viaturaID").toString()
+            usuarioID = requireActivity().intent.getStringExtra("usuarioID").toString()
+            data_envio_exibicao = requireActivity().intent.getStringExtra("DATA_ENVIO").toString()
+            Log.d("TEste", "DATA ENVIO EXIBICAO DO ACTIVITY: ${data_envio_exibicao}")
+            Log.d("TEste", "VIATURA ID DO ACTIVITY: ${viaturaID}")
+            Log.d("TEste", "USUARIO ID DO ACTIVITY: ${usuarioID}")
+        }
+
+
+
+
         viaturaID = arguments?.getString("viaturaID").toString()
         usuarioID = arguments?.getString("usuarioID").toString()
         binding.textViewInspecaoViatura.text = "Inspeção da viatura $viaturaID"
