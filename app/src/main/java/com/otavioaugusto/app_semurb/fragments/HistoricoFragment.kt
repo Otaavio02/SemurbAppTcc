@@ -161,7 +161,7 @@ class HistoricoFragment : Fragment() {
                 val query = if (dataSelecionada == null) {
                     colecao.orderBy("dataRegistro", Query.Direction.DESCENDING)
                 } else {
-                    colecao.whereEqualTo("dataRegistro", dataSelecionada)
+                    colecao.whereEqualTo("data_envio", dataSelecionada)
                 }
 
                 query.get()
@@ -368,7 +368,7 @@ class HistoricoFragment : Fragment() {
                         .whereEqualTo("data_envio", dataSelecionada)
                         .get()
                         .addOnSuccessListener { querySnapshot ->
-                            for (doc in querySnapshot.documents) {
+                            for (doc in querySnapshot) {
                                 listaFinal.add(Pair(categoria, doc.data ?: emptyMap()))
                                 Log.d("FIREBASE", "[$categoria] ${doc.id} => ${doc.data}")
                             }
