@@ -53,11 +53,11 @@ class Viario1Fragment : Fragment() {
             android.R.layout.simple_dropdown_item_1line,
             tiposList
         )
-        autoComplete?.setAdapter(adapter)
-        autoComplete?.threshold = 0 // permite abrir sem digitar
+        autoComplete.setAdapter(adapter)
+        autoComplete.threshold = 0 // permite abrir sem digitar
 
         // Abre o dropdown ao clicar no campo
-        autoComplete?.setOnTouchListener { _, _ ->
+        autoComplete.setOnTouchListener { _, _ ->
             if (tiposList.isNotEmpty()) {
                 autoComplete.showDropDown()
             }
@@ -74,14 +74,14 @@ class Viario1Fragment : Fragment() {
         }
 
         // Mostra lista conforme digitação
-        autoComplete?.addTextChangedListener {
+        autoComplete.addTextChangedListener {
             if (autoComplete.text.isNotEmpty()) {
                 autoComplete.showDropDown()
             }
         }
 
         // Captura o item selecionado
-        autoComplete?.setOnItemClickListener { _, _, position, _ ->
+        autoComplete.setOnItemClickListener { _, _, position, _ ->
             tipo = tiposList[position]
 
             val carrinho = requireActivity().findViewById<ImageView>(R.id.carrinho)
@@ -99,7 +99,7 @@ class Viario1Fragment : Fragment() {
         }
 
         binding.btnProximoViario1.setOnClickListener {
-            tipo = binding.autoCompleteTipoOcorrencia?.text.toString().trim()
+            tipo = binding.autoCompleteTipoOcorrencia.text.toString().trim()
 
             if (tipo.isNullOrEmpty()) {
                 mostrarAlerta("Campo incompleto", "Para avançar, selecione um tipo viário")

@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/montserrat_semibold"
-            android:text="Tipo de Ocorrência"
+            android:text="Tipo de Alteração"
             android:textColor="?attr/CorTextosNormais"
             android:textSize="18sp" />
 
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/bg_pesquisa"
-            android:hint="Buscar tipo de ocorrência"
+            android:hint="Buscar tipo de alteração..."
             android:paddingStart="15dp">
 
             <AutoCompleteTextView

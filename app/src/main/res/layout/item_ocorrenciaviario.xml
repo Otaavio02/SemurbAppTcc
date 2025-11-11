@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/textEndereco"
-            android:layout_width="0dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/montserrat_bold"
@@ -28,7 +28,9 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView12"
             app:layout_constraintStart_toEndOf="@+id/imageView12"
             app:layout_constraintTop_toTopOf="@+id/imageView12"
-            app:layout_constraintVertical_bias="0.333" />
+            android:scrollHorizontally="true"
+            android:lines="1"
+            android:ellipsize="end"/>
 
         <ImageView
             android:id="@+id/imageView12"
