@@ -231,6 +231,10 @@ class OcorrenciasEditadoFragment : Fragment() {
 
 
         binding.btnFinalizarOcorrenciasEditado.setOnClickListener {
+            binding.progressBar?.visibility = View.VISIBLE
+            binding.btnFinalizarOcorrenciasEditado.visibility = View.INVISIBLE
+            binding.btnExcluirOcorrencia.visibility = View.INVISIBLE
+
             lifecycleScope.launch {
                 Log.d("TESTE", "OLD FOTO URL É: ${old_foto_url}")
                 Log.d("TESTE", "DOWNLOAD URL É: ${downloadUrl}")
@@ -260,6 +264,10 @@ class OcorrenciasEditadoFragment : Fragment() {
 
         binding.btnExcluirOcorrencia.setOnClickListener {
             if (idOcorrencia != -1L) {
+                binding.progressBar?.visibility = View.VISIBLE
+                binding.btnFinalizarOcorrenciasEditado.visibility = View.INVISIBLE
+                binding.btnExcluirOcorrencia.visibility = View.INVISIBLE
+
                 val dbHelper = AppDatabaseHelper(requireContext())
                 dbHelper.deleteOcorrencia(idOcorrencia)
                 if (!old_foto_url.isNullOrEmpty()) {

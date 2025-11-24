@@ -209,6 +209,10 @@ class ViarioEditadoFragment : Fragment() {
         }
 
         binding.btnFinalizarViarioEdicao.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.btnFinalizarViarioEdicao.visibility = View.INVISIBLE
+            binding.btnExcluirViario.visibility = View.INVISIBLE
+
             lifecycleScope.launch {
                 Log.d("TESTE", "OLD FOTO URL É: ${old_foto_url}")
                 Log.d("TESTE", "DOWNLOAD URL É: ${downloadUrl}")
@@ -238,6 +242,9 @@ class ViarioEditadoFragment : Fragment() {
 
         binding.btnExcluirViario.setOnClickListener {
             if (idViario != -1L) {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.btnFinalizarViarioEdicao.visibility = View.INVISIBLE
+                binding.btnExcluirViario.visibility = View.INVISIBLE
                 val dbHelper = AppDatabaseHelper(requireContext())
                 dbHelper.deleteViario(idViario)
 
