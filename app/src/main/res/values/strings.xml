@@ -90,7 +90,7 @@
     <string name="nova_adicao">Nova Adição</string>
     <string name="enviar">Enviar</string>
     <string name="confirmar_viario">Confirme as informarções do plantão:</string>
-    <string name="tipo_sugere">Qual tipo de alteração você sugere?</string>
+    <string name="tipo_sugere">Qual tipo de sinalização você sugere?</string>
     <string name="ineficiente">Sinalização ineficiente</string>
     <string name="substitui_o">Substituição</string>
     <string name="sugest_o">Sugestão</string>
